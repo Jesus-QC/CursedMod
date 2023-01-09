@@ -34,14 +34,41 @@
         <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     </PropertyGroup>
     <ItemGroup>
+        <Reference Include="Assembly-CSharp">
+          <HintPath>..\..\..\SCPSL\Plugins\Dependencies\Assembly-CSharp-Publicized.dll</HintPath>
+        </Reference>
+        <Reference Include="Mirror">
+          <HintPath>..\..\..\SCPSL\Plugins\Dependencies\Mirror-Publicized.dll</HintPath>
+        </Reference>
+        <Reference Include="PluginAPI">
+          <HintPath>..\..\..\SCPSL\Plugins\Dependencies\PluginAPI-Publicized.dll</HintPath>
+        </Reference>
         <Reference Include="System" />
         <Reference Include="System.Core" />
         <Reference Include="System.Data" />
         <Reference Include="System.Xml" />
+        <Reference Include="UnityEngine.CoreModule">
+          <HintPath>..\..\..\SCPSL\Plugins\Dependencies\UnityEngine.CoreModule.dll</HintPath>
+        </Reference>
     </ItemGroup>
     <ItemGroup>
         <Compile Include="EntryPoint.cs" />
+        <Compile Include="Features\Wrappers\AdminToys\CursedAdminToy.cs" />
+        <Compile Include="Features\Wrappers\AdminToys\CursedLightSource.cs" />
+        <Compile Include="Features\Wrappers\AdminToys\CursedPrimitiveObject.cs" />
+        <Compile Include="Features\Wrappers\CursedPrefabManager.cs" />
+        <Compile Include="Loader\Configurations\CursedModConfiguration.cs" />
+        <Compile Include="Loader\CursedModInformation.cs" />
         <Compile Include="Properties\AssemblyInfo.cs" />
+    </ItemGroup>
+    <ItemGroup>
+      <Folder Include="Events" />
+      <Folder Include="Features\Enums" />
+      <Folder Include="Features\Extensions" />
+      <Folder Include="Features\Wrappers\Facility" />
+      <Folder Include="Features\Wrappers\Inventory" />
+      <Folder Include="Features\Wrappers\Player" />
+      <Folder Include="Features\Wrappers\Server" />
     </ItemGroup>
     <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
     <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

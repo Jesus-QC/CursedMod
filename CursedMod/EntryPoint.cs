@@ -1,6 +1,24 @@
-﻿namespace CursedMod;
+﻿using CursedMod.Loader;
+using CursedMod.Loader.Configurations;
+using PluginAPI.Core;
+using PluginAPI.Core.Attributes;
 
-public class EntryPoint
+namespace CursedMod;
+
+internal class EntryPoint
 {
-    
+    [PluginEntryPoint("CursedMod", CursedModInformation.Version, "A rich low level modding framework.", "Jesus-QC")]
+    private void Init()
+    {
+        if (!ModConfiguration.LoadCursedMod)
+            return;
+
+        Log.Info("CursedMod is being loaded");
+
+        // Patch Events
+        // Load Plugins
+    }
+
+    [PluginConfig] 
+    public static CursedModConfiguration ModConfiguration;
 }
