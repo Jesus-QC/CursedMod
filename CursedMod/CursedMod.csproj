@@ -53,22 +53,24 @@
     </ItemGroup>
     <ItemGroup>
         <Compile Include="EntryPoint.cs" />
+        <Compile Include="Features\Enums\AuthenticationType.cs" />
         <Compile Include="Features\Wrappers\AdminToys\CursedAdminToy.cs" />
         <Compile Include="Features\Wrappers\AdminToys\CursedLightSource.cs" />
         <Compile Include="Features\Wrappers\AdminToys\CursedPrimitiveObject.cs" />
         <Compile Include="Features\Wrappers\CursedPrefabManager.cs" />
+        <Compile Include="Features\Wrappers\Facility\CursedFacility.cs" />
+        <Compile Include="Features\Wrappers\Player\CursedPlayer.cs" />
+        <Compile Include="Features\Wrappers\Player\Dummies\CursedDummy.cs" />
+        <Compile Include="Features\Wrappers\Player\Dummies\FakeConnection.cs" />
+        <Compile Include="Features\Wrappers\Server\CursedServer.cs" />
         <Compile Include="Loader\Configurations\CursedModConfiguration.cs" />
         <Compile Include="Loader\CursedModInformation.cs" />
         <Compile Include="Properties\AssemblyInfo.cs" />
     </ItemGroup>
     <ItemGroup>
       <Folder Include="Events" />
-      <Folder Include="Features\Enums" />
       <Folder Include="Features\Extensions" />
-      <Folder Include="Features\Wrappers\Facility" />
       <Folder Include="Features\Wrappers\Inventory" />
-      <Folder Include="Features\Wrappers\Player" />
-      <Folder Include="Features\Wrappers\Server" />
     </ItemGroup>
     <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
     <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

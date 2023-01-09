@@ -1,5 +1,4 @@
 ﻿using AdminToys;
-using Mirror;
 using UnityEngine;
 
 namespace CursedMod.Features.Wrappers.AdminToys;
@@ -65,6 +64,4 @@ public class CursedLightSource : CursedAdminToy
 
         return light;
     }
-
-    
 }
