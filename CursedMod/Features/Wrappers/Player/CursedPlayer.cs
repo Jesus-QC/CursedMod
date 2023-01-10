@@ -308,6 +308,8 @@ public class CursedPlayer
 
     public bool Ban(string reason, long duration) => BanPlayer.BanUser(ReferenceHub, reason, duration);
 
+    public void SetScene(string sceneName) => NetworkConnection.Send(new SceneMessage { sceneName = sceneName });
+
     internal CursedPlayer(ReferenceHub hub, bool dummy = false)
     {
         ReferenceHub = hub;
