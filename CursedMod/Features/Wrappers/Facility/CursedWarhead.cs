@@ -8,11 +8,9 @@ namespace CursedMod.Features.Wrappers.Facility;
 
 public static class CursedWarhead
 {
-    private static AlphaWarheadController _warheadController;
-    private static AlphaWarheadOutsitePanel _outsitePanel;
 
-    public static AlphaWarheadController Controller => _warheadController ??= AlphaWarheadController.Singleton;
-    public static AlphaWarheadOutsitePanel OutsitePanel => _outsitePanel ??= Controller.GetComponent<AlphaWarheadOutsitePanel>();
+    public static AlphaWarheadController Controller => AlphaWarheadController.Singleton;
+    public static AlphaWarheadOutsitePanel OutsidePanel { get; internal set; }
 
     public static bool OpenDoors
     {
@@ -128,8 +126,8 @@ public static class CursedWarhead
 
     public static bool OutsidePanelOpened
     {
-        get => OutsitePanel.keycardEntered;
-        set => OutsitePanel.NetworkkeycardEntered = value;
+        get => OutsidePanel.keycardEntered;
+        set => OutsidePanel.NetworkkeycardEntered = value;
     }
 
     public static void CloseBlastDoors()
