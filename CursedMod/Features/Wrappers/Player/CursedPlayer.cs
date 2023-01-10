@@ -25,7 +25,7 @@ public class CursedPlayer
 {
     public static readonly Dictionary<ReferenceHub, CursedPlayer> Dictionary = new ();
     public static IEnumerable<CursedPlayer> Collection => Dictionary.Values;
-    public static List<CursedPlayer> List => Dictionary.Values.ToList();
+    public static List<CursedPlayer> List => Collection.ToList();
     public static int Count => Dictionary.Count;
     
     public ReferenceHub ReferenceHub { get; }

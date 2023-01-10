@@ -9,8 +9,8 @@ namespace CursedMod.Features.Wrappers.Player.Dummies;
 public class CursedDummy : CursedPlayer
 {
     public new static readonly Dictionary<ReferenceHub, CursedDummy> Dictionary = new ();
-    public new static HashSet<CursedDummy> Set => Dictionary.Values.ToHashSet();
-    public new static List<CursedDummy> List => Dictionary.Values.ToList();
+    public new static IEnumerable<CursedDummy> Collection => Dictionary.Values;
+    public new static List<CursedDummy> List => Collection.ToList();
     public new static int Count => Dictionary.Count;
 
     public static readonly Dictionary<CursedPlayer, CursedDummy> OwnerDictionary = new ();
