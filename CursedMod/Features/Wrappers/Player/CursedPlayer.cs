@@ -300,6 +300,9 @@ public class CursedPlayer
     }
     
     public bool Cuffed => Inventory.IsDisarmed();
+
+    public T AddComponent<T>() where T : MonoBehaviour => GameObject.AddComponent<T>();
+    public T GetComponent<T>() where T : MonoBehaviour => GameObject.GetComponent<T>();
     
     internal CursedPlayer(ReferenceHub hub, bool dummy = false)
     {
