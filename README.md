@@ -8,8 +8,8 @@ Join our Discord to help with its development. https://discord.gg/pqgQ5yeWU7
 Don't worry, features are added slowly, make sure to check the `dev` branch.
 
 There are different development stages:
-- **1. API**
-- 2. Events
-- 3. Documentation
+- **API**
+- Events
+- Documentation
 
 We are in the stage 1 right now.
