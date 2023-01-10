@@ -68,6 +68,7 @@
         <Compile Include="Features\Wrappers\Player\Dummies\CursedDummy.cs" />
         <Compile Include="Features\Wrappers\Player\Dummies\FakeConnection.cs" />
         <Compile Include="Features\Wrappers\Player\Ragdolls\CursedRagdoll.cs" />
+        <Compile Include="Features\Wrappers\Round\CursedRound.cs" />
         <Compile Include="Features\Wrappers\Server\CursedServer.cs" />
         <Compile Include="Loader\Configurations\CursedModConfiguration.cs" />
         <Compile Include="Loader\CursedModInformation.cs" />

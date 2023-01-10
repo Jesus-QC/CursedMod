@@ -12,7 +12,7 @@ public static class CursedWarhead
     private static AlphaWarheadOutsitePanel _outsitePanel;
 
     public static AlphaWarheadController Controller => _warheadController ??= AlphaWarheadController.Singleton;
-    public static AlphaWarheadOutsitePanel OutsitePanel => _outsitePanel ??= Object.FindObjectOfType<AlphaWarheadOutsitePanel>();
+    public static AlphaWarheadOutsitePanel OutsitePanel => _outsitePanel ??= Controller.GetComponent<AlphaWarheadOutsitePanel>();
 
     public static bool OpenDoors
     {

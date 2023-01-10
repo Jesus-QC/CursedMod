@@ -7,4 +7,6 @@ public static class CursedServer
     private static CursedDummy _local;
     
     public static CursedDummy LocalPlayer => _local ??= new CursedDummy(ReferenceHub.HostHub);
+    
+    
 }

@@ -307,7 +307,7 @@ public class CursedPlayer
     public bool Kick(string reason) => BanPlayer.KickUser(ReferenceHub, reason);
 
     public bool Ban(string reason, long duration) => BanPlayer.BanUser(ReferenceHub, reason, duration);
-    
+
     internal CursedPlayer(ReferenceHub hub, bool dummy = false)
     {
         ReferenceHub = hub;
