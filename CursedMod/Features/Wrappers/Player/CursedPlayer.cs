@@ -310,6 +310,8 @@ public class CursedPlayer
 
     public void SetScene(string sceneName) => NetworkConnection.Send(new SceneMessage { sceneName = sceneName });
 
+    public void SendEscapeInformation(Escape.EscapeMessage message) => NetworkConnection.Send(message);
+
     internal CursedPlayer(ReferenceHub hub, bool dummy = false)
     {
         ReferenceHub = hub;

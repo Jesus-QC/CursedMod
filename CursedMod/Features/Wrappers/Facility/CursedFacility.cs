@@ -24,7 +24,6 @@ public static class CursedFacility
             player.ClearBroadcasts();
         }
     }
-    
-    
+
     public static void PlayAmbientSound(int id) => AmbientSoundPlayer.RpcPlaySound(id);
 }
