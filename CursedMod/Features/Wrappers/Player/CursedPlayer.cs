@@ -3,6 +3,7 @@ using System.Linq;
 using CursedMod.Features.Enums;
 using CursedMod.Features.Wrappers.Facility;
 using CursedMod.Features.Wrappers.Player.Dummies;
+using CursedMod.Features.Wrappers.Server;
 using CustomPlayerEffects;
 using Footprinting;
 using Hints;
@@ -343,4 +344,19 @@ public class CursedPlayer
             _ => AuthenticationType.Other,
         };
     }
+
+    public static bool TryGet(ReferenceHub hub, out CursedPlayer player)
+    {
+        if (hub is not null && Dictionary.ContainsKey(hub))
+        {
+            player = Dictionary[hub];
+            return false;
+        }
+
+        player = null;
+        return false;
+    }
+
+    public static CursedPlayer Get(ReferenceHub hub) => TryGet(hub, out CursedPlayer player) ? player : CursedServer.LocalPlayer;
+
 }

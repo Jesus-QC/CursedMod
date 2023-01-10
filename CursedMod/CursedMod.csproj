@@ -59,6 +59,7 @@
         <Compile Include="Features\Wrappers\AdminToys\CursedPrimitiveObject.cs" />
         <Compile Include="Features\Wrappers\CursedPrefabManager.cs" />
         <Compile Include="Features\Wrappers\Facility\CursedFacility.cs" />
+        <Compile Include="Features\Wrappers\Facility\CursedWarhead.cs" />
         <Compile Include="Features\Wrappers\Player\CursedPlayer.cs" />
         <Compile Include="Features\Wrappers\Player\Dummies\CursedDummy.cs" />
         <Compile Include="Features\Wrappers\Player\Dummies\FakeConnection.cs" />
