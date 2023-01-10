@@ -1,4 +1,5 @@
-﻿using CursedMod.Features.Wrappers.Player;
+﻿using System.Collections.Generic;
+using CursedMod.Features.Wrappers.Player;
 using Footprinting;
 using PluginAPI.Core;
 using UnityEngine;
@@ -130,4 +131,22 @@ public static class CursedWarhead
         get => OutsitePanel.keycardEntered;
         set => OutsitePanel.NetworkkeycardEntered = value;
     }
+
+    public static void CloseBlastDoors()
+    {
+        foreach (BlastDoor instance in BlastDoor.Instances)
+        {
+            instance.SetClosed(false, true);
+        }
+    }
+    
+    public static void OpenBlastDoors()
+    {
+        foreach (BlastDoor instance in BlastDoor.Instances)
+        {
+            instance.SetClosed(true, false);
+        }
+    }
+
+    public static HashSet<BlastDoor> BlastDoors => BlastDoor.Instances;
 }

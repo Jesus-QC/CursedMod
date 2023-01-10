@@ -24,7 +24,7 @@ namespace CursedMod.Features.Wrappers.Player;
 public class CursedPlayer
 {
     public static readonly Dictionary<ReferenceHub, CursedPlayer> Dictionary = new ();
-    public static HashSet<CursedPlayer> Set => Dictionary.Values.ToHashSet();
+    public static IEnumerable<CursedPlayer> Collection => Dictionary.Values;
     public static List<CursedPlayer> List => Dictionary.Values.ToList();
     public static int Count => Dictionary.Count;
     
@@ -131,13 +131,13 @@ public class CursedPlayer
     
     public void HideTag() => CharacterClassManager.UserCode_CmdRequestHideTag();
     
-    public void ShowHint(int time, string content) => ShowHint(new TextHint(content, new HintParameter[] { new StringHintParameter(string.Empty) }, null, 2));
+    public void ShowHint(string content, int time = 5) => ShowHint(new TextHint(content, new HintParameter[] { new StringHintParameter(string.Empty) }, null, 2));
     
     public void ShowHint(Hint hint) => HintDisplay.Show(hint);
     
-    public void ClearBroadcast() => CursedFacility.Broadcast.TargetClearElements(NetworkConnection);
+    public void ClearBroadcasts() => CursedFacility.Broadcast.TargetClearElements(NetworkConnection);
     
-    public void Broadcast(ushort duration, string message, Broadcast.BroadcastFlags flags = global::Broadcast.BroadcastFlags.Normal) => CursedFacility.Broadcast.TargetAddElement(NetworkConnection, message, duration, flags);
+    public void ShowBroadcast(string message, ushort duration = 5, Broadcast.BroadcastFlags flags = Broadcast.BroadcastFlags.Normal) => CursedFacility.Broadcast.TargetAddElement(NetworkConnection, message, duration, flags);
     
     public Vector3 Position
     {
@@ -160,7 +160,7 @@ public class CursedPlayer
 
             try
             {
-                foreach (CursedPlayer target in Set)
+                foreach (CursedPlayer target in Collection)
                     NetworkServer.SendSpawnMessage(NetworkIdentity, target.NetworkConnection);
             }
             catch
@@ -303,6 +303,10 @@ public class CursedPlayer
 
     public T AddComponent<T>() where T : MonoBehaviour => GameObject.AddComponent<T>();
     public T GetComponent<T>() where T : MonoBehaviour => GameObject.GetComponent<T>();
+
+    public bool Kick(string reason) => BanPlayer.KickUser(ReferenceHub, reason);
+
+    public bool Ban(string reason, long duration) => BanPlayer.BanUser(ReferenceHub, reason, duration);
     
     internal CursedPlayer(ReferenceHub hub, bool dummy = false)
     {

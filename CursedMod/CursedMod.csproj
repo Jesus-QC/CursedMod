@@ -37,6 +37,9 @@
         <Reference Include="Assembly-CSharp">
           <HintPath>..\..\..\SCPSL\Plugins\Dependencies\Assembly-CSharp-Publicized.dll</HintPath>
         </Reference>
+        <Reference Include="Assembly-CSharp-firstpass">
+          <HintPath>..\..\..\SCPSL\Plugins\Dependencies\Assembly-CSharp-firstpass.dll</HintPath>
+        </Reference>
         <Reference Include="Mirror">
           <HintPath>..\..\..\SCPSL\Plugins\Dependencies\Mirror-Publicized.dll</HintPath>
         </Reference>
@@ -60,9 +63,11 @@
         <Compile Include="Features\Wrappers\CursedPrefabManager.cs" />
         <Compile Include="Features\Wrappers\Facility\CursedFacility.cs" />
         <Compile Include="Features\Wrappers\Facility\CursedWarhead.cs" />
+        <Compile Include="Features\Wrappers\Facility\Props\CursedBreakableWindow.cs" />
         <Compile Include="Features\Wrappers\Player\CursedPlayer.cs" />
         <Compile Include="Features\Wrappers\Player\Dummies\CursedDummy.cs" />
         <Compile Include="Features\Wrappers\Player\Dummies\FakeConnection.cs" />
+        <Compile Include="Features\Wrappers\Player\Ragdolls\CursedRagdoll.cs" />
         <Compile Include="Features\Wrappers\Server\CursedServer.cs" />
         <Compile Include="Loader\Configurations\CursedModConfiguration.cs" />
         <Compile Include="Loader\CursedModInformation.cs" />
