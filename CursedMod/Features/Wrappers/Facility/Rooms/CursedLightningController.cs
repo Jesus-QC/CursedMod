@@ -1,13 +1,10 @@
-﻿using MapGeneration;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace CursedMod.Features.Wrappers.Facility.Rooms;
 
 public class CursedLightningController
 {
     public FlickerableLightController Base { get; }
-
-    public RoomIdentifier Room => Base.Room; // todo: move to CursedRoom
 
     public Color Color
     {

@@ -38,4 +38,6 @@ public static class CursedGenerator
     }
 
     public static NetworkIdentity NetworkIdentity => Base.netIdentity;
+    
+    public static string ToString() => $"{nameof(CursedGenerator)}: {nameof(IsEngaged)}: {IsEngaged}, {nameof(IsActivating)}: {IsActivating}, {nameof(RemainingTime)}: {RemainingTime}, {nameof(DropdownSpeed)}: {DropdownSpeed}, {nameof(Position)}: {Position}, {nameof(Rotation)}: {Rotation}, {nameof(Scale)}: {Scale}, {nameof(RequiredPermissions)}: {RequiredPermissions}, {nameof(NetworkIdentity)}: {NetworkIdentity.netId}";
 }
