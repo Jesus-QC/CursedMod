@@ -1,14 +1,14 @@
-﻿using PlayerRoles.PlayableScps.Scp079.Cameras;
+using PlayerRoles.PlayableScps.Scp079.Cameras;
 using MapGeneration;
 using UnityEngine;
 
 namespace CursedMod.Features.Wrappers.Facility;
 
-public class CursedCamera
+public class Cursed079Camera
 {
     public Scp079Camera BaseCamera { get; }
     
-    public CursedCamera(Scp079Camera baseCamera)
+    public Cursed079Camera(Scp079Camera baseCamera)
     {
         BaseCamera = baseCamera;
     }
@@ -50,5 +50,5 @@ public class CursedCamera
 
     public ushort CameraId => BaseCamera.SyncId;
 
-    public override string ToString() => $"{nameof(CursedCamera)}: Name: {CameraName} | Position: {Position} | Rotation: {Rotation} | Zoom: {CurrentZoom} | Zone: {Zone} | Id: {CameraId}";
+    public override string ToString() => $"{nameof(Cursed079Camera)}: Name: {CameraName} | Position: {Position} | Rotation: {Rotation} | Zoom: {CurrentZoom} | Zone: {Zone} | Id: {CameraId}";
 }
