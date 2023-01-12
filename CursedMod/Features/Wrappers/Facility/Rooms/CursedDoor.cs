@@ -2,7 +2,7 @@
 using Interactables.Interobjects.DoorUtils;
 using UnityEngine;
 
-namespace CursedMod.Features.Wrappers.Facility;
+namespace CursedMod.Features.Wrappers.Facility.Rooms;
 
 public class CursedDoor
 {
@@ -23,9 +23,9 @@ public class CursedDoor
     
     public bool IsMoving => State is not(0 or 1);
     
-    public bool IsClosed => State is 0;
+    public bool IsClosed => !Base.TargetState;
     
-    public bool IsOpened => State is 1;
+    public bool IsOpened => Base.TargetState;
 
     public Vector3 Position
     {
@@ -62,12 +62,14 @@ public class CursedDoor
     public bool IsCheckpoint => Base is CheckpointDoor;
     
     public bool IsElevator => Base is ElevatorDoor;
+
+    public bool IsDamageable => Base is IDamageableDoor;
     
     public bool IsBroken => Base is IDamageableDoor damageable && damageable.IsDestroyed;
     
     public DoorNametagExtension Tag => Base.GetComponent<DoorNametagExtension>();
 
-    public void TriggerState() => Base.NetworkTargetState = !IsOpen;
+    public void TriggerState() => Base.NetworkTargetState = !IsOpened;
 
     public void ServerChangeLock(DoorLockReason reason, bool newState) => Base.ServerChangeLock(reason, newState);
     
@@ -82,6 +84,5 @@ public class CursedDoor
         return false;
     }
 
-    public override string ToString() =>
-        $"{nameof(CursedDoor)}: Opened: {IsOpen} | Position: {Position} | Rotation: {Rotation} | Scale: {Scale} | Permissions: {RequiredPermissions} | DoorId: {DoorId}";
+    public override string ToString() => $"{nameof(CursedDoor)}: Opened: {IsOpened} | Position: {Position} | Rotation: {Rotation} | Scale: {Scale} | Permissions: {RequiredPermissions} | DoorId: {DoorId}";
 }
