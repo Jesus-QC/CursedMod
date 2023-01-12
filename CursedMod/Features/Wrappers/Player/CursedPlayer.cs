@@ -363,6 +363,18 @@ public class CursedPlayer
         }
     }
 
+    public uint FriendlyFireKills
+    {
+        get => FriendlyFireHandler.Round.Kills;
+        set => FriendlyFireHandler.Round.Kills = value;
+    }
+
+    public float FriendlyFireDamage
+    {
+        get => FriendlyFireHandler.Round.Damage;
+        set => FriendlyFireHandler.Round.Damage = value;
+    }
+    
     internal CursedPlayer(ReferenceHub hub, bool dummy = false)
     {
         ReferenceHub = hub;
