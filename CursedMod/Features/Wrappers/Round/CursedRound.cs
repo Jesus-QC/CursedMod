@@ -46,6 +46,18 @@ public static class CursedRound
         set => RoundSummary.ChangedIntoZombies = value;
     }
 
+    public static int RoundKills
+    {
+        get => RoundSummary.Kills;
+        set => RoundSummary.Kills = value;
+    }
+
+    public static int SurvivedScps
+    {
+        get => RoundSummary.SurvivingSCPs;
+        set => RoundSummary.SurvivingSCPs = value;
+    }
+
     public static int UpTime => RoundRestart.UptimeRounds;
 
     public static TimeSpan RoundTime => RoundStart.RoundLength;
