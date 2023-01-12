@@ -23,9 +23,9 @@ public class CursedDoor
     
     public bool IsMoving => State is not(0 or 1);
     
-    public bool FullClosed => State is 0;
+    public bool IsClosed => State is 0;
     
-    public bool FullOpened => State is 1;
+    public bool IsOpened => State is 1;
 
     public Vector3 Position
     {
@@ -51,7 +51,7 @@ public class CursedDoor
         set => Base.RequiredPermissions = value;
     }
 
-    public bool IsOpen
+    public bool IsConsideredOpened
     {
         get => Base.IsConsideredOpen();
         set => Base.NetworkTargetState = value;
