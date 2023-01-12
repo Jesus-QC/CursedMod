@@ -10,6 +10,8 @@ using Hints;
 using Interactables;
 using InventorySystem;
 using InventorySystem.Disarming;
+using InventorySystem.Items;
+using InventorySystem.Items.Pickups;
 using InventorySystem.Searching;
 using Mirror;
 using PlayerRoles;
