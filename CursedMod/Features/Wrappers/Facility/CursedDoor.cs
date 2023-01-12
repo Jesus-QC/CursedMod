@@ -5,7 +5,12 @@ namespace CursedMod.Features.Wrappers.Facility;
 
 public class CursedDoor
 {
-    public DoorVariant Base { get; } // todo: constructor
+    public DoorVariant Base { get; }
+    
+    public CursedDoor(DoorVariant door)
+    {
+        Base = door;
+    }
 
     public GameObject GameObject => Base.gameObject;
 
@@ -46,4 +51,7 @@ public class CursedDoor
     public void TriggerState() => Base.NetworkTargetState = !IsOpen;
 
     public void ServerChangeLock(DoorLockReason reason, bool newState) => Base.ServerChangeLock(reason, newState);
+
+    public override string ToString() =>
+        $"{nameof(CursedDoor)}: Opened: {IsOpen} | Position: {Position} | Rotation: {Rotation} | Scale: {Scale} | Permissions: {RequiredPermissions} | DoorId: {DoorId}";
 }

@@ -7,7 +7,12 @@ namespace CursedMod.Features.Wrappers.Facility;
 
 public class CursedGenerator
 {
-    public Scp079Generator Base { get; private set; } // todo: constructor
+    public Scp079Generator Base { get; }
+    
+    public CursedGenerator(Scp079Generator generator)
+    {
+        Base = generator;
+    }
 
     public bool IsEngaged
     {
@@ -24,12 +29,24 @@ public class CursedGenerator
     public int RemainingTime => Base.RemainingTime;
     
     public float DropdownSpeed => Base.DropdownSpeed;
-    
-    public Vector3 Position => Base.transform.position; //todo: setter
-    
-    public Quaternion Rotation => Base.transform.rotation; // todo: setter
-    
-    public Vector3 Scale => Base.transform.localScale; // todo: setter
+
+    public Vector3 Position
+    {
+        get => Base.transform.position;
+        set => Base.transform.position = value;
+    }
+
+    public Quaternion Rotation
+    {
+        get => Base.transform.rotation;
+        set => Base.transform.rotation = value;
+    }
+
+    public Vector3 Scale
+    {
+        get => Base.transform.localScale;
+        set => Base.transform.localScale = value;
+    }
 
     public KeycardPermissions RequiredPermissions
     {
@@ -38,6 +55,7 @@ public class CursedGenerator
     }
 
     public NetworkIdentity NetworkIdentity => Base.netIdentity;
-    
-    public override string ToString() => $"{nameof(CursedGenerator)}: Engaged {IsEngaged} | Activating: {IsActivating} | Remaining Time: {RemainingTime} | DropdownSpeed: {DropdownSpeed} | Position: {Position} | Rotation: {Rotation} | Scale: {Scale} | Permissions: {RequiredPermissions} | NetId: {NetworkIdentity.netId}";
+
+    public override string ToString() =>
+        $"{nameof(CursedGenerator)}: Engaged {IsEngaged} | Activating: {IsActivating} | Remaining Time: {RemainingTime} | DropdownSpeed: {DropdownSpeed} | Position: {Position} | Rotation: {Rotation} | Scale: {Scale} | Permissions: {RequiredPermissions} | NetId: {NetworkIdentity.netId}";
 }
