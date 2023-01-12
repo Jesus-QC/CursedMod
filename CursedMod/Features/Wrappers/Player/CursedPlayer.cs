@@ -10,6 +10,8 @@ using Hints;
 using Interactables;
 using InventorySystem;
 using InventorySystem.Disarming;
+using InventorySystem.Items;
+using InventorySystem.Items.Pickups;
 using InventorySystem.Searching;
 using Mirror;
 using PlayerRoles;
@@ -49,6 +51,10 @@ public class CursedPlayer
     public PlayerStats PlayerStats => ReferenceHub.playerStats;
 
     public Inventory Inventory => ReferenceHub.inventory;
+
+    public Dictionary<ushort, ItemBase> Items => Inventory.UserInventory.Items;
+
+    public Dictionary<ItemType, ushort> ReserveAmmo => Inventory.UserInventory.ReserveAmmo;
 
     public SearchCoordinator SearchCoordinator => ReferenceHub.searchCoordinator;
 
@@ -311,6 +317,39 @@ public class CursedPlayer
     public void SetScene(string sceneName) => NetworkConnection.Send(new SceneMessage { sceneName = sceneName });
 
     public void SendEscapeInformation(Escape.EscapeMessage message) => NetworkConnection.Send(message);
+
+    public ItemBase AddItem(ItemType itemType) => Inventory.ServerAddItem(itemType);
+
+    public void DropItem(ItemBase pickupBase) => Inventory.ServerDropItem(pickupBase.ItemSerial);
+
+    public void DropItem(ItemPickupBase pickupBase) => Inventory.ServerDropItem(pickupBase.Info.Serial);
+
+    public void RemoveItem(ItemBase itemBase) => Inventory.ServerRemoveItem(itemBase.ItemSerial, itemBase.PickupDropModel);
+
+    public void RemoveItem(ItemPickupBase pickupBase) => Inventory.ServerRemoveItem(pickupBase.Info.Serial, pickupBase);
+
+    public void SetAmmo(ItemType itemType, ushort amount) => Inventory.ServerSetAmmo(itemType, amount);
+
+    public void AddAmmo(ItemType itemType, ushort amount) => Inventory.ServerAddAmmo(itemType, amount);
+
+    public void DropAmmo(ItemType itemType, ushort amount, bool checkMinimals = false) => Inventory.ServerDropAmmo(itemType, amount, checkMinimals);
+
+    public void DropEverything() => Inventory.ServerDropEverything();
+
+    public void ClearInventory(bool onlyItem = false)
+    {
+        foreach (ItemBase item in Inventory.UserInventory.Items.Values)
+        {
+            RemoveItem(item);
+        }
+        if (!onlyItem)
+        {
+            foreach (ItemType item in Inventory.UserInventory.ReserveAmmo.Keys)
+            {
+                SetAmmo(item, 0);
+            }
+        }
+    }
 
     internal CursedPlayer(ReferenceHub hub, bool dummy = false)
     {
