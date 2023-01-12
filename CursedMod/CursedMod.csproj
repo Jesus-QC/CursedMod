@@ -68,6 +68,7 @@
         <Compile Include="Features\Wrappers\Facility\CursedDoor.cs" />
         <Compile Include="Features\Wrappers\Facility\Props\CursedBreakableWindow.cs" />
         <Compile Include="Features\Wrappers\Facility\Rooms\CursedLightningController.cs" />
+        <Compile Include="Features\Wrappers\Facility\Rooms\CursedRoom.cs" />
         <Compile Include="Features\Wrappers\Player\CursedPlayer.cs" />
         <Compile Include="Features\Wrappers\Player\Dummies\CursedDummy.cs" />
         <Compile Include="Features\Wrappers\Player\Dummies\FakeConnection.cs" />

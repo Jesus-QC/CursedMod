@@ -1,4 +1,7 @@
-﻿using MapGeneration.Distributors;
+﻿using Interactables.Interobjects.DoorUtils;
+using MapGeneration.Distributors;
+using Mirror;
+using UnityEngine;
 
 namespace CursedMod.Features.Wrappers.Facility;
 
@@ -19,5 +22,22 @@ public static class CursedGenerator
     }
 
     public static int RemainingTime => Base.RemainingTime;
+    
     public static float DropdownSpeed => Base.DropdownSpeed;
+    
+    public static Vector3 Position => Base.transform.position;
+    
+    public static Quaternion Rotation => Base.transform.rotation;
+    
+    public static Vector3 Scale => Base.transform.localScale;
+
+    public static KeycardPermissions RequiredPermissions
+    {
+        get => Base._requiredPermission;
+        set => Base._requiredPermission = value;
+    }
+
+    public static NetworkIdentity NetworkIdentity => Base.netIdentity;
+    
+    public static string ToString() => $"{nameof(CursedGenerator)}: Engaged {IsEngaged} | Activating: {IsActivating} | Remaining Time: {RemainingTime} | DropdownSpeed: {DropdownSpeed} | Position: {Position} | Rotation: {Rotation} | Scale: {Scale} | Permissions: {RequiredPermissions} | NetId: {NetworkIdentity.netId}";
 }
