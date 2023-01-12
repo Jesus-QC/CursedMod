@@ -62,6 +62,7 @@
         <Compile Include="Features\Wrappers\AdminToys\CursedLightSource.cs" />
         <Compile Include="Features\Wrappers\AdminToys\CursedPrimitiveObject.cs" />
         <Compile Include="Features\Wrappers\CursedPrefabManager.cs" />
+        <Compile Include="Features\Wrappers\Facility\CursedCamera.cs" />
         <Compile Include="Features\Wrappers\Facility\CursedFacility.cs" />
         <Compile Include="Features\Wrappers\Facility\CursedGenerator.cs" />
         <Compile Include="Features\Wrappers\Facility\CursedWarhead.cs" />
