@@ -5,6 +5,8 @@ namespace CursedMod.Features.Wrappers.Facility.Rooms;
 public class CursedLightningController
 {
     public FlickerableLightController Base { get; }
+    
+    public CursedRoom Room { get; } // todo:
 
     public Color Color
     {

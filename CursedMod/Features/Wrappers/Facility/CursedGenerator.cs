@@ -7,7 +7,7 @@ namespace CursedMod.Features.Wrappers.Facility;
 
 public static class CursedGenerator
 {
-    public static Scp079Generator Base { get; private set; }
+    public static Scp079Generator Base { get; private set; } // todo: constructor
 
     public static bool IsEngaged
     {
@@ -25,11 +25,11 @@ public static class CursedGenerator
     
     public static float DropdownSpeed => Base.DropdownSpeed;
     
-    public static Vector3 Position => Base.transform.position;
+    public static Vector3 Position => Base.transform.position; //todo: setter
     
-    public static Quaternion Rotation => Base.transform.rotation;
+    public static Quaternion Rotation => Base.transform.rotation; // todo: setter
     
-    public static Vector3 Scale => Base.transform.localScale;
+    public static Vector3 Scale => Base.transform.localScale; // todo: setter
 
     public static KeycardPermissions RequiredPermissions
     {

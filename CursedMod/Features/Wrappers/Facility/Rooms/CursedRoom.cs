@@ -3,15 +3,15 @@ using UnityEngine;
 
 namespace CursedMod.Features.Wrappers.Facility.Rooms;
 
-public static class CursedRoom
+public class CursedRoom
 {
-    public static RoomIdentifier Room { get; }
+    public RoomIdentifier Room { get; }
 
-    public static Vector3 Position => Room.transform.position;
+    public Vector3 Position => Room.transform.position;
     
-    public static Quaternion Rotation => Room.transform.rotation;
+    public Quaternion Rotation => Room.transform.rotation;
     
-    public static RoomName Name => Room.Name;
+    public RoomName Name => Room.Name;
     
-    public static FacilityZone Zone => Room.Zone;
+    public FacilityZone Zone => Room.Zone;
 }

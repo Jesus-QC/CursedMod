@@ -1,11 +1,11 @@
 ﻿using Interactables.Interobjects.DoorUtils;
 using UnityEngine;
 
-namespace CursedMod.Features.Wrappers.Facility.Props;
+namespace CursedMod.Features.Wrappers.Facility;
 
 public class CursedDoor
 {
-    public DoorVariant Base { get; }
+    public DoorVariant Base { get; } // todo: constructor
 
     public GameObject GameObject => Base.gameObject;
 
@@ -39,11 +39,11 @@ public class CursedDoor
 
     public bool IsOpen
     {
-        get => !Base._prevState;
+        get => Base.TargetState;
         set => Base.NetworkTargetState = value;
     }
 
-    public void TriggerState() => Base.NetworkTargetState = !Base.TargetState;
+    public void TriggerState() => Base.NetworkTargetState = !IsOpen;
 
     public void ServerChangeLock(DoorLockReason reason, bool newState) => Base.ServerChangeLock(reason, newState);
 }
