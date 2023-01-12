@@ -101,9 +101,21 @@ public class CursedPlayer
     public bool IsDummy => this is CursedDummy;
     
     public bool IsDead => Role is RoleTypeId.Spectator or RoleTypeId.Overwatch or RoleTypeId.None;
+
+    public bool IsAlive => !IsDead;
+
+    public bool IsFoundationForce => RoleManager.CurrentRole.Team is Team.FoundationForces;
+
+    public bool IsChaos => RoleManager.CurrentRole.Team is Team.ChaosInsurgency;
+
+    public bool IsScp => RoleManager.CurrentRole.Team is Team.SCPs;
+
+    public bool IsTutorial => Role is RoleTypeId.Tutorial;
+
+    public bool IsHuman => !IsScp || !IsDead;
     
     public float TimeHoldingCurrentItem => Inventory.LastItemSwitch;
-    
+
     public bool TryGetEffect(string effectName, out StatusEffectBase effect) => PlayerEffectsController.TryGetEffect(effectName, out effect);
     
     public bool TryGetEffect<T>(out T effect) where T : StatusEffectBase => PlayerEffectsController.TryGetEffect(out effect);
@@ -136,7 +148,7 @@ public class CursedPlayer
     public void ShowTag(bool global) => CharacterClassManager.UserCode_CmdRequestShowTag(global);
     
     public void HideTag() => CharacterClassManager.UserCode_CmdRequestHideTag();
-    
+
     public void ShowHint(string content, int time = 5) => ShowHint(new TextHint(content, new HintParameter[] { new StringHintParameter(string.Empty) }, null, 2));
     
     public void ShowHint(Hint hint) => HintDisplay.Show(hint);

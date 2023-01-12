@@ -17,6 +17,14 @@ public static class CursedFacility
         }
     }
 
+    public static void ShowHint(string message, int duration = 5)
+    {
+        foreach (CursedPlayer player in CursedPlayer.Collection)
+        {
+            player.ShowHint(message, duration);
+        }
+    }
+
     public static void ClearBroadcasts()
     {
         foreach (CursedPlayer player in CursedPlayer.Collection)
