@@ -374,6 +374,8 @@ public class CursedPlayer
         get => FriendlyFireHandler.Round.Damage;
         set => FriendlyFireHandler.Round.Damage = value;
     }
+
+    public void SendHitMarker(float size = 2.55f) => Hitmarker.SendHitmarker(ReferenceHub, size);
     
     internal CursedPlayer(ReferenceHub hub, bool dummy = false)
     {

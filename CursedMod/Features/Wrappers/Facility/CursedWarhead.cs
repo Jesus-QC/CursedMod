@@ -2,7 +2,6 @@
 using CursedMod.Features.Wrappers.Player;
 using Footprinting;
 using PluginAPI.Core;
-using UnityEngine;
 
 namespace CursedMod.Features.Wrappers.Facility;
 

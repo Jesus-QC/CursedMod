@@ -1,5 +1,4 @@
-﻿using MEC;
-using PlayerStatsSystem;
+﻿using PlayerStatsSystem;
 using UnityEngine;
 
 namespace CursedMod.Features.Wrappers.Facility.Props;
