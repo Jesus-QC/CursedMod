@@ -1,4 +1,6 @@
-﻿using Interactables.Interobjects.DoorUtils;
+﻿using System;
+using CursedMod.Features.Wrappers.Player;
+using Interactables.Interobjects.DoorUtils;
 using MapGeneration.Distributors;
 using Mirror;
 using UnityEngine;
@@ -33,19 +35,31 @@ public class CursedGenerator
     public Vector3 Position
     {
         get => Base.transform.position;
-        set => Base.transform.position = value;
+        set
+        {
+            Base.transform.position = value;
+            CursedPlayer.SendSpawnMessageToAll(NetworkIdentity);
+        }
     }
 
     public Quaternion Rotation
     {
         get => Base.transform.rotation;
-        set => Base.transform.rotation = value;
+        set
+        {
+            Base.transform.rotation = value;
+            CursedPlayer.SendSpawnMessageToAll(NetworkIdentity);
+        }
     }
 
     public Vector3 Scale
     {
         get => Base.transform.localScale;
-        set => Base.transform.localScale = value;
+        set
+        {
+            Base.transform.localScale = value;
+            CursedPlayer.SendSpawnMessageToAll(NetworkIdentity);
+        }
     }
 
     public KeycardPermissions RequiredPermissions

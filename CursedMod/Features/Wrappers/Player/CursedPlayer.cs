@@ -175,16 +175,7 @@ public class CursedPlayer
         set
         {
             Transform.localScale = value;
-
-            try
-            {
-                foreach (CursedPlayer target in Collection)
-                    NetworkServer.SendSpawnMessage(NetworkIdentity, target.NetworkConnection);
-            }
-            catch
-            {
-                // Ignore exceptions
-            }
+            SendSpawnMessageToAll(NetworkIdentity);
         }
     }
     
@@ -376,6 +367,27 @@ public class CursedPlayer
     }
 
     public void SendHitMarker(float size = 2.55f) => Hitmarker.SendHitmarker(ReferenceHub, size);
+
+    public PlayerInfoArea PlayerInfoArea
+    {
+        get => NicknameSync._playerInfoToShow;
+        set => NicknameSync.Network_playerInfoToShow = value;
+    }
+
+    public static void SendSpawnMessageToAll(NetworkIdentity identity)
+    {
+        try
+        {
+            foreach (CursedPlayer target in Collection)
+            {
+                NetworkServer.SendSpawnMessage(identity, target.NetworkConnection);
+            }
+        }
+        catch
+        {
+            // ignore
+        }
+    }
     
     internal CursedPlayer(ReferenceHub hub, bool dummy = false)
     {
