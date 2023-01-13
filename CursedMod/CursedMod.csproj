@@ -53,6 +53,9 @@
         <Reference Include="UnityEngine.CoreModule">
           <HintPath>..\..\..\SCPSL\Plugins\Dependencies\UnityEngine.CoreModule.dll</HintPath>
         </Reference>
+        <Reference Include="UnityEngine.AudioModule">
+          <HintPath>..\..\..\SCPSL\Plugins\Dependencies\UnityEngine.AudioModule.dll</HintPath>
+        </Reference>
     </ItemGroup>
     <ItemGroup>
         <Compile Include="EntryPoint.cs" />
@@ -66,6 +69,7 @@
         <Compile Include="Features\Wrappers\Facility\CursedWarhead.cs" />
         <Compile Include="Features\Wrappers\Facility\Props\CursedBreakableWindow.cs" />
         <Compile Include="Features\Wrappers\Facility\Props\CursedGenerator.cs" />
+        <Compile Include="Features\Wrappers\Facility\Props\CursedLocker.cs" />
         <Compile Include="Features\Wrappers\Facility\Rooms\Cursed079Camera.cs" />
         <Compile Include="Features\Wrappers\Facility\Rooms\CursedDoor.cs" />
         <Compile Include="Features\Wrappers\Facility\Rooms\CursedLightningController.cs" />
