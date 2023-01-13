@@ -35,7 +35,6 @@
     </PropertyGroup>
     <ItemGroup>
         <Reference Include="Assembly-CSharp">
-          <HintPath>..\..\..\SCPSL\Plugins\Dependencies\Assembly-CSharp-Publicized.dll</HintPath>
         </Reference>
         <Reference Include="Assembly-CSharp-firstpass">
           <HintPath>..\..\..\SCPSL\Plugins\Dependencies\Assembly-CSharp-firstpass.dll</HintPath>
@@ -58,6 +57,7 @@
         <Compile Include="EntryPoint.cs" />
         <Compile Include="Events\Handlers\MapGenerationEventHandler.cs" />
         <Compile Include="Features\Enums\AuthenticationType.cs" />
+        <Compile Include="Features\Enums\DoorType.cs" />
         <Compile Include="Features\Wrappers\AdminToys\CursedAdminToy.cs" />
         <Compile Include="Features\Wrappers\AdminToys\CursedLightSource.cs" />
         <Compile Include="Features\Wrappers\AdminToys\CursedPrimitiveObject.cs" />
