@@ -64,9 +64,11 @@
         <Compile Include="EntryPoint.cs" />
         <Compile Include="Events\Handlers\MapGenerationEventHandler.cs" />
         <Compile Include="Features\Enums\AuthenticationType.cs" />
+        <Compile Include="Features\Enums\ShootingTargetType.cs" />
         <Compile Include="Features\Wrappers\AdminToys\CursedAdminToy.cs" />
         <Compile Include="Features\Wrappers\AdminToys\CursedLightSource.cs" />
         <Compile Include="Features\Wrappers\AdminToys\CursedPrimitiveObject.cs" />
+        <Compile Include="Features\Wrappers\AdminToys\CursedShootingTarget.cs" />
         <Compile Include="Features\Wrappers\CursedPrefabManager.cs" />
         <Compile Include="Features\Wrappers\Facility\CursedCassie.cs" />
         <Compile Include="Features\Wrappers\Facility\CursedFacility.cs" />
