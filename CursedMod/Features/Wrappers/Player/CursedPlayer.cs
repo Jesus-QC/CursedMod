@@ -447,6 +447,12 @@ public class CursedPlayer
 
     public bool HasPermission(PlayerPermissions permission) => PermissionsHandler.IsPermitted(Permissions, permission);
     public bool HasPermissions(PlayerPermissions permissions) => PermissionsHandler.IsPermitted(Permissions, permissions);
+
+    // if user is basically in the whitelist file
+    public bool IsOnWhitelist => WhiteList.IsOnWhitelist(UserId);
+
+    // difference: this also returns true if the whitelist is disabled
+    public bool IsWhitelisted => WhiteList.IsWhitelisted(UserId);
     
     public static void SendSpawnMessageToAll(NetworkIdentity identity)
     {

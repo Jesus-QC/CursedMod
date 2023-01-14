@@ -20,4 +20,10 @@ public class CursedTeslaGate
     public void InstantBurst() => Base.RpcInstantBurst();
 
     public void PlayAnimation() => Base.RpcPlayAnimation();
+
+    public float TriggerRange
+    {
+        get => Base.sizeOfTrigger;
+        set => Base.sizeOfTrigger = value;
+    }
 }
