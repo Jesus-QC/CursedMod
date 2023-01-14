@@ -6,6 +6,7 @@ using Mirror;
 using System.Linq;
 using UnityEngine;
 using Object = UnityEngine.Object;
+using DoorSpawnpoint = MapGeneration.DoorSpawnpoint;
 
 namespace CursedMod.Features.Wrappers.Facility.Rooms;
 
@@ -89,9 +90,17 @@ public class CursedDoor
         return false;
     }
 
-    public static CursedDoor Create(DoorType doorType, Vector3 Position, Vector3 Rotation, Vector3 Scale, bool spawn = false)
+    public static CursedDoor Create(FacilityZone doorType, Vector3 Position, Vector3 Rotation, Vector3 Scale, bool spawn = false)
     {
-        DoorSpawnpoint prefab = Object.FindObjectsOfType<DoorSpawnpoint>().First(x => x.TargetPrefab.name.Contains(doorType.ToString()));
+        DoorSpawnpoint prefab;
+        switch (doorType)
+        {
+            case FacilityZone.LightContainment: prefab = Object.FindObjectsOfType<DoorSpawnpoint>().First(x => x.TargetPrefab.name.Contains("LCZ")); break;
+            case FacilityZone.HeavyContainment: prefab = Object.FindObjectsOfType<DoorSpawnpoint>().First(x => x.TargetPrefab.name.Contains("HCZ")); break;
+            case FacilityZone.Entrance: prefab = Object.FindObjectsOfType<DoorSpawnpoint>().First(x => x.TargetPrefab.name.Contains("EZ")); break;
+            default: prefab = Object.FindObjectsOfType<DoorSpawnpoint>().First(x => x.TargetPrefab.name.Contains("LCZ")); break;
+        }
+        
 
         var door = Object.Instantiate(prefab.TargetPrefab, Position, Quaternion.Euler(Rotation));
 
