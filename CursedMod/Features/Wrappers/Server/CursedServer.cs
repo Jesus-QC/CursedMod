@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using CursedMod.Features.Wrappers.Player.Dummies;
+using GameCore;
+using InventorySystem.Configs;
+using Mirror;
 using Mirror.LiteNetLib4Mirror;
 using UnityEngine;
 
@@ -9,7 +12,7 @@ namespace CursedMod.Features.Wrappers.Server;
 public static class CursedServer
 {
     private static CursedDummy _local;
-    
+
     public static CursedDummy LocalPlayer => _local ??= new CursedDummy(ReferenceHub.HostHub);
 
     public static ushort Port
@@ -96,6 +99,57 @@ public static class CursedServer
         set => PlayerList._refreshRate.Value = value;
     }
 
+    public static Dictionary<ItemCategory, sbyte> SyncedCategoryLimits
+    {
+        get
+        {
+            Dictionary<ItemCategory, sbyte> ret = new ();
+            
+            for (int i = 0; i < ServerConfigSynchronizer.Singleton.CategoryLimits.Count; i++)
+            {
+                ret.Add((ItemCategory)i, ServerConfigSynchronizer.Singleton.CategoryLimits[i]);
+            }
+
+            return ret;
+        }
+        set
+        {
+            for (int i = 0; i < value.Count; i++)
+            {
+                ServerConfigSynchronizer.Singleton.CategoryLimits[i] = value[(ItemCategory)i];
+            }
+        }
+    }
+
+    public static SyncList<ServerConfigSynchronizer.AmmoLimit> SyncedAmmoLimits =>
+        ServerConfigSynchronizer.Singleton.AmmoLimitsSync;
+    public static SyncList<ServerConfigSynchronizer.PredefinedBanTemplate> RemoteAdminPredefinedBanTemplates 
+        => ServerConfigSynchronizer.Singleton.RemoteAdminPredefinedBanTemplates;
+
+    public static bool EnableRemoteAdminPredefinedBanTemplates
+    {
+        get => ServerConfigSynchronizer.Singleton.EnableRemoteAdminPredefinedBanTemplates;
+        set => ServerConfigSynchronizer.Singleton.NetworkEnableRemoteAdminPredefinedBanTemplates = value;
+    }
+
+    public static string RemoteAdminExternalLookupMode
+    {
+        get => ServerConfigSynchronizer.Singleton.RemoteAdminExternalPlayerLookupMode;
+        set => ServerConfigSynchronizer.Singleton.NetworkRemoteAdminExternalPlayerLookupMode = value;
+    }
+
+    public static string RemoteAdminExternalPlayerLookupURL
+    {
+        get => ServerConfigSynchronizer.Singleton.RemoteAdminExternalPlayerLookupURL;
+        set => ServerConfigSynchronizer.Singleton.NetworkRemoteAdminExternalPlayerLookupURL = value;
+    }
+
+    public static string ServerName
+    {
+        get => ServerConfigSynchronizer.Singleton.ServerName;
+        set => ServerConfigSynchronizer.Singleton.NetworkServerName = value;
+    }
+    
     public static HashSet<string> ReservedSlotUsers => ReservedSlot.Users;
 
     public static bool AdminConnected => PlayerList._anyAdminOnServer;

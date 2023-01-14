@@ -402,7 +402,7 @@ public class CursedPlayer
     public string Address => NetworkConnection.address;
 
     public bool HasReservedSlot => ReservedSlot.HasReservedSlot(UserId, out _);
-    
+
     public static void SendSpawnMessageToAll(NetworkIdentity identity)
     {
         try

@@ -31,5 +31,8 @@ public static class CursedFacility
         }
     }
 
+    public static void ShowRoundSummary(RoundSummary.SumInfo_ClassList listStart, RoundSummary.SumInfo_ClassList listFinish, RoundSummary.LeadingTeam leadingTeam, int eDS, int eSc, int scpKills,
+        int roundCd, int seconds) => RoundSummary.singleton.RpcShowRoundSummary(listStart, listFinish, leadingTeam, eDS, eSc, scpKills, roundCd, seconds);
+    
     public static void PlayAmbientSound(int id) => AmbientSoundPlayer.RpcPlaySound(id);
 }
