@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using CursedMod.Features.Wrappers.Player.Dummies;
 using Mirror.LiteNetLib4Mirror;
 using UnityEngine;
@@ -94,7 +95,9 @@ public static class CursedServer
         get => PlayerList._refreshRate.Value;
         set => PlayerList._refreshRate.Value = value;
     }
-    
+
+    public static HashSet<string> ReservedSlotUsers => ReservedSlot.Users;
+
     public static bool AdminConnected => PlayerList._anyAdminOnServer;
     
     public static bool IsVerified => ServerStatic.PermissionsHandler.IsVerified;

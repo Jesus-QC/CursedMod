@@ -400,6 +400,8 @@ public class CursedPlayer
     }
 
     public string Address => NetworkConnection.address;
+
+    public bool HasReservedSlot => ReservedSlot.HasReservedSlot(UserId, out _);
     
     public static void SendSpawnMessageToAll(NetworkIdentity identity)
     {
@@ -527,6 +529,4 @@ public class CursedPlayer
     public static CursedPlayer Get(int id) => TryGet(id, out CursedPlayer player) ? player : null;
     public static CursedPlayer Get(string info) => TryGet(info, out CursedPlayer player) ? player : null;
     public static CursedPlayer Get(ICommandSender sender) => TryGet(sender, out CursedPlayer player) ? player : null;
-    
-
 }
