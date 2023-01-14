@@ -12,4 +12,12 @@ public class CursedTeslaGate
     }
 
     public bool IsInRange(Vector3 position) => Base.InRange(position);
+
+    public void StartIdling() => Base.RpcDoIdle();
+
+    public void StopIdling() => Base.RpcDoneIdling();
+
+    public void InstantBurst() => Base.RpcInstantBurst();
+
+    public void PlayAnimation() => Base.RpcPlayAnimation();
 }
