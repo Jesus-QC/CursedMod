@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using CommandSystem;
 using CursedMod.Features.Enums;
 using CursedMod.Features.Wrappers.Facility;
 using CursedMod.Features.Wrappers.Player.Dummies;
@@ -130,6 +131,8 @@ public class CursedPlayer
     public T DisableEffect<T>() where T : StatusEffectBase => PlayerEffectsController.DisableEffect<T>();
 
     public void DisableAllEffects() => PlayerEffectsController.DisableAllEffects();
+
+    public void SendPulseEffect<T>() where T : IPulseEffect => PlayerEffectsController.ServerSendPulse<T>();
     
     public void OpenRemoteAdmin() => ServerRoles.TargetOpenRemoteAdmin(true);
 
@@ -156,6 +159,8 @@ public class CursedPlayer
     public void ClearBroadcasts() => CursedFacility.Broadcast.TargetClearElements(NetworkConnection);
     
     public void ShowBroadcast(string message, ushort duration = 5, Broadcast.BroadcastFlags flags = Broadcast.BroadcastFlags.Normal) => CursedFacility.Broadcast.TargetAddElement(NetworkConnection, message, duration, flags);
+
+    public bool CanInteract => PlayerInteract.CanInteract;
     
     public Vector3 Position
     {
@@ -368,12 +373,34 @@ public class CursedPlayer
 
     public void SendHitMarker(float size = 2.55f) => Hitmarker.SendHitmarker(ReferenceHub, size);
 
+    public void SendWarheadPanelLeverSound() => PlayerInteract.RpcLeverSound();
+
     public PlayerInfoArea PlayerInfoArea
     {
         get => NicknameSync._playerInfoToShow;
         set => NicknameSync.Network_playerInfoToShow = value;
     }
 
+    public string CustomInfo
+    {
+        get => NicknameSync._customPlayerInfoString;
+        set => NicknameSync.Network_customPlayerInfoString = value;
+    }
+
+    public string DisplayNickname
+    {
+        get => ReferenceHub.nicknameSync.DisplayName;
+        set => ReferenceHub.nicknameSync.Network_displayName = value;
+    }
+
+    public string RealNickname
+    {
+        get => ReferenceHub.nicknameSync._myNickSync;
+        set => ReferenceHub.nicknameSync._myNickSync = value;
+    }
+
+    public string Address => NetworkConnection.address;
+    
     public static void SendSpawnMessageToAll(NetworkIdentity identity)
     {
         try
@@ -445,6 +472,61 @@ public class CursedPlayer
         return false;
     }
 
-    public static CursedPlayer Get(ReferenceHub hub) => TryGet(hub, out CursedPlayer player) ? player : CursedServer.LocalPlayer;
+    public static bool TryGet(GameObject go, out CursedPlayer player) => TryGet(ReferenceHub.GetHub(go), out player);
+    
+    public static bool TryGet(MonoBehaviour component, out CursedPlayer player) => TryGet(ReferenceHub.GetHub(component), out player);
+
+    public static bool TryGet(NetworkIdentity identity, out CursedPlayer player) => TryGet(identity.gameObject, out player);
+
+    public static bool TryGet(int id, out CursedPlayer player)
+    {
+        foreach (ReferenceHub hub in ReferenceHub.AllHubs)
+        {
+            if (hub.PlayerId == id)
+                return TryGet(hub, out player);
+        }
+
+        player = null;
+        return false;
+    }
+    
+    public static bool TryGet(string info, out CursedPlayer player)
+    {
+        foreach (CursedPlayer ply in Collection)
+        {
+            if(ply.Id.ToString() != info && ply.UserId != info && ply.RawUserId != info && ply.DisplayNickname != info && ply.Address != info && ply.Sender.LogName != info)
+                continue;
+
+            player = ply;
+            return true;
+        }
+
+        player = null;
+        return false;
+    }
+
+    public static bool TryGet(ICommandSender sender, out CursedPlayer player)
+    {
+        foreach (CursedPlayer ply in Collection)
+        {
+            if (ply.Sender != sender)
+                continue;
+
+            player = ply;
+            return true;
+        }
+
+        player = null;
+        return false;
+    }
+
+    public static CursedPlayer Get(ReferenceHub hub) => TryGet(hub, out CursedPlayer player) ? player : null;
+    public static CursedPlayer Get(GameObject go) => TryGet(go, out CursedPlayer player) ? player : null;
+    public static CursedPlayer Get(MonoBehaviour component) => TryGet(component, out CursedPlayer player) ? player : null;
+    public static CursedPlayer Get(NetworkIdentity identity) => TryGet(identity, out CursedPlayer player) ? player : null;
+    public static CursedPlayer Get(int id) => TryGet(id, out CursedPlayer player) ? player : null;
+    public static CursedPlayer Get(string info) => TryGet(info, out CursedPlayer player) ? player : null;
+    public static CursedPlayer Get(ICommandSender sender) => TryGet(sender, out CursedPlayer player) ? player : null;
+    
 
 }

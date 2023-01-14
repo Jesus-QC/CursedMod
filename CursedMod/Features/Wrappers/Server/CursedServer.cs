@@ -59,6 +59,46 @@ public static class CursedServer
         set => ServerConsole.WhiteListEnabled = value;
     }
 
+    public static bool IdleMode
+    {
+        get => global::IdleMode.IdleModeActive;
+        set => global::IdleMode.SetIdleMode(value);
+    }
+
+    public static bool IdleModePaused
+    {
+        get => global::IdleMode.PauseIdleMode;
+        set => global::IdleMode.PauseIdleMode = value;
+    }
+
+    public static bool IdleModeActive
+    {
+        get => global::IdleMode.IdleModeActive;
+        set => global::IdleMode.IdleModeActive = value;
+    }
+
+    public static short IdleModeTickRate
+    {
+        get => global::IdleMode.IdleModeTickrate;
+        set => global::IdleMode.IdleModeTickrate = value;
+    }
+
+    public static string PlayerListTitle
+    {
+        get => PlayerList.ServerName;
+        set => PlayerList.ServerName = value;
+    }
+
+    public static float PlayerListTitleRefreshTime
+    {
+        get => PlayerList._refreshRate.Value;
+        set => PlayerList._refreshRate.Value = value;
+    }
+    
+    public static bool AdminConnected => PlayerList._anyAdminOnServer;
+    
+    public static bool IsVerified => ServerStatic.PermissionsHandler.IsVerified;
+    
     public static string IpAddress => ServerConsole.Ip;
     
     public static double Ticks => Math.Round(1f / Time.smoothDeltaTime);

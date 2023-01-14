@@ -40,6 +40,9 @@
         <Reference Include="Assembly-CSharp-firstpass">
           <HintPath>..\..\..\SCPSL\Plugins\Dependencies\Assembly-CSharp-firstpass.dll</HintPath>
         </Reference>
+        <Reference Include="CommandSystem.Core">
+          <HintPath>..\..\..\SCPSL\Plugins\Dependencies\CommandSystem.Core.dll</HintPath>
+        </Reference>
         <Reference Include="Mirror">
           <HintPath>..\..\..\SCPSL\Plugins\Dependencies\Mirror-Publicized.dll</HintPath>
         </Reference>
@@ -65,8 +68,10 @@
         <Compile Include="Features\Wrappers\AdminToys\CursedLightSource.cs" />
         <Compile Include="Features\Wrappers\AdminToys\CursedPrimitiveObject.cs" />
         <Compile Include="Features\Wrappers\CursedPrefabManager.cs" />
+        <Compile Include="Features\Wrappers\Facility\CursedCassie.cs" />
         <Compile Include="Features\Wrappers\Facility\CursedFacility.cs" />
         <Compile Include="Features\Wrappers\Facility\CursedWarhead.cs" />
+        <Compile Include="Features\Wrappers\Facility\PocketDimension\CursedPocketDimensionExit.cs" />
         <Compile Include="Features\Wrappers\Facility\Props\CursedBreakableWindow.cs" />
         <Compile Include="Features\Wrappers\Facility\Props\CursedGenerator.cs" />
         <Compile Include="Features\Wrappers\Facility\Props\CursedLocker.cs" />
