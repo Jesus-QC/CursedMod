@@ -62,6 +62,12 @@ public static class CursedServer
         get => ServerConsole.WhiteListEnabled;
         set => ServerConsole.WhiteListEnabled = value;
     }
+    
+    public static ServerStatic.NextRoundAction NextRoundAction
+    {
+        get => ServerStatic.StopNextRound;
+        set => ServerStatic.StopNextRound = value;
+    }
 
     public static bool IdleMode
     {

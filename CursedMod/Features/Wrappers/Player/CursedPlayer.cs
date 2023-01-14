@@ -148,7 +148,7 @@ public class CursedPlayer
 
     public void Disconnect(string message) => CharacterClassManager.DisconnectClient(NetworkConnection, message);
 
-    public void ShowTag(bool global) => CharacterClassManager.UserCode_CmdRequestShowTag(global);
+    public void ShowTag(bool global = false) => CharacterClassManager.UserCode_CmdRequestShowTag(global);
     
     public void HideTag() => CharacterClassManager.UserCode_CmdRequestHideTag();
 
@@ -161,7 +161,25 @@ public class CursedPlayer
     public void ShowBroadcast(string message, ushort duration = 5, Broadcast.BroadcastFlags flags = Broadcast.BroadcastFlags.Normal) => CursedFacility.Broadcast.TargetAddElement(NetworkConnection, message, duration, flags);
 
     public bool CanInteract => PlayerInteract.CanInteract;
+
+    public bool BadgeHidden
+    {
+        get => !string.IsNullOrEmpty(ServerRoles.HiddenBadge);
+        set
+        {
+            if (value)
+                ShowTag();
+            else
+                HideTag();
+        }
+    }
     
+    public bool IsBypassEnabled
+    {
+        get => ServerRoles.BypassMode;
+        set => ServerRoles.BypassMode = value;
+    }
+
     public Vector3 Position
     {
         get => Transform.position;
@@ -226,6 +244,12 @@ public class CursedPlayer
         set => CharacterClassManager.AuthTokenSerial = value;
     }
 
+    public string PublicPlayerInfoToken
+    {
+        get => ServerRoles.PublicPlayerInfoToken;
+        set => ServerRoles.NetworkPublicPlayerInfoToken = value;
+    }
+    
     public RateLimit InteractRateLimit
     {
         get => CharacterClassManager._interactRateLimit;
@@ -307,11 +331,21 @@ public class CursedPlayer
         set => ServerRoles.DoNotTrack = value;
     }
     
-    public bool GodMode
+    public bool HasGodMode
     {
         get => CharacterClassManager.GodMode;
         set => CharacterClassManager.GodMode = value;
     }
+
+    public bool HasNoClip
+    {
+        get => AdminFlagsStat.HasFlag(AdminFlags.Noclip);
+        set => AdminFlagsStat.SetFlag(AdminFlags.Noclip, value);
+    }
+
+    public bool IsNorthWoodStaff => ServerRoles.Staff;
+
+    public bool IsGlobalModerator => ServerRoles.RaEverywhere;
     
     public bool Cuffed => Inventory.IsDisarmed();
 
@@ -403,6 +437,17 @@ public class CursedPlayer
 
     public bool HasReservedSlot => ReservedSlot.HasReservedSlot(UserId, out _);
 
+    public string GlobalBadge => ServerRoles.GlobalBadge;
+
+    public ulong Permissions
+    {
+        get => ServerRoles.Permissions;
+        set => ServerRoles.Permissions = value;
+    }
+
+    public bool HasPermission(PlayerPermissions permission) => PermissionsHandler.IsPermitted(Permissions, permission);
+    public bool HasPermissions(PlayerPermissions permissions) => PermissionsHandler.IsPermitted(Permissions, permissions);
+    
     public static void SendSpawnMessageToAll(NetworkIdentity identity)
     {
         try
