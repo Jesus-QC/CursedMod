@@ -35,29 +35,29 @@
     </PropertyGroup>
     <ItemGroup>
         <Reference Include="Assembly-CSharp">
-          <HintPath>..\..\..\SCPSL\Plugins\Dependencies\Assembly-CSharp-Publicized.dll</HintPath>
+          <HintPath>$(SL_REFERENCES)\Assembly-CSharp-Publicized.dll</HintPath>
         </Reference>
         <Reference Include="Assembly-CSharp-firstpass">
-          <HintPath>..\..\..\SCPSL\Plugins\Dependencies\Assembly-CSharp-firstpass.dll</HintPath>
+          <HintPath>$(SL_REFERENCES)\Assembly-CSharp-firstpass.dll</HintPath>
         </Reference>
         <Reference Include="CommandSystem.Core">
-          <HintPath>..\..\..\SCPSL\Plugins\Dependencies\CommandSystem.Core.dll</HintPath>
+          <HintPath>$(SL_REFERENCES)\CommandSystem.Core.dll</HintPath>
         </Reference>
         <Reference Include="Mirror">
-          <HintPath>..\..\..\SCPSL\Plugins\Dependencies\Mirror-Publicized.dll</HintPath>
+          <HintPath>$(SL_REFERENCES)\Mirror-Publicized.dll</HintPath>
         </Reference>
         <Reference Include="PluginAPI">
-          <HintPath>..\..\..\SCPSL\Plugins\Dependencies\PluginAPI-Publicized.dll</HintPath>
+          <HintPath>$(SL_REFERENCES)\PluginAPI-Publicized.dll</HintPath>
         </Reference>
         <Reference Include="System" />
         <Reference Include="System.Core" />
         <Reference Include="System.Data" />
         <Reference Include="System.Xml" />
         <Reference Include="UnityEngine.CoreModule">
-          <HintPath>..\..\..\SCPSL\Plugins\Dependencies\UnityEngine.CoreModule.dll</HintPath>
+          <HintPath>$(SL_REFERENCES)\UnityEngine.CoreModule.dll</HintPath>
         </Reference>
         <Reference Include="UnityEngine.AudioModule">
-          <HintPath>..\..\..\SCPSL\Plugins\Dependencies\UnityEngine.AudioModule.dll</HintPath>
+          <HintPath>$(SL_REFERENCES)\UnityEngine.AudioModule.dll</HintPath>
         </Reference>
     </ItemGroup>
     <ItemGroup>
