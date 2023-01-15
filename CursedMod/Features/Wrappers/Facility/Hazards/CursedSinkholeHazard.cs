@@ -10,5 +10,4 @@ public class CursedSinkholeHazard : CursedEnvironmentalHazard
     {
         Base = hazard;
     }
-    
 }

@@ -6,7 +6,7 @@ using Mirror;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
-namespace CursedMod.Features.Wrappers.Facility.Rooms.Doors;
+namespace CursedMod.Features.Wrappers.Facility.Doors;
 
 public class CursedDoor
 {
