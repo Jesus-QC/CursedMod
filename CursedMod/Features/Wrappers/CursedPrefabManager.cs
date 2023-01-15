@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using AdminToys;
+using CursedMod.Features.Enums;
 using Interactables.Interobjects.DoorUtils;
 using MapGeneration;
 using Mirror;
@@ -20,6 +21,7 @@ public static class CursedPrefabManager
     private static DoorVariant _lczDoor;
     private static DoorVariant _hczDoor;
     private static DoorVariant _ezDoor;
+    private static Dictionary<LockerType, GameObject> _lockers;
 
     public static PrimitiveObjectToy PrimitiveObject
     {
@@ -157,6 +159,31 @@ public static class CursedPrefabManager
             DoorVariant door = Object.FindObjectsOfType<DoorSpawnpoint>().First(x => x.TargetPrefab.name.Contains("EZ")).TargetPrefab;
             _ezDoor = door;
             return door;
+        }
+    }
+
+    public static Dictionary<LockerType, GameObject> Lockers
+    {
+        get
+        {
+            if (_lockers is not null)
+                return _lockers;
+
+            _lockers.Add(LockerType.RegularMedkit, NetworkClient.prefabs.Values.First(x => x.name == "RegularMedkitStructure"));
+            _lockers.Add(LockerType.AdrenalinMedKit, NetworkClient.prefabs.Values.First(x => x.name == "AdrenalineMedkitStructure"));
+            _lockers.Add(LockerType.LargeGun, NetworkClient.prefabs.Values.First(x => x.name == "LargeGunLockerStructure"));
+            _lockers.Add(LockerType.RifleRack, NetworkClient.prefabs.Values.First(x => x.name == "RifleRackStructure"));
+            _lockers.Add(LockerType.Misc, NetworkClient.prefabs.Values.First(x => x.name == "MiscLocker"));
+            _lockers.Add(LockerType.Scp018Pedestal, NetworkClient.prefabs.Values.First(x => x.name == "Scp018PedestalStructure Variant"));
+            _lockers.Add(LockerType.Scp207Pedestal, NetworkClient.prefabs.Values.First(x => x.name == "Scp207PedestalStructure Variant"));
+            _lockers.Add(LockerType.Scp244Pedestal, NetworkClient.prefabs.Values.First(x => x.name == "Scp244PedestalStructure Variant"));
+            _lockers.Add(LockerType.Scp268Pedestal, NetworkClient.prefabs.Values.First(x => x.name == "Scp268PedestalStructure Variant"));
+            _lockers.Add(LockerType.Scp500Pedestal, NetworkClient.prefabs.Values.First(x => x.name == "Scp500PedestalStructure Variant"));
+            _lockers.Add(LockerType.Scp1853Pedestal, NetworkClient.prefabs.Values.First(x => x.name == "Scp1853PedestalStructure Variant"));
+            _lockers.Add(LockerType.Scp2176Pedestal, NetworkClient.prefabs.Values.First(x => x.name == "Scp2176PedestalStructure Variant"));
+            _lockers.Add(LockerType.Scp1576Pedestal, NetworkClient.prefabs.Values.First(x => x.name == "Scp1576PedestalStructure Variant"));
+
+            return _lockers;
         }
     }
 }

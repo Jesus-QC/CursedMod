@@ -64,6 +64,7 @@
         <Compile Include="EntryPoint.cs" />
         <Compile Include="Events\Handlers\MapGenerationEventHandler.cs" />
         <Compile Include="Features\Enums\AuthenticationType.cs" />
+        <Compile Include="Features\Enums\LockerType.cs" />
         <Compile Include="Features\Enums\EnvironmentalHazardType.cs" />
         <Compile Include="Features\Enums\ShootingTargetType.cs" />
         <Compile Include="Features\Wrappers\AdminToys\CursedAdminToy.cs" />
@@ -83,6 +84,7 @@
         <Compile Include="Features\Wrappers\Facility\PocketDimension\CursedPocketDimensionExit.cs" />
         <Compile Include="Features\Wrappers\Facility\Props\CursedBreakableWindow.cs" />
         <Compile Include="Features\Wrappers\Facility\Props\CursedGenerator.cs" />
+        <Compile Include="Features\Wrappers\Facility\Props\CursedLocker.cs" />
         <Compile Include="Features\Wrappers\Facility\Props\CursedLockerChamber.cs" />
         <Compile Include="Features\Wrappers\Facility\Props\CursedTeslaGate.cs" />
         <Compile Include="Features\Wrappers\Facility\Rooms\Cursed079Camera.cs" />
