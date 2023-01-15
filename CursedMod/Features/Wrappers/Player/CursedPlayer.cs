@@ -4,7 +4,6 @@ using CommandSystem;
 using CursedMod.Features.Enums;
 using CursedMod.Features.Wrappers.Facility;
 using CursedMod.Features.Wrappers.Player.Dummies;
-using CursedMod.Features.Wrappers.Server;
 using CustomPlayerEffects;
 using Footprinting;
 using Hints;

@@ -1,5 +1,4 @@
-﻿using CursedMod.Features.Enums;
-using Hazards;
+﻿using Hazards;
 
 namespace CursedMod.Features.Wrappers.Facility.Hazards;
 

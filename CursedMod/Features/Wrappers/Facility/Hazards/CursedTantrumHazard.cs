@@ -1,5 +1,4 @@
 ﻿using Hazards;
-using UnityEngine;
 
 namespace CursedMod.Features.Wrappers.Facility.Hazards;
 

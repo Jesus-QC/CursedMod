@@ -1,5 +1,4 @@
-﻿using System;
-using AdminToys;
+﻿using AdminToys;
 using CursedMod.Features.Enums;
 using PlayerStatsSystem;
 using UnityEngine;

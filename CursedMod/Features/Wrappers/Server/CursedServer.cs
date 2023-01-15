@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using CursedMod.Features.Wrappers.Player.Dummies;
-using GameCore;
-using InventorySystem.Configs;
 using Mirror;
 using Mirror.LiteNetLib4Mirror;
 using UnityEngine;

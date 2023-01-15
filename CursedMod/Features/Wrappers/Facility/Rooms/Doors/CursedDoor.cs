@@ -1,12 +1,10 @@
-﻿using System;
-using System.Linq;
-using Interactables.Interobjects;
+﻿using Interactables.Interobjects;
 using Interactables.Interobjects.DoorUtils;
+using InventorySystem.Items;
 using MapGeneration;
 using Mirror;
 using UnityEngine;
 using Object = UnityEngine.Object;
-using DoorSpawnpoint = MapGeneration.DoorSpawnpoint;
 
 namespace CursedMod.Features.Wrappers.Facility.Rooms.Doors;
 
@@ -71,11 +69,19 @@ public class CursedDoor
 
     public bool IsDamageable => Base is IDamageableDoor;
     
-    public bool IsBroken => Base is IDamageableDoor damageable && damageable.IsDestroyed;
+    public bool IsBroken => Base is IDamageableDoor { IsDestroyed: true };
     
     public DoorNametagExtension Tag => Base.GetComponent<DoorNametagExtension>();
 
     public void TriggerState() => Base.NetworkTargetState = !IsOpened;
+
+    public bool TryToPryGate() => Base is PryableDoor pr && pr.TryPryGate();
+    
+    public bool TryToDamage(float damage, DoorDamageType damageType) => Base is BreakableDoor br && br.ServerDamage(damage, damageType);
+
+    public bool TryToBreak() => Base is BreakableDoor br && br.ServerDamage(br.RemainingHealth, DoorDamageType.ServerCommand);
+
+    public void HasPerms(ItemBase item) => RequiredPermissions.CheckPermissions(item, null);
 
     public void ServerChangeLock(DoorLockReason reason, bool newState) => Base.ServerChangeLock(reason, newState);
     
