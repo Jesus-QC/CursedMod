@@ -1,14 +1,14 @@
-﻿using CursedMod.Features.Enums;
+﻿using System;
+using System.Linq;
 using Interactables.Interobjects;
 using Interactables.Interobjects.DoorUtils;
 using MapGeneration;
 using Mirror;
-using System.Linq;
 using UnityEngine;
 using Object = UnityEngine.Object;
 using DoorSpawnpoint = MapGeneration.DoorSpawnpoint;
 
-namespace CursedMod.Features.Wrappers.Facility.Rooms;
+namespace CursedMod.Features.Wrappers.Facility.Rooms.Doors;
 
 public class CursedDoor
 {
@@ -90,23 +90,26 @@ public class CursedDoor
         return false;
     }
 
-    public static CursedDoor Create(FacilityZone doorType, Vector3 Position, Vector3 Rotation, Vector3 Scale, bool spawn = false)
+    public static CursedDoor Create(FacilityZone doorType, Vector3 position, Vector3 rotation, Vector3? scale = null, bool spawn = false)
     {
-        DoorSpawnpoint prefab;
-        switch (doorType)
+        DoorVariant prefab = doorType switch
         {
-            case FacilityZone.LightContainment: prefab = Object.FindObjectsOfType<DoorSpawnpoint>().First(x => x.TargetPrefab.name.Contains("LCZ")); break;
-            case FacilityZone.HeavyContainment: prefab = Object.FindObjectsOfType<DoorSpawnpoint>().First(x => x.TargetPrefab.name.Contains("HCZ")); break;
-            case FacilityZone.Entrance: prefab = Object.FindObjectsOfType<DoorSpawnpoint>().First(x => x.TargetPrefab.name.Contains("EZ")); break;
-            default: prefab = Object.FindObjectsOfType<DoorSpawnpoint>().First(x => x.TargetPrefab.name.Contains("LCZ")); break;
-        }
-        
+            FacilityZone.HeavyContainment => CursedPrefabManager.HczDoor,
+            FacilityZone.LightContainment => CursedPrefabManager.LczDoor,
+            FacilityZone.Entrance => CursedPrefabManager.EzDoor,
+            FacilityZone.Surface => CursedPrefabManager.LczDoor,
+            FacilityZone.Other => CursedPrefabManager.LczDoor,
+            FacilityZone.None => CursedPrefabManager.LczDoor,
+            _ => CursedPrefabManager.LczDoor,
+        };
 
-        var door = Object.Instantiate(prefab.TargetPrefab, Position, Quaternion.Euler(Rotation));
+        DoorVariant door = Object.Instantiate(prefab, position, Quaternion.Euler(rotation));
 
-        door.transform.localScale = Scale;
+        if (scale.HasValue)
+            door.transform.localScale = scale.Value;
 
-        if (spawn) NetworkServer.Spawn(door.gameObject);
+        if (spawn)
+            NetworkServer.Spawn(door.gameObject);
 
         return new CursedDoor(door);
     }

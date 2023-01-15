@@ -1,8 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using AdminToys;
+using Interactables.Interobjects.DoorUtils;
+using MapGeneration;
 using Mirror;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 namespace CursedMod.Features.Wrappers;
 
@@ -13,7 +17,10 @@ public static class CursedPrefabManager
     private static ShootingTarget _sportShootingTarget;
     private static ShootingTarget _dBoyShootingTarget;
     private static ShootingTarget _binaryShootingTarget;
-    
+    private static DoorVariant _lczDoor;
+    private static DoorVariant _hczDoor;
+    private static DoorVariant _ezDoor;
+
     public static PrimitiveObjectToy PrimitiveObject
     {
         get
@@ -111,6 +118,45 @@ public static class CursedPrefabManager
             }
  
             return _binaryShootingTarget;
+        }
+    }
+    
+    public static DoorVariant LczDoor
+    {
+        get
+        {
+            if (_lczDoor is not null)
+                return _lczDoor;
+
+            DoorVariant door = Object.FindObjectsOfType<DoorSpawnpoint>().First(x => x.TargetPrefab.name.Contains("LCZ")).TargetPrefab;
+            _lczDoor = door;
+            return door;
+        }
+    }
+    
+    public static DoorVariant HczDoor
+    {
+        get
+        {
+            if (_hczDoor is not null)
+                return _hczDoor;
+
+            DoorVariant door = Object.FindObjectsOfType<DoorSpawnpoint>().First(x => x.TargetPrefab.name.Contains("HCZ")).TargetPrefab;
+            _hczDoor = door;
+            return door;
+        }
+    }
+    
+    public static DoorVariant EzDoor
+    {
+        get
+        {
+            if (_ezDoor is not null)
+                return _ezDoor;
+
+            DoorVariant door = Object.FindObjectsOfType<DoorSpawnpoint>().First(x => x.TargetPrefab.name.Contains("EZ")).TargetPrefab;
+            _ezDoor = door;
+            return door;
         }
     }
 }
