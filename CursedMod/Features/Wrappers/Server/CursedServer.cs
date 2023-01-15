@@ -177,4 +177,6 @@ public static class CursedServer
     public static void RefreshServerData() => ServerConsole.singleton.RefreshServerData();
     
     public static void SendCommand(string command, CommandSender sender = null) => GameCore.Console.singleton.TypeCommand(command, sender ?? LocalPlayer.Sender);
+
+    public static string[] StartArguments => StartupArgs.Args;
 }

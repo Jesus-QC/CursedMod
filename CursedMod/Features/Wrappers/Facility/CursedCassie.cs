@@ -19,5 +19,6 @@ public static class CursedCassie
 
     public static NineTailedFoxAnnouncer.VoiceLine[] VoiceLines 
         => NineTailedFoxAnnouncer.singleton.voiceLines;
-    
+
+    public static void Clear() => RespawnEffectsController.ClearQueue();
 }
