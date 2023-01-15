@@ -7,9 +7,9 @@ public class CursedLockerChamber
 {
     public LockerChamber Base { get; }
     
-    public CursedLockerChamber(LockerChamber locker)
+    public CursedLockerChamber(LockerChamber lockerChamber)
     {
-        Base = locker;
+        Base = lockerChamber;
     }
 
     public bool IsOpen
