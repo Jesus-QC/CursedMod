@@ -61,4 +61,10 @@ public static class CursedRound
     public static int UpTime => RoundRestart.UptimeRounds;
 
     public static TimeSpan RoundTime => RoundStart.RoundLength;
+
+    public static short LobbyTimer
+    {
+        get => RoundStart.singleton.Timer;
+        set => RoundStart.singleton.NetworkTimer = value;
+    }
 }

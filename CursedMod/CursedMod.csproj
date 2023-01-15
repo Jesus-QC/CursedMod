@@ -64,6 +64,7 @@
         <Compile Include="EntryPoint.cs" />
         <Compile Include="Events\Handlers\MapGenerationEventHandler.cs" />
         <Compile Include="Features\Enums\AuthenticationType.cs" />
+        <Compile Include="Features\Enums\EnvironmentalHazardType.cs" />
         <Compile Include="Features\Enums\ShootingTargetType.cs" />
         <Compile Include="Features\Wrappers\AdminToys\CursedAdminToy.cs" />
         <Compile Include="Features\Wrappers\AdminToys\CursedLightSource.cs" />
@@ -73,6 +74,10 @@
         <Compile Include="Features\Wrappers\Facility\CursedCassie.cs" />
         <Compile Include="Features\Wrappers\Facility\CursedFacility.cs" />
         <Compile Include="Features\Wrappers\Facility\CursedWarhead.cs" />
+        <Compile Include="Features\Wrappers\Facility\Hazards\CursedEnvironmentalHazard.cs" />
+        <Compile Include="Features\Wrappers\Facility\Hazards\CursedSinkholeHazard.cs" />
+        <Compile Include="Features\Wrappers\Facility\Hazards\CursedTantrumHazard.cs" />
+        <Compile Include="Features\Wrappers\Facility\Hazards\CursedTemporaryHazard.cs" />
         <Compile Include="Features\Wrappers\Facility\PocketDimension\CursedPocketDimensionExit.cs" />
         <Compile Include="Features\Wrappers\Facility\Props\CursedBreakableWindow.cs" />
         <Compile Include="Features\Wrappers\Facility\Props\CursedGenerator.cs" />
