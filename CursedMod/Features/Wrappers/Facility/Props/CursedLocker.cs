@@ -15,15 +15,10 @@ public class CursedLocker
     public CursedLocker(Locker locker)
     {
         Base = locker;
-
-        List<CursedLockerChamber> chamberList = new List<CursedLockerChamber>();
-        foreach (var chamber in Base.Chambers)
-            chamberList.Add(new CursedLockerChamber(chamber));
-
-        Chambers = chamberList.ToArray();
+        Chambers = Base.Chambers.Select(chamber => new CursedLockerChamber(chamber));
     }
 
-    public CursedLockerChamber[] Chambers { get; }
+    public IEnumerable<CursedLockerChamber> Chambers { get; }
 
     public Vector3 Position
     {
@@ -43,13 +38,14 @@ public class CursedLocker
         set => Base.transform.localScale = value;
     }
 
-    public CursedLocker Create(LockerType lockerType, Vector3 position, Vector3 rotation, Vector3 scale)
+    public CursedLocker Create(LockerType lockerType, Vector3 position, Vector3 rotation, Vector3? scale = null)
     {
-        GameObject prefab = Object.Instantiate(CursedPrefabManager.Lockers[lockerType], position, Quaternion.Euler(rotation));
+        Locker prefab = Object.Instantiate(CursedPrefabManager.Lockers[lockerType], position, Quaternion.Euler(rotation));
 
-        prefab.transform.localScale = scale;
-
-        NetworkServer.Spawn(prefab);
-        return new CursedLocker(prefab.GetComponent<Locker>());
+        if (scale.HasValue)
+            prefab.transform.localScale = scale.Value;
+        
+        NetworkServer.Spawn(prefab.gameObject);
+        return new CursedLocker(prefab);
     }
 }

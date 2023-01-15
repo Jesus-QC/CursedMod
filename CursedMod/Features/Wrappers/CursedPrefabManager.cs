@@ -5,6 +5,7 @@ using AdminToys;
 using CursedMod.Features.Enums;
 using Interactables.Interobjects.DoorUtils;
 using MapGeneration;
+using MapGeneration.Distributors;
 using Mirror;
 using UnityEngine;
 using Object = UnityEngine.Object;
@@ -21,7 +22,7 @@ public static class CursedPrefabManager
     private static DoorVariant _lczDoor;
     private static DoorVariant _hczDoor;
     private static DoorVariant _ezDoor;
-    private static Dictionary<LockerType, GameObject> _lockers;
+    private static readonly Dictionary<LockerType, Locker> LockerStructures = new ();
 
     public static PrimitiveObjectToy PrimitiveObject
     {
@@ -29,16 +30,8 @@ public static class CursedPrefabManager
         {
             if (_primitiveObjectToy is not null)
                 return _primitiveObjectToy;
- 
-            foreach (KeyValuePair<Guid, GameObject> prefab in NetworkClient.prefabs)
-            {
-                if (!prefab.Value.TryGetComponent(out PrimitiveObjectToy toy))
-                    continue;
-                
-                _primitiveObjectToy = toy;
-                break;
-            }
- 
+
+            TryGetPrefabOfType(out _primitiveObjectToy);
             return _primitiveObjectToy;
         }
     }
@@ -50,15 +43,7 @@ public static class CursedPrefabManager
             if (_lightSourceToy is not null)
                 return _lightSourceToy;
  
-            foreach (KeyValuePair<Guid, GameObject> prefab in NetworkClient.prefabs)
-            {
-                if (!prefab.Value.TryGetComponent(out LightSourceToy toy))
-                    continue;
-                
-                _lightSourceToy = toy;
-                break;
-            }
- 
+            TryGetPrefabOfType(out _lightSourceToy);
             return _lightSourceToy;
         }
     }
@@ -70,15 +55,7 @@ public static class CursedPrefabManager
             if (_sportShootingTarget is not null)
                 return _sportShootingTarget;
  
-            foreach (KeyValuePair<Guid, GameObject> prefab in NetworkClient.prefabs)
-            {
-                if (prefab.Value.name is not "sportTargetPrefab" || !prefab.Value.TryGetComponent(out ShootingTarget toy))
-                    continue;
-                
-                _sportShootingTarget = toy;
-                break;
-            }
- 
+            TryGetPrefabOfType("sportTargetPrefab", out _sportShootingTarget);
             return _sportShootingTarget;
         }
     }
@@ -89,16 +66,8 @@ public static class CursedPrefabManager
         {
             if (_dBoyShootingTarget is not null)
                 return _dBoyShootingTarget;
- 
-            foreach (KeyValuePair<Guid, GameObject> prefab in NetworkClient.prefabs)
-            {
-                if (prefab.Value.name is not "dboyTargetPrefab" || !prefab.Value.TryGetComponent(out ShootingTarget toy))
-                    continue;
-                
-                _dBoyShootingTarget = toy;
-                break;
-            }
- 
+            
+            TryGetPrefabOfType("dboyTargetPrefab", out _dBoyShootingTarget);
             return _dBoyShootingTarget;
         }
     }
@@ -109,16 +78,8 @@ public static class CursedPrefabManager
         {
             if (_binaryShootingTarget is not null)
                 return _binaryShootingTarget;
- 
-            foreach (KeyValuePair<Guid, GameObject> prefab in NetworkClient.prefabs)
-            {
-                if (prefab.Value.name is not "binaryTargetPrefab" || !prefab.Value.TryGetComponent(out ShootingTarget toy))
-                    continue;
-                
-                _binaryShootingTarget = toy;
-                break;
-            }
- 
+            
+            TryGetPrefabOfType("binaryTargetPrefab", out _binaryShootingTarget);
             return _binaryShootingTarget;
         }
     }
@@ -162,28 +123,69 @@ public static class CursedPrefabManager
         }
     }
 
-    public static Dictionary<LockerType, GameObject> Lockers
+    public static Dictionary<LockerType, Locker> Lockers
     {
         get
         {
-            if (_lockers is not null)
-                return _lockers;
+            if (LockerStructures.Count != 0)
+                return LockerStructures;
 
-            _lockers.Add(LockerType.RegularMedkit, NetworkClient.prefabs.Values.First(x => x.name == "RegularMedkitStructure"));
-            _lockers.Add(LockerType.AdrenalinMedKit, NetworkClient.prefabs.Values.First(x => x.name == "AdrenalineMedkitStructure"));
-            _lockers.Add(LockerType.LargeGun, NetworkClient.prefabs.Values.First(x => x.name == "LargeGunLockerStructure"));
-            _lockers.Add(LockerType.RifleRack, NetworkClient.prefabs.Values.First(x => x.name == "RifleRackStructure"));
-            _lockers.Add(LockerType.Misc, NetworkClient.prefabs.Values.First(x => x.name == "MiscLocker"));
-            _lockers.Add(LockerType.Scp018Pedestal, NetworkClient.prefabs.Values.First(x => x.name == "Scp018PedestalStructure Variant"));
-            _lockers.Add(LockerType.Scp207Pedestal, NetworkClient.prefabs.Values.First(x => x.name == "Scp207PedestalStructure Variant"));
-            _lockers.Add(LockerType.Scp244Pedestal, NetworkClient.prefabs.Values.First(x => x.name == "Scp244PedestalStructure Variant"));
-            _lockers.Add(LockerType.Scp268Pedestal, NetworkClient.prefabs.Values.First(x => x.name == "Scp268PedestalStructure Variant"));
-            _lockers.Add(LockerType.Scp500Pedestal, NetworkClient.prefabs.Values.First(x => x.name == "Scp500PedestalStructure Variant"));
-            _lockers.Add(LockerType.Scp1853Pedestal, NetworkClient.prefabs.Values.First(x => x.name == "Scp1853PedestalStructure Variant"));
-            _lockers.Add(LockerType.Scp2176Pedestal, NetworkClient.prefabs.Values.First(x => x.name == "Scp2176PedestalStructure Variant"));
-            _lockers.Add(LockerType.Scp1576Pedestal, NetworkClient.prefabs.Values.First(x => x.name == "Scp1576PedestalStructure Variant"));
+            if (TryGetPrefabOfType("RegularMedkitStructure", out Locker med))
+                LockerStructures.Add(LockerType.RegularMedkit, med);
+            if (TryGetPrefabOfType("AdrenalineMedkitStructure", out Locker adrenaline))
+                LockerStructures.Add(LockerType.AdrenalinMedKit, adrenaline);
+            if (TryGetPrefabOfType("LargeGunLockerStructure", out Locker largeGun))
+                LockerStructures.Add(LockerType.LargeGun, largeGun);
+            if (TryGetPrefabOfType("RifleRackStructure", out Locker rifleRack))
+                LockerStructures.Add(LockerType.RifleRack, rifleRack);
+            if (TryGetPrefabOfType("MiscLocker", out Locker miscLocker))
+                LockerStructures.Add(LockerType.Misc, miscLocker);
+            if (TryGetPrefabOfType("Scp018PedestalStructure Variant", out Locker scp018))
+                LockerStructures.Add(LockerType.Scp018Pedestal, scp018);
+            if (TryGetPrefabOfType("Scp207PedestalStructure Variant", out Locker scp207))
+                LockerStructures.Add(LockerType.Scp207Pedestal, scp207);
+            if (TryGetPrefabOfType("Scp244PedestalStructure Variant", out Locker scp244))
+                LockerStructures.Add(LockerType.Scp244Pedestal, scp244);
+            if (TryGetPrefabOfType("Scp268PedestalStructure Variant", out Locker scp268))
+                LockerStructures.Add(LockerType.Scp268Pedestal, scp268);
+            if (TryGetPrefabOfType("Scp500PedestalStructure Variant", out Locker scp500))
+                LockerStructures.Add(LockerType.Scp500Pedestal, scp500);
+            if (TryGetPrefabOfType("Scp1853PedestalStructure Variant", out Locker scp1853))
+                LockerStructures.Add(LockerType.Scp1853Pedestal, scp1853);
+            if (TryGetPrefabOfType("Scp2176PedestalStructure Variant", out Locker scp2176))
+                LockerStructures.Add(LockerType.Scp2176Pedestal, scp2176);
+            if (TryGetPrefabOfType("Scp1576PedestalStructure Variant", out Locker scp1576))
+                LockerStructures.Add(LockerType.Scp1576Pedestal, scp1576);
 
-            return _lockers;
+            return LockerStructures;
         }
+    }
+
+    public static bool TryGetPrefabOfType<T>(out T p)
+    {
+        foreach (KeyValuePair<Guid, GameObject> prefab in NetworkClient.prefabs)
+        {
+            if (!prefab.Value.TryGetComponent(out p))
+                continue;
+            
+            return true;
+        }
+
+        p = default;
+        return false;
+    }
+    
+    public static bool TryGetPrefabOfType<T>(string name, out T p)
+    {
+        foreach (KeyValuePair<Guid, GameObject> prefab in NetworkClient.prefabs)
+        {
+            if (prefab.Value.name != name || !prefab.Value.TryGetComponent(out p))
+                continue;
+            
+            return true;
+        }
+
+        p = default;
+        return false;
     }
 }
