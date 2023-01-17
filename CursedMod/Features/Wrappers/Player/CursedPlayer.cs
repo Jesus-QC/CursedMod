@@ -3,7 +3,7 @@ using System.Linq;
 using CommandSystem;
 using CursedMod.Features.Enums;
 using CursedMod.Features.Wrappers.Facility;
-using CursedMod.Features.Wrappers.Item;
+using CursedMod.Features.Wrappers.Inventory;
 using CursedMod.Features.Wrappers.Player.Dummies;
 using CustomPlayerEffects;
 using Footprinting;
@@ -51,7 +51,7 @@ public class CursedPlayer
 
     public PlayerStats PlayerStats => ReferenceHub.playerStats;
 
-    public Inventory Inventory => ReferenceHub.inventory;
+    public InventorySystem.Inventory Inventory => ReferenceHub.inventory;
 
     public Dictionary<ushort, ItemBase> Items => Inventory.UserInventory.Items;
 
