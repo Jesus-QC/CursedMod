@@ -90,6 +90,8 @@
         <Compile Include="Features\Wrappers\Facility\Rooms\Cursed079Camera.cs" />
         <Compile Include="Features\Wrappers\Facility\Rooms\CursedLightningController.cs" />
         <Compile Include="Features\Wrappers\Facility\Rooms\CursedRoom.cs" />
+        <Compile Include="Features\Wrappers\Item\CursedItem.cs" />
+        <Compile Include="Features\Wrappers\Item\CursedPickup.cs" />
         <Compile Include="Features\Wrappers\Player\CursedPlayer.cs" />
         <Compile Include="Features\Wrappers\Player\CursedPlayerHitBox.cs" />
         <Compile Include="Features\Wrappers\Player\Dummies\CursedDummy.cs" />
