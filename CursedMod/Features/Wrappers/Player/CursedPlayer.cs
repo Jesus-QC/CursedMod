@@ -3,6 +3,7 @@ using System.Linq;
 using CommandSystem;
 using CursedMod.Features.Enums;
 using CursedMod.Features.Wrappers.Facility;
+using CursedMod.Features.Wrappers.Item;
 using CursedMod.Features.Wrappers.Player.Dummies;
 using CustomPlayerEffects;
 using Footprinting;
@@ -361,13 +362,21 @@ public class CursedPlayer
 
     public ItemBase AddItem(ItemType itemType) => Inventory.ServerAddItem(itemType);
 
-    public void DropItem(ItemBase pickupBase) => Inventory.ServerDropItem(pickupBase.ItemSerial);
+    public void DropItem(CursedItem item) => Inventory.ServerDropItem(item.Serial);
+
+    public void DropItem(ItemBase itemBase) => Inventory.ServerDropItem(itemBase.ItemSerial);
+
+    public void DropItem(CursedPickup pickup) => Inventory.ServerDropItem(pickup.Serial);
 
     public void DropItem(ItemPickupBase pickupBase) => Inventory.ServerDropItem(pickupBase.Info.Serial);
+
+    public void RemoveItem(CursedItem item) => Inventory.ServerRemoveItem(item.Serial, item.Base.PickupDropModel);
 
     public void RemoveItem(ItemBase itemBase) => Inventory.ServerRemoveItem(itemBase.ItemSerial, itemBase.PickupDropModel);
 
     public void RemoveItem(ItemPickupBase pickupBase) => Inventory.ServerRemoveItem(pickupBase.Info.Serial, pickupBase);
+
+    public void RemoveItem(CursedPickup pickup) => Inventory.ServerRemoveItem(pickup.Serial, pickup.Base);
 
     public void SetAmmo(ItemType itemType, ushort amount) => Inventory.ServerSetAmmo(itemType, amount);
 
