@@ -14,6 +14,7 @@
 <div align="center">
 
 [![Version](https://img.shields.io/github/v/release/Jesus-QC/CursedMod?sort=semver&style=flat-square&color=8DBBE9&label=Version)]()
+[![License](https://img.shields.io/github/license/Jesus-QC/CursedMod?style=flat-square&label=License&color=df967f)]()
 [![Contributors](https://img.shields.io/github/contributors-anon/Jesus-QC/CursedMod?color=90E59A&style=flat-square&label=Contributors)]()
 [![GitHub Issues](https://img.shields.io/github/issues/Jesus-QC/CursedMod.svg?style=flat-square&label=Issues&color=d77982)](https://github.com/Jesus-QC/CursedMod/issues)
 [![Discord](https://img.shields.io/discord/1062071403962183781?color=738adb&label=Discord&logo=discord&logoColor=white&style=flat-square)](https://discord.gg/pqgQ5yeWU7)
