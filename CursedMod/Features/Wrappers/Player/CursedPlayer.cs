@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using CommandSystem;
 using CursedMod.Features.Enums;
@@ -471,8 +472,9 @@ public class CursedPlayer
     public int RaycastNonAlloc(int layerMask, RaycastHit[] hits) => Physics.RaycastNonAlloc(new Ray(PlayerCameraReference.position, PlayerCameraReference.forward), hits, layerMask);
     public int RaycastNonAlloc(float maxDistance, RaycastHit[] hits) => Physics.RaycastNonAlloc(new Ray(PlayerCameraReference.position, PlayerCameraReference.forward), hits, maxDistance);
     public int RaycastNonAlloc(RaycastHit[] hits) => Physics.RaycastNonAlloc(new Ray(PlayerCameraReference.position, PlayerCameraReference.forward), hits);
-    
-    
+
+    public Stopwatch GetTimeHoldingItem() => Inventory._lastEquipSw;
+
     public static void SendSpawnMessageToAll(NetworkIdentity identity)
     {
         try
