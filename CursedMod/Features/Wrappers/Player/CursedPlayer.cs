@@ -462,15 +462,15 @@ public class CursedPlayer
     // difference: this also returns true if the whitelist is disabled
     public bool IsWhitelisted => WhiteList.IsWhitelisted(UserId);
 
-    public bool TryRaycast(Vector3 direction, float maxDistance, int layerMask, out RaycastHit hit) => Physics.Raycast(new Ray(PlayerCameraReference.position, direction), out hit, maxDistance, layerMask);
-    public bool TryRaycast(Vector3 direction, int layerMask, out RaycastHit hit) => Physics.Raycast(new Ray(PlayerCameraReference.position, direction), out hit, layerMask);
-    public bool TryRaycast(Vector3 direction, float maxDistance, out RaycastHit hit) => Physics.Raycast(new Ray(PlayerCameraReference.position, direction), out hit, maxDistance);
-    public bool TryRaycast(Vector3 direction, out RaycastHit hit) => Physics.Raycast(new Ray(PlayerCameraReference.position, direction), out hit);
+    public bool TryRaycast(float maxDistance, int layerMask, out RaycastHit hit) => Physics.Raycast(new Ray(PlayerCameraReference.position, PlayerCameraReference.forward), out hit, maxDistance, layerMask);
+    public bool TryRaycast(int layerMask, out RaycastHit hit) => Physics.Raycast(new Ray(PlayerCameraReference.position, PlayerCameraReference.forward), out hit, layerMask);
+    public bool TryRaycast(float maxDistance, out RaycastHit hit) => Physics.Raycast(new Ray(PlayerCameraReference.position, PlayerCameraReference.forward), out hit, maxDistance);
+    public bool TryRaycast(out RaycastHit hit) => Physics.Raycast(new Ray(PlayerCameraReference.position, PlayerCameraReference.forward), out hit);
     
-    public int RaycastNonAlloc(Vector3 direction, float maxDistance, int layerMask, RaycastHit[] hits) => Physics.RaycastNonAlloc(new Ray(PlayerCameraReference.position, direction), hits, maxDistance, layerMask);
-    public int RaycastNonAlloc(Vector3 direction, int layerMask, RaycastHit[] hits) => Physics.RaycastNonAlloc(new Ray(PlayerCameraReference.position, direction), hits, layerMask);
-    public int RaycastNonAlloc(Vector3 direction, float maxDistance, RaycastHit[] hits) => Physics.RaycastNonAlloc(new Ray(PlayerCameraReference.position, direction), hits, maxDistance);
-    public int RaycastNonAlloc(Vector3 direction, RaycastHit[] hits) => Physics.RaycastNonAlloc(new Ray(PlayerCameraReference.position, direction), hits);
+    public int RaycastNonAlloc(float maxDistance, int layerMask, RaycastHit[] hits) => Physics.RaycastNonAlloc(new Ray(PlayerCameraReference.position, PlayerCameraReference.forward), hits, maxDistance, layerMask);
+    public int RaycastNonAlloc(int layerMask, RaycastHit[] hits) => Physics.RaycastNonAlloc(new Ray(PlayerCameraReference.position, PlayerCameraReference.forward), hits, layerMask);
+    public int RaycastNonAlloc(float maxDistance, RaycastHit[] hits) => Physics.RaycastNonAlloc(new Ray(PlayerCameraReference.position, PlayerCameraReference.forward), hits, maxDistance);
+    public int RaycastNonAlloc(RaycastHit[] hits) => Physics.RaycastNonAlloc(new Ray(PlayerCameraReference.position, PlayerCameraReference.forward), hits);
     
     
     public static void SendSpawnMessageToAll(NetworkIdentity identity)
