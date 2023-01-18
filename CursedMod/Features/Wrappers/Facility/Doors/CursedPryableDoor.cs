@@ -14,7 +14,7 @@ public class CursedPryableDoor : CursedDoor
         DoorType = DoorType.Pryable;
     }
 
-    public bool TryPry() => PryableBase.TryPryGate();
+    public bool TryPry() => PryableBase.TryPryGate(ReferenceHub.HostHub);
 
     public float RemainingPryCooldown
     {
