@@ -67,6 +67,7 @@
         <Compile Include="EntryPoint.cs" />
         <Compile Include="Events\Handlers\MapGenerationEventHandler.cs" />
         <Compile Include="Features\Enums\AuthenticationType.cs" />
+        <Compile Include="Features\Enums\DoorType.cs" />
         <Compile Include="Features\Enums\LockerType.cs" />
         <Compile Include="Features\Enums\EnvironmentalHazardType.cs" />
         <Compile Include="Features\Enums\ShootingTargetType.cs" />
@@ -78,7 +79,11 @@
         <Compile Include="Features\Wrappers\Facility\CursedCassie.cs" />
         <Compile Include="Features\Wrappers\Facility\CursedFacility.cs" />
         <Compile Include="Features\Wrappers\Facility\CursedWarhead.cs" />
+        <Compile Include="Features\Wrappers\Facility\Doors\CursedAirlockController.cs" />
+        <Compile Include="Features\Wrappers\Facility\Doors\CursedBreakableDoor.cs" />
+        <Compile Include="Features\Wrappers\Facility\Doors\CursedCheckpointDoor.cs" />
         <Compile Include="Features\Wrappers\Facility\Doors\CursedDoor.cs" />
+        <Compile Include="Features\Wrappers\Facility\Doors\CursedPryableDoor.cs" />
         <Compile Include="Features\Wrappers\Facility\Elevators\CursedElevatorChamber.cs" />
         <Compile Include="Features\Wrappers\Facility\Hazards\CursedEnvironmentalHazard.cs" />
         <Compile Include="Features\Wrappers\Facility\Hazards\CursedSinkholeHazard.cs" />

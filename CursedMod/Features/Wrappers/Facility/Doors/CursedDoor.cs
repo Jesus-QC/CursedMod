@@ -1,4 +1,6 @@
-﻿using Interactables.Interobjects;
+﻿using CursedMod.Features.Enums;
+using CursedMod.Features.Wrappers.Player;
+using Interactables.Interobjects;
 using Interactables.Interobjects.DoorUtils;
 using InventorySystem.Items;
 using MapGeneration;
@@ -12,55 +14,97 @@ public class CursedDoor
 {
     public DoorVariant Base { get; }
     
-    public CursedDoor(DoorVariant door)
+    public GameObject GameObject { get; }
+    
+    public Transform Transform { get; }
+    
+    public DoorNametagExtension Tag { get; }
+    
+    public DoorType DoorType { get; internal set; }
+    
+    internal CursedDoor(DoorVariant door)
     {
         Base = door;
+        GameObject = door.gameObject;
+        Transform = door.transform;
+        Tag = Base.GetComponent<DoorNametagExtension>();
+        DoorType = DoorType.Basic;
     }
 
-    public GameObject GameObject => Base.gameObject;
+    public static CursedDoor Get(DoorVariant doorVariant)
+    {
+        if (doorVariant is BreakableDoor breakableDoor)
+            return new CursedBreakableDoor(breakableDoor);
+        if (doorVariant is PryableDoor pryableDoor)
+            return new CursedPryableDoor(pryableDoor);
+        if (doorVariant is CheckpointDoor checkpointDoor)
+            return new CursedCheckpointDoor(checkpointDoor);
 
-    public Transform Transform => Base.transform;
+        return new CursedDoor(doorVariant);
+    }
 
     public int DoorId => Base.DoorId;
     
     public float State => Base.GetExactState();
     
-    public bool IsMoving => State is not(0 or 1);
+    public bool IsMoving => State is not (0 or 1);
+
+    public bool IsClosed
+    {
+        get => !Base.TargetState;
+        set => Base.NetworkTargetState = !value;
+    }
+
+    public bool IsOpened
+    {
+        get => Base.TargetState;
+        set => Base.NetworkTargetState = value;
+    }
+
+    public bool IsConsideredOpened => Base.IsConsideredOpen();
     
-    public bool IsClosed => !Base.TargetState;
-    
-    public bool IsOpened => Base.TargetState;
-
-    public Vector3 Position
-    {
-        get => Base.transform.position;
-        set => Base.transform.position = value;
-    }
-
-    public Quaternion Rotation
-    {
-        get => Base.transform.rotation;
-        set => Base.transform.rotation = value;
-    }
-
-    public Vector3 Scale
-    {
-        get => Base.transform.localScale;
-        set => Base.transform.localScale = value;
-    }
-
     public DoorPermissions RequiredPermissions
     {
         get => Base.RequiredPermissions;
         set => Base.RequiredPermissions = value;
     }
-
-    public bool IsConsideredOpened
-    {
-        get => Base.IsConsideredOpen();
-        set => Base.NetworkTargetState = value;
-    }
     
+    public Vector3 Position
+    {
+        get => Base.transform.position;
+        set
+        {
+            Transform.position = value;
+            CursedPlayer.SendSpawnMessageToAll(Base.netIdentity);
+        }
+    }
+
+    public Quaternion Rotation
+    {
+        get => Transform.rotation;
+        set 
+        {
+            Transform.rotation = value;
+            CursedPlayer.SendSpawnMessageToAll(Base.netIdentity);
+        }
+    }
+
+    public Vector3 Scale
+    {
+        get => Transform.localScale;
+        set 
+        {
+            Transform.localScale = value;
+            CursedPlayer.SendSpawnMessageToAll(Base.netIdentity);
+        }
+    }
+
+    public string Name
+    {
+        get => Tag.GetName;
+        set => Tag.UpdateName(value);
+    }
+
     public bool IsGate => Base is PryableDoor;
     
     public bool IsCheckpoint => Base is CheckpointDoor;
@@ -70,30 +114,35 @@ public class CursedDoor
     public bool IsDamageable => Base is IDamageableDoor;
     
     public bool IsBroken => Base is IDamageableDoor { IsDestroyed: true };
+
+    public void TriggerState() => IsOpened = !IsOpened;
     
-    public DoorNametagExtension Tag => Base.GetComponent<DoorNametagExtension>();
+    public void Open() => IsOpened = true;
+    
+    public void Close() => IsClosed = true;
+    
+    public void HasPerms(ItemBase item) => RequiredPermissions.CheckPermissions(item, null);
+    
+    public void ChangeLock(DoorLockReason reason, bool newState) => Base.ServerChangeLock(reason, newState);
 
-    public void TriggerState() => Base.NetworkTargetState = !IsOpened;
+    public void Lock() => Base.ServerChangeLock(DoorLockReason.AdminCommand, true);
 
-    public bool TryToPryGate() => Base is PryableDoor pr && pr.TryPryGate();
+    public void Unlock() => Base.ServerChangeLock(DoorLockReason.AdminCommand, false);
+    
+    public bool TryToPryGate() => this is CursedPryableDoor pr && pr.TryPry();
     
     public bool TryToDamage(float damage, DoorDamageType damageType) => Base is BreakableDoor br && br.ServerDamage(damage, damageType);
 
     public bool TryToBreak() => Base is BreakableDoor br && br.ServerDamage(br.RemainingHealth, DoorDamageType.ServerCommand);
 
-    public void HasPerms(ItemBase item) => RequiredPermissions.CheckPermissions(item, null);
-
-    public void ServerChangeLock(DoorLockReason reason, bool newState) => Base.ServerChangeLock(reason, newState);
-    
     public bool DestroyDoor(DoorDamageType type = DoorDamageType.ServerCommand)
     {
-        if (Base is IDamageableDoor damageable && !damageable.IsDestroyed)
-        {
-            damageable.ServerDamage(ushort.MaxValue, type);
-            return true;
-        }
+        if (Base is not IDamageableDoor damageable || damageable.IsDestroyed) 
+            return false;
+        
+        damageable.ServerDamage(ushort.MaxValue, type);
+        return true;
 
-        return false;
     }
 
     public static CursedDoor Create(FacilityZone doorType, Vector3 position, Vector3 rotation, Vector3? scale = null, bool spawn = false)
@@ -124,6 +173,11 @@ public class CursedDoor
     {
         NetworkServer.Spawn(GameObject);
         return GameObject;
+    }
+
+    public void UnSpawn()
+    {
+        NetworkServer.UnSpawn(GameObject);
     }
 
     public override string ToString() => $"{nameof(CursedDoor)}: Opened: {IsOpened} | Position: {Position} | Rotation: {Rotation} | Scale: {Scale} | Permissions: {RequiredPermissions} | DoorId: {DoorId}";
