@@ -10,20 +10,21 @@ namespace CursedMod.Features.Wrappers.Facility.Props;
 public class CursedLockerChamber
 {
     public LockerChamber Base { get; }
+    public GameObject GameObject { get; }
+    public Transform Transform { get; }
 
     public CursedLockerChamber(LockerChamber lockerChamber)
     {
         Base = lockerChamber;
-        Content = Base._content.Select(pickup => new CursedPickup(pickup));
+        GameObject = Base.gameObject;
+        Transform = Base.transform;
     }
 
-    public IEnumerable<CursedPickup> Content { get; }
+    public IEnumerable<CursedPickup> GetSpawnedItems() => Base._content.Select(CursedPickup.Create);
+    
+    public IEnumerable<CursedPickup> GetItemsToBeSpawned()=> Base._toBeSpawned.Select(CursedPickup.Create);
 
     public bool CanInteract => Base.CanInteract;
-
-    public GameObject GameObject => Base.gameObject;
-
-    public Transform Transform => Base.transform;
 
     public KeycardPermissions RequiredPermissions
     {

@@ -12,12 +12,14 @@ public class CursedPickup
     
     public Transform Transform { get; }
 
-    public CursedPickup(ItemPickupBase itemPickupBase)
+    private CursedPickup(ItemPickupBase itemPickupBase)
     {
         Base = itemPickupBase;
         GameObject = Base.gameObject;
         Transform = Base._transform;
     }
+
+    public static CursedPickup Create(ItemPickupBase pickupBase) => new CursedPickup(pickupBase);
 
     public PickupSyncInfo Info
     {
