@@ -129,22 +129,6 @@ public class CursedDoor
 
     public void Unlock() => Base.ServerChangeLock(DoorLockReason.AdminCommand, false);
     
-    public bool TryToPryGate() => this is CursedPryableDoor pr && pr.TryPry();
-    
-    public bool TryToDamage(float damage, DoorDamageType damageType) => Base is BreakableDoor br && br.ServerDamage(damage, damageType);
-
-    public bool TryToBreak() => Base is BreakableDoor br && br.ServerDamage(br.RemainingHealth, DoorDamageType.ServerCommand);
-
-    public bool DestroyDoor(DoorDamageType type = DoorDamageType.ServerCommand)
-    {
-        if (Base is not IDamageableDoor damageable || damageable.IsDestroyed) 
-            return false;
-        
-        damageable.ServerDamage(ushort.MaxValue, type);
-        return true;
-
-    }
-
     public static CursedDoor Create(FacilityZone doorType, Vector3 position, Vector3 rotation, Vector3? scale = null, bool spawn = false)
     {
         DoorVariant prefab = doorType switch

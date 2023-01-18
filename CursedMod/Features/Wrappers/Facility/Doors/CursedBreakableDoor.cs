@@ -47,4 +47,13 @@ public class CursedBreakableDoor : CursedDoor
     public bool IsScp106Passable => BreakableBase.IsScp106Passable;
 
     public bool Damage(float hp, DoorDamageType type) => BreakableBase.ServerDamage(hp, type);
+    
+    public bool Destroy(DoorDamageType type = DoorDamageType.ServerCommand)
+    {
+        if (BreakableBase.IsDestroyed) 
+            return false;
+        
+        BreakableBase.ServerDamage(MaxHealth, type);
+        return true;
+    }
 }
