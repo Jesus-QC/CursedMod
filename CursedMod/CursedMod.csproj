@@ -71,6 +71,7 @@
         <Compile Include="Features\Enums\LockerType.cs" />
         <Compile Include="Features\Enums\EnvironmentalHazardType.cs" />
         <Compile Include="Features\Enums\ShootingTargetType.cs" />
+        <Compile Include="Features\Extensions\RoleExtensions.cs" />
         <Compile Include="Features\Wrappers\AdminToys\CursedAdminToy.cs" />
         <Compile Include="Features\Wrappers\AdminToys\CursedLightSource.cs" />
         <Compile Include="Features\Wrappers\AdminToys\CursedPrimitiveObject.cs" />
@@ -105,14 +106,12 @@
         <Compile Include="Features\Wrappers\Player\Dummies\CursedDummy.cs" />
         <Compile Include="Features\Wrappers\Player\Dummies\FakeConnection.cs" />
         <Compile Include="Features\Wrappers\Player\RagDolls\CursedRagDoll.cs" />
+        <Compile Include="Features\Wrappers\Player\Roles\CursedRoleManager.cs" />
         <Compile Include="Features\Wrappers\Round\CursedRound.cs" />
         <Compile Include="Features\Wrappers\Server\CursedServer.cs" />
         <Compile Include="Loader\Configurations\CursedModConfiguration.cs" />
         <Compile Include="Loader\CursedModInformation.cs" />
         <Compile Include="Properties\AssemblyInfo.cs" />
-    </ItemGroup>
-    <ItemGroup>
-      <Folder Include="Features\Extensions" />
     </ItemGroup>
     <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
     <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
