@@ -59,6 +59,9 @@
         <Reference Include="UnityEngine.AudioModule">
           <HintPath>$(SL_REFERENCES)\UnityEngine.AudioModule.dll</HintPath>
         </Reference>
+        <Reference Include="UnityEngine.PhysicsModule">
+          <HintPath>$(SL_REFERENCES)\UnityEngine.PhysicsModule.dll</HintPath>
+        </Reference>
     </ItemGroup>
     <ItemGroup>
         <Compile Include="EntryPoint.cs" />
