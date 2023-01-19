@@ -2,7 +2,7 @@
 using InventorySystem.Items;
 using UnityEngine;
 
-namespace CursedMod.Features.Wrappers.Inventory;
+namespace CursedMod.Features.Wrappers.Inventory.Items;
 
 public class CursedItem
 {
@@ -12,12 +12,14 @@ public class CursedItem
 
     public Transform Transform { get; }
     
-    public CursedItem(ItemBase itemBase)
+    internal CursedItem(ItemBase itemBase)
     {
         Base = itemBase;
         GameObject = itemBase.gameObject;
         Transform = itemBase.transform;
     }
+
+    public static CursedItem Get(ItemBase itemBase) => new (itemBase);
 
     public ItemType ItemType => Base.ItemTypeId;
 
@@ -26,4 +28,6 @@ public class CursedItem
     public float Weight => Base.Weight;
 
     public CursedPlayer Owner => CursedPlayer.Get(Base.Owner);
+
+    public void HoldItem() => Owner.CurrentItem = this;
 }

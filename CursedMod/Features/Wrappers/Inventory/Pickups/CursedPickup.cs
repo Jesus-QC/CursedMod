@@ -2,7 +2,7 @@
 using InventorySystem.Items.Pickups;
 using UnityEngine;
 
-namespace CursedMod.Features.Wrappers.Inventory;
+namespace CursedMod.Features.Wrappers.Inventory.Pickups;
 
 public class CursedPickup
 {

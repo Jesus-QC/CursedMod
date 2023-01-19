@@ -5,6 +5,8 @@ using CommandSystem;
 using CursedMod.Features.Enums;
 using CursedMod.Features.Wrappers.Facility;
 using CursedMod.Features.Wrappers.Inventory;
+using CursedMod.Features.Wrappers.Inventory.Items;
+using CursedMod.Features.Wrappers.Inventory.Pickups;
 using CursedMod.Features.Wrappers.Player.Dummies;
 using CustomPlayerEffects;
 using Footprinting;
@@ -117,6 +119,18 @@ public class CursedPlayer
     public bool IsHuman => !IsScp || !IsDead;
     
     public float TimeHoldingCurrentItem => Inventory.LastItemSwitch;
+
+    public CursedItem CurrentItem
+    {
+        get => CursedItem.Get(Inventory._curInstance);
+        set => SetHoldingItem(value);
+    }
+
+    public ItemType CurrentItemType => Inventory.GetSelectedItemType();
+
+    public void SetHoldingItem(CursedItem item) => Inventory.ServerSelectItem(item.Serial);
+
+    public ItemIdentifier PreviousHoldingItem => Inventory._prevCurItem;
 
     public bool TryGetEffect(string effectName, out StatusEffectBase effect) => PlayerEffectsController.TryGetEffect(effectName, out effect);
     
@@ -379,6 +393,14 @@ public class CursedPlayer
 
     public void RemoveItem(CursedPickup pickup) => Inventory.ServerRemoveItem(pickup.Serial, pickup.Base);
 
+    public Dictionary<ItemType, ushort> Ammo
+    {
+        get => Inventory.UserInventory.ReserveAmmo;
+        set => Inventory.UserInventory.ReserveAmmo = value;
+    }
+
+    public ushort GetAmmo(ItemType ammoType) => Inventory.GetCurAmmo(ammoType);
+    
     public void SetAmmo(ItemType itemType, ushort amount) => Inventory.ServerSetAmmo(itemType, amount);
 
     public void AddAmmo(ItemType itemType, ushort amount) => Inventory.ServerAddAmmo(itemType, amount);
