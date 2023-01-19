@@ -1,4 +1,5 @@
-﻿using Hazards;
+﻿using CursedMod.Features.Enums;
+using Hazards;
 
 namespace CursedMod.Features.Wrappers.Facility.Hazards;
 
@@ -9,6 +10,7 @@ public class CursedTemporaryHazard : CursedEnvironmentalHazard
     public CursedTemporaryHazard(TemporaryHazard hazard) : base(hazard)
     {
         TemporaryHazard = hazard;
+        HazardType = EnvironmentalHazardType.Temporary;
     }
 
     public float DecaySpeed => TemporaryHazard.DecaySpeed;

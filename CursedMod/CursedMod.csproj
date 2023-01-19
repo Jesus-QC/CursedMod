@@ -100,6 +100,7 @@
         <Compile Include="Features\Wrappers\Facility\Rooms\Cursed079Camera.cs" />
         <Compile Include="Features\Wrappers\Facility\Rooms\CursedLightningController.cs" />
         <Compile Include="Features\Wrappers\Facility\Rooms\CursedRoom.cs" />
+        <Compile Include="Features\Wrappers\Inventory\Items\Armor\CursedBodyAmmoItem.cs" />
         <Compile Include="Features\Wrappers\Inventory\Items\CursedItem.cs" />
         <Compile Include="Features\Wrappers\Inventory\Pickups\CursedPickup.cs" />
         <Compile Include="Features\Wrappers\Player\CursedPlayer.cs" />
@@ -113,6 +114,9 @@
         <Compile Include="Loader\Configurations\CursedModConfiguration.cs" />
         <Compile Include="Loader\CursedModInformation.cs" />
         <Compile Include="Properties\AssemblyInfo.cs" />
+    </ItemGroup>
+    <ItemGroup>
+      <Folder Include="Features\Wrappers\Inventory\Pickups\Armor" />
     </ItemGroup>
     <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
     <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

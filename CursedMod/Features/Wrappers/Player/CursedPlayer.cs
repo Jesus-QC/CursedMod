@@ -415,7 +415,9 @@ public class CursedPlayer
 
     public void SendEscapeInformation(Escape.EscapeMessage message) => NetworkConnection.Send(message);
 
-    public ItemBase AddItem(ItemType itemType) => Inventory.ServerAddItem(itemType);
+    public ItemBase AddItemBase(ItemType itemType) => Inventory.ServerAddItem(itemType);
+    
+    public CursedItem AddItem(ItemType itemType) => CursedItem.Get(AddItemBase(itemType));
 
     public void DropItem(CursedItem item) => Inventory.ServerDropItem(item.Serial);
 

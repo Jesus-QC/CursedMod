@@ -1,4 +1,5 @@
-﻿using Hazards;
+﻿using CursedMod.Features.Enums;
+using Hazards;
 
 namespace CursedMod.Features.Wrappers.Facility.Hazards;
 
@@ -9,5 +10,6 @@ public class CursedSinkholeHazard : CursedEnvironmentalHazard
     public CursedSinkholeHazard(SinkholeEnvironmentalHazard hazard) : base(hazard)
     {
         Base = hazard;
+        HazardType = EnvironmentalHazardType.Sinkhole;
     }
 }

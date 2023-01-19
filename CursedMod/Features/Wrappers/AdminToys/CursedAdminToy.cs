@@ -52,6 +52,17 @@ public class CursedAdminToy
         GameObject = toyBase.gameObject;
     }
 
+    public static CursedAdminToy Get(AdminToyBase toyBase)
+    {
+        return toyBase switch
+        {
+            LightSourceToy lightSource => new CursedLightSource(lightSource),
+            PrimitiveObjectToy primitiveObjectToy => new CursedPrimitiveObject(primitiveObjectToy),
+            ShootingTarget shootingTarget => new CursedShootingTarget(shootingTarget),
+            _ => new CursedAdminToy(toyBase)
+        };
+    }
+
     public GameObject Spawn(Vector3? position = null, Vector3? rotation = null, Vector3? scale = null)
     {
         if(position.HasValue)

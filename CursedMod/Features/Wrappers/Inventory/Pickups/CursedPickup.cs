@@ -1,5 +1,8 @@
 ﻿using CursedMod.Features.Wrappers.Player;
+using CursedMod.Features.Wrappers.Server;
+using InventorySystem;
 using InventorySystem.Items.Pickups;
+using Mirror;
 using UnityEngine;
 
 namespace CursedMod.Features.Wrappers.Inventory.Pickups;
@@ -11,15 +14,24 @@ public class CursedPickup
     public GameObject GameObject { get; }
     
     public Transform Transform { get; }
+    
+    public Rigidbody Rigidbody { get; }
 
     private CursedPickup(ItemPickupBase itemPickupBase)
     {
         Base = itemPickupBase;
         GameObject = Base.gameObject;
         Transform = Base._transform;
+        Rigidbody = Base.RigidBody;
     }
 
-    public static CursedPickup Create(ItemPickupBase pickupBase) => new CursedPickup(pickupBase);
+    public static CursedPickup Get(ItemPickupBase pickupBase) => new(pickupBase);
+
+    public static CursedPickup Create(ItemType type, PickupSyncInfo pickupSyncInfo, bool spawn = true) 
+        => Get(CursedServer.LocalPlayer.Inventory.ServerCreatePickup(CursedServer.LocalPlayer.AddItemBase(type), pickupSyncInfo, spawn));
+
+    public static CursedPickup Create(ItemType type, bool spawn = true) 
+        => Create(type, PickupSyncInfo.None);
 
     public PickupSyncInfo Info
     {
@@ -36,7 +48,6 @@ public class CursedPickup
     }
     
     public CursedPlayer PreviousOwner => CursedPlayer.Get(Base.PreviousOwner.Hub);
-
 
     public Vector3 Position
     {
@@ -77,5 +88,16 @@ public class CursedPickup
         }
     }
 
+    public GameObject Spawn()
+    {
+        NetworkServer.Spawn(GameObject);
+        return GameObject;
+    }
+
+    public void UnSpawn()
+    {
+        NetworkServer.UnSpawn(GameObject);
+    }
+    
     public void Destroy() => Base.DestroySelf();
 }

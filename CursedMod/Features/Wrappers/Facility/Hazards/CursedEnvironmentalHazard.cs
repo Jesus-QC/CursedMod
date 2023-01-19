@@ -13,13 +13,17 @@ public class CursedEnvironmentalHazard
     public CursedEnvironmentalHazard(EnvironmentalHazard hazard)
     {
         EnvironmentalHazard = hazard;
+        HazardType = EnvironmentalHazardType.Other;
+    }
 
-        HazardType = EnvironmentalHazard switch
+    public static CursedEnvironmentalHazard Get(EnvironmentalHazard environmentalHazard)
+    {
+        return environmentalHazard switch
         {
-            SinkholeEnvironmentalHazard => EnvironmentalHazardType.Sinkhole,
-            TantrumEnvironmentalHazard => EnvironmentalHazardType.Tantrum,
-            TemporaryHazard => EnvironmentalHazardType.Temporary,
-            _ => EnvironmentalHazardType.Other
+            SinkholeEnvironmentalHazard sinkholeEnvironmentalHazard => new CursedSinkholeHazard(sinkholeEnvironmentalHazard),
+            TantrumEnvironmentalHazard tantrumEnvironmentalHazard => new CursedTantrumHazard(tantrumEnvironmentalHazard),
+            TemporaryHazard temporaryHazard => new CursedTemporaryHazard(temporaryHazard),
+            _ => new CursedEnvironmentalHazard(environmentalHazard)
         };
     }
 
@@ -36,7 +40,7 @@ public class CursedEnvironmentalHazard
         }
     }
 
-    public EnvironmentalHazardType HazardType { get; }
+    public EnvironmentalHazardType HazardType { get; internal set; }
 
     public float MaxDistance
     {

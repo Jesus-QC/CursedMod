@@ -21,9 +21,9 @@ public class CursedLockerChamber
         Transform = Base.transform;
     }
 
-    public IEnumerable<CursedPickup> GetSpawnedItems() => Base._content.Select(CursedPickup.Create);
+    public IEnumerable<CursedPickup> GetSpawnedItems() => Base._content.Select(CursedPickup.Get);
     
-    public IEnumerable<CursedPickup> GetItemsToBeSpawned()=> Base._toBeSpawned.Select(CursedPickup.Create);
+    public IEnumerable<CursedPickup> GetItemsToBeSpawned()=> Base._toBeSpawned.Select(CursedPickup.Get);
 
     public bool CanInteract => Base.CanInteract;
 

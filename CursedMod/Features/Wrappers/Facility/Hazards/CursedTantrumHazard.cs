@@ -1,4 +1,5 @@
-﻿using Hazards;
+﻿using CursedMod.Features.Enums;
+using Hazards;
 
 namespace CursedMod.Features.Wrappers.Facility.Hazards;
 
@@ -9,6 +10,7 @@ public class CursedTantrumHazard : CursedTemporaryHazard
     public CursedTantrumHazard(TantrumEnvironmentalHazard hazard) : base(hazard)
     {
         Base = hazard;
+        HazardType = EnvironmentalHazardType.Tantrum;
     }
 
     public bool PlaySizzle

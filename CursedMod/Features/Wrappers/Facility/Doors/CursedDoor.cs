@@ -33,14 +33,13 @@ public class CursedDoor
 
     public static CursedDoor Get(DoorVariant doorVariant)
     {
-        if (doorVariant is BreakableDoor breakableDoor)
-            return new CursedBreakableDoor(breakableDoor);
-        if (doorVariant is PryableDoor pryableDoor)
-            return new CursedPryableDoor(pryableDoor);
-        if (doorVariant is CheckpointDoor checkpointDoor)
-            return new CursedCheckpointDoor(checkpointDoor);
-
-        return new CursedDoor(doorVariant);
+        return doorVariant switch
+        {
+            BreakableDoor breakableDoor => new CursedBreakableDoor(breakableDoor),
+            PryableDoor pryableDoor => new CursedPryableDoor(pryableDoor),
+            CheckpointDoor checkpointDoor => new CursedCheckpointDoor(checkpointDoor),
+            _ => new CursedDoor(doorVariant)
+        };
     }
 
     public int DoorId => Base.DoorId;
