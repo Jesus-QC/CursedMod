@@ -24,6 +24,7 @@ using PlayerStatsSystem;
 using RemoteAdmin;
 using Security;
 using UnityEngine;
+using Utils.Networking;
 
 namespace CursedMod.Features.Wrappers.Player;
 
@@ -241,6 +242,8 @@ public class CursedPlayer
         get => CharacterClassManager.SyncedUserId;
         set => CharacterClassManager.NetworkSyncedUserId = value;
     }
+
+    public uint NetId => NetworkIdentity.netId;
     
     public ClientInstanceMode InstanceMode
     {
@@ -361,8 +364,45 @@ public class CursedPlayer
     public bool IsNorthWoodStaff => ServerRoles.Staff;
 
     public bool IsGlobalModerator => ServerRoles.RaEverywhere;
+
+    public bool IsDisarmed
+    {
+        get => Inventory.IsDisarmed();
+        set
+        {
+            if (value)
+                Disarm();
+            else 
+                Release();
+        }
+    }
+
+    public CursedPlayer Disarmer
+    {
+        get => IsDisarmed ? Get(DisarmedPlayers.Entries.Find(x => x.DisarmedPlayer == NetId).Disarmer) : null;
+        set => Disarm(value);
+    }
+
+    public void Release()
+    {
+        Inventory.SetDisarmedStatus(null);
+        new DisarmedPlayersListMessage(DisarmedPlayers.Entries).SendToAuthenticated();
+    }
     
-    public bool Cuffed => Inventory.IsDisarmed();
+    public void Disarm(CursedPlayer cuffer = null)
+    {
+        if (cuffer is null)
+        {
+            Inventory.SetDisarmedStatus(null);
+            DisarmedPlayers.Entries.Add(new DisarmedPlayers.DisarmedEntry(NetId, 0U));
+            new DisarmedPlayersListMessage(DisarmedPlayers.Entries).SendToAuthenticated();
+            return;
+        }
+        
+        Inventory.SetDisarmedStatus(cuffer.Inventory);
+        DisarmedPlayers.Entries.Add(new DisarmedPlayers.DisarmedEntry(NetId, cuffer.NetId));
+        new DisarmedPlayersListMessage(DisarmedPlayers.Entries).SendToAuthenticated();
+    }
 
     public T AddComponent<T>() where T : MonoBehaviour => GameObject.AddComponent<T>();
     public T GetComponent<T>() where T : MonoBehaviour => GameObject.GetComponent<T>();
@@ -616,6 +656,15 @@ public class CursedPlayer
         player = null;
         return false;
     }
+    
+    public static bool TryGet(uint netId, out CursedPlayer player)
+    {
+        if (ReferenceHub.TryGetHubNetID(netId, out ReferenceHub hub))
+            return TryGet(hub, out player);
+        
+        player = null;
+        return false;
+    }
 
     public static CursedPlayer Get(ReferenceHub hub) => TryGet(hub, out CursedPlayer player) ? player : null;
     public static CursedPlayer Get(GameObject go) => TryGet(go, out CursedPlayer player) ? player : null;
@@ -624,4 +673,5 @@ public class CursedPlayer
     public static CursedPlayer Get(int id) => TryGet(id, out CursedPlayer player) ? player : null;
     public static CursedPlayer Get(string info) => TryGet(info, out CursedPlayer player) ? player : null;
     public static CursedPlayer Get(ICommandSender sender) => TryGet(sender, out CursedPlayer player) ? player : null;
+    public static CursedPlayer Get(uint netId) => TryGet(netId, out CursedPlayer player) ? player : null;
 }
