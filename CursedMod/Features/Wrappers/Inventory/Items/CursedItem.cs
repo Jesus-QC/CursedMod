@@ -74,6 +74,12 @@ public class CursedItem
         set => Base.PickupDropModel = value;
     }
 
+    public ItemDescriptionType DescriptionType
+    {
+        get => Base.DescriptionType;
+        set => Base.DescriptionType = value;
+    }
+
     public ushort Serial => Base.ItemSerial;
 
     public float Weight => Base.Weight;
