@@ -1,4 +1,6 @@
-﻿using PlayerRoles;
+﻿using InventorySystem;
+using InventorySystem.Configs;
+using PlayerRoles;
 using PlayerRoles.FirstPersonControl;
 using PlayerRoles.FirstPersonControl.Spawnpoints;
 using UnityEngine;
@@ -24,4 +26,10 @@ public static class RoleExtensions
 
         return Vector3.zero;
     }
+    
+    public static bool TryGetDefaultInventory(this RoleTypeId role, out InventoryRoleInfo inventoryRoleInfo) 
+        => StartingInventories.DefinedInventories.TryGetValue(role, out inventoryRoleInfo);
+    
+    public static void SetDefaultInventory(this RoleTypeId role, InventoryRoleInfo inventoryRoleInfo) 
+        => StartingInventories.DefinedInventories.SetOrAddElement(role, inventoryRoleInfo);
 }

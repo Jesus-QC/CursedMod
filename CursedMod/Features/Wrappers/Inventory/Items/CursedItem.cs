@@ -1,4 +1,5 @@
 ﻿using CursedMod.Features.Wrappers.Player;
+using InventorySystem;
 using InventorySystem.Items;
 using UnityEngine;
 
@@ -11,8 +12,8 @@ public class CursedItem
     public GameObject GameObject { get; }
 
     public Transform Transform { get; }
-    
-    internal CursedItem(ItemBase itemBase)
+
+    private CursedItem(ItemBase itemBase)
     {
         Base = itemBase;
         GameObject = itemBase.gameObject;
@@ -20,6 +21,30 @@ public class CursedItem
     }
 
     public static CursedItem Get(ItemBase itemBase) => new (itemBase);
+
+    public static bool TryGetWithSerial(ushort serial, out CursedItem item)
+    {
+        if (InventoryExtensions.ServerTryGetItemWithSerial(serial, out ItemBase itemBase))
+        {
+            item = Get(itemBase);
+            return true;
+        }
+
+        item = null;
+        return false;
+    }
+
+    public static bool TryGetOwnerWithSerial(ushort serial, out CursedPlayer owner)
+    {
+        if (InventoryExtensions.TryGetHubHoldingSerial(serial, out ReferenceHub hub))
+        {
+            owner = CursedPlayer.Get(hub);
+            return true;
+        }
+
+        owner = null;
+        return false;
+    }
 
     public ItemType ItemType => Base.ItemTypeId;
 

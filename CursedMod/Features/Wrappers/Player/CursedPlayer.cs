@@ -3,8 +3,8 @@ using System.Diagnostics;
 using System.Linq;
 using CommandSystem;
 using CursedMod.Features.Enums;
+using CursedMod.Features.Extensions;
 using CursedMod.Features.Wrappers.Facility;
-using CursedMod.Features.Wrappers.Inventory;
 using CursedMod.Features.Wrappers.Inventory.Items;
 using CursedMod.Features.Wrappers.Inventory.Pickups;
 using CursedMod.Features.Wrappers.Player.Dummies;
@@ -58,6 +58,13 @@ public class CursedPlayer
 
     public Dictionary<ushort, ItemBase> Items => Inventory.UserInventory.Items;
 
+    public IEnumerable<CursedItem> GetItems()
+    {
+        return Items.Values.Select(CursedItem.Get);
+    }
+
+    public void GrantRoleLoadout(RoleTypeId role, bool resetInventory) => InventoryItemProvider.ServerGrantLoadout(ReferenceHub, role, resetInventory);
+    
     public Dictionary<ItemType, ushort> ReserveAmmo => Inventory.UserInventory.ReserveAmmo;
 
     public SearchCoordinator SearchCoordinator => ReferenceHub.searchCoordinator;
@@ -318,14 +325,7 @@ public class CursedPlayer
     public void SetStableGroup(string name)
     {
         ServerRoles.SetGroup(ServerStatic.GetPermissionsHandler().GetGroup(name), true);
-
-        if (ServerStatic.GetPermissionsHandler()._members.ContainsKey(UserId))
-        {
-            ServerStatic.GetPermissionsHandler()._members[UserId] = name;
-            return;
-        }
-
-        ServerStatic.GetPermissionsHandler()._members.Add(UserId, name);
+        ServerStatic.GetPermissionsHandler()._members.SetOrAddElement(UserId, name);
     }
     
     public string RankColor
@@ -409,18 +409,19 @@ public class CursedPlayer
 
     public void DropEverything() => Inventory.ServerDropEverything();
 
-    public void ClearInventory(bool onlyItem = false)
+    public void ClearInventory(bool onlyItems = false)
     {
         foreach (ItemBase item in Inventory.UserInventory.Items.Values)
         {
             RemoveItem(item);
         }
-        if (!onlyItem)
+
+        if (onlyItems)
+            return;
+        
+        foreach (ItemType item in Inventory.UserInventory.ReserveAmmo.Keys)
         {
-            foreach (ItemType item in Inventory.UserInventory.ReserveAmmo.Keys)
-            {
-                SetAmmo(item, 0);
-            }
+            SetAmmo(item, 0);
         }
     }
 

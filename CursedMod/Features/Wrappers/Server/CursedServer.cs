@@ -67,28 +67,28 @@ public static class CursedServer
         set => ServerStatic.StopNextRound = value;
     }
 
-    public static bool IdleMode
+    public static bool IsInIdleMode
     {
-        get => global::IdleMode.IdleModeActive;
-        set => global::IdleMode.SetIdleMode(value);
+        get => IdleMode.IdleModeActive;
+        set => IdleMode.SetIdleMode(value);
     }
 
     public static bool IdleModePaused
     {
-        get => global::IdleMode.PauseIdleMode;
-        set => global::IdleMode.PauseIdleMode = value;
+        get => IdleMode.PauseIdleMode;
+        set => IdleMode.PauseIdleMode = value;
     }
 
     public static bool IdleModeActive
     {
-        get => global::IdleMode.IdleModeActive;
-        set => global::IdleMode.IdleModeActive = value;
+        get => IdleMode.IdleModeActive;
+        set => IdleMode.IdleModeActive = value;
     }
 
     public static short IdleModeTickRate
     {
-        get => global::IdleMode.IdleModeTickrate;
-        set => global::IdleMode.IdleModeTickrate = value;
+        get => IdleMode.IdleModeTickrate;
+        set => IdleMode.IdleModeTickrate = value;
     }
 
     public static string PlayerListTitle
