@@ -17,7 +17,7 @@ public class CursedPickup
     
     public Rigidbody Rigidbody { get; }
 
-    private CursedPickup(ItemPickupBase itemPickupBase)
+    internal CursedPickup(ItemPickupBase itemPickupBase)
     {
         Base = itemPickupBase;
         GameObject = Base.gameObject;
