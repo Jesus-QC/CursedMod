@@ -67,10 +67,10 @@ namespace CursedMod.Features.Wrappers.Player.Dummies.Roles
         public void Charge()
             => ChargeSubroutine.ServerSendRpc(true);
 
-        public void Attack()
+        public void Attack(bool overrideCooldown = true)
         {
-            if (!AttackSubroutine._serverAttackCooldown.IsReady)
-                return;
+            if (overrideCooldown)
+                AttackSubroutine._serverAttackCooldown.Remaining = 0; // is an update required?
 
             AttackSubroutine.ServerSendRpc(true);
         }
