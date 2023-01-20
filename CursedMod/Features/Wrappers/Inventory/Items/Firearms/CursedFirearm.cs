@@ -100,8 +100,7 @@ public class CursedFirearm : CursedItem
     public bool StaminaModifierActive => FirearmBase.StaminaModifierActive;
 
     public bool IsAiming => AdsModule.ServerAds;
-
-    //
+    
     public bool FlashlightEnabled
     {
         get => Status.Flags.HasFlagFast(FirearmStatusFlags.FlashlightEnabled);
