@@ -1,6 +1,7 @@
 ﻿using Footprinting;
 using InventorySystem.Items.Firearms;
 using InventorySystem.Items.Firearms.Attachments.Components;
+using InventorySystem.Items.Firearms.BasicMessages;
 using InventorySystem.Items.Firearms.Modules;
 
 namespace CursedMod.Features.Wrappers.Inventory.Items.Firearms;
@@ -14,6 +15,14 @@ public class CursedFirearm : CursedItem
         FirearmBase = itemBase;
     }
 
+    public static CursedFirearm Get(Firearm firearm)
+    {
+        if (firearm is AutomaticFirearm automaticFirearm)
+            return new CursedAutomaticFirearm(automaticFirearm);
+
+        return new CursedFirearm(firearm);
+    }
+
     public FirearmBaseStats BaseStats => FirearmBase.BaseStats;
 
     public float ArmorPenetration => FirearmBase.ArmorPenetration;
@@ -23,6 +32,14 @@ public class CursedFirearm : CursedItem
         get => FirearmBase.AmmoManagerModule;
         set => FirearmBase.AmmoManagerModule = value;
     }
+
+    public byte Ammo
+    {
+        get => Status.Ammo;
+        set => Status = new FirearmStatus(value, Status.Flags, Status.Attachments);
+    }
+    
+    public byte MaxAmmo => AmmoManagerModule.MaxAmmo;
 
     public IEquipperModule EquipperModule
     {
@@ -82,6 +99,23 @@ public class CursedFirearm : CursedItem
 
     public bool StaminaModifierActive => FirearmBase.StaminaModifierActive;
 
+    public bool IsAiming => AdsModule.ServerAds;
+
+    public bool FlashlightEnabled
+    {
+        get => Status.Flags.HasFlagFast(FirearmStatusFlags.FlashlightEnabled);
+        set
+        {
+            FirearmStatusFlags flags = Status.Flags;
+            if (value)
+                flags = flags | FirearmStatusFlags.FlashlightEnabled;
+            else
+                flags = flags & ~FirearmStatusFlags.FlashlightEnabled;
+
+            Status = new FirearmStatus(Status.Ammo, flags, Status.Attachments);
+        }
+    }
+
     public float BaseWeight
     {
         get => FirearmBase.BaseWeight;
@@ -98,5 +132,11 @@ public class CursedFirearm : CursedItem
     {
         get => FirearmBase.Attachments;
         set => FirearmBase.Attachments = value;
+    }
+
+    public uint AttachmentsCode
+    {
+        get => Status.Attachments;
+        set => Status = new FirearmStatus(Status.Ammo, Status.Flags, value);
     }
 }
