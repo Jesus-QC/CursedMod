@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using PlayerRoles.PlayableScps.Subroutines;
 using MEC;
+using PlayerRoles.PlayableScps.Scp049;
 
 namespace CursedMod.Features.Wrappers.Player.Dummies.Roles
 {
@@ -17,8 +18,8 @@ namespace CursedMod.Features.Wrappers.Player.Dummies.Roles
 
         internal Cursed939Dummy(ReferenceHub hub) : base(hub)
         {
-            if (hub.roleManager.CurrentRole is not Scp939Role RoleBase)
-                throw new InvalidOperationException("Cursed939Dummy should only be applied to 939 dummies");
+            SetRole(PlayerRoles.RoleTypeId.Scp939);
+            RoleBase = hub.roleManager.CurrentRole as Scp939Role;
 
             SubroutineManager = RoleBase.SubroutineModule;
 

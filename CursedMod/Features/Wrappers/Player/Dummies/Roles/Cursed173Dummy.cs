@@ -2,6 +2,7 @@
 using System;
 using PlayerRoles.PlayableScps.Subroutines;
 using UnityEngine;
+using PlayerRoles.PlayableScps.Scp049;
 
 namespace CursedMod.Features.Wrappers.Player.Dummies.Roles
 {
@@ -16,8 +17,8 @@ namespace CursedMod.Features.Wrappers.Player.Dummies.Roles
 
         internal Cursed173Dummy(ReferenceHub hub) : base(hub)
         {
-            if (hub.roleManager.CurrentRole is not Scp173Role RoleBase)
-                throw new InvalidOperationException("Cursed173Dummy should only be applied to 173 dummies");
+            SetRole(PlayerRoles.RoleTypeId.Scp173);
+            RoleBase = hub.roleManager.CurrentRole as Scp173Role;
 
             SubroutineManager = RoleBase.SubroutineModule;
 
