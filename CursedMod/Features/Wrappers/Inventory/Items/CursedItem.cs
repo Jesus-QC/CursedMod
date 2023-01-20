@@ -1,6 +1,10 @@
-﻿using CursedMod.Features.Wrappers.Player;
+﻿using CursedMod.Features.Wrappers.Inventory.Items.Armor;
+using CursedMod.Features.Wrappers.Inventory.Items.Firearms;
+using CursedMod.Features.Wrappers.Player;
 using InventorySystem;
 using InventorySystem.Items;
+using InventorySystem.Items.Armor;
+using InventorySystem.Items.Firearms;
 using InventorySystem.Items.Pickups;
 using InventorySystem.Items.Thirdperson;
 using UnityEngine;
@@ -22,7 +26,15 @@ public class CursedItem
         Transform = itemBase.transform;
     }
 
-    public static CursedItem Get(ItemBase itemBase) => new (itemBase);
+    public static CursedItem Get(ItemBase itemBase)
+    {
+        return itemBase switch
+        {
+            Firearm firearm => CursedFirearm.Get(itemBase),
+            BodyArmor bodyArmor => new CursedBodyAmmoItem(bodyArmor),
+            _ => new CursedItem(itemBase)
+        };
+    }
 
     public static bool TryGetWithSerial(ushort serial, out CursedItem item)
     {

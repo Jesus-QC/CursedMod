@@ -11,6 +11,7 @@ public class CursedAutomaticFirearm : CursedFirearm
         AutomaticFirearmBase = itemBase;
     }
 
+    //
     public float FireRate
     {
         get => AutomaticFirearmBase._fireRate;

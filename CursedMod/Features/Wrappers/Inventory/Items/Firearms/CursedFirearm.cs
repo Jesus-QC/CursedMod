@@ -101,6 +101,7 @@ public class CursedFirearm : CursedItem
 
     public bool IsAiming => AdsModule.ServerAds;
 
+    //
     public bool FlashlightEnabled
     {
         get => Status.Flags.HasFlagFast(FirearmStatusFlags.FlashlightEnabled);
