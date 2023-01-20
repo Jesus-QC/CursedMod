@@ -2,7 +2,6 @@
 using System;
 using PlayerRoles.PlayableScps.Subroutines;
 using UnityEngine;
-using PlayerRoles.PlayableScps.Scp049;
 
 namespace CursedMod.Features.Wrappers.Player.Dummies.Roles
 {

@@ -11,6 +11,7 @@ namespace CursedMod.Features.Wrappers.Player.Dummies.Roles
         public Scp049AttackAbility AttackSubroutine { get; }
         public Scp049ResurrectAbility ResurrectSubroutine { get; }
         public Scp049SenseAbility SenseSubroutine { get; }
+        public Scp049CallAbility CallSubroutine { get; }
 
         internal Cursed049Dummy(ReferenceHub hub) : base(hub)
         {
@@ -30,6 +31,10 @@ namespace CursedMod.Features.Wrappers.Player.Dummies.Roles
             if (!SubroutineManager.TryGetSubroutine(out Scp049SenseAbility senseAbility))
                 throw new InvalidOperationException("SenseAbility subroutine not found while initializing 049 dummy.");
             SenseSubroutine = senseAbility;
+
+            if (!SubroutineManager.TryGetSubroutine(out Scp049CallAbility callAbility))
+                throw new InvalidOperationException("CallAbility subroutine not found while initializing 049 dummy.");
+            CallSubroutine = callAbility;
         }
 
         public CursedPlayer Sense(bool overrideCooldown = true)
@@ -52,6 +57,14 @@ namespace CursedMod.Features.Wrappers.Player.Dummies.Roles
         public void Resurrect()
         {
             ResurrectSubroutine.ServerSendRpc(true); // this prob doesnt work, need to check it out later
+        }
+
+        public void Call(bool overrideCooldown = true)
+        {
+            if (overrideCooldown)
+                CallSubroutine.Cooldown.Remaining = 0;
+
+            CallSubroutine.ServerSendRpc(true);
         }
     }
 }

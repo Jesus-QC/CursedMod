@@ -3,7 +3,6 @@ using System;
 using System.Collections.Generic;
 using PlayerRoles.PlayableScps.Subroutines;
 using MEC;
-using PlayerRoles.PlayableScps.Scp049;
 
 namespace CursedMod.Features.Wrappers.Player.Dummies.Roles
 {
