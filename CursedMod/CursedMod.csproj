@@ -102,6 +102,8 @@
         <Compile Include="Features\Wrappers\Facility\Rooms\CursedRoom.cs" />
         <Compile Include="Features\Wrappers\Inventory\Items\Armor\CursedBodyAmmoItem.cs" />
         <Compile Include="Features\Wrappers\Inventory\Items\CursedItem.cs" />
+        <Compile Include="Features\Wrappers\Inventory\Items\Firearms\Ammo\CursedAmmoItem.cs" />
+        <Compile Include="Features\Wrappers\Inventory\Items\Firearms\CursedAttachment.cs" />
         <Compile Include="Features\Wrappers\Inventory\Items\Firearms\CursedAutomaticFirearm.cs" />
         <Compile Include="Features\Wrappers\Inventory\Items\Firearms\CursedFirearm.cs" />
         <Compile Include="Features\Wrappers\Inventory\Pickups\CursedPickup.cs" />

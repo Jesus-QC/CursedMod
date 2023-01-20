@@ -1,4 +1,6 @@
-﻿using Footprinting;
+﻿using System.Collections.Generic;
+using System.Linq;
+using Footprinting;
 using InventorySystem.Items.Firearms;
 using InventorySystem.Items.Firearms.Attachments.Components;
 using InventorySystem.Items.Firearms.BasicMessages;
@@ -133,6 +135,8 @@ public class CursedFirearm : CursedItem
         get => FirearmBase.Attachments;
         set => FirearmBase.Attachments = value;
     }
+
+    public IEnumerable<CursedAttachment> GetAttachments() => Attachments.Select(CursedAttachment.Get);
 
     public uint AttachmentsCode
     {
