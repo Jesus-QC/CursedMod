@@ -1,10 +1,7 @@
 ﻿using CursedMod.Features.Wrappers.Server;
-using InventorySystem.Items.Pickups;
 using Mirror;
 using PlayerRoles;
-using PlayerStatsSystem;
 using System;
-using System.CodeDom;
 using UnityEngine;
 
 namespace CursedMod.Features.Wrappers.Player.Ragdolls;
