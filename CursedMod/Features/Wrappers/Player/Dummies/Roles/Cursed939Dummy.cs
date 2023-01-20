@@ -13,6 +13,7 @@ namespace CursedMod.Features.Wrappers.Player.Dummies.Roles
         public Scp939LungeAbility LungeSubroutine { get; }
         public Scp939FocusAbility FocusSubroutine { get; }
         public Scp939AmnesticCloudAbility AmnesticCloudSubroutine { get; }
+        public Scp939ClawAbility ClawSubroutine { get; }
 
         internal Cursed939Dummy(ReferenceHub hub) : base(hub)
         {
@@ -32,6 +33,10 @@ namespace CursedMod.Features.Wrappers.Player.Dummies.Roles
             if (!SubroutineManager.TryGetSubroutine(out Scp939AmnesticCloudAbility amnesiaAbility))
                 throw new InvalidOperationException("AmnesticCloudAbility subroutine not found while initializing 939 dummy.");
             AmnesticCloudSubroutine = amnesiaAbility;
+
+            if (!SubroutineManager.TryGetSubroutine(out Scp939ClawAbility clawAbility))
+                throw new InvalidOperationException("ClawAbility subroutine not found while initializing 939 dummy.");
+            ClawSubroutine = clawAbility;
         }
 
         public Scp939LungeState LungeState { get => LungeSubroutine.State; } // TODO ADD SETTER
@@ -68,6 +73,14 @@ namespace CursedMod.Features.Wrappers.Player.Dummies.Roles
                 AmnesticCloudSubroutine.Cooldown.Remaining = 0;
 
             AmnesticCloudSubroutine.ServerSendRpc(true);
+        }
+
+        public void Claw()
+        {
+            if (ClawSubroutine.CanTriggerAbility)
+                return;
+
+            ClawSubroutine.ServerSendRpc(true);
         }
 
         private IEnumerator<float> LungeInternal()
