@@ -1,123 +1,124 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-    <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
-    <PropertyGroup>
-        <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-        <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-        <ProjectGuid>{0C30BE39-8A46-4A2E-B763-96B99B09B177}</ProjectGuid>
-        <OutputType>Library</OutputType>
-        <AppDesignerFolder>Properties</AppDesignerFolder>
-        <RootNamespace>CursedMod</RootNamespace>
-        <AssemblyName>CursedMod</AssemblyName>
-        <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
-        <FileAlignment>512</FileAlignment>
-        <LangVersion>latest</LangVersion>
-    </PropertyGroup>
-    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-        <PlatformTarget>AnyCPU</PlatformTarget>
-        <DebugSymbols>true</DebugSymbols>
-        <DebugType>full</DebugType>
-        <Optimize>false</Optimize>
-        <OutputPath>bin\Debug\</OutputPath>
-        <DefineConstants>DEBUG;TRACE</DefineConstants>
-        <ErrorReport>prompt</ErrorReport>
-        <WarningLevel>4</WarningLevel>
-    </PropertyGroup>
-    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-        <PlatformTarget>AnyCPU</PlatformTarget>
-        <DebugType>pdbonly</DebugType>
-        <Optimize>true</Optimize>
-        <OutputPath>bin\Release\</OutputPath>
-        <DefineConstants>TRACE</DefineConstants>
-        <ErrorReport>prompt</ErrorReport>
-        <WarningLevel>4</WarningLevel>
-        <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-    </PropertyGroup>
-    <ItemGroup>
-        <Reference Include="Assembly-CSharp">
-          <HintPath>$(SL_REFERENCES)\Assembly-CSharp-Publicized.dll</HintPath>
-        </Reference>
-        <Reference Include="Assembly-CSharp-firstpass">
-          <HintPath>$(SL_REFERENCES)\Assembly-CSharp-firstpass.dll</HintPath>
-        </Reference>
-        <Reference Include="CommandSystem.Core">
-          <HintPath>$(SL_REFERENCES)\CommandSystem.Core.dll</HintPath>
-        </Reference>
-        <Reference Include="Mirror">
-          <HintPath>$(SL_REFERENCES)\Mirror-Publicized.dll</HintPath>
-        </Reference>
-        <Reference Include="PluginAPI">
-          <HintPath>$(SL_REFERENCES)\PluginAPI-Publicized.dll</HintPath>
-        </Reference>
-        <Reference Include="System" />
-        <Reference Include="System.Core" />
-        <Reference Include="System.Data" />
-        <Reference Include="System.Xml" />
-        <Reference Include="UnityEngine.CoreModule">
-          <HintPath>$(SL_REFERENCES)\UnityEngine.CoreModule.dll</HintPath>
-        </Reference>
-        <Reference Include="UnityEngine.AudioModule">
-          <HintPath>$(SL_REFERENCES)\UnityEngine.AudioModule.dll</HintPath>
-        </Reference>
-        <Reference Include="UnityEngine.PhysicsModule">
-          <HintPath>$(SL_REFERENCES)\UnityEngine.PhysicsModule.dll</HintPath>
-        </Reference>
-    </ItemGroup>
-    <ItemGroup>
-        <Compile Include="EntryPoint.cs" />
-        <Compile Include="Events\Handlers\MapGenerationEventHandler.cs" />
-        <Compile Include="Features\Enums\AuthenticationType.cs" />
-        <Compile Include="Features\Enums\DoorType.cs" />
-        <Compile Include="Features\Enums\LockerType.cs" />
-        <Compile Include="Features\Enums\EnvironmentalHazardType.cs" />
-        <Compile Include="Features\Enums\ShootingTargetType.cs" />
-        <Compile Include="Features\Extensions\CollectionExtensions.cs" />
-        <Compile Include="Features\Extensions\RoleExtensions.cs" />
-        <Compile Include="Features\Wrappers\AdminToys\CursedAdminToy.cs" />
-        <Compile Include="Features\Wrappers\AdminToys\CursedLightSource.cs" />
-        <Compile Include="Features\Wrappers\AdminToys\CursedPrimitiveObject.cs" />
-        <Compile Include="Features\Wrappers\AdminToys\CursedShootingTarget.cs" />
-        <Compile Include="Features\Wrappers\CursedPrefabManager.cs" />
-        <Compile Include="Features\Wrappers\Facility\CursedCassie.cs" />
-        <Compile Include="Features\Wrappers\Facility\CursedFacility.cs" />
-        <Compile Include="Features\Wrappers\Facility\CursedWarhead.cs" />
-        <Compile Include="Features\Wrappers\Facility\Doors\CursedAirlockController.cs" />
-        <Compile Include="Features\Wrappers\Facility\Doors\CursedBreakableDoor.cs" />
-        <Compile Include="Features\Wrappers\Facility\Doors\CursedCheckpointDoor.cs" />
-        <Compile Include="Features\Wrappers\Facility\Doors\CursedDoor.cs" />
-        <Compile Include="Features\Wrappers\Facility\Doors\CursedPryableDoor.cs" />
-        <Compile Include="Features\Wrappers\Facility\Elevators\CursedElevatorChamber.cs" />
-        <Compile Include="Features\Wrappers\Facility\Hazards\CursedEnvironmentalHazard.cs" />
-        <Compile Include="Features\Wrappers\Facility\Hazards\CursedSinkholeHazard.cs" />
-        <Compile Include="Features\Wrappers\Facility\Hazards\CursedTantrumHazard.cs" />
-        <Compile Include="Features\Wrappers\Facility\Hazards\CursedTemporaryHazard.cs" />
-        <Compile Include="Features\Wrappers\Facility\PocketDimension\CursedPocketDimensionExit.cs" />
-        <Compile Include="Features\Wrappers\Facility\Props\CursedBreakableWindow.cs" />
-        <Compile Include="Features\Wrappers\Facility\Props\CursedGenerator.cs" />
-        <Compile Include="Features\Wrappers\Facility\Props\CursedLocker.cs" />
-        <Compile Include="Features\Wrappers\Facility\Props\CursedLockerChamber.cs" />
-        <Compile Include="Features\Wrappers\Facility\Props\CursedTeslaGate.cs" />
-        <Compile Include="Features\Wrappers\Facility\Rooms\Cursed079Camera.cs" />
-        <Compile Include="Features\Wrappers\Facility\Rooms\CursedLightningController.cs" />
-        <Compile Include="Features\Wrappers\Facility\Rooms\CursedRoom.cs" />
-        <Compile Include="Features\Wrappers\Inventory\Items\Armor\CursedBodyAmmoItem.cs" />
-        <Compile Include="Features\Wrappers\Inventory\Items\CursedItem.cs" />
-        <Compile Include="Features\Wrappers\Inventory\Items\Firearms\CursedFirearm.cs" />
-        <Compile Include="Features\Wrappers\Inventory\Pickups\CursedPickup.cs" />
-        <Compile Include="Features\Wrappers\Player\CursedPlayer.cs" />
-        <Compile Include="Features\Wrappers\Player\CursedPlayerHitBox.cs" />
-        <Compile Include="Features\Wrappers\Player\Dummies\CursedDummy.cs" />
-        <Compile Include="Features\Wrappers\Player\Dummies\FakeConnection.cs" />
-        <Compile Include="Features\Wrappers\Player\RagDolls\CursedRagDoll.cs" />
-        <Compile Include="Features\Wrappers\Player\Roles\CursedRoleManager.cs" />
-        <Compile Include="Features\Wrappers\Round\CursedRound.cs" />
-        <Compile Include="Features\Wrappers\Server\CursedServer.cs" />
-        <Compile Include="Loader\Configurations\CursedModConfiguration.cs" />
-        <Compile Include="Loader\CursedModInformation.cs" />
-        <Compile Include="Properties\AssemblyInfo.cs" />
-    </ItemGroup>
-    <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-    <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{0C30BE39-8A46-4A2E-B763-96B99B09B177}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>CursedMod</RootNamespace>
+    <AssemblyName>CursedMod</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <LangVersion>latest</LangVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Assembly-CSharp">
+      <HintPath>$(SL_REFERENCES)\Assembly-CSharp-Publicized.dll</HintPath>
+    </Reference>
+    <Reference Include="Assembly-CSharp-firstpass">
+      <HintPath>$(SL_REFERENCES)\Assembly-CSharp-firstpass.dll</HintPath>
+    </Reference>
+    <Reference Include="CommandSystem.Core">
+      <HintPath>$(SL_REFERENCES)\CommandSystem.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Mirror">
+      <HintPath>$(SL_REFERENCES)\Mirror-Publicized.dll</HintPath>
+    </Reference>
+    <Reference Include="PluginAPI">
+      <HintPath>$(SL_REFERENCES)\PluginAPI-Publicized.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="UnityEngine.CoreModule">
+      <HintPath>$(SL_REFERENCES)\UnityEngine.CoreModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.AudioModule">
+      <HintPath>$(SL_REFERENCES)\UnityEngine.AudioModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.PhysicsModule">
+      <HintPath>$(SL_REFERENCES)\UnityEngine.PhysicsModule.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="EntryPoint.cs" />
+    <Compile Include="Events\Handlers\MapGenerationEventHandler.cs" />
+    <Compile Include="Features\Enums\AuthenticationType.cs" />
+    <Compile Include="Features\Enums\DoorType.cs" />
+    <Compile Include="Features\Enums\LockerType.cs" />
+    <Compile Include="Features\Enums\EnvironmentalHazardType.cs" />
+    <Compile Include="Features\Enums\ShootingTargetType.cs" />
+    <Compile Include="Features\Extensions\CollectionExtensions.cs" />
+    <Compile Include="Features\Extensions\RoleExtensions.cs" />
+    <Compile Include="Features\Wrappers\AdminToys\CursedAdminToy.cs" />
+    <Compile Include="Features\Wrappers\AdminToys\CursedLightSource.cs" />
+    <Compile Include="Features\Wrappers\AdminToys\CursedPrimitiveObject.cs" />
+    <Compile Include="Features\Wrappers\AdminToys\CursedShootingTarget.cs" />
+    <Compile Include="Features\Wrappers\CursedPrefabManager.cs" />
+    <Compile Include="Features\Wrappers\Facility\CursedCassie.cs" />
+    <Compile Include="Features\Wrappers\Facility\CursedFacility.cs" />
+    <Compile Include="Features\Wrappers\Facility\CursedWarhead.cs" />
+    <Compile Include="Features\Wrappers\Facility\Doors\CursedAirlockController.cs" />
+    <Compile Include="Features\Wrappers\Facility\Doors\CursedBreakableDoor.cs" />
+    <Compile Include="Features\Wrappers\Facility\Doors\CursedCheckpointDoor.cs" />
+    <Compile Include="Features\Wrappers\Facility\Doors\CursedDoor.cs" />
+    <Compile Include="Features\Wrappers\Facility\Doors\CursedPryableDoor.cs" />
+    <Compile Include="Features\Wrappers\Facility\Elevators\CursedElevatorChamber.cs" />
+    <Compile Include="Features\Wrappers\Facility\Hazards\CursedEnvironmentalHazard.cs" />
+    <Compile Include="Features\Wrappers\Facility\Hazards\CursedSinkholeHazard.cs" />
+    <Compile Include="Features\Wrappers\Facility\Hazards\CursedTantrumHazard.cs" />
+    <Compile Include="Features\Wrappers\Facility\Hazards\CursedTemporaryHazard.cs" />
+    <Compile Include="Features\Wrappers\Facility\PocketDimension\CursedPocketDimensionExit.cs" />
+    <Compile Include="Features\Wrappers\Facility\Props\CursedBreakableWindow.cs" />
+    <Compile Include="Features\Wrappers\Facility\Props\CursedGenerator.cs" />
+    <Compile Include="Features\Wrappers\Facility\Props\CursedLocker.cs" />
+    <Compile Include="Features\Wrappers\Facility\Props\CursedLockerChamber.cs" />
+    <Compile Include="Features\Wrappers\Facility\Props\CursedTeslaGate.cs" />
+    <Compile Include="Features\Wrappers\Facility\Rooms\Cursed079Camera.cs" />
+    <Compile Include="Features\Wrappers\Facility\Rooms\CursedLightningController.cs" />
+    <Compile Include="Features\Wrappers\Facility\Rooms\CursedRoom.cs" />
+    <Compile Include="Features\Wrappers\Inventory\Items\Armor\CursedBodyAmmoItem.cs" />
+    <Compile Include="Features\Wrappers\Inventory\Items\CursedItem.cs" />
+    <Compile Include="Features\Wrappers\Inventory\Items\Firearms\CursedFirearm.cs" />
+    <Compile Include="Features\Wrappers\Inventory\Pickups\CursedPickup.cs" />
+    <Compile Include="Features\Wrappers\Player\CursedPlayer.cs" />
+    <Compile Include="Features\Wrappers\Player\CursedPlayerHitBox.cs" />
+    <Compile Include="Features\Wrappers\Player\Dummies\CursedDummy.cs" />
+    <Compile Include="Features\Wrappers\Player\Dummies\FakeConnection.cs" />
+    <Compile Include="Features\Wrappers\Player\Dummies\Roles\Cursed939Dummy.cs" />
+    <Compile Include="Features\Wrappers\Player\RagDolls\CursedRagDoll.cs" />
+    <Compile Include="Features\Wrappers\Player\Roles\CursedRoleManager.cs" />
+    <Compile Include="Features\Wrappers\Round\CursedRound.cs" />
+    <Compile Include="Features\Wrappers\Server\CursedServer.cs" />
+    <Compile Include="Loader\Configurations\CursedModConfiguration.cs" />
+    <Compile Include="Loader\CursedModInformation.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
          Other similar extension points exist, see Microsoft.Common.targets.
     <Target Name="BeforeBuild">
     </Target>
