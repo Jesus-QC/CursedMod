@@ -75,6 +75,14 @@ namespace CursedMod.Features.Wrappers.Player.Dummies.Roles
             AmnesticCloudSubroutine.ServerSendRpc(true);
         }
 
+        public void Claw()
+        {
+            if (ClawSubroutine.CanTriggerAbility)
+                return;
+
+            ClawSubroutine.ServerSendRpc(true);
+        }
+
         private IEnumerator<float> LungeInternal()
         {
             if (!IsInFocus)
