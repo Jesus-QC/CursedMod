@@ -40,4 +40,15 @@ public class CursedDummy : CursedPlayer
         Dictionary.Remove(ReferenceHub);
         Object.Destroy(GameObject);
     }
+
+    public new Vector3 Position
+    {
+        get;
+        set;
+    }
+    public new Vector3 Rotation
+    {
+        get;
+        set;
+    }
 }

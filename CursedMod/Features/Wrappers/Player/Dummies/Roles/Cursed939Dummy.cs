@@ -1,10 +1,6 @@
 ﻿using PlayerRoles.PlayableScps.Scp939;
-using PlayerRoles;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using PlayerRoles.PlayableScps.Subroutines;
 using MEC;
 
@@ -63,10 +59,13 @@ namespace CursedMod.Features.Wrappers.Player.Dummies.Roles
             FocusSubroutine.ServerSendRpc(true);
         }
 
-        public void DeployCloud()
+        public void DeployCloud(bool overrideCooldown = true)
         {
             if (CloudState != Scp939AmnesticCloudInstance.CloudState.Destroyed)
                 return;
+
+            if (overrideCooldown)
+                AmnesticCloudSubroutine.Cooldown.Remaining = 0;
 
             AmnesticCloudSubroutine.ServerSendRpc(true);
         }

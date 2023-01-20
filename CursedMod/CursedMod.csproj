@@ -108,6 +108,7 @@
     <Compile Include="Features\Wrappers\Player\CursedPlayerHitBox.cs" />
     <Compile Include="Features\Wrappers\Player\Dummies\CursedDummy.cs" />
     <Compile Include="Features\Wrappers\Player\Dummies\FakeConnection.cs" />
+    <Compile Include="Features\Wrappers\Player\Dummies\Roles\Cursed173Dummy.cs" />
     <Compile Include="Features\Wrappers\Player\Dummies\Roles\Cursed939Dummy.cs" />
     <Compile Include="Features\Wrappers\Player\RagDolls\CursedRagDoll.cs" />
     <Compile Include="Features\Wrappers\Player\Roles\CursedRoleManager.cs" />
@@ -125,5 +126,4 @@
     <Target Name="AfterBuild">
     </Target>
     -->
-
 </Project>
