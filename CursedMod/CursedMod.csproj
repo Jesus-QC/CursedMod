@@ -111,7 +111,6 @@
     <Compile Include="Features\Wrappers\Player\Dummies\Roles\CursedZombieDummy.cs" />
     <Compile Include="Features\Wrappers\Player\Dummies\Roles\Cursed096Dummy.cs" />
     <Compile Include="Features\Wrappers\Player\Dummies\Roles\Cursed106Dummy.cs" />
-    <Compile Include="Features\Wrappers\Player\Dummies\Roles\CursedTemplateDummy.cs" />
     <Compile Include="Features\Wrappers\Player\Dummies\Roles\Cursed049Dummy.cs" />
     <Compile Include="Features\Wrappers\Player\Dummies\Roles\Cursed173Dummy.cs" />
     <Compile Include="Features\Wrappers\Player\Dummies\Roles\Cursed939Dummy.cs" />
