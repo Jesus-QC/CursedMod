@@ -108,6 +108,8 @@
         <Compile Include="Features\Wrappers\Inventory\Items\Firearms\CursedFirearm.cs" />
         <Compile Include="Features\Wrappers\Inventory\Items\Flashlight\CursedFlashlight.cs" />
         <Compile Include="Features\Wrappers\Inventory\Items\Jailbird\CursedJailbird.cs" />
+        <Compile Include="Features\Wrappers\Inventory\Items\KeyCards\CursedKeyCard.cs" />
+        <Compile Include="Features\Wrappers\Inventory\Items\MicroHID\CursedMicroHID.cs" />
         <Compile Include="Features\Wrappers\Inventory\Pickups\CursedPickup.cs" />
         <Compile Include="Features\Wrappers\Player\CursedPlayer.cs" />
         <Compile Include="Features\Wrappers\Player\CursedPlayerHitBox.cs" />
