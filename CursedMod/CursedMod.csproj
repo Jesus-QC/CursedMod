@@ -112,6 +112,8 @@
         <Compile Include="Features\Wrappers\Inventory\Items\MicroHID\CursedMicroHIDItem.cs" />
         <Compile Include="Features\Wrappers\Inventory\Items\Radio\CursedRadioItem.cs" />
         <Compile Include="Features\Wrappers\Inventory\Items\ThrowableProjectiles\CursedThrowableItem.cs" />
+        <Compile Include="Features\Wrappers\Inventory\Items\Usables\CursedConsumableItem.cs" />
+        <Compile Include="Features\Wrappers\Inventory\Items\Usables\CursedUsableItem.cs" />
         <Compile Include="Features\Wrappers\Inventory\Pickups\CursedPickup.cs" />
         <Compile Include="Features\Wrappers\Player\CursedPlayer.cs" />
         <Compile Include="Features\Wrappers\Player\CursedPlayerHitBox.cs" />
