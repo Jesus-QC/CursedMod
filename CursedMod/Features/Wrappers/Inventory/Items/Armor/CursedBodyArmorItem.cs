@@ -3,11 +3,11 @@ using InventorySystem.Items.Armor;
 
 namespace CursedMod.Features.Wrappers.Inventory.Items.Armor;
 
-public class CursedBodyAmmoItem : CursedItem
+public class CursedBodyArmorItem : CursedItem
 {
     public BodyArmor ArmorBase { get; }
     
-    internal CursedBodyAmmoItem(BodyArmor itemBase) : base(itemBase)
+    internal CursedBodyArmorItem(BodyArmor itemBase) : base(itemBase)
     {
         ArmorBase = itemBase;
     }

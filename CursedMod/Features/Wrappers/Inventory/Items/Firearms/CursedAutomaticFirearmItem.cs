@@ -3,11 +3,11 @@ using InventorySystem.Items.Firearms;
 
 namespace CursedMod.Features.Wrappers.Inventory.Items.Firearms;
 
-public class CursedAutomaticFirearm : CursedFirearm
+public class CursedAutomaticFirearmItem : CursedFirearmItem
 {
     public AutomaticFirearm AutomaticFirearmBase { get; }
     
-    internal CursedAutomaticFirearm(AutomaticFirearm itemBase) : base(itemBase)
+    internal CursedAutomaticFirearmItem(AutomaticFirearm itemBase) : base(itemBase)
     {
         AutomaticFirearmBase = itemBase;
     }

@@ -4,16 +4,16 @@ using InventorySystem.Items.Firearms.Attachments.Components;
 
 namespace CursedMod.Features.Wrappers.Inventory.Items.Firearms;
 
-public class CursedAttachment
+public class CursedFirearmAttachment
 {
     public Attachment Base { get; }
 
-    private CursedAttachment(Attachment attachment)
+    private CursedFirearmAttachment(Attachment attachment)
     {
         Base = attachment;
     }
 
-    public static CursedAttachment Get(Attachment attachment) => new (attachment);
+    public static CursedFirearmAttachment Get(Attachment attachment) => new (attachment);
 
     public AttachmentName AttachmentName => Base.Name;
 

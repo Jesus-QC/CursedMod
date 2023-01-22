@@ -8,21 +8,21 @@ using InventorySystem.Items.Firearms.Modules;
 
 namespace CursedMod.Features.Wrappers.Inventory.Items.Firearms;
 
-public class CursedFirearm : CursedItem
+public class CursedFirearmItem : CursedItem
 {
     public Firearm FirearmBase { get; }
     
-    internal CursedFirearm(Firearm itemBase) : base(itemBase)
+    internal CursedFirearmItem(Firearm itemBase) : base(itemBase)
     {
         FirearmBase = itemBase;
     }
 
-    public static CursedFirearm Get(Firearm firearm)
+    public static CursedFirearmItem Get(Firearm firearm)
     {
         if (firearm is AutomaticFirearm automaticFirearm)
-            return new CursedAutomaticFirearm(automaticFirearm);
+            return new CursedAutomaticFirearmItem(automaticFirearm);
 
-        return new CursedFirearm(firearm);
+        return new CursedFirearmItem(firearm);
     }
 
     public FirearmBaseStats BaseStats => FirearmBase.BaseStats;
@@ -136,7 +136,7 @@ public class CursedFirearm : CursedItem
         set => FirearmBase.Attachments = value;
     }
 
-    public IEnumerable<CursedAttachment> GetAttachments() => Attachments.Select(CursedAttachment.Get);
+    public IEnumerable<CursedFirearmAttachment> GetAttachments() => Attachments.Select(CursedFirearmAttachment.Get);
 
     public uint AttachmentsCode
     {

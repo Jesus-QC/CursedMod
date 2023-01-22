@@ -4,11 +4,11 @@ using Utils.Networking;
 
 namespace CursedMod.Features.Wrappers.Inventory.Items.Flashlight;
 
-public class CursedFlashlight : CursedItem
+public class CursedFlashlightItem : CursedItem
 {
     public FlashlightItem FlashlightBase { get; }
     
-    internal CursedFlashlight(FlashlightItem itemBase) : base(itemBase)
+    internal CursedFlashlightItem(FlashlightItem itemBase) : base(itemBase)
     {
         FlashlightBase = itemBase;
     }

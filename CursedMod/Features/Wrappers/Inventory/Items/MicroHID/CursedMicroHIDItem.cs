@@ -3,11 +3,11 @@ using InventorySystem.Items.MicroHID;
 
 namespace CursedMod.Features.Wrappers.Inventory.Items.MicroHID;
 
-public class CursedMicroHid : CursedItem
+public class CursedMicroHidItem : CursedItem
 {
     public MicroHIDItem MicroHidBase { get; }
     
-    internal CursedMicroHid(MicroHIDItem itemBase) : base(itemBase)
+    internal CursedMicroHidItem(MicroHIDItem itemBase) : base(itemBase)
     {
         MicroHidBase = itemBase;
     }

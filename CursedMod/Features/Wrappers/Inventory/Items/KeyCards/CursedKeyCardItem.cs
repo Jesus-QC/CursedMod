@@ -2,13 +2,13 @@
 using InventorySystem.Items;
 using InventorySystem.Items.Keycards;
 
-namespace CursedMod.Features.Wrappers.Inventory.Items.Keycards;
+namespace CursedMod.Features.Wrappers.Inventory.Items.KeyCards;
 
-public class CursedKeyCard : CursedItem
+public class CursedKeyCardItem : CursedItem
 {
     public KeycardItem KeyCardBase { get; }
     
-    internal CursedKeyCard(KeycardItem itemBase) : base(itemBase)
+    internal CursedKeyCardItem(KeycardItem itemBase) : base(itemBase)
     {
         KeyCardBase = itemBase;
     }

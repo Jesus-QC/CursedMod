@@ -3,11 +3,11 @@ using InventorySystem.Items.Jailbird;
 
 namespace CursedMod.Features.Wrappers.Inventory.Items.Jailbird;
 
-public class CursedJailbird : CursedItem
+public class CursedJailbirdItem : CursedItem
 {
     public JailbirdItem JailbirdBase { get; }
     
-    internal CursedJailbird(JailbirdItem itemBase) : base(itemBase)
+    internal CursedJailbirdItem(JailbirdItem itemBase) : base(itemBase)
     {
         JailbirdBase = itemBase;
     }

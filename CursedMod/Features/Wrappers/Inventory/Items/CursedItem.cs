@@ -30,8 +30,8 @@ public class CursedItem
     {
         return itemBase switch
         {
-            Firearm firearm => CursedFirearm.Get(itemBase),
-            BodyArmor bodyArmor => new CursedBodyAmmoItem(bodyArmor),
+            Firearm firearm => CursedFirearmItem.Get(itemBase),
+            BodyArmor bodyArmor => new CursedBodyArmorItem(bodyArmor),
             _ => new CursedItem(itemBase)
         };
     }

@@ -3,11 +3,11 @@ using InventorySystem.Items.Radio;
 
 namespace CursedMod.Features.Wrappers.Inventory.Items.Radio;
 
-public class CursedRadio : CursedItem
+public class CursedRadioItem : CursedItem
 {
     public RadioItem RadioBase { get; }
     
-    internal CursedRadio(RadioItem itemBase) : base(itemBase)
+    internal CursedRadioItem(RadioItem itemBase) : base(itemBase)
     {
         RadioBase = itemBase;
     }
