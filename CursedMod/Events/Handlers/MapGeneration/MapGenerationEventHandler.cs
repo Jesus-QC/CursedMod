@@ -1,7 +1,7 @@
 ﻿using CursedMod.Features.Wrappers.Facility;
 using CursedMod.Features.Wrappers.Server;
 
-namespace CursedMod.Events.Handlers;
+namespace CursedMod.Events.Handlers.MapGeneration;
 
 public static class MapGenerationEventHandler
 {

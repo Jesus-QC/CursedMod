@@ -34,6 +34,9 @@
         <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     </PropertyGroup>
     <ItemGroup>
+        <Reference Include="0Harmony, Version=2.2.2.0, Culture=neutral, processorArchitecture=MSIL">
+          <HintPath>..\packages\Lib.Harmony.2.2.2\lib\net48\0Harmony.dll</HintPath>
+        </Reference>
         <Reference Include="Assembly-CSharp">
           <HintPath>$(SL_REFERENCES)\Assembly-CSharp-Publicized.dll</HintPath>
         </Reference>
@@ -65,7 +68,12 @@
     </ItemGroup>
     <ItemGroup>
         <Compile Include="EntryPoint.cs" />
-        <Compile Include="Events\Handlers\MapGenerationEventHandler.cs" />
+        <Compile Include="Events\Arguments\Achievements\PlayerAchievingEventArgs.cs" />
+        <Compile Include="Events\Arguments\ICursedCancellableEvent.cs" />
+        <Compile Include="Events\Arguments\ICursedPlayerEvent.cs" />
+        <Compile Include="Events\EventManager.cs" />
+        <Compile Include="Events\Handlers\Achievements\AchievementsEventHandler.cs" />
+        <Compile Include="Events\Handlers\MapGeneration\MapGenerationEventHandler.cs" />
         <Compile Include="Features\Enums\AuthenticationType.cs" />
         <Compile Include="Features\Enums\DoorType.cs" />
         <Compile Include="Features\Enums\LockerType.cs" />
@@ -126,6 +134,12 @@
         <Compile Include="Loader\Configurations\CursedModConfiguration.cs" />
         <Compile Include="Loader\CursedModInformation.cs" />
         <Compile Include="Properties\AssemblyInfo.cs" />
+    </ItemGroup>
+    <ItemGroup>
+      <Folder Include="Events\Patches\Achievements" />
+    </ItemGroup>
+    <ItemGroup>
+      <None Include="packages.config" />
     </ItemGroup>
     <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
     <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
