@@ -79,6 +79,7 @@
         <Compile Include="Features\Wrappers\AdminToys\CursedShootingTarget.cs" />
         <Compile Include="Features\Wrappers\CursedPrefabManager.cs" />
         <Compile Include="Features\Wrappers\Facility\CursedCassie.cs" />
+        <Compile Include="Features\Wrappers\Facility\CursedDecontamination.cs" />
         <Compile Include="Features\Wrappers\Facility\CursedFacility.cs" />
         <Compile Include="Features\Wrappers\Facility\CursedWarhead.cs" />
         <Compile Include="Features\Wrappers\Facility\Doors\CursedAirlockController.cs" />
@@ -121,6 +122,8 @@
         <Compile Include="Features\Wrappers\Player\Dummies\FakeConnection.cs" />
         <Compile Include="Features\Wrappers\Player\RagDolls\CursedRagDoll.cs" />
         <Compile Include="Features\Wrappers\Player\Roles\CursedRoleManager.cs" />
+        <Compile Include="Features\Wrappers\Player\VoiceChat\CursedVoiceChat.cs" />
+        <Compile Include="Features\Wrappers\Player\VoiceChat\CursedVoicePlayback.cs" />
         <Compile Include="Features\Wrappers\Round\CursedRound.cs" />
         <Compile Include="Features\Wrappers\Server\CursedServer.cs" />
         <Compile Include="Loader\Configurations\CursedModConfiguration.cs" />
