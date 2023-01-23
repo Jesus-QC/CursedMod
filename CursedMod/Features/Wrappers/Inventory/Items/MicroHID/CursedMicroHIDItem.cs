@@ -1,5 +1,4 @@
-﻿using InventorySystem.Items;
-using InventorySystem.Items.MicroHID;
+﻿using InventorySystem.Items.MicroHID;
 
 namespace CursedMod.Features.Wrappers.Inventory.Items.MicroHID;
 

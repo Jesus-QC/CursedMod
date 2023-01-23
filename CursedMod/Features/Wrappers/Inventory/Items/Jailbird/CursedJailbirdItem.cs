@@ -1,5 +1,4 @@
-﻿using InventorySystem.Items;
-using InventorySystem.Items.Jailbird;
+﻿using InventorySystem.Items.Jailbird;
 
 namespace CursedMod.Features.Wrappers.Inventory.Items.Jailbird;
 

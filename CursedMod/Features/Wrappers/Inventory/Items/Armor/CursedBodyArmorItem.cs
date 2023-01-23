@@ -1,5 +1,4 @@
-﻿using InventorySystem.Items;
-using InventorySystem.Items.Armor;
+﻿using InventorySystem.Items.Armor;
 
 namespace CursedMod.Features.Wrappers.Inventory.Items.Armor;
 

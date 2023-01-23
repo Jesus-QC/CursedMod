@@ -1,5 +1,4 @@
-﻿using InventorySystem.Items;
-using InventorySystem.Items.Firearms.Ammo;
+﻿using InventorySystem.Items.Firearms.Ammo;
 
 namespace CursedMod.Features.Wrappers.Inventory.Items.Firearms.Ammo;
 

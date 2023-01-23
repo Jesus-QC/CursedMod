@@ -1,5 +1,4 @@
-﻿using CursedMod.Features.Wrappers.Inventory;
-using Interactables.Interobjects.DoorUtils;
+﻿using Interactables.Interobjects.DoorUtils;
 using MapGeneration.Distributors;
 using System.Collections.Generic;
 using System.Linq;

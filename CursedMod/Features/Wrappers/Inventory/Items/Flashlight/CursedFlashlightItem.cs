@@ -1,5 +1,4 @@
-﻿using InventorySystem.Items;
-using InventorySystem.Items.Flashlight;
+﻿using InventorySystem.Items.Flashlight;
 using Utils.Networking;
 
 namespace CursedMod.Features.Wrappers.Inventory.Items.Flashlight;

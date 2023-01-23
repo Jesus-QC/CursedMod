@@ -1,5 +1,4 @@
-﻿using InventorySystem.Items;
-using InventorySystem.Items.Radio;
+﻿using InventorySystem.Items.Radio;
 
 namespace CursedMod.Features.Wrappers.Inventory.Items.Radio;
 

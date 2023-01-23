@@ -1,4 +1,3 @@
-using InventorySystem.Items;
 using InventorySystem.Items.Usables;
 
 namespace CursedMod.Features.Wrappers.Inventory.Items.Usables;

@@ -1,5 +1,4 @@
 ﻿using Interactables.Interobjects.DoorUtils;
-using InventorySystem.Items;
 using InventorySystem.Items.Keycards;
 
 namespace CursedMod.Features.Wrappers.Inventory.Items.KeyCards;

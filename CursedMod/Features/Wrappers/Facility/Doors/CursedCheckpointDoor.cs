@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using CursedMod.Features.Enums;
-using CursedMod.Features.Wrappers.Player;
 using Interactables.Interobjects;
 using Interactables.Interobjects.DoorUtils;
 

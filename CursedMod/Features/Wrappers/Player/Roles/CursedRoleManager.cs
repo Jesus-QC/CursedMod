@@ -1,6 +1,5 @@
 ﻿using CursedMod.Features.Extensions;
 using InventorySystem;
-using InventorySystem.Configs;
 using PlayerRoles;
 using UnityEngine;
 

@@ -1,6 +1,5 @@
 ﻿using CursedMod.Features.Enums;
 using Interactables.Interobjects;
-using Interactables.Interobjects.DoorUtils;
 
 namespace CursedMod.Features.Wrappers.Facility.Doors;
 
