@@ -8,6 +8,7 @@ using CursedMod.Features.Wrappers.Facility;
 using CursedMod.Features.Wrappers.Inventory.Items;
 using CursedMod.Features.Wrappers.Inventory.Pickups;
 using CursedMod.Features.Wrappers.Player.Dummies;
+using CursedMod.Features.Wrappers.Player.VoiceChat;
 using CustomPlayerEffects;
 using Footprinting;
 using Hints;
@@ -21,6 +22,7 @@ using Mirror;
 using PlayerRoles;
 using PlayerRoles.FirstPersonControl;
 using PlayerStatsSystem;
+using PluginAPI.Core;
 using RemoteAdmin;
 using Security;
 using UnityEngine;
@@ -39,6 +41,8 @@ public class CursedPlayer
     public GameObject GameObject { get; private set; }
     public Transform Transform { get; internal set; }
 
+    public readonly PlayerSharedStorage SharedStorage = new ();
+    
     public AuthenticationType AuthenticationType { get; private set; }
     
     public string RawUserId { get; private set; }
@@ -539,6 +543,8 @@ public class CursedPlayer
     public int RaycastNonAlloc(RaycastHit[] hits) => Physics.RaycastNonAlloc(new Ray(PlayerCameraReference.position, PlayerCameraReference.forward), hits);
 
     public Stopwatch GetTimeHoldingItem() => Inventory._lastEquipSw;
+    
+    public CursedVoiceChat VoiceChat => CurrentRole is FpcStandardRoleBase role ? new CursedVoiceChat(role.VoiceModule) : null;
 
     public static void SendSpawnMessageToAll(NetworkIdentity identity)
     {
