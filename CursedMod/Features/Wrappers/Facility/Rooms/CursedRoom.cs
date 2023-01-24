@@ -16,6 +16,10 @@ public class CursedRoom
     
     public Quaternion Rotation => Room.transform.rotation;
     
+    public GameObject GameObject => Room.gameObject;
+    
+    public Transform Transform => Room.transform;
+    
     public RoomName Name => Room.Name;
     
     public FacilityZone Zone => Room.Zone;
