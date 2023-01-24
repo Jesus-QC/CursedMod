@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Reflection;
 using HarmonyLib;
+using NorthwoodLib.Pools;
 using PluginAPI.Core;
 
 namespace CursedMod.Events;
@@ -54,5 +56,16 @@ public static class EventManager
                 throw;
             }
         }
+    }
+
+    public static List<CodeInstruction> CheckEvent<T>(int originalCodes, IEnumerable<CodeInstruction> instructions)
+    {
+        List<CodeInstruction> newInstructions = ListPool<CodeInstruction>.Shared.Rent(instructions);
+        
+        if (originalCodes == newInstructions.Count)
+            return newInstructions;
+        
+        Log.Warning(typeof(T).FullDescription() + " has an incorrect number of OpCodes. The patch may be broken or bugged.");
+        return newInstructions;
     }
 }
