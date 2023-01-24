@@ -33,6 +33,8 @@ public static class CursedDecontamination
 
     public static void StopDecontamination() => Status = DecontaminationStatus.Disabled;
 
+    public static void ResumeDecontamination() => Status = DecontaminationStatus.None;
+
     public static void RestartDecontamination()
     {
         DecontaminationController.NetworkRoundStartTime = 0;
@@ -46,4 +48,6 @@ public static class CursedDecontamination
     public static bool IsAudibleForPlayer(CursedPlayer player) => DecontaminationController.IsAudibleForClient(player.ReferenceHub);
 
     public static void SetStatus(DecontaminationStatus status) => DecontaminationController.Singleton.DecontaminationOverride = status;
+
+    public static DecontaminationController.DecontaminationPhase NextPhase => DecontaminationController.DecontaminationPhases[DecontaminationController._nextPhase];
 }
