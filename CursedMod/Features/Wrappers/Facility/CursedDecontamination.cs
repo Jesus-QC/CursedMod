@@ -1,35 +1,49 @@
-﻿using LightContainmentZoneDecontamination;
+﻿using CursedMod.Features.Wrappers.Player;
+using LightContainmentZoneDecontamination;
 using PhaseFunction = LightContainmentZoneDecontamination.DecontaminationController.DecontaminationPhase.PhaseFunction;
 using DecontaminationStatus = LightContainmentZoneDecontamination.DecontaminationController.DecontaminationStatus;
 
 namespace CursedMod.Features.Wrappers.Facility;
 
-public class CursedDecontamination
+public static class CursedDecontamination
 {
-    public DecontaminationController DecontaminationController { get; }
+    public static DecontaminationController DecontaminationController => DecontaminationController.Singleton;
 
-    public CursedDecontamination(DecontaminationController decontaminationController)
+    public static double StartTime
     {
-        DecontaminationController = decontaminationController;
-    }
-
-    public double StartTime
-    {
-        get => DecontaminationController.NetworkRoundStartTime;
+        get => DecontaminationController.RoundStartTime;
         set => DecontaminationController.NetworkRoundStartTime = value;
     }
 
-    public bool IsDecontaminating => DecontaminationController.IsDecontaminating;
-    
-    public bool IsAnnouncementHearable => DecontaminationController.IsAnnouncementHearable;
-    
-    public PhaseFunction CurrentFunction => DecontaminationController.Singleton._curFunction;
+    public static double GetServerTime => DecontaminationController.GetServerTime;
 
-    public DecontaminationStatus Status => DecontaminationController.Singleton.DecontaminationOverride;
+    public static bool IsDecontaminating => DecontaminationController.IsDecontaminating;
 
-    public void StopDecontamination() => DecontaminationController.NetworkRoundStartTime = -1f;
-    
-    public void StartDecontamination() => DecontaminationController.NetworkRoundStartTime = 1f;
+    public static PhaseFunction CurrentFunction
+    {
+        get => DecontaminationController._curFunction;
+        set => DecontaminationController._curFunction = value;
+    }
 
-    public void SetStatus(DecontaminationStatus status) => DecontaminationController.Singleton.DecontaminationOverride = status;
+    public static DecontaminationStatus Status
+    {
+        get => DecontaminationController.DecontaminationOverride;
+        set => DecontaminationController.NetworkDecontaminationOverride = value;
+    }
+
+    public static void StopDecontamination() => Status = DecontaminationStatus.Disabled;
+
+    public static void RestartDecontamination()
+    {
+        DecontaminationController.NetworkRoundStartTime = 0;
+        Status = DecontaminationStatus.None;
+    }
+
+    public static void ForceDecontamination() => DecontaminationController.ForceDecontamination();
+
+    public static void DisableElevators() => DecontaminationController.DisableElevators();
+
+    public static bool IsAudibleForPlayer(CursedPlayer player) => DecontaminationController.IsAudibleForClient(player.ReferenceHub);
+
+    public static void SetStatus(DecontaminationStatus status) => DecontaminationController.Singleton.DecontaminationOverride = status;
 }
