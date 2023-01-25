@@ -1,4 +1,5 @@
-﻿using CursedMod.Loader;
+﻿using CursedMod.Events;
+using CursedMod.Loader;
 using CursedMod.Loader.Configurations;
 using PluginAPI.Core;
 using PluginAPI.Core.Attributes;
@@ -14,6 +15,8 @@ internal class EntryPoint
             return;
 
         Log.Info("CursedMod is being loaded");
+
+        EventManager.SubscribeEvents();
 
         // Patch Events
         // Load Plugins

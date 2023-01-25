@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Reflection;
+using CursedMod.Events.Internal;
 using HarmonyLib;
 using NorthwoodLib.Pools;
+using PlayerRoles.Ragdolls;
 using PluginAPI.Core;
 
 namespace CursedMod.Events;
@@ -67,5 +69,11 @@ public static class EventManager
         
         Log.Warning(typeof(T).FullDescription() + " has an incorrect number of OpCodes. The patch may be broken or bugged.");
         return newInstructions;
+    }
+
+    internal static void SubscribeEvents()
+    {
+        RagdollManager.OnRagdollSpawned += Ragdoll.OnSpawnedRagdoll;
+        RagdollManager.OnRagdollRemoved += Ragdoll.OnRagdollRemoved;
     }
 }
