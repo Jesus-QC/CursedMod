@@ -8,8 +8,8 @@ namespace CursedMod.Features.Wrappers.Player.Ragdolls;
 
 public class CursedRagdoll
 {
-    internal static List<CursedRagdoll> BasicRagdolls { get; } = new List<CursedRagdoll>();
-    public static IReadOnlyCollection<CursedRagdoll> List => BasicRagdolls.AsReadOnly();
+    internal static List<CursedRagdoll> Ragdolls { get; } = new List<CursedRagdoll>();
+    public static IReadOnlyCollection<CursedRagdoll> List => Ragdolls.AsReadOnly();
 
     public BasicRagdoll Base { get; }
 
