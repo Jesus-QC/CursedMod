@@ -105,6 +105,7 @@
         <Compile Include="Features\Wrappers\Facility\Hazards\CursedTantrumHazard.cs" />
         <Compile Include="Features\Wrappers\Facility\Hazards\CursedTemporaryHazard.cs" />
         <Compile Include="Features\Wrappers\Facility\PocketDimension\CursedPocketDimensionExit.cs" />
+        <Compile Include="Features\Wrappers\Facility\Props\Cursed079Recontainer.cs" />
         <Compile Include="Features\Wrappers\Facility\Props\CursedBreakableWindow.cs" />
         <Compile Include="Features\Wrappers\Facility\Props\CursedGenerator.cs" />
         <Compile Include="Features\Wrappers\Facility\Props\CursedLocker.cs" />
