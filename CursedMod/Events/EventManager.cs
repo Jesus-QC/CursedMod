@@ -99,6 +99,5 @@ public static class EventManager
     private static void RegisterHookedEvents()
     {
         SeedSynchronizer.OnMapGenerated += MapGenerationEventHandler.CacheAPI;
-        SceneManager.sceneUnloaded += _ => CursedPlayer.Dictionary.Clear();
     }
 }

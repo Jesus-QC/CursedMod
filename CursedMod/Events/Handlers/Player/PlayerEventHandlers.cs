@@ -18,8 +18,15 @@ public static class PlayerEventHandlers
 
     public static void OnPlayerDisconnected(PlayerDisconnectedEventArgs args)
     {
-        Disconnected.InvokeEvent(args);
-        CursedPlayer.Dictionary.Remove(args.Player.ReferenceHub);
+        try
+        {
+            Disconnected.InvokeEvent(args);
+            CursedPlayer.Dictionary.Remove(args.Player.ReferenceHub);
+        }
+        catch (Exception e)
+        {
+            Log.Error(e.ToString());
+        }
     }
     
     public static event EventManager.CursedEventHandler<PlayerChangingRoleEventArgs> ChangingRole;
