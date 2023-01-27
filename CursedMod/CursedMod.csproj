@@ -50,7 +50,7 @@
           <HintPath>$(SL_REFERENCES)\Mirror-Publicized.dll</HintPath>
         </Reference>
         <Reference Include="NorthwoodLib">
-          <HintPath>..\..\..\SCPSL\Plugins\Dependencies\NorthwoodLib.dll</HintPath>
+          <HintPath>$(SL_REFERENCES)\NorthwoodLib.dll</HintPath>
         </Reference>
         <Reference Include="PluginAPI">
           <HintPath>$(SL_REFERENCES)\PluginAPI-Publicized.dll</HintPath>
@@ -77,6 +77,7 @@
         <Compile Include="Events\EventManager.cs" />
         <Compile Include="Events\Handlers\Achievements\AchievementsEventHandler.cs" />
         <Compile Include="Events\Handlers\MapGeneration\MapGenerationEventHandler.cs" />
+        <Compile Include="Events\Internal\Ragdoll.cs" />
         <Compile Include="Events\Patches\Achievements\ServerAchievePatch.cs" />
         <Compile Include="Features\Enums\AuthenticationType.cs" />
         <Compile Include="Features\Enums\DoorType.cs" />
@@ -133,7 +134,7 @@
         <Compile Include="Features\Wrappers\Player\CursedPlayerHitBox.cs" />
         <Compile Include="Features\Wrappers\Player\Dummies\CursedDummy.cs" />
         <Compile Include="Features\Wrappers\Player\Dummies\FakeConnection.cs" />
-        <Compile Include="Features\Wrappers\Player\RagDolls\CursedRagDoll.cs" />
+        <Compile Include="Features\Wrappers\Player\Ragdolls\CursedRagdoll.cs" />
         <Compile Include="Features\Wrappers\Player\Roles\CursedRoleManager.cs" />
         <Compile Include="Features\Wrappers\Player\VoiceChat\CursedVoiceChat.cs" />
         <Compile Include="Features\Wrappers\Round\CursedRound.cs" />
