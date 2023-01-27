@@ -2,18 +2,15 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Reflection;
-using CursedMod.Events.Hooked;
-using CursedMod.Events.Hooked.Ragdolls;
 using HarmonyLib;
 using NorthwoodLib.Pools;
-using PlayerRoles.Ragdolls;
 using PluginAPI.Core;
 
 namespace CursedMod.Events;
 
 public static class EventManager
 {
-    private static readonly Harmony _harmony = new Harmony("com.jesusqc.cursedmod");
+    private static readonly Harmony Harmony = new ("com.jesusqc.cursedmod");
     
     public static void PatchEvents()
     {
@@ -23,11 +20,11 @@ public static class EventManager
             
             Stopwatch watch = Stopwatch.StartNew();
             
-            _harmony.PatchAll();
+            Harmony.PatchAll();
             
             Log.Warning("Events patched in " + watch.Elapsed.ToString("c"));
 
-            foreach (MethodBase patch in _harmony.GetPatchedMethods())
+            foreach (MethodBase patch in Harmony.GetPatchedMethods())
             {
                 Log.Debug(patch.DeclaringType + "::" + patch.Name);
             }
@@ -40,6 +37,7 @@ public static class EventManager
     }
     
     public delegate void CursedEventHandler<in T>(T ev) where T : EventArgs;
+    public delegate void CursedEventHandler();
 
     public static void InvokeEvent<T>(this CursedEventHandler<T> eventHandler, T args) where T : EventArgs
     {
@@ -60,6 +58,26 @@ public static class EventManager
             }
         }
     }
+    
+    public static void InvokeEvent(this CursedEventHandler eventHandler)
+    {
+        if (eventHandler is null)
+            return;
+        
+        foreach (Delegate sub in eventHandler.GetInvocationList())
+        {
+            try
+            {
+                sub.DynamicInvoke();
+            }
+            catch (Exception e)
+            {
+                Log.Error("An error occurred while handling the event " + eventHandler.GetType().Name);
+                Log.Error(e.ToString());
+                throw;
+            }
+        }
+    }
 
     public static List<CodeInstruction> CheckEvent<T>(int originalCodes, IEnumerable<CodeInstruction> instructions)
     {
@@ -70,11 +88,5 @@ public static class EventManager
         
         Log.Warning(typeof(T).FullDescription() + $" has an incorrect number of OpCodes ({originalCodes} != {newInstructions.Count}). The patch may be broken or bugged.");
         return newInstructions;
-    }
-
-    internal static void SubscribeHookedEvents()
-    {
-        RagdollManager.OnRagdollSpawned += RagdollHookedEvents.OnSpawnedRagdoll;
-        RagdollManager.OnRagdollRemoved += RagdollHookedEvents.OnRagdollRemoved;
     }
 }

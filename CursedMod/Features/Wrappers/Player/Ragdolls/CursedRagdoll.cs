@@ -13,7 +13,7 @@ public class CursedRagdoll
 
     public BasicRagdoll Base { get; }
 
-    internal CursedRagdoll(BasicRagdoll ragdoll)
+    private CursedRagdoll(BasicRagdoll ragdoll)
     {
         Base = ragdoll;
         Ragdolls.Add(this);

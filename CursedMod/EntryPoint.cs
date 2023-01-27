@@ -15,8 +15,7 @@ internal class EntryPoint
             return;
 
         Log.Info("CursedMod is being loaded");
-
-        EventManager.SubscribeHookedEvents();
+        
         EventManager.PatchEvents();
         
         // Patch Events
