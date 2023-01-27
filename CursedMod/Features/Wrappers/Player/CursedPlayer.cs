@@ -618,9 +618,22 @@ public class CursedPlayer
         return false;
     }
 
-    public static bool TryGet(GameObject go, out CursedPlayer player) => TryGet(ReferenceHub.GetHub(go), out player);
+    public static bool TryGet(GameObject go, out CursedPlayer player)
+    {
+        foreach (CursedPlayer ply in Collection)
+        {
+            if (ply.GameObject != go)
+                continue;
+
+            player = ply;
+            return true;
+        }
+
+        player = null;
+        return false;
+    }
     
-    public static bool TryGet(MonoBehaviour component, out CursedPlayer player) => TryGet(ReferenceHub.GetHub(component), out player);
+    public static bool TryGet(MonoBehaviour component, out CursedPlayer player) => TryGet(component.gameObject, out player);
 
     public static bool TryGet(NetworkIdentity identity, out CursedPlayer player) => TryGet(identity.gameObject, out player);
 
