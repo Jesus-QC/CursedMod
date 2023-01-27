@@ -1,4 +1,5 @@
 ﻿using CursedMod.Events.Arguments.Player;
+using PluginAPI.Core;
 
 namespace CursedMod.Events.Handlers.Player;
 

@@ -1,5 +1,6 @@
 ﻿using System;
 using CursedMod.Features.Wrappers.Player;
+using PluginAPI.Core;
 
 namespace CursedMod.Events.Arguments.Player;
 
@@ -9,6 +10,13 @@ public class PlayerJoinedEventArgs : EventArgs, ICursedPlayerEvent
 
     public PlayerJoinedEventArgs(ServerRoles serverRoles)
     {
-        Player = new CursedPlayer(serverRoles._hub);
+        try
+        {
+            Player = new CursedPlayer(serverRoles._hub);
+        }
+        catch (Exception e)
+        {
+            Log.Error(e.ToString());
+        }
     }
 }

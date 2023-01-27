@@ -84,7 +84,7 @@
         <Compile Include="Events\Handlers\Round\RoundEventHandlers.cs" />
         <Compile Include="Events\Patches\Achievements\ServerAchievePatch.cs" />
         <Compile Include="Events\Patches\Player\ReferenceHubDestroyPatch.cs" />
-        <Compile Include="Events\Patches\Player\ReferenceHubStartPatch.cs" />
+        <Compile Include="Events\Patches\Player\CompleteVerificationPatch.cs" />
         <Compile Include="Events\Patches\Player\Roles\InitializeRolePatch.cs" />
         <Compile Include="Events\Patches\Round\RoundStartPatch.cs" />
         <Compile Include="Events\Patches\Round\WaitingForPlayersPatch.cs" />

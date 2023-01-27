@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Reflection;
+using CursedMod.Events.Handlers.MapGeneration;
 using HarmonyLib;
+using MapGeneration;
 using NorthwoodLib.Pools;
 using PluginAPI.Core;
 
@@ -28,6 +30,8 @@ public static class EventManager
             {
                 Log.Debug(patch.DeclaringType + "::" + patch.Name);
             }
+
+            SeedSynchronizer.OnMapGenerated += MapGenerationEventHandler.CacheAPI;
         }
         catch (Exception e)
         {

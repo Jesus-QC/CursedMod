@@ -564,6 +564,7 @@ public class CursedPlayer
     internal CursedPlayer(ReferenceHub hub, bool dummy = false)
     {
         ReferenceHub = hub;
+        
         SetUp(!dummy);
         
         if (dummy)
@@ -577,7 +578,7 @@ public class CursedPlayer
         GameObject = ReferenceHub.gameObject;
         Transform = ReferenceHub.transform;
         
-        if(!auth)
+        if (!auth)
             return;
         
         SetUpAuth();
