@@ -1,8 +1,8 @@
 ﻿using CursedMod.Features.Wrappers.Player.Ragdolls;
 
-namespace CursedMod.Events.Internal;
+namespace CursedMod.Events.Hooked.Ragdolls;
 
-public static class Ragdoll
+public static class RagdollHookedEvents
 {
     public static void OnSpawnedRagdoll(BasicRagdoll basicRagdoll) => CursedRagdoll.Ragdolls.Add(new CursedRagdoll(basicRagdoll));
 

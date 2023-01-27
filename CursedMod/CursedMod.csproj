@@ -77,7 +77,7 @@
         <Compile Include="Events\EventManager.cs" />
         <Compile Include="Events\Handlers\Achievements\AchievementsEventHandler.cs" />
         <Compile Include="Events\Handlers\MapGeneration\MapGenerationEventHandler.cs" />
-        <Compile Include="Events\Internal\Ragdoll.cs" />
+        <Compile Include="Events\Hooked\Ragdolls\RagdollHookedEvents.cs" />
         <Compile Include="Events\Patches\Achievements\ServerAchievePatch.cs" />
         <Compile Include="Features\Enums\AuthenticationType.cs" />
         <Compile Include="Features\Enums\DoorType.cs" />

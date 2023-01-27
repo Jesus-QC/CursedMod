@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Reflection;
-using CursedMod.Events.Internal;
+using CursedMod.Events.Hooked;
+using CursedMod.Events.Hooked.Ragdolls;
 using HarmonyLib;
 using NorthwoodLib.Pools;
 using PlayerRoles.Ragdolls;
@@ -71,9 +72,9 @@ public static class EventManager
         return newInstructions;
     }
 
-    internal static void SubscribeEvents()
+    internal static void SubscribeHookedEvents()
     {
-        RagdollManager.OnRagdollSpawned += Ragdoll.OnSpawnedRagdoll;
-        RagdollManager.OnRagdollRemoved += Ragdoll.OnRagdollRemoved;
+        RagdollManager.OnRagdollSpawned += RagdollHookedEvents.OnSpawnedRagdoll;
+        RagdollManager.OnRagdollRemoved += RagdollHookedEvents.OnRagdollRemoved;
     }
 }
