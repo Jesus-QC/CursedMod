@@ -7,16 +7,16 @@ using NorthwoodLib.Pools;
 
 namespace CursedMod.Events.Patches.Player;
 
-[HarmonyPatch(typeof(ReferenceHub), nameof(ReferenceHub.OnDestroy))]
-public class ReferenceHubDestroyPatch
+[HarmonyPatch(typeof(CustomNetworkManager), nameof(CustomNetworkManager.OnServerDisconnect))]
+public class PlayerDisconnectPatch
 {
     private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions)
     {
-        List<CodeInstruction> newInstructions = EventManager.CheckEvent<ReferenceHubDestroyPatch>(50, instructions);
+        List<CodeInstruction> newInstructions = EventManager.CheckEvent<PlayerDisconnectPatch>(45, instructions);
 
-        newInstructions.InsertRange(0, new CodeInstruction[]
+        newInstructions.InsertRange(newInstructions.FindIndex(x => x.opcode == OpCodes.Pop) + 1, new CodeInstruction[]
         {
-            new (OpCodes.Ldarg_0),
+            new (OpCodes.Ldarg_1),
             new (OpCodes.Newobj, AccessTools.GetDeclaredConstructors(typeof(PlayerDisconnectedEventArgs))[0]),
             new (OpCodes.Call, AccessTools.Method(typeof(PlayerEventHandlers), nameof(PlayerEventHandlers.OnPlayerDisconnected))),
         });
