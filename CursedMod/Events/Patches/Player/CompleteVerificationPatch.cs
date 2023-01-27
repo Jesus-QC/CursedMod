@@ -7,15 +7,23 @@ using NorthwoodLib.Pools;
 
 namespace CursedMod.Events.Patches.Player;
 
-[HarmonyPatch(typeof(ReferenceHub), nameof(ReferenceHub.Start))]
+[HarmonyPatch(typeof(ServerRoles), nameof(ServerRoles.UserCode_CmdServerSignatureComplete))]
 public class CompleteVerificationPatch
 {
-    private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions)
+    private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
     {
         List<CodeInstruction> newInstructions = EventManager.CheckEvent<CompleteVerificationPatch>(691, instructions);
 
+        Label ret = generator.DefineLabel();
+        
+        newInstructions[newInstructions.Count - 1].labels.Add(ret);
+        
         newInstructions.InsertRange(newInstructions.FindIndex(x => x.opcode == OpCodes.Pop) + 1, new List<CodeInstruction>()
         {
+            new (OpCodes.Ldarg_0),
+            new (OpCodes.Callvirt, AccessTools.PropertyGetter(typeof(ServerRoles), nameof(ServerRoles.isLocalPlayer))),
+            new (OpCodes.Brtrue_S, ret),
+            
             new (OpCodes.Ldarg_0),
             new (OpCodes.Newobj, AccessTools.GetDeclaredConstructors(typeof(PlayerJoinedEventArgs))[0]),
             new (OpCodes.Call, AccessTools.Method(typeof(PlayerEventHandlers), nameof(PlayerEventHandlers.OnPlayerJoined))),

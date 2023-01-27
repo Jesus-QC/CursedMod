@@ -10,13 +10,8 @@ public class PlayerJoinedEventArgs : EventArgs, ICursedPlayerEvent
 
     public PlayerJoinedEventArgs(ServerRoles serverRoles)
     {
-        try
-        {
-            Player = new CursedPlayer(serverRoles._hub);
-        }
-        catch (Exception e)
-        {
-            Log.Error(e.ToString());
-        }
+        Log.Info("a");
+        Player = new CursedPlayer(serverRoles._hub);
+        Log.Info("b");
     }
 }
