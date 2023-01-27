@@ -4,7 +4,6 @@ using CursedMod.Events.Arguments.Player;
 using CursedMod.Events.Handlers.Player;
 using HarmonyLib;
 using NorthwoodLib.Pools;
-using PluginAPI.Core;
 
 namespace CursedMod.Events.Patches.Player;
 
