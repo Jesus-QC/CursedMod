@@ -5,7 +5,7 @@ namespace CursedMod.Events.Arguments.Player;
 
 public class PlayerDisconnectedEventArgs : EventArgs, ICursedPlayerEvent
 {
-    public CursedPlayer Player { get; set; }
+    public CursedPlayer Player { get; }
 
     public PlayerDisconnectedEventArgs(ReferenceHub hub)
     {

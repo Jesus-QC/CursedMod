@@ -4,5 +4,5 @@ namespace CursedMod.Events.Arguments;
 
 public interface ICursedPlayerEvent
 {
-    public CursedPlayer Player { get; set; }
+    public CursedPlayer Player { get; }
 }

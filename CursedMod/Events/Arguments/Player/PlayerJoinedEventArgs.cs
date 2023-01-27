@@ -5,7 +5,7 @@ namespace CursedMod.Events.Arguments.Player;
 
 public class PlayerJoinedEventArgs : EventArgs, ICursedPlayerEvent
 {
-    public CursedPlayer Player { get; set; }
+    public CursedPlayer Player { get; }
 
     public PlayerJoinedEventArgs(ServerRoles serverRoles)
     {

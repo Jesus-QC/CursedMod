@@ -74,6 +74,7 @@
         <Compile Include="Events\Arguments\Achievements\PlayerAchievingEventArgs.cs" />
         <Compile Include="Events\Arguments\ICursedCancellableEvent.cs" />
         <Compile Include="Events\Arguments\ICursedPlayerEvent.cs" />
+        <Compile Include="Events\Arguments\Player\PlayerChangingRoleEventArgs.cs" />
         <Compile Include="Events\Arguments\Player\PlayerDisconnectedEventArgs.cs" />
         <Compile Include="Events\Arguments\Player\PlayerJoinedEventArgs.cs" />
         <Compile Include="Events\EventManager.cs" />
@@ -84,6 +85,7 @@
         <Compile Include="Events\Patches\Achievements\ServerAchievePatch.cs" />
         <Compile Include="Events\Patches\Player\ReferenceHubDestroyPatch.cs" />
         <Compile Include="Events\Patches\Player\ReferenceHubStartPatch.cs" />
+        <Compile Include="Events\Patches\Player\Roles\InitializeRolePatch.cs" />
         <Compile Include="Events\Patches\Round\RoundStartPatch.cs" />
         <Compile Include="Features\Enums\AuthenticationType.cs" />
         <Compile Include="Features\Enums\DoorType.cs" />
