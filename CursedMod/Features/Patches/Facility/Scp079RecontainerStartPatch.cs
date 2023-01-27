@@ -7,7 +7,7 @@ using HarmonyLib;
 using NorthwoodLib.Pools;
 using PlayerRoles.PlayableScps.Scp079;
 
-namespace CursedMod.Features.Patches;
+namespace CursedMod.Features.Patches.Facility;
 
 [HarmonyPatch(typeof(Scp079Recontainer), nameof(Scp079Recontainer.Start))]
 public class Scp079RecontainerStartPatch
