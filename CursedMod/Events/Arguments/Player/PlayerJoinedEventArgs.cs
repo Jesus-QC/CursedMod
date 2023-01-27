@@ -10,8 +10,6 @@ public class PlayerJoinedEventArgs : EventArgs, ICursedPlayerEvent
 
     public PlayerJoinedEventArgs(ServerRoles serverRoles)
     {
-        Log.Info("a");
         Player = new CursedPlayer(serverRoles._hub);
-        Log.Info("b");
     }
 }
