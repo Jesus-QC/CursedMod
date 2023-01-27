@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Reflection;
 using CursedMod.Events.Handlers.MapGeneration;
+using CursedMod.Features.Wrappers.Player;
 using HarmonyLib;
 using MapGeneration;
 using NorthwoodLib.Pools;
 using PluginAPI.Core;
+using UnityEngine.SceneManagement;
 
 namespace CursedMod.Events;
 
@@ -31,7 +33,7 @@ public static class EventManager
                 Log.Debug(patch.DeclaringType + "::" + patch.Name);
             }
 
-            SeedSynchronizer.OnMapGenerated += MapGenerationEventHandler.CacheAPI;
+            RegisterHookedEvents();
         }
         catch (Exception e)
         {
@@ -92,5 +94,11 @@ public static class EventManager
         
         Log.Warning(typeof(T).FullDescription() + $" has an incorrect number of OpCodes ({originalCodes} != {newInstructions.Count}). The patch may be broken or bugged.");
         return newInstructions;
+    }
+
+    private static void RegisterHookedEvents()
+    {
+        SeedSynchronizer.OnMapGenerated += MapGenerationEventHandler.CacheAPI;
+        SceneManager.sceneUnloaded += _ => CursedPlayer.Dictionary.Clear();
     }
 }
