@@ -8,4 +8,11 @@ public static class RoundEventHandlers
     {
         RoundStarted.InvokeEvent();
     }
+    
+    public static event EventManager.CursedEventHandler WaitingForPlayers;
+
+    public static void OnWaitingForPlayers()
+    {
+        WaitingForPlayers.InvokeEvent();
+    }
 }
