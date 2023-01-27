@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using Mirror;
 using PlayerRoles;
 using UnityEngine;
@@ -8,14 +7,16 @@ namespace CursedMod.Features.Wrappers.Player.Ragdolls;
 
 public class CursedRagdoll
 {
-    internal static List<CursedRagdoll> Ragdolls { get; } = new List<CursedRagdoll>();
-    public static IReadOnlyCollection<CursedRagdoll> List => Ragdolls.AsReadOnly();
+    internal static readonly HashSet<CursedRagdoll> Ragdolls = new ();
+
+    public static IReadOnlyCollection<CursedRagdoll> Collection => Ragdolls;
 
     public BasicRagdoll Base { get; }
 
     internal CursedRagdoll(BasicRagdoll ragdoll)
     {
         Base = ragdoll;
+        Ragdolls.Add(this);
     }
 
     public bool AutoCleanUp
@@ -38,7 +39,23 @@ public class CursedRagdoll
 
     public void Destroy() => NetworkServer.Destroy(Base.gameObject);
 
-    public static CursedRagdoll Get(BasicRagdoll basicRagdoll) => List.FirstOrDefault(ragdoll => ragdoll.Base == basicRagdoll);
+    public static CursedRagdoll Get(BasicRagdoll basicRagdoll)
+    {
+        foreach (CursedRagdoll ragdoll in Ragdolls)
+        {
+            if (basicRagdoll == ragdoll.Base)
+                return ragdoll;
+        }
 
-    public static IEnumerable<CursedRagdoll> Get(CursedPlayer player) => List.Where(ragdoll => ragdoll.Owner == player);
+        return new CursedRagdoll(basicRagdoll);
+    }
+
+    public static IEnumerable<CursedRagdoll> Get(CursedPlayer player)
+    {
+        foreach (CursedRagdoll ragdoll in Ragdolls)
+        {
+            if (player == ragdoll.Owner)
+                yield return ragdoll;
+        }
+    }
 }
