@@ -86,6 +86,7 @@
         <Compile Include="Features\Enums\ShootingTargetType.cs" />
         <Compile Include="Features\Extensions\CollectionExtensions.cs" />
         <Compile Include="Features\Extensions\RoleExtensions.cs" />
+        <Compile Include="Features\Patches\Scp079RecontainerStartPatch.cs" />
         <Compile Include="Features\Wrappers\AdminToys\CursedAdminToy.cs" />
         <Compile Include="Features\Wrappers\AdminToys\CursedLightSource.cs" />
         <Compile Include="Features\Wrappers\AdminToys\CursedPrimitiveObject.cs" />

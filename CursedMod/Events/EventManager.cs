@@ -67,7 +67,7 @@ public static class EventManager
         if (originalCodes == newInstructions.Count)
             return newInstructions;
         
-        Log.Warning(typeof(T).FullDescription() + " has an incorrect number of OpCodes. The patch may be broken or bugged.");
+        Log.Warning(typeof(T).FullDescription() + $" has an incorrect number of OpCodes ({originalCodes} != {newInstructions.Count}). The patch may be broken or bugged.");
         return newInstructions;
     }
 

@@ -1,4 +1,5 @@
 ﻿using CursedMod.Features.Wrappers.Facility;
+using CursedMod.Features.Wrappers.Facility.Props;
 using CursedMod.Features.Wrappers.Server;
 
 namespace CursedMod.Events.Handlers.MapGeneration;
