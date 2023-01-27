@@ -11,7 +11,7 @@ public class RoundStartPatch
 {
     private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
     {
-        List<CodeInstruction> newInstructions = EventManager.CheckEvent<RoundStartPatch>(12, instructions);
+        List<CodeInstruction> newInstructions = EventManager.CheckEvent<RoundStartPatch>(13, instructions);
 
         newInstructions.InsertRange(0, new CodeInstruction[]
         {

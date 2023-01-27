@@ -14,12 +14,12 @@ public class Scp079RecontainerStartPatch
 {
     private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions)
     {
-        List<CodeInstruction> newInstructions = EventManager.CheckEvent<ServerAchievePatch>(8, instructions);
+        List<CodeInstruction> newInstructions = EventManager.CheckEvent<ServerAchievePatch>(9, instructions);
 
         newInstructions.InsertRange(0, new CodeInstruction[]
         {
             new (OpCodes.Ldarg_0),
-            new (OpCodes.Call, AccessTools.Method(typeof(Cursed079Recontainer), nameof(Cursed079Recontainer.RecontainerBase)))
+            new (OpCodes.Call, AccessTools.PropertySetter(typeof(Cursed079Recontainer), nameof(Cursed079Recontainer.RecontainerBase)))
         });
 
         foreach (CodeInstruction instruction in newInstructions)

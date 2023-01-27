@@ -13,7 +13,7 @@ public class ServerAchievePatch
 {
     private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
     {
-        List<CodeInstruction> newInstructions = EventManager.CheckEvent<ServerAchievePatch>(20, instructions);
+        List<CodeInstruction> newInstructions = EventManager.CheckEvent<ServerAchievePatch>(21, instructions);
 
         Label ret = generator.DefineLabel();
         LocalBuilder args = generator.DeclareLocal(typeof(PlayerAchievingEventArgs));

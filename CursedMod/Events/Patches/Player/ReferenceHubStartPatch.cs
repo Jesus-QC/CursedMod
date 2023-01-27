@@ -12,7 +12,7 @@ public class ReferenceHubStartPatch
 {
     private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions)
     {
-        List<CodeInstruction> newInstructions = EventManager.CheckEvent<ReferenceHubStartPatch>(18, instructions);
+        List<CodeInstruction> newInstructions = EventManager.CheckEvent<ReferenceHubStartPatch>(19, instructions);
 
         newInstructions.InsertRange(0, new CodeInstruction[]
         {

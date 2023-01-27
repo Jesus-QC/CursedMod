@@ -4,15 +4,16 @@ using CursedMod.Events.Arguments.Player;
 using CursedMod.Events.Handlers.Player;
 using HarmonyLib;
 using NorthwoodLib.Pools;
+using PluginAPI.Core;
 
 namespace CursedMod.Events.Patches.Player;
 
-[HarmonyPatch(typeof(ReferenceHub), nameof(ReferenceHub.Start))]
+[HarmonyPatch(typeof(ReferenceHub), nameof(ReferenceHub.OnDestroy))]
 public class ReferenceHubDestroyPatch
 {
     private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions)
     {
-        List<CodeInstruction> newInstructions = EventManager.CheckEvent<ReferenceHubDestroyPatch>(49, instructions);
+        List<CodeInstruction> newInstructions = EventManager.CheckEvent<ReferenceHubDestroyPatch>(50, instructions);
 
         newInstructions.InsertRange(0, new CodeInstruction[]
         {
