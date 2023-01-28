@@ -78,6 +78,7 @@
         <Compile Include="Events\Arguments\Player\PlayerChangingRoleEventArgs.cs" />
         <Compile Include="Events\Arguments\Player\PlayerDisconnectedEventArgs.cs" />
         <Compile Include="Events\Arguments\Player\PlayerJoinedEventArgs.cs" />
+        <Compile Include="Events\DynamicEventAttribute.cs" />
         <Compile Include="Events\EventManager.cs" />
         <Compile Include="Events\Handlers\Achievements\AchievementsEventHandler.cs" />
         <Compile Include="Events\Handlers\MapGeneration\MapGenerationEventHandler.cs" />
