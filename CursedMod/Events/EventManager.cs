@@ -50,7 +50,6 @@ public static class EventManager
         if (eventHandler is null)
             return;
         
-        CursedLogger.InternalDebug("Invoking event " + eventHandler.GetType().Name);
         foreach (Delegate sub in eventHandler.GetInvocationList())
         {
             try
@@ -71,7 +70,6 @@ public static class EventManager
         if (eventHandler is null)
             return;
         
-        CursedLogger.InternalDebug("Invoking event " + eventHandler.GetType().Name);
         foreach (Delegate sub in eventHandler.GetInvocationList())
         {
             try
