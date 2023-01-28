@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Reflection;
 using CursedMod.Events.Handlers.MapGeneration;
-using CursedMod.Features.Wrappers.Player;
+using CursedMod.Features.Logger;
 using HarmonyLib;
 using MapGeneration;
 using NorthwoodLib.Pools;
@@ -50,6 +50,7 @@ public static class EventManager
         if (eventHandler is null)
             return;
         
+        CursedLogger.InternalDebug("Invoking event " + eventHandler.GetType().Name);
         foreach (Delegate sub in eventHandler.GetInvocationList())
         {
             try
@@ -70,6 +71,7 @@ public static class EventManager
         if (eventHandler is null)
             return;
         
+        CursedLogger.InternalDebug("Invoking event " + eventHandler.GetType().Name);
         foreach (Delegate sub in eventHandler.GetInvocationList())
         {
             try
@@ -98,6 +100,7 @@ public static class EventManager
 
     private static void RegisterHookedEvents()
     {
+        SceneManager.sceneLoaded += MapGenerationEventHandler.OnChangingScene;
         SeedSynchronizer.OnMapGenerated += MapGenerationEventHandler.CacheAPI;
     }
 }

@@ -96,6 +96,7 @@
         <Compile Include="Features\Enums\ShootingTargetType.cs" />
         <Compile Include="Features\Extensions\CollectionExtensions.cs" />
         <Compile Include="Features\Extensions\RoleExtensions.cs" />
+        <Compile Include="Features\Logger\CursedLogger.cs" />
         <Compile Include="Features\Patches\Dummies\ClientInstanceModePatch.cs" />
         <Compile Include="Features\Patches\Facility\Scp079RecontainerStartPatch.cs" />
         <Compile Include="Features\Wrappers\AdminToys\CursedAdminToy.cs" />

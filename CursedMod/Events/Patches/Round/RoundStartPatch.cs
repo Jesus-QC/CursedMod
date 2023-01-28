@@ -17,8 +17,7 @@ public class RoundStartPatch
         {
             new (OpCodes.Call, AccessTools.Method(typeof(RoundEventHandlers), nameof(RoundEventHandlers.OnRoundStarted))),
         });
-        
-        
+
         foreach (CodeInstruction instruction in newInstructions)
             yield return instruction;
 

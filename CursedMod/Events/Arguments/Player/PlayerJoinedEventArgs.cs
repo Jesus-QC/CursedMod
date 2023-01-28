@@ -1,6 +1,5 @@
 ﻿using System;
 using CursedMod.Features.Wrappers.Player;
-using PluginAPI.Core;
 
 namespace CursedMod.Events.Arguments.Player;
 
