@@ -1,4 +1,12 @@
-﻿using CursedMod.Events;
+﻿// -----------------------------------------------------------------------
+// <copyright file="EntryPoint.cs" company="CursedMod">
+// Copyright (c) CursedMod. All rights reserved.
+// Licensed under the GPLv3 license.
+// See LICENSE file in the project root for full license information.
+// </copyright>
+// -----------------------------------------------------------------------
+
+using CursedMod.Events;
 using CursedMod.Loader;
 using CursedMod.Loader.Configurations;
 using PluginAPI.Core;
