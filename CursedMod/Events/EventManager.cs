@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Reflection;
 using CursedMod.Events.Handlers.MapGeneration;
-using CursedMod.Features.Logger;
 using HarmonyLib;
 using MapGeneration;
 using NorthwoodLib.Pools;
