@@ -22,6 +22,6 @@ internal class EntryPoint
         // Load Plugins
     }
 
-    [PluginConfig] 
+    [PluginConfig]
     public static CursedModConfiguration ModConfiguration;
 }
