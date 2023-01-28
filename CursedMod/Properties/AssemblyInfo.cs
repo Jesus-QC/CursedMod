@@ -6,7 +6,7 @@ using CursedMod.Loader;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("CursedMod")]
-[assembly: AssemblyDescription("Modification framework.")]
+[assembly: AssemblyDescription("Modding framework")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("CursedTeam")]
 [assembly: AssemblyProduct("CursedMod")]
