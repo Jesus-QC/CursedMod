@@ -1,9 +1,10 @@
 ﻿using System;
 using CursedMod.Features.Wrappers.Inventory.Items;
 using CursedMod.Features.Wrappers.Player;
+using InventorySystem;
 using InventorySystem.Items;
 
-namespace CursedMod.Events.Arguments.Inventory;
+namespace CursedMod.Events.Arguments.Items;
 
 public class PlayerDroppingItemEventArgs : EventArgs, ICursedCancellableEvent, ICursedPlayerEvent, ICursedItemEvent 
 {
@@ -12,7 +13,7 @@ public class PlayerDroppingItemEventArgs : EventArgs, ICursedCancellableEvent, I
     public CursedItem Item { get; }
     public bool IsThrow { get; set; }
 
-    public PlayerDroppingItemEventArgs(InventorySystem.Inventory inventory, ItemBase itemBase, bool isThrow)
+    public PlayerDroppingItemEventArgs(Inventory inventory, ItemBase itemBase, bool isThrow)
     {
         IsAllowed = true;
         Player = CursedPlayer.Get(inventory._hub);
