@@ -74,7 +74,9 @@
         <Compile Include="EntryPoint.cs" />
         <Compile Include="Events\Arguments\Achievements\PlayerAchievingEventArgs.cs" />
         <Compile Include="Events\Arguments\ICursedCancellableEvent.cs" />
+        <Compile Include="Events\Arguments\ICursedItemEvent.cs" />
         <Compile Include="Events\Arguments\ICursedPlayerEvent.cs" />
+        <Compile Include="Events\Arguments\Inventory\PlayerDroppingItemEventArgs.cs" />
         <Compile Include="Events\Arguments\Player\PlayerChangingRoleEventArgs.cs" />
         <Compile Include="Events\Arguments\Player\PlayerDisconnectedEventArgs.cs" />
         <Compile Include="Events\Arguments\Player\PlayerJoinedEventArgs.cs" />

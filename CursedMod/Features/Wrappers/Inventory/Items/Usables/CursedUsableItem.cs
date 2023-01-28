@@ -11,6 +11,14 @@ public class CursedUsableItem : CursedItem
         UsableBase = itemBase;
     }
 
+    public static CursedUsableItem Get(UsableItem item)
+    {
+        if (item is Consumable consumable)
+            return new CursedConsumableItem(consumable);
+
+        return new CursedUsableItem(item);
+    }
+
     public bool CanStartUsing
     {
         get => UsableBase.CanStartUsing;
