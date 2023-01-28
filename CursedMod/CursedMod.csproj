@@ -17,11 +17,13 @@
         <PlatformTarget>AnyCPU</PlatformTarget>
         <DebugSymbols>true</DebugSymbols>
         <DebugType>full</DebugType>
-        <Optimize>false</Optimize>
+        <Optimize>true</Optimize>
         <OutputPath>bin\Debug\</OutputPath>
         <DefineConstants>DEBUG;TRACE</DefineConstants>
         <ErrorReport>prompt</ErrorReport>
         <WarningLevel>4</WarningLevel>
+        <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+        <CodeAnalysisRuleSet>CursedMod.ruleset</CodeAnalysisRuleSet>
     </PropertyGroup>
     <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
         <PlatformTarget>AnyCPU</PlatformTarget>
@@ -32,16 +34,148 @@
         <ErrorReport>prompt</ErrorReport>
         <WarningLevel>4</WarningLevel>
         <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+        <CodeAnalysisRuleSet>CursedMod.ruleset</CodeAnalysisRuleSet>
     </PropertyGroup>
     <ItemGroup>
+        <Reference Include="0Harmony, Version=2.2.2.0, Culture=neutral, processorArchitecture=MSIL">
+          <HintPath>..\packages\Lib.Harmony.2.2.2\lib\net48\0Harmony.dll</HintPath>
+        </Reference>
+        <Reference Include="Assembly-CSharp">
+          <HintPath>$(SL_REFERENCES)\Assembly-CSharp-Publicized.dll</HintPath>
+        </Reference>
+        <Reference Include="Assembly-CSharp-firstpass">
+          <HintPath>$(SL_REFERENCES)\Assembly-CSharp-firstpass.dll</HintPath>
+        </Reference>
+        <Reference Include="CommandSystem.Core">
+          <HintPath>$(SL_REFERENCES)\CommandSystem.Core.dll</HintPath>
+        </Reference>
+        <Reference Include="Mirror">
+          <HintPath>$(SL_REFERENCES)\Mirror-Publicized.dll</HintPath>
+        </Reference>
+        <Reference Include="NorthwoodLib">
+          <HintPath>$(SL_REFERENCES)\NorthwoodLib.dll</HintPath>
+        </Reference>
+        <Reference Include="PluginAPI">
+          <HintPath>$(SL_REFERENCES)\PluginAPI-Publicized.dll</HintPath>
+        </Reference>
         <Reference Include="System" />
         <Reference Include="System.Core" />
         <Reference Include="System.Data" />
         <Reference Include="System.Xml" />
+        <Reference Include="UnityEngine.CoreModule">
+          <HintPath>$(SL_REFERENCES)\UnityEngine.CoreModule.dll</HintPath>
+        </Reference>
+        <Reference Include="UnityEngine.AudioModule">
+          <HintPath>$(SL_REFERENCES)\UnityEngine.AudioModule.dll</HintPath>
+        </Reference>
+        <Reference Include="UnityEngine.PhysicsModule">
+          <HintPath>$(SL_REFERENCES)\UnityEngine.PhysicsModule.dll</HintPath>
+        </Reference>
     </ItemGroup>
     <ItemGroup>
         <Compile Include="EntryPoint.cs" />
+        <Compile Include="Events\Arguments\Achievements\PlayerAchievingEventArgs.cs" />
+        <Compile Include="Events\Arguments\ICursedCancellableEvent.cs" />
+        <Compile Include="Events\Arguments\ICursedItemEvent.cs" />
+        <Compile Include="Events\Arguments\ICursedPlayerEvent.cs" />
+        <Compile Include="Events\Arguments\Items\PlayerDroppingItemEventArgs.cs" />
+        <Compile Include="Events\Arguments\Player\PlayerChangingRoleEventArgs.cs" />
+        <Compile Include="Events\Arguments\Player\PlayerDisconnectedEventArgs.cs" />
+        <Compile Include="Events\Arguments\Player\PlayerJoinedEventArgs.cs" />
+        <Compile Include="Events\DynamicEventAttribute.cs" />
+        <Compile Include="Events\EventManager.cs" />
+        <Compile Include="Events\Handlers\Achievements\AchievementsEventHandler.cs" />
+        <Compile Include="Events\Handlers\Items\ItemsEventHandler.cs" />
+        <Compile Include="Events\Handlers\MapGeneration\MapGenerationEventHandler.cs" />
+        <Compile Include="Events\Handlers\Player\PlayerEventHandlers.cs" />
+        <Compile Include="Events\Handlers\Round\RoundEventHandlers.cs" />
+        <Compile Include="Events\Patches\Achievements\ServerAchievePatch.cs" />
+        <Compile Include="Events\Patches\Items\DropItemPatch.cs" />
+        <Compile Include="Events\Patches\Player\PlayerDisconnectPatch.cs" />
+        <Compile Include="Events\Patches\Player\CompleteVerificationPatch.cs" />
+        <Compile Include="Events\Patches\Player\Roles\InitializeRolePatch.cs" />
+        <Compile Include="Events\Patches\Round\RestartingRoundPatch.cs" />
+        <Compile Include="Events\Patches\Round\RoundStartPatch.cs" />
+        <Compile Include="Events\Patches\Round\WaitingForPlayersPatch.cs" />
+        <Compile Include="Features\Enums\AuthenticationType.cs" />
+        <Compile Include="Features\Enums\DoorType.cs" />
+        <Compile Include="Features\Enums\LockerType.cs" />
+        <Compile Include="Features\Enums\EnvironmentalHazardType.cs" />
+        <Compile Include="Features\Enums\ShootingTargetType.cs" />
+        <Compile Include="Features\Extensions\CollectionExtensions.cs" />
+        <Compile Include="Features\Extensions\RoleExtensions.cs" />
+        <Compile Include="Features\Logger\CursedLogger.cs" />
+        <Compile Include="Features\Patches\Dummies\ClientInstanceModePatch.cs" />
+        <Compile Include="Features\Patches\Facility\Scp079RecontainerStartPatch.cs" />
+        <Compile Include="Features\Wrappers\AdminToys\CursedAdminToy.cs" />
+        <Compile Include="Features\Wrappers\AdminToys\CursedLightSource.cs" />
+        <Compile Include="Features\Wrappers\AdminToys\CursedPrimitiveObject.cs" />
+        <Compile Include="Features\Wrappers\AdminToys\CursedShootingTarget.cs" />
+        <Compile Include="Features\Wrappers\CursedPrefabManager.cs" />
+        <Compile Include="Features\Wrappers\Facility\CursedCassie.cs" />
+        <Compile Include="Features\Wrappers\Facility\CursedDecontamination.cs" />
+        <Compile Include="Features\Wrappers\Facility\CursedFacility.cs" />
+        <Compile Include="Features\Wrappers\Facility\CursedWarhead.cs" />
+        <Compile Include="Features\Wrappers\Facility\Doors\CursedAirlockController.cs" />
+        <Compile Include="Features\Wrappers\Facility\Doors\CursedBreakableDoor.cs" />
+        <Compile Include="Features\Wrappers\Facility\Doors\CursedCheckpointDoor.cs" />
+        <Compile Include="Features\Wrappers\Facility\Doors\CursedDoor.cs" />
+        <Compile Include="Features\Wrappers\Facility\Doors\CursedPryableDoor.cs" />
+        <Compile Include="Features\Wrappers\Facility\Elevators\CursedElevatorChamber.cs" />
+        <Compile Include="Features\Wrappers\Facility\Hazards\CursedEnvironmentalHazard.cs" />
+        <Compile Include="Features\Wrappers\Facility\Hazards\CursedSinkholeHazard.cs" />
+        <Compile Include="Features\Wrappers\Facility\Hazards\CursedTantrumHazard.cs" />
+        <Compile Include="Features\Wrappers\Facility\Hazards\CursedTemporaryHazard.cs" />
+        <Compile Include="Features\Wrappers\Facility\PocketDimension\CursedPocketDimensionExit.cs" />
+        <Compile Include="Features\Wrappers\Facility\Props\Cursed079Recontainer.cs" />
+        <Compile Include="Features\Wrappers\Facility\Props\CursedBreakableWindow.cs" />
+        <Compile Include="Features\Wrappers\Facility\Props\CursedGenerator.cs" />
+        <Compile Include="Features\Wrappers\Facility\Props\CursedLocker.cs" />
+        <Compile Include="Features\Wrappers\Facility\Props\CursedLockerChamber.cs" />
+        <Compile Include="Features\Wrappers\Facility\Props\CursedTeslaGate.cs" />
+        <Compile Include="Features\Wrappers\Facility\Rooms\Cursed079Camera.cs" />
+        <Compile Include="Features\Wrappers\Facility\Rooms\CursedLightningController.cs" />
+        <Compile Include="Features\Wrappers\Facility\Rooms\CursedRoom.cs" />
+        <Compile Include="Features\Wrappers\Inventory\Items\Armor\CursedBodyArmorItem.cs" />
+        <Compile Include="Features\Wrappers\Inventory\Items\CursedItem.cs" />
+        <Compile Include="Features\Wrappers\Inventory\Items\Firearms\Ammo\CursedAmmoItem.cs" />
+        <Compile Include="Features\Wrappers\Inventory\Items\Firearms\CursedFirearmAttachment.cs" />
+        <Compile Include="Features\Wrappers\Inventory\Items\Firearms\CursedAutomaticFirearmItem.cs" />
+        <Compile Include="Features\Wrappers\Inventory\Items\Firearms\CursedFirearmItem.cs" />
+        <Compile Include="Features\Wrappers\Inventory\Items\Flashlight\CursedFlashlightItem.cs" />
+        <Compile Include="Features\Wrappers\Inventory\Items\Jailbird\CursedJailbirdItem.cs" />
+        <Compile Include="Features\Wrappers\Inventory\Items\KeyCards\CursedKeyCardItem.cs" />
+        <Compile Include="Features\Wrappers\Inventory\Items\MicroHID\CursedMicroHIDItem.cs" />
+        <Compile Include="Features\Wrappers\Inventory\Items\Radio\CursedRadioItem.cs" />
+        <Compile Include="Features\Wrappers\Inventory\Items\ThrowableProjectiles\CursedThrowableItem.cs" />
+        <Compile Include="Features\Wrappers\Inventory\Items\Usables\CursedConsumableItem.cs" />
+        <Compile Include="Features\Wrappers\Inventory\Items\Usables\CursedUsableItem.cs" />
+        <Compile Include="Features\Wrappers\Inventory\Pickups\CursedPickup.cs" />
+        <Compile Include="Features\Wrappers\Player\CursedPlayer.cs" />
+        <Compile Include="Features\Wrappers\Player\CursedPlayerHitBox.cs" />
+        <Compile Include="Features\Wrappers\Player\Dummies\CursedDummy.cs" />
+        <Compile Include="Features\Wrappers\Player\Dummies\FakeConnection.cs" />
+        <Compile Include="Features\Wrappers\Player\Ragdolls\CursedRagdoll.cs" />
+        <Compile Include="Features\Wrappers\Player\Roles\CursedRoleManager.cs" />
+        <Compile Include="Features\Wrappers\Player\VoiceChat\CursedVoiceChat.cs" />
+        <Compile Include="Features\Wrappers\Round\CursedRound.cs" />
+        <Compile Include="Features\Wrappers\Server\CursedServer.cs" />
+        <Compile Include="Loader\Configurations\CursedModConfiguration.cs" />
+        <Compile Include="Loader\CursedModInformation.cs" />
         <Compile Include="Properties\AssemblyInfo.cs" />
+    </ItemGroup>
+    <ItemGroup>
+        <None Include="packages.config" />
+    </ItemGroup>
+    <ItemGroup>
+        <AdditionalFiles Include="stylecop.json" />
+    </ItemGroup>
+    <ItemGroup>
+      <Analyzer Include="..\packages\StyleCop.Analyzers.1.1.118\analyzers\dotnet\cs\StyleCop.Analyzers.CodeFixes.dll" />
+      <Analyzer Include="..\packages\StyleCop.Analyzers.1.1.118\analyzers\dotnet\cs\StyleCop.Analyzers.dll" />
+    </ItemGroup>
+    <ItemGroup>
+      <Content Include="CursedMod.ruleset" />
     </ItemGroup>
     <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
     <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
