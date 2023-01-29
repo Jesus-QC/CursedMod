@@ -15,7 +15,6 @@ namespace CursedMod.Features.Wrappers.AdminToys;
 
 public class CursedShootingTarget : CursedAdminToy
 {
-    
     internal CursedShootingTarget(ShootingTarget toyBase)
         : base(toyBase)
     {

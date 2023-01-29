@@ -65,5 +65,5 @@ public class CursedFirearmAttachment
         => Base.GetNameAndDescription(out name, out description);
 
     public void GetActiveParamsNonAlloc(AttachmentParam[] activeParams, out int len)
-        => Base.GetActiveParamsNonAlloc(activeParams, out  len);
+        => Base.GetActiveParamsNonAlloc(activeParams, out len);
 }

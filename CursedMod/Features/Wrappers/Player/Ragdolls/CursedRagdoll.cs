@@ -43,10 +43,6 @@ public class CursedRagdoll
 
     public RagdollData Data => Base.Info;
 
-    public void CleanUp() => Base.OnCleanup();
-
-    public void Destroy() => NetworkServer.Destroy(Base.gameObject);
-
     public static CursedRagdoll Get(BasicRagdoll basicRagdoll)
     {
         foreach (CursedRagdoll ragdoll in Ragdolls)
@@ -66,4 +62,8 @@ public class CursedRagdoll
                 yield return ragdoll;
         }
     }
+    
+    public void CleanUp() => Base.OnCleanup();
+
+    public void Destroy() => NetworkServer.Destroy(Base.gameObject);
 }

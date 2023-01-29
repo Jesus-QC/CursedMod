@@ -42,8 +42,6 @@ public class CursedPlayer
 {
     public static readonly Dictionary<ReferenceHub, CursedPlayer> Dictionary = new ();
 
-    public readonly PlayerSharedStorage SharedStorage = new ();
-    
     internal CursedPlayer(ReferenceHub hub, bool dummy = false)
     {
         ReferenceHub = hub;
@@ -67,6 +65,8 @@ public class CursedPlayer
     public GameObject GameObject { get; private set; }
     
     public Transform Transform { get; internal set; }
+    
+    public PlayerSharedStorage SharedStorage { get; } = new ();
 
     public AuthenticationType AuthenticationType { get; private set; }
     

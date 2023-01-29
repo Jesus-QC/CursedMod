@@ -6,11 +6,11 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
-using Interactables.Interobjects.DoorUtils;
-using MapGeneration.Distributors;
 using System.Collections.Generic;
 using System.Linq;
 using CursedMod.Features.Wrappers.Inventory.Pickups;
+using Interactables.Interobjects.DoorUtils;
+using MapGeneration.Distributors;
 using UnityEngine;
 
 namespace CursedMod.Features.Wrappers.Facility.Props;

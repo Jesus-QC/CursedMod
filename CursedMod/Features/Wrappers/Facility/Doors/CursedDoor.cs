@@ -43,7 +43,7 @@ public class CursedDoor
     
     public float State => Base.GetExactState();
     
-    public bool IsMoving => State is not (0 or 1);
+    public bool IsMoving => State is not(0 or 1);
 
     public bool IsClosed
     {
@@ -122,20 +122,6 @@ public class CursedDoor
         };
     }
 
-    public void TriggerState() => IsOpened = !IsOpened;
-    
-    public void Open() => IsOpened = true;
-    
-    public void Close() => IsClosed = true;
-    
-    public void HasPerms(ItemBase item) => RequiredPermissions.CheckPermissions(item, null);
-    
-    public void ChangeLock(DoorLockReason reason, bool newState) => Base.ServerChangeLock(reason, newState);
-
-    public void Lock() => Base.ServerChangeLock(DoorLockReason.AdminCommand, true);
-
-    public void Unlock() => Base.ServerChangeLock(DoorLockReason.AdminCommand, false);
-
     public static CursedDoor Create(FacilityZone doorType, Vector3 position, Vector3 rotation, Vector3? scale = null, bool spawn = false)
     {
         DoorVariant prefab = doorType switch
@@ -159,6 +145,20 @@ public class CursedDoor
 
         return new CursedDoor(door);
     }
+    
+    public void TriggerState() => IsOpened = !IsOpened;
+    
+    public void Open() => IsOpened = true;
+    
+    public void Close() => IsClosed = true;
+    
+    public void HasPerms(ItemBase item) => RequiredPermissions.CheckPermissions(item, null);
+    
+    public void ChangeLock(DoorLockReason reason, bool newState) => Base.ServerChangeLock(reason, newState);
+
+    public void Lock() => Base.ServerChangeLock(DoorLockReason.AdminCommand, true);
+
+    public void Unlock() => Base.ServerChangeLock(DoorLockReason.AdminCommand, false);
 
     public GameObject Spawn()
     {
