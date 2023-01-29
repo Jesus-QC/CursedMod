@@ -1,4 +1,12 @@
-﻿using CursedMod.Features.Wrappers.Player;
+﻿// -----------------------------------------------------------------------
+// <copyright file="CursedPickup.cs" company="CursedMod">
+// Copyright (c) CursedMod. All rights reserved.
+// Licensed under the GPLv3 license.
+// See LICENSE file in the project root for full license information.
+// </copyright>
+// -----------------------------------------------------------------------
+
+using CursedMod.Features.Wrappers.Player;
 using CursedMod.Features.Wrappers.Server;
 using InventorySystem;
 using InventorySystem.Items.Pickups;
@@ -9,14 +17,6 @@ namespace CursedMod.Features.Wrappers.Inventory.Pickups;
 
 public class CursedPickup
 {
-    public ItemPickupBase Base { get; }
-    
-    public GameObject GameObject { get; }
-    
-    public Transform Transform { get; }
-    
-    public Rigidbody Rigidbody { get; }
-
     internal CursedPickup(ItemPickupBase itemPickupBase)
     {
         Base = itemPickupBase;
@@ -24,14 +24,14 @@ public class CursedPickup
         Transform = Base._transform;
         Rigidbody = Base.RigidBody;
     }
-
-    public static CursedPickup Get(ItemPickupBase pickupBase) => new(pickupBase);
-
-    public static CursedPickup Create(ItemType type, PickupSyncInfo pickupSyncInfo, bool spawn = true) 
-        => Get(CursedServer.LocalPlayer.Inventory.ServerCreatePickup(CursedServer.LocalPlayer.AddItemBase(type), pickupSyncInfo, spawn));
-
-    public static CursedPickup Create(ItemType type, bool spawn = true) 
-        => Create(type, PickupSyncInfo.None);
+    
+    public ItemPickupBase Base { get; }
+    
+    public GameObject GameObject { get; }
+    
+    public Transform Transform { get; }
+    
+    public Rigidbody Rigidbody { get; }
 
     public PickupSyncInfo Info
     {
@@ -87,7 +87,15 @@ public class CursedPickup
             Info = info;
         }
     }
+    
+    public static CursedPickup Get(ItemPickupBase pickupBase) => new (pickupBase);
 
+    public static CursedPickup Create(ItemType type, PickupSyncInfo pickupSyncInfo, bool spawn = true) 
+        => Get(CursedServer.LocalPlayer.Inventory.ServerCreatePickup(CursedServer.LocalPlayer.AddItemBase(type), pickupSyncInfo, spawn));
+
+    public static CursedPickup Create(ItemType type, bool spawn = true) 
+        => Create(type, PickupSyncInfo.None);
+    
     public GameObject Spawn()
     {
         NetworkServer.Spawn(GameObject);

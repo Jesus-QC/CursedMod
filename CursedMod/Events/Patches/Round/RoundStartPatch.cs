@@ -1,4 +1,12 @@
-﻿using System.Collections.Generic;
+﻿// -----------------------------------------------------------------------
+// <copyright file="RoundStartPatch.cs" company="CursedMod">
+// Copyright (c) CursedMod. All rights reserved.
+// Licensed under the GPLv3 license.
+// See LICENSE file in the project root for full license information.
+// </copyright>
+// -----------------------------------------------------------------------
+
+using System.Collections.Generic;
 using System.Reflection.Emit;
 using CursedMod.Events.Handlers.Round;
 using HarmonyLib;
@@ -9,7 +17,7 @@ namespace CursedMod.Events.Patches.Round;
 [HarmonyPatch(typeof(CharacterClassManager), nameof(CharacterClassManager.RpcRoundStarted))]
 public class RoundStartPatch
 {
-    private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
+    private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions)
     {
         List<CodeInstruction> newInstructions = EventManager.CheckEvent<RoundStartPatch>(13, instructions);
 

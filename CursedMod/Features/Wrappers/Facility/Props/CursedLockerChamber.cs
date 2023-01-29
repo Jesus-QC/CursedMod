@@ -1,4 +1,12 @@
-﻿using Interactables.Interobjects.DoorUtils;
+﻿// -----------------------------------------------------------------------
+// <copyright file="CursedLockerChamber.cs" company="CursedMod">
+// Copyright (c) CursedMod. All rights reserved.
+// Licensed under the GPLv3 license.
+// See LICENSE file in the project root for full license information.
+// </copyright>
+// -----------------------------------------------------------------------
+
+using Interactables.Interobjects.DoorUtils;
 using MapGeneration.Distributors;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,22 +17,18 @@ namespace CursedMod.Features.Wrappers.Facility.Props;
 
 public class CursedLockerChamber
 {
-    public LockerChamber Base { get; }
-    public GameObject GameObject { get; }
-    public Transform Transform { get; }
-
-    public CursedLockerChamber(LockerChamber lockerChamber)
+    internal CursedLockerChamber(LockerChamber lockerChamber)
     {
         Base = lockerChamber;
         GameObject = Base.gameObject;
         Transform = Base.transform;
     }
-
-    public IEnumerable<CursedPickup> GetSpawnedItems() => Base._content.Select(CursedPickup.Get);
     
-    public IEnumerable<CursedPickup> GetItemsToBeSpawned()=> Base._toBeSpawned.Select(CursedPickup.Get);
-
-    public bool CanInteract => Base.CanInteract;
+    public LockerChamber Base { get; }
+    
+    public GameObject GameObject { get; }
+   
+    public Transform Transform { get; }
 
     public KeycardPermissions RequiredPermissions
     {
@@ -49,6 +53,12 @@ public class CursedLockerChamber
         get => Transform.rotation;
         set => Transform.rotation = value;
     }
+    
+    public bool CanInteract => Base.CanInteract;
+    
+    public IEnumerable<CursedPickup> GetSpawnedItems() => Base._content.Select(CursedPickup.Get);
+    
+    public IEnumerable<CursedPickup> GetItemsToBeSpawned() => Base._toBeSpawned.Select(CursedPickup.Get);
 
     public void SpawnItem(ItemType itemType, int amount) => Base.SpawnItem(itemType, amount);
 

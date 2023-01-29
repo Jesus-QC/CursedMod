@@ -1,4 +1,12 @@
-﻿using System.Collections.Generic;
+﻿// -----------------------------------------------------------------------
+// <copyright file="CursedFirearmItem.cs" company="CursedMod">
+// Copyright (c) CursedMod. All rights reserved.
+// Licensed under the GPLv3 license.
+// See LICENSE file in the project root for full license information.
+// </copyright>
+// -----------------------------------------------------------------------
+
+using System.Collections.Generic;
 using System.Linq;
 using Footprinting;
 using InventorySystem.Items.Firearms;
@@ -10,20 +18,13 @@ namespace CursedMod.Features.Wrappers.Inventory.Items.Firearms;
 
 public class CursedFirearmItem : CursedItem
 {
-    public Firearm FirearmBase { get; }
-    
-    internal CursedFirearmItem(Firearm itemBase) : base(itemBase)
+    internal CursedFirearmItem(Firearm itemBase)
+        : base(itemBase)
     {
         FirearmBase = itemBase;
     }
-
-    public static CursedFirearmItem Get(Firearm firearm)
-    {
-        if (firearm is AutomaticFirearm automaticFirearm)
-            return new CursedAutomaticFirearmItem(automaticFirearm);
-
-        return new CursedFirearmItem(firearm);
-    }
+    
+    public Firearm FirearmBase { get; }
 
     public FirearmBaseStats BaseStats => FirearmBase.BaseStats;
 
@@ -135,12 +136,20 @@ public class CursedFirearmItem : CursedItem
         get => FirearmBase.Attachments;
         set => FirearmBase.Attachments = value;
     }
-
-    public IEnumerable<CursedFirearmAttachment> GetAttachments() => Attachments.Select(CursedFirearmAttachment.Get);
-
+    
     public uint AttachmentsCode
     {
         get => Status.Attachments;
         set => Status = new FirearmStatus(Status.Ammo, Status.Flags, value);
     }
+    
+    public static CursedFirearmItem Get(Firearm firearm)
+    {
+        if (firearm is AutomaticFirearm automaticFirearm)
+            return new CursedAutomaticFirearmItem(automaticFirearm);
+
+        return new CursedFirearmItem(firearm);
+    }
+
+    public IEnumerable<CursedFirearmAttachment> GetAttachments() => Attachments.Select(CursedFirearmAttachment.Get);
 }

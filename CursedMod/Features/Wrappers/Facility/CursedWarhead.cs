@@ -1,4 +1,12 @@
-﻿using System.Collections.Generic;
+﻿// -----------------------------------------------------------------------
+// <copyright file="CursedWarhead.cs" company="CursedMod">
+// Copyright (c) CursedMod. All rights reserved.
+// Licensed under the GPLv3 license.
+// See LICENSE file in the project root for full license information.
+// </copyright>
+// -----------------------------------------------------------------------
+
+using System.Collections.Generic;
 using CursedMod.Features.Wrappers.Player;
 using Footprinting;
 using PluginAPI.Core;
@@ -7,8 +15,8 @@ namespace CursedMod.Features.Wrappers.Facility;
 
 public static class CursedWarhead
 {
-
     public static AlphaWarheadController Controller => AlphaWarheadController.Singleton;
+    
     public static AlphaWarheadOutsitePanel OutsidePanel { get; internal set; }
 
     public static bool OpenDoors
@@ -95,28 +103,18 @@ public static class CursedWarhead
 
     public static bool Detonated => AlphaWarheadController.Detonated;
 
-    public static bool InProgress = AlphaWarheadController.InProgress;
+    public static bool InProgress => AlphaWarheadController.InProgress;
 
     public static float TimeUntilDetonation => AlphaWarheadController.TimeUntilDetonation;
 
-    public static double StartTime = Info.StartTime;
+    public static double StartTime => Info.StartTime;
 
     public static int ScenarioId => Info.ScenarioId;
 
     public static bool ResumeScenario => Info.ResumeScenario;
 
-    public static void ForceTime(float remaining) => Controller.ForceTime(remaining);
-
-    public static void InstantPrepare() => Controller.InstantPrepare();
-
-    public static void StartDetonation(bool isAutomatic = false, bool suppressSubtitles = false, CursedPlayer trigger = null) => Controller.StartDetonation(isAutomatic, suppressSubtitles, trigger?.ReferenceHub);
-
-    public static void CancelDetonation(CursedPlayer disabler = null) => Controller.CancelDetonation(disabler?.ReferenceHub);
-
-    public static void Detonate() => Controller.Detonate();
-
-    public static void Shake() => Warhead.Shake();
-
+    public static HashSet<BlastDoor> BlastDoors => BlastDoor.Instances;
+    
     public static bool LeverStatus
     {
         get => Warhead.LeverStatus;
@@ -128,6 +126,18 @@ public static class CursedWarhead
         get => OutsidePanel.keycardEntered;
         set => OutsidePanel.NetworkkeycardEntered = value;
     }
+    
+    public static void ForceTime(float remaining) => Controller.ForceTime(remaining);
+
+    public static void InstantPrepare() => Controller.InstantPrepare();
+
+    public static void StartDetonation(bool isAutomatic = false, bool suppressSubtitles = false, CursedPlayer trigger = null) => Controller.StartDetonation(isAutomatic, suppressSubtitles, trigger?.ReferenceHub);
+
+    public static void CancelDetonation(CursedPlayer disabler = null) => Controller.CancelDetonation(disabler?.ReferenceHub);
+
+    public static void Detonate() => Controller.Detonate();
+
+    public static void Shake() => Warhead.Shake();
 
     public static void CloseBlastDoors()
     {
@@ -144,6 +154,4 @@ public static class CursedWarhead
             instance.SetClosed(true, false);
         }
     }
-
-    public static HashSet<BlastDoor> BlastDoors => BlastDoor.Instances;
 }

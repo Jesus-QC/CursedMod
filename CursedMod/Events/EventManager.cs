@@ -23,6 +23,11 @@ public static class EventManager
 {
     private static readonly Harmony Harmony = new ("com.jesusqc.cursedmod");
     
+    public delegate void CursedEventHandler<in T>(T ev)
+        where T : EventArgs;
+    
+    public delegate void CursedEventHandler();
+    
     public static void PatchEvents()
     {
         try
@@ -48,11 +53,9 @@ public static class EventManager
             Log.Error(e.ToString());
         }
     }
-    
-    public delegate void CursedEventHandler<in T>(T ev) where T : EventArgs;
-    public delegate void CursedEventHandler();
 
-    public static void InvokeEvent<T>(this CursedEventHandler<T> eventHandler, T args) where T : EventArgs
+    public static void InvokeEvent<T>(this CursedEventHandler<T> eventHandler, T args)
+        where T : EventArgs
     {
         if (eventHandler is null)
             return;

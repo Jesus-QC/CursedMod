@@ -1,4 +1,12 @@
-﻿using CursedMod.Features.Wrappers.Server;
+﻿// -----------------------------------------------------------------------
+// <copyright file="CursedThrowableItem.cs" company="CursedMod">
+// Copyright (c) CursedMod. All rights reserved.
+// Licensed under the GPLv3 license.
+// See LICENSE file in the project root for full license information.
+// </copyright>
+// -----------------------------------------------------------------------
+
+using CursedMod.Features.Wrappers.Server;
 using InventorySystem.Items.Pickups;
 using InventorySystem.Items.ThrowableProjectiles;
 using Mirror;
@@ -8,12 +16,13 @@ namespace CursedMod.Features.Wrappers.Inventory.Items.ThrowableProjectiles;
 
 public class CursedThrowableItem : CursedItem
 {
-    public ThrowableItem ThrowableBase { get; }
-    
-    internal CursedThrowableItem(ThrowableItem itemBase) : base(itemBase)
+    internal CursedThrowableItem(ThrowableItem itemBase)
+        : base(itemBase)
     {
         ThrowableBase = itemBase;
     }
+    
+    public ThrowableItem ThrowableBase { get; }
 
     public bool ReadyToThrow => ThrowableBase.ReadyToThrow;
     
@@ -27,7 +36,7 @@ public class CursedThrowableItem : CursedItem
 
     public void SpawnCharged(Vector3 pos, float fuseTime = -1)
     {
-        if(Base is not ThrowableItem item)
+        if (Base is not ThrowableItem item)
             return;
 
         ThrownProjectile thrownProjectile = Object.Instantiate(item.Projectile, pos, Quaternion.identity);

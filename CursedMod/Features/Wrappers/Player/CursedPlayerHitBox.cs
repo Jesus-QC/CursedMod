@@ -1,4 +1,12 @@
-﻿using PlayerStatsSystem;
+﻿// -----------------------------------------------------------------------
+// <copyright file="CursedPlayerHitBox.cs" company="CursedMod">
+// Copyright (c) CursedMod. All rights reserved.
+// Licensed under the GPLv3 license.
+// See LICENSE file in the project root for full license information.
+// </copyright>
+// -----------------------------------------------------------------------
+
+using PlayerStatsSystem;
 using UnityEngine;
 
 namespace CursedMod.Features.Wrappers.Player;

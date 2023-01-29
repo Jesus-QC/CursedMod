@@ -1,4 +1,12 @@
-﻿using CursedMod.Features.Enums;
+﻿// -----------------------------------------------------------------------
+// <copyright file="CursedLocker.cs" company="CursedMod">
+// Copyright (c) CursedMod. All rights reserved.
+// Licensed under the GPLv3 license.
+// See LICENSE file in the project root for full license information.
+// </copyright>
+// -----------------------------------------------------------------------
+
+using CursedMod.Features.Enums;
 using MapGeneration.Distributors;
 using Mirror;
 using System.Collections.Generic;
@@ -10,13 +18,13 @@ namespace CursedMod.Features.Wrappers.Facility.Props;
 
 public class CursedLocker
 {
-    public Locker Base { get; }
-
-    public CursedLocker(Locker locker)
+    internal CursedLocker(Locker locker)
     {
         Base = locker;
         Chambers = Base.Chambers.Select(chamber => new CursedLockerChamber(chamber));
     }
+    
+    public Locker Base { get; }
 
     public IEnumerable<CursedLockerChamber> Chambers { get; }
 

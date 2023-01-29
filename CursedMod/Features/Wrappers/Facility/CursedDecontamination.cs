@@ -1,7 +1,15 @@
-﻿using CursedMod.Features.Wrappers.Player;
+﻿// -----------------------------------------------------------------------
+// <copyright file="CursedDecontamination.cs" company="CursedMod">
+// Copyright (c) CursedMod. All rights reserved.
+// Licensed under the GPLv3 license.
+// See LICENSE file in the project root for full license information.
+// </copyright>
+// -----------------------------------------------------------------------
+
+using CursedMod.Features.Wrappers.Player;
 using LightContainmentZoneDecontamination;
-using PhaseFunction = LightContainmentZoneDecontamination.DecontaminationController.DecontaminationPhase.PhaseFunction;
 using DecontaminationStatus = LightContainmentZoneDecontamination.DecontaminationController.DecontaminationStatus;
+using PhaseFunction = LightContainmentZoneDecontamination.DecontaminationController.DecontaminationPhase.PhaseFunction;
 
 namespace CursedMod.Features.Wrappers.Facility;
 
@@ -31,6 +39,12 @@ public static class CursedDecontamination
         set => DecontaminationController.NetworkDecontaminationOverride = value;
     }
 
+    public static DecontaminationController.DecontaminationPhase NextPhase => DecontaminationController.DecontaminationPhases[DecontaminationController._nextPhase];
+
+    public static bool IsAudibleForPlayer(CursedPlayer player) => DecontaminationController.IsAudibleForClient(player.ReferenceHub);
+
+    public static void SetStatus(DecontaminationStatus status) => DecontaminationController.Singleton.DecontaminationOverride = status;
+    
     public static void StopDecontamination() => Status = DecontaminationStatus.Disabled;
 
     public static void ResumeDecontamination() => Status = DecontaminationStatus.None;
@@ -44,10 +58,4 @@ public static class CursedDecontamination
     public static void ForceDecontamination() => DecontaminationController.ForceDecontamination();
 
     public static void DisableElevators() => DecontaminationController.DisableElevators();
-
-    public static bool IsAudibleForPlayer(CursedPlayer player) => DecontaminationController.IsAudibleForClient(player.ReferenceHub);
-
-    public static void SetStatus(DecontaminationStatus status) => DecontaminationController.Singleton.DecontaminationOverride = status;
-
-    public static DecontaminationController.DecontaminationPhase NextPhase => DecontaminationController.DecontaminationPhases[DecontaminationController._nextPhase];
 }

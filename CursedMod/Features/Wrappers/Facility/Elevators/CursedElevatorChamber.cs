@@ -1,4 +1,12 @@
-﻿using Interactables.Interobjects;
+﻿// -----------------------------------------------------------------------
+// <copyright file="CursedElevatorChamber.cs" company="CursedMod">
+// Copyright (c) CursedMod. All rights reserved.
+// Licensed under the GPLv3 license.
+// See LICENSE file in the project root for full license information.
+// </copyright>
+// -----------------------------------------------------------------------
+
+using Interactables.Interobjects;
 using Interactables.Interobjects.DoorUtils;
 using UnityEngine;
 
@@ -6,13 +14,13 @@ namespace CursedMod.Features.Wrappers.Facility.Elevators;
 
 public class CursedElevatorChamber
 {
-    public ElevatorChamber Base { get; }
-
-    public CursedElevatorChamber(ElevatorChamber chamber)
+    internal CursedElevatorChamber(ElevatorChamber chamber)
     {
         Base = chamber;
     }
-
+    
+    public ElevatorChamber Base { get; }
+    
     public ElevatorDoor CurrentDestination
     {
         get => Base.CurrentDestination;

@@ -16,6 +16,9 @@ namespace CursedMod;
 
 internal class EntryPoint
 {
+    [PluginConfig]
+    public static CursedModConfiguration ModConfiguration;
+    
     [PluginEntryPoint("CursedMod", CursedModInformation.Version, "A rich low level modding framework.", "Jesus-QC")]
     private void Init()
     {
@@ -29,7 +32,4 @@ internal class EntryPoint
         // Patch Events
         // Load Plugins
     }
-
-    [PluginConfig]
-    public static CursedModConfiguration ModConfiguration;
 }

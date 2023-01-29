@@ -1,13 +1,26 @@
-﻿using UnityEngine;
+﻿// -----------------------------------------------------------------------
+// <copyright file="CursedLightningController.cs" company="CursedMod">
+// Copyright (c) CursedMod. All rights reserved.
+// Licensed under the GPLv3 license.
+// See LICENSE file in the project root for full license information.
+// </copyright>
+// -----------------------------------------------------------------------
+
+using UnityEngine;
 
 namespace CursedMod.Features.Wrappers.Facility.Rooms;
 
 public class CursedLightningController
 {
+    internal CursedLightningController(FlickerableLightController controller)
+    {
+        Base = controller;
+    }
+    
     public FlickerableLightController Base { get; }
     
-    public CursedRoom Room { get; } // todo:
-
+    public CursedRoom Room { get; } // todo
+    
     public Color Color
     {
         get => Base._warheadLightColor;
@@ -40,10 +53,5 @@ public class CursedLightningController
     {
         Color = FlickerableLightController.DefaultWarheadColor;
         WarheadLightOverride = false;
-    }
-    
-    public CursedLightningController(FlickerableLightController controller)
-    {
-        Base = controller;
     }
 }

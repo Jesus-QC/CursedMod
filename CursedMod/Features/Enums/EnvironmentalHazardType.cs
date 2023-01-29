@@ -13,5 +13,5 @@ public enum EnvironmentalHazardType
     Sinkhole,
     Tantrum,
     Temporary,
-    Other
+    Other,
 }

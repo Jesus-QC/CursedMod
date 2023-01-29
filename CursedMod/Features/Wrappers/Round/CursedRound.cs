@@ -1,4 +1,12 @@
-﻿using System;
+﻿// -----------------------------------------------------------------------
+// <copyright file="CursedRound.cs" company="CursedMod">
+// Copyright (c) CursedMod. All rights reserved.
+// Licensed under the GPLv3 license.
+// See LICENSE file in the project root for full license information.
+// </copyright>
+// -----------------------------------------------------------------------
+
+using System;
 using GameCore;
 using RoundRestarting;
 
@@ -6,14 +14,6 @@ namespace CursedMod.Features.Wrappers.Round;
 
 public static class CursedRound
 {
-    public static void ForceStart() => PluginAPI.Core.Round.Start();
-    
-    public static void ForceEnd() => PluginAPI.Core.Round.End();
-    
-    public static void ForceRestart(bool fastRestart) => PluginAPI.Core.Round.Restart(fastRestart);
-    
-    public static void RestartSilently() => PluginAPI.Core.Round.RestartSilently();
-
     public static bool IsRoundStarted => RoundStart.RoundStarted;
 
     public static bool IsRoundLocked
@@ -67,4 +67,12 @@ public static class CursedRound
         get => RoundStart.singleton.Timer;
         set => RoundStart.singleton.NetworkTimer = value;
     }
+    
+    public static void ForceStart() => PluginAPI.Core.Round.Start();
+    
+    public static void ForceEnd() => PluginAPI.Core.Round.End();
+    
+    public static void ForceRestart(bool fastRestart) => PluginAPI.Core.Round.Restart(fastRestart);
+    
+    public static void RestartSilently() => PluginAPI.Core.Round.RestartSilently();
 }

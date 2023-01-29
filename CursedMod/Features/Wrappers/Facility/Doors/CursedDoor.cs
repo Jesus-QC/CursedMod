@@ -1,4 +1,12 @@
-﻿using CursedMod.Features.Enums;
+﻿// -----------------------------------------------------------------------
+// <copyright file="CursedDoor.cs" company="CursedMod">
+// Copyright (c) CursedMod. All rights reserved.
+// Licensed under the GPLv3 license.
+// See LICENSE file in the project root for full license information.
+// </copyright>
+// -----------------------------------------------------------------------
+
+using CursedMod.Features.Enums;
 using CursedMod.Features.Wrappers.Player;
 using Interactables.Interobjects;
 using Interactables.Interobjects.DoorUtils;
@@ -12,6 +20,15 @@ namespace CursedMod.Features.Wrappers.Facility.Doors;
 
 public class CursedDoor
 {
+    internal CursedDoor(DoorVariant door)
+    {
+        Base = door;
+        GameObject = door.gameObject;
+        Transform = door.transform;
+        Tag = Base.GetComponent<DoorNametagExtension>();
+        DoorType = DoorType.Basic;
+    }
+    
     public DoorVariant Base { get; }
     
     public GameObject GameObject { get; }
@@ -21,26 +38,6 @@ public class CursedDoor
     public DoorNametagExtension Tag { get; }
     
     public DoorType DoorType { get; internal set; }
-    
-    internal CursedDoor(DoorVariant door)
-    {
-        Base = door;
-        GameObject = door.gameObject;
-        Transform = door.transform;
-        Tag = Base.GetComponent<DoorNametagExtension>();
-        DoorType = DoorType.Basic;
-    }
-
-    public static CursedDoor Get(DoorVariant doorVariant)
-    {
-        return doorVariant switch
-        {
-            BreakableDoor breakableDoor => new CursedBreakableDoor(breakableDoor),
-            PryableDoor pryableDoor => new CursedPryableDoor(pryableDoor),
-            CheckpointDoor checkpointDoor => new CursedCheckpointDoor(checkpointDoor),
-            _ => new CursedDoor(doorVariant)
-        };
-    }
 
     public int DoorId => Base.DoorId;
     
@@ -113,6 +110,17 @@ public class CursedDoor
     public bool IsDamageable => Base is IDamageableDoor;
     
     public bool IsBroken => Base is IDamageableDoor { IsDestroyed: true };
+    
+    public static CursedDoor Get(DoorVariant doorVariant)
+    {
+        return doorVariant switch
+        {
+            BreakableDoor breakableDoor => new CursedBreakableDoor(breakableDoor),
+            PryableDoor pryableDoor => new CursedPryableDoor(pryableDoor),
+            CheckpointDoor checkpointDoor => new CursedCheckpointDoor(checkpointDoor),
+            _ => new CursedDoor(doorVariant)
+        };
+    }
 
     public void TriggerState() => IsOpened = !IsOpened;
     
@@ -127,7 +135,7 @@ public class CursedDoor
     public void Lock() => Base.ServerChangeLock(DoorLockReason.AdminCommand, true);
 
     public void Unlock() => Base.ServerChangeLock(DoorLockReason.AdminCommand, false);
-    
+
     public static CursedDoor Create(FacilityZone doorType, Vector3 position, Vector3 rotation, Vector3? scale = null, bool spawn = false)
     {
         DoorVariant prefab = doorType switch

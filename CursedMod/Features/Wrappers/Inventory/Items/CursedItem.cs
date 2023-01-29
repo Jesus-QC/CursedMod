@@ -1,4 +1,12 @@
-﻿using CursedMod.Features.Wrappers.Inventory.Items.Armor;
+﻿// -----------------------------------------------------------------------
+// <copyright file="CursedItem.cs" company="CursedMod">
+// Copyright (c) CursedMod. All rights reserved.
+// Licensed under the GPLv3 license.
+// See LICENSE file in the project root for full license information.
+// </copyright>
+// -----------------------------------------------------------------------
+
+using CursedMod.Features.Wrappers.Inventory.Items.Armor;
 using CursedMod.Features.Wrappers.Inventory.Items.Firearms;
 using CursedMod.Features.Wrappers.Inventory.Items.Firearms.Ammo;
 using CursedMod.Features.Wrappers.Inventory.Items.Flashlight;
@@ -27,62 +35,21 @@ namespace CursedMod.Features.Wrappers.Inventory.Items;
 
 public class CursedItem
 {
-    public ItemBase Base { get; }
-
-    public GameObject GameObject { get; }
-
-    public Transform Transform { get; }
-
     internal CursedItem(ItemBase itemBase)
     {
         Base = itemBase;
         GameObject = itemBase.gameObject;
         Transform = itemBase.transform;
     }
+    
+    public ItemBase Base { get; }
 
-    public static CursedItem Get(ItemBase itemBase)
-    {
-        return itemBase switch
-        {
-            Firearm firearm => CursedFirearmItem.Get(firearm),
-            BodyArmor bodyArmor => new CursedBodyArmorItem(bodyArmor),
-            AmmoItem ammoItem => new CursedAmmoItem(ammoItem),
-            KeycardItem keyCardItem => new CursedKeyCardItem(keyCardItem),
-            RadioItem radioItem => new CursedRadioItem(radioItem),
-            ThrowableItem throwableItem => new CursedThrowableItem(throwableItem),
-            UsableItem usableItem => CursedUsableItem.Get(usableItem),
-            FlashlightItem flashlightItem => new CursedFlashlightItem(flashlightItem),
-            JailbirdItem jailbirdItem => new CursedJailbirdItem(jailbirdItem),
-            _ => new CursedItem(itemBase)
-        };
-    }
+    public GameObject GameObject { get; }
 
-    public static bool TryGetWithSerial(ushort serial, out CursedItem item)
-    {
-        if (InventoryExtensions.ServerTryGetItemWithSerial(serial, out ItemBase itemBase))
-        {
-            item = Get(itemBase);
-            return true;
-        }
-
-        item = null;
-        return false;
-    }
+    public Transform Transform { get; }
     
     public CursedPlayer Owner => CursedPlayer.Get(Base.Owner);
-
-    public static bool TryGetOwnerWithSerial(ushort serial, out CursedPlayer owner)
-    {
-        if (InventoryExtensions.TryGetHubHoldingSerial(serial, out ReferenceHub hub))
-        {
-            owner = CursedPlayer.Get(hub);
-            return true;
-        }
-
-        owner = null;
-        return false;
-    }
-
+    
     public ItemType ItemType => Base.ItemTypeId;
 
     public ItemCategory Category => Base.Category;
@@ -116,6 +83,47 @@ public class CursedItem
     public ushort Serial => Base.ItemSerial;
 
     public float Weight => Base.Weight;
+
+    public static CursedItem Get(ItemBase itemBase)
+    {
+        return itemBase switch
+        {
+            Firearm firearm => CursedFirearmItem.Get(firearm),
+            BodyArmor bodyArmor => new CursedBodyArmorItem(bodyArmor),
+            AmmoItem ammoItem => new CursedAmmoItem(ammoItem),
+            KeycardItem keyCardItem => new CursedKeyCardItem(keyCardItem),
+            RadioItem radioItem => new CursedRadioItem(radioItem),
+            ThrowableItem throwableItem => new CursedThrowableItem(throwableItem),
+            UsableItem usableItem => CursedUsableItem.Get(usableItem),
+            FlashlightItem flashlightItem => new CursedFlashlightItem(flashlightItem),
+            JailbirdItem jailbirdItem => new CursedJailbirdItem(jailbirdItem),
+            _ => new CursedItem(itemBase)
+        };
+    }
+
+    public static bool TryGetWithSerial(ushort serial, out CursedItem item)
+    {
+        if (InventoryExtensions.ServerTryGetItemWithSerial(serial, out ItemBase itemBase))
+        {
+            item = Get(itemBase);
+            return true;
+        }
+
+        item = null;
+        return false;
+    }
+
+    public static bool TryGetOwnerWithSerial(ushort serial, out CursedPlayer owner)
+    {
+        if (InventoryExtensions.TryGetHubHoldingSerial(serial, out ReferenceHub hub))
+        {
+            owner = CursedPlayer.Get(hub);
+            return true;
+        }
+
+        owner = null;
+        return false;
+    }
 
     public void HoldItem() => Owner.CurrentItem = this;
 

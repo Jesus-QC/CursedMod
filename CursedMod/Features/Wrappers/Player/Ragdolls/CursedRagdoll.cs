@@ -1,4 +1,12 @@
-﻿using System.Collections.Generic;
+﻿// -----------------------------------------------------------------------
+// <copyright file="CursedRagdoll.cs" company="CursedMod">
+// Copyright (c) CursedMod. All rights reserved.
+// Licensed under the GPLv3 license.
+// See LICENSE file in the project root for full license information.
+// </copyright>
+// -----------------------------------------------------------------------
+
+using System.Collections.Generic;
 using Mirror;
 using PlayerRoles;
 using UnityEngine;
@@ -8,16 +16,16 @@ namespace CursedMod.Features.Wrappers.Player.Ragdolls;
 public class CursedRagdoll
 {
     internal static readonly HashSet<CursedRagdoll> Ragdolls = new ();
-
-    public static IReadOnlyCollection<CursedRagdoll> Collection => Ragdolls;
-
-    public BasicRagdoll Base { get; }
-
+    
     private CursedRagdoll(BasicRagdoll ragdoll)
     {
         Base = ragdoll;
         Ragdolls.Add(this);
     }
+
+    public static IReadOnlyCollection<CursedRagdoll> Collection => Ragdolls;
+
+    public BasicRagdoll Base { get; }
 
     public bool AutoCleanUp
     {

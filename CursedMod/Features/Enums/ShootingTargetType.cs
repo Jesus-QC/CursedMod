@@ -13,5 +13,5 @@ public enum ShootingTargetType
     Sport,
     DBoy,
     Binary,
-    Other
+    Other,
 }

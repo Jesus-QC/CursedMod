@@ -1,13 +1,21 @@
-﻿namespace CursedMod.Features.Wrappers.Facility.PocketDimension;
+﻿// -----------------------------------------------------------------------
+// <copyright file="CursedPocketDimensionExit.cs" company="CursedMod">
+// Copyright (c) CursedMod. All rights reserved.
+// Licensed under the GPLv3 license.
+// See LICENSE file in the project root for full license information.
+// </copyright>
+// -----------------------------------------------------------------------
+
+namespace CursedMod.Features.Wrappers.Facility.PocketDimension;
 
 public class CursedPocketDimensionExit
 {
-    public PocketDimensionTeleport Base { get; }
-
-    public CursedPocketDimensionExit(PocketDimensionTeleport dimensionTeleport)
+    internal CursedPocketDimensionExit(PocketDimensionTeleport dimensionTeleport)
     {
         Base = dimensionTeleport;
     }
+    
+    public PocketDimensionTeleport Base { get; }
 
     public PocketDimensionTeleport.PDTeleportType ExitType
     {

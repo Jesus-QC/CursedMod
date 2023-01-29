@@ -1,4 +1,12 @@
-﻿using CursedMod.Features.Logger;
+﻿// -----------------------------------------------------------------------
+// <copyright file="MapGenerationEventHandler.cs" company="CursedMod">
+// Copyright (c) CursedMod. All rights reserved.
+// Licensed under the GPLv3 license.
+// See LICENSE file in the project root for full license information.
+// </copyright>
+// -----------------------------------------------------------------------
+
+using CursedMod.Features.Logger;
 using CursedMod.Features.Wrappers.Facility;
 using CursedMod.Features.Wrappers.Player;
 using CursedMod.Features.Wrappers.Player.Dummies;

@@ -1,16 +1,25 @@
-﻿using Interactables.Interobjects.DoorUtils;
+﻿// -----------------------------------------------------------------------
+// <copyright file="CursedKeyCardItem.cs" company="CursedMod">
+// Copyright (c) CursedMod. All rights reserved.
+// Licensed under the GPLv3 license.
+// See LICENSE file in the project root for full license information.
+// </copyright>
+// -----------------------------------------------------------------------
+
+using Interactables.Interobjects.DoorUtils;
 using InventorySystem.Items.Keycards;
 
 namespace CursedMod.Features.Wrappers.Inventory.Items.KeyCards;
 
 public class CursedKeyCardItem : CursedItem
 {
-    public KeycardItem KeyCardBase { get; }
-    
-    internal CursedKeyCardItem(KeycardItem itemBase) : base(itemBase)
+    internal CursedKeyCardItem(KeycardItem itemBase) 
+        : base(itemBase)
     {
         KeyCardBase = itemBase;
     }
+    
+    public KeycardItem KeyCardBase { get; }
 
     public KeycardPermissions Permissions
     {

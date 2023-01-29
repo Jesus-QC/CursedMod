@@ -124,6 +124,7 @@ public static class CursedServer
 
             return ret;
         }
+        
         set
         {
             for (int i = 0; i < value.Count; i++)
@@ -135,6 +136,7 @@ public static class CursedServer
 
     public static SyncList<ServerConfigSynchronizer.AmmoLimit> SyncedAmmoLimits =>
         ServerConfigSynchronizer.Singleton.AmmoLimitsSync;
+    
     public static SyncList<ServerConfigSynchronizer.PredefinedBanTemplate> RemoteAdminPredefinedBanTemplates 
         => ServerConfigSynchronizer.Singleton.RemoteAdminPredefinedBanTemplates;
 
@@ -177,12 +179,12 @@ public static class CursedServer
     public static bool IsBeta => GameCore.Version.PublicBeta || GameCore.Version.PrivateBeta;
     
     public static bool IsDedicated => ServerStatic.IsDedicated;
+    
+    public static string[] StartArguments => StartupArgs.Args;
 
     public static void RefreshServerName() => ServerConsole.singleton.RefreshServerName();
 
     public static void RefreshServerData() => ServerConsole.singleton.RefreshServerData();
     
     public static void SendCommand(string command, CommandSender sender = null) => GameCore.Console.singleton.TypeCommand(command, sender ?? LocalPlayer.Sender);
-
-    public static string[] StartArguments => StartupArgs.Args;
 }

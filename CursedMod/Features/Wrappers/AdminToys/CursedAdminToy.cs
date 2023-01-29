@@ -1,4 +1,12 @@
-﻿using AdminToys;
+﻿// -----------------------------------------------------------------------
+// <copyright file="CursedAdminToy.cs" company="CursedMod">
+// Copyright (c) CursedMod. All rights reserved.
+// Licensed under the GPLv3 license.
+// See LICENSE file in the project root for full license information.
+// </copyright>
+// -----------------------------------------------------------------------
+
+using AdminToys;
 using Footprinting;
 using Mirror;
 using UnityEngine;
@@ -7,8 +15,17 @@ namespace CursedMod.Features.Wrappers.AdminToys;
 
 public class CursedAdminToy
 {
+    internal CursedAdminToy(AdminToyBase toyBase)
+    {
+        AdminToyBase = toyBase;
+        Transform = toyBase.transform;
+        GameObject = toyBase.gameObject;
+    }
+    
     public AdminToyBase AdminToyBase { get; }
+  
     public Transform Transform { get; }
+   
     public GameObject GameObject { get; }
     
     public Vector3 Position
@@ -45,13 +62,6 @@ public class CursedAdminToy
         set => AdminToyBase.NetworkMovementSmoothing = value;
     }
 
-    internal CursedAdminToy(AdminToyBase toyBase)
-    {
-        AdminToyBase = toyBase;
-        Transform = toyBase.transform;
-        GameObject = toyBase.gameObject;
-    }
-
     public static CursedAdminToy Get(AdminToyBase toyBase)
     {
         return toyBase switch
@@ -65,7 +75,7 @@ public class CursedAdminToy
 
     public GameObject Spawn(Vector3? position = null, Vector3? rotation = null, Vector3? scale = null)
     {
-        if(position.HasValue)
+        if (position.HasValue)
             Position = position.Value;
 
         if (rotation.HasValue)

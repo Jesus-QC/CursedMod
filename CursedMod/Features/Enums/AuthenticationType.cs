@@ -13,5 +13,5 @@ public enum AuthenticationType
     Steam,
     Discord,
     NorthWood,
-    Other
+    Other,
 }

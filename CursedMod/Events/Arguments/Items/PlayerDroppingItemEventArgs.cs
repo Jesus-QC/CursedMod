@@ -16,14 +16,6 @@ namespace CursedMod.Events.Arguments.Items;
 
 public class PlayerDroppingItemEventArgs : EventArgs, ICursedCancellableEvent, ICursedPlayerEvent, ICursedItemEvent 
 {
-    public bool IsAllowed { get; set; }
-
-    public CursedPlayer Player { get; }
-
-    public CursedItem Item { get; }
-
-    public bool IsThrow { get; set; }
-
     public PlayerDroppingItemEventArgs(Inventory inventory, ItemBase itemBase, bool isThrow)
     {
         IsAllowed = true;
@@ -31,4 +23,12 @@ public class PlayerDroppingItemEventArgs : EventArgs, ICursedCancellableEvent, I
         Item = CursedItem.Get(itemBase);
         IsThrow = isThrow;
     }
+    
+    public bool IsAllowed { get; set; }
+
+    public CursedPlayer Player { get; }
+
+    public CursedItem Item { get; }
+
+    public bool IsThrow { get; set; }
 }

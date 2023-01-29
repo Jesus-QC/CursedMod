@@ -1,4 +1,12 @@
-﻿using InventorySystem.Items.Firearms;
+﻿// -----------------------------------------------------------------------
+// <copyright file="CursedFirearmAttachment.cs" company="CursedMod">
+// Copyright (c) CursedMod. All rights reserved.
+// Licensed under the GPLv3 license.
+// See LICENSE file in the project root for full license information.
+// </copyright>
+// -----------------------------------------------------------------------
+
+using InventorySystem.Items.Firearms;
 using InventorySystem.Items.Firearms.Attachments;
 using InventorySystem.Items.Firearms.Attachments.Components;
 
@@ -6,14 +14,12 @@ namespace CursedMod.Features.Wrappers.Inventory.Items.Firearms;
 
 public class CursedFirearmAttachment
 {
-    public Attachment Base { get; }
-
     private CursedFirearmAttachment(Attachment attachment)
     {
         Base = attachment;
     }
-
-    public static CursedFirearmAttachment Get(Attachment attachment) => new (attachment);
+    
+    public Attachment Base { get; }
 
     public AttachmentName AttachmentName => Base.Name;
 
@@ -38,7 +44,9 @@ public class CursedFirearmAttachment
         get => Base.AttachmentId;
         set => Base.AttachmentId = value;
     }
-
+    
+    public static CursedFirearmAttachment Get(Attachment attachment) => new (attachment);
+    
     public void SetParameterValue(AttachmentParameterValuePair pair) => Base.SetParameterValue(pair);
 
     public void SetParameterValue(AttachmentParam param, float val) => Base.SetParameterValue(param, val);

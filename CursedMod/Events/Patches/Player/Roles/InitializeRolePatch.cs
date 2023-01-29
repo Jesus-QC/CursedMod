@@ -1,4 +1,12 @@
-﻿using System.Collections.Generic;
+﻿// -----------------------------------------------------------------------
+// <copyright file="InitializeRolePatch.cs" company="CursedMod">
+// Copyright (c) CursedMod. All rights reserved.
+// Licensed under the GPLv3 license.
+// See LICENSE file in the project root for full license information.
+// </copyright>
+// -----------------------------------------------------------------------
+
+using System.Collections.Generic;
 using System.Reflection.Emit;
 using CursedMod.Events.Arguments.Player;
 using CursedMod.Events.Handlers.Player;
@@ -11,8 +19,7 @@ namespace CursedMod.Events.Patches.Player.Roles;
 [HarmonyPatch(typeof(PlayerRoleManager), nameof(PlayerRoleManager.InitializeNewRole))]
 public class InitializeRolePatch
 {
-    private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions,
-        ILGenerator generator)
+    private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
     {
         List<CodeInstruction> newInstructions = EventManager.CheckEvent<InitializeRolePatch>(117, instructions);
 

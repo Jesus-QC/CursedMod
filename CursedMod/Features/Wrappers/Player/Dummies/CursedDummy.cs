@@ -1,4 +1,12 @@
-﻿using System.Collections.Generic;
+﻿// -----------------------------------------------------------------------
+// <copyright file="CursedDummy.cs" company="CursedMod">
+// Copyright (c) CursedMod. All rights reserved.
+// Licensed under the GPLv3 license.
+// See LICENSE file in the project root for full license information.
+// </copyright>
+// -----------------------------------------------------------------------
+
+using System.Collections.Generic;
 using System.Linq;
 using Mirror;
 using UnityEngine;
@@ -9,13 +17,9 @@ namespace CursedMod.Features.Wrappers.Player.Dummies;
 public class CursedDummy : CursedPlayer
 {
     public new static readonly Dictionary<ReferenceHub, CursedDummy> Dictionary = new ();
-    public new static IEnumerable<CursedDummy> Collection => Dictionary.Values;
-    public new static List<CursedDummy> List => Collection.ToList();
-    public new static int Count => Dictionary.Count;
-
-    public static readonly Dictionary<CursedPlayer, CursedDummy> OwnerDictionary = new ();
-
-    internal CursedDummy(ReferenceHub hub) : base(hub, true)
+    
+    internal CursedDummy(ReferenceHub hub) 
+        : base(hub, true)
     {
         if (hub == ReferenceHub.HostHub)
             return;
@@ -23,6 +27,12 @@ public class CursedDummy : CursedPlayer
         Dictionary.Add(hub, this);
         CharacterClassManager._privUserId = $"ID_NPC_{hub.PlayerId}";
     }
+
+    public new static IEnumerable<CursedDummy> Collection => Dictionary.Values;
+    
+    public new static List<CursedDummy> List => Collection.ToList();
+   
+    public new static int Count => Dictionary.Count;
 
     public static CursedDummy Create(string nick = null)
     {
