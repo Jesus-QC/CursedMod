@@ -13,9 +13,16 @@ namespace CursedMod.Events.Handlers.BanSystem;
 public static class BanSystemEventsHandler
 {
     public static event EventManager.CursedEventHandler<BanningPlayerEventArgs> BanningPlayer;
+    
+    public static event EventManager.CursedEventHandler<KickingPlayerEventArgs> KickingPlayer;
 
     public static void OnBanningPlayer(BanningPlayerEventArgs args)
     {
         BanningPlayer.InvokeEvent(args);
+    }
+
+    public static void OnKickingPlayer(KickingPlayerEventArgs args)
+    {
+        KickingPlayer.InvokeEvent(args);
     }
 }

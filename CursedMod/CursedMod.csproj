@@ -76,6 +76,7 @@
         <Compile Include="EntryPoint.cs" />
         <Compile Include="Events\Arguments\Achievements\PlayerAchievingEventArgs.cs" />
         <Compile Include="Events\Arguments\BanSystem\BanningPlayerEventArgs.cs" />
+        <Compile Include="Events\Arguments\BanSystem\KickingPlayerEventArgs.cs" />
         <Compile Include="Events\Arguments\ICursedCancellableEvent.cs" />
         <Compile Include="Events\Arguments\ICursedItemEvent.cs" />
         <Compile Include="Events\Arguments\ICursedPlayerEvent.cs" />
@@ -93,6 +94,7 @@
         <Compile Include="Events\Handlers\Round\RoundEventHandlers.cs" />
         <Compile Include="Events\Patches\Achievements\ServerAchievePatch.cs" />
         <Compile Include="Events\Patches\BanSystem\BanUserPatch.cs" />
+        <Compile Include="Events\Patches\BanSystem\KickUserPatch.cs" />
         <Compile Include="Events\Patches\Items\DropItemPatch.cs" />
         <Compile Include="Events\Patches\Player\PlayerDisconnectPatch.cs" />
         <Compile Include="Events\Patches\Player\CompleteVerificationPatch.cs" />

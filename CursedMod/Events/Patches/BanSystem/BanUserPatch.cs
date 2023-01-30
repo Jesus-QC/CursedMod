@@ -8,6 +8,7 @@
 
 using System.Collections.Generic;
 using System.Reflection.Emit;
+using CommandSystem;
 using CursedMod.Events.Arguments.BanSystem;
 using CursedMod.Events.Handlers.BanSystem;
 using HarmonyLib;
@@ -15,7 +16,7 @@ using NorthwoodLib.Pools;
 
 namespace CursedMod.Events.Patches.BanSystem;
 
-[HarmonyPatch(typeof(BanPlayer), nameof(BanPlayer.BanUser))]
+[HarmonyPatch(typeof(BanPlayer), nameof(BanPlayer.BanUser), typeof(ReferenceHub), typeof(ICommandSender), typeof(string), typeof(long))]
 public class BanUserPatch
 {
     private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
@@ -25,13 +26,13 @@ public class BanUserPatch
         Label ret = generator.DefineLabel();
         LocalBuilder args = generator.DeclareLocal(typeof(BanningPlayerEventArgs));
 
-        int offset = newInstructions.FindIndex(x => x.opcode == OpCodes.Box) + 4;
-        
+        int offset = newInstructions.FindIndex(x => x.opcode == OpCodes.Ldc_I4_0) + 2;
+
         newInstructions[newInstructions.Count - 1].labels.Add(ret);
         
         newInstructions.InsertRange(offset, new CodeInstruction[]
         {
-            new (OpCodes.Ldarg_0),
+            new CodeInstruction(OpCodes.Ldarg_0).MoveLabelsFrom(newInstructions[offset]),
             new (OpCodes.Ldarg_1),
             new (OpCodes.Ldarg_2),
             new (OpCodes.Ldarg_3),
