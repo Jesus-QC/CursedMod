@@ -8,6 +8,7 @@
 
 using System;
 using CursedMod.Events.Arguments.Player;
+using CursedMod.Features.Logger;
 using CursedMod.Features.Wrappers.Player;
 using PluginAPI.Core;
 
@@ -28,15 +29,9 @@ public static class PlayerEventHandlers
 
     public static void OnPlayerDisconnected(PlayerDisconnectedEventArgs args)
     {
-        try
-        {
-            Disconnected.InvokeEvent(args);
-            CursedPlayer.Dictionary.Remove(args.Player.ReferenceHub);
-        }
-        catch (Exception e)
-        {
-            Log.Error(e.ToString());
-        }
+        Disconnected.InvokeEvent(args); 
+        CursedLogger.InternalDebug("Removing player");
+        CursedPlayer.Dictionary.Remove(args.Player.ReferenceHub);
     }
 
     public static void OnPlayerChangingRole(PlayerChangingRoleEventArgs args)

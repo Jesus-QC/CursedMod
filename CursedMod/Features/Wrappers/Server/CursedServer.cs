@@ -8,7 +8,7 @@
 
 using System;
 using System.Collections.Generic;
-using CursedMod.Features.Wrappers.Player.Dummies;
+using CursedMod.Features.Wrappers.Player;
 using Mirror;
 using Mirror.LiteNetLib4Mirror;
 using UnityEngine;
@@ -17,9 +17,9 @@ namespace CursedMod.Features.Wrappers.Server;
 
 public static class CursedServer
 {
-    private static CursedDummy _local;
+    private static CursedPlayer _local;
 
-    public static CursedDummy LocalPlayer => _local ??= new CursedDummy(ReferenceHub.HostHub);
+    public static CursedPlayer LocalPlayer => _local ??= new CursedPlayer(ReferenceHub.HostHub);
 
     public static ushort Port
     {

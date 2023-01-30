@@ -9,9 +9,7 @@
 using CursedMod.Features.Logger;
 using CursedMod.Features.Wrappers.Facility;
 using CursedMod.Features.Wrappers.Player;
-using CursedMod.Features.Wrappers.Player.Dummies;
 using CursedMod.Features.Wrappers.Server;
-using PluginAPI.Core;
 using UnityEngine.SceneManagement;
 
 namespace CursedMod.Events.Handlers.MapGeneration;
@@ -32,6 +30,7 @@ public static class MapGenerationEventHandler
             return;
         
         CursedPlayer.Dictionary.Clear();
-        CursedDummy.Dictionary.Clear();
+        
+        // CursedDummy.Dictionary.Clear();
     }
 }

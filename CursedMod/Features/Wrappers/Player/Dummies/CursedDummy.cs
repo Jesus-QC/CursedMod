@@ -6,7 +6,7 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
-using System.Collections.Generic;
+/*using System.Collections.Generic;
 using System.Linq;
 using Mirror;
 using UnityEngine;
@@ -19,9 +19,9 @@ public class CursedDummy : CursedPlayer
     public new static readonly Dictionary<ReferenceHub, CursedDummy> Dictionary = new ();
     
     internal CursedDummy(ReferenceHub hub) 
-        : base(hub, true)
+        : base(hub)
     {
-        if (hub == ReferenceHub.HostHub)
+        if (hub is null)
             return;
         
         Dictionary.Add(hub, this);
@@ -50,4 +50,4 @@ public class CursedDummy : CursedPlayer
         Dictionary.Remove(ReferenceHub);
         Object.Destroy(GameObject);
     }
-}
+}*/

@@ -6,7 +6,7 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
-using System.Collections.Generic;
+/*using System.Collections.Generic;
 using System.Reflection.Emit;
 using CursedMod.Features.Wrappers.Player.Dummies;
 using HarmonyLib;
@@ -41,4 +41,4 @@ public class ClientInstanceModePatch
 
         ListPool<CodeInstruction>.Shared.Return(newInstructions);
     }
-}
+}*/

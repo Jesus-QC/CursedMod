@@ -12,11 +12,12 @@ using System.Linq;
 using CommandSystem;
 using CursedMod.Features.Enums;
 using CursedMod.Features.Extensions;
+using CursedMod.Features.Logger;
 using CursedMod.Features.Wrappers.Facility;
 using CursedMod.Features.Wrappers.Inventory.Items;
 using CursedMod.Features.Wrappers.Inventory.Pickups;
-using CursedMod.Features.Wrappers.Player.Dummies;
 using CursedMod.Features.Wrappers.Player.VoiceChat;
+using CursedMod.Features.Wrappers.Server;
 using CustomPlayerEffects;
 using Footprinting;
 using Hints;
@@ -42,15 +43,16 @@ public class CursedPlayer
 {
     public static readonly Dictionary<ReferenceHub, CursedPlayer> Dictionary = new ();
 
-    internal CursedPlayer(ReferenceHub hub, bool dummy = false)
+    internal CursedPlayer(ReferenceHub hub)
     {
         ReferenceHub = hub;
         
-        SetUp(!dummy);
-        
-        if (dummy)
+        if (hub == ReferenceHub.HostHub)
             return;
         
+        SetUp();
+        
+        CursedLogger.InternalDebug("Adding Player");
         Dictionary.Add(hub, this);
     }
     
@@ -136,7 +138,7 @@ public class CursedPlayer
 
     public byte KickPower => ServerRoles.KickPower;
     
-    public bool IsDummy => this is CursedDummy;
+    // public bool IsDummy => this is CursedDummy;
     
     public bool IsDead => Role is RoleTypeId.Spectator or RoleTypeId.Overwatch or RoleTypeId.None;
 
@@ -438,7 +440,7 @@ public class CursedPlayer
         if (hub is not null && Dictionary.ContainsKey(hub))
         {
             player = Dictionary[hub];
-            return false;
+            return true;
         }
 
         player = null;
@@ -515,21 +517,21 @@ public class CursedPlayer
         return false;
     }
 
-    public static CursedPlayer Get(ReferenceHub hub) => TryGet(hub, out CursedPlayer player) ? player : null;
+    public static CursedPlayer Get(ReferenceHub hub) => TryGet(hub, out CursedPlayer player) ? player : CursedServer.LocalPlayer;
    
-    public static CursedPlayer Get(GameObject go) => TryGet(go, out CursedPlayer player) ? player : null;
+    public static CursedPlayer Get(GameObject go) => TryGet(go, out CursedPlayer player) ? player : CursedServer.LocalPlayer;
    
-    public static CursedPlayer Get(MonoBehaviour component) => TryGet(component, out CursedPlayer player) ? player : null;
+    public static CursedPlayer Get(MonoBehaviour component) => TryGet(component, out CursedPlayer player) ? player : CursedServer.LocalPlayer;
   
-    public static CursedPlayer Get(NetworkIdentity identity) => TryGet(identity, out CursedPlayer player) ? player : null;
+    public static CursedPlayer Get(NetworkIdentity identity) => TryGet(identity, out CursedPlayer player) ? player : CursedServer.LocalPlayer;
    
-    public static CursedPlayer Get(int id) => TryGet(id, out CursedPlayer player) ? player : null;
+    public static CursedPlayer Get(int id) => TryGet(id, out CursedPlayer player) ? player : CursedServer.LocalPlayer;
    
-    public static CursedPlayer Get(string info) => TryGet(info, out CursedPlayer player) ? player : null;
+    public static CursedPlayer Get(string info) => TryGet(info, out CursedPlayer player) ? player : CursedServer.LocalPlayer;
    
-    public static CursedPlayer Get(ICommandSender sender) => TryGet(sender, out CursedPlayer player) ? player : null;
+    public static CursedPlayer Get(ICommandSender sender) => TryGet(sender, out CursedPlayer player) ? player : CursedServer.LocalPlayer;
    
-    public static CursedPlayer Get(uint netId) => TryGet(netId, out CursedPlayer player) ? player : null;
+    public static CursedPlayer Get(uint netId) => TryGet(netId, out CursedPlayer player) ? player : CursedServer.LocalPlayer;
     
     public IEnumerable<CursedItem> GetItems()
     {
@@ -703,19 +705,11 @@ public class CursedPlayer
 
     public Stopwatch GetTimeHoldingItem() => Inventory._lastEquipSw;
 
-    private void SetUp(bool auth)
+    private void SetUp()
     {
         GameObject = ReferenceHub.gameObject;
         Transform = ReferenceHub.transform;
         
-        if (!auth)
-            return;
-        
-        SetUpAuth();
-    }
-    
-    private void SetUpAuth()
-    {
         int index = UserId.LastIndexOf('@');
 
         if (index == -1)
