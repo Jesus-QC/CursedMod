@@ -6,11 +6,9 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
-using System;
 using CursedMod.Events.Arguments.Player;
 using CursedMod.Features.Logger;
 using CursedMod.Features.Wrappers.Player;
-using PluginAPI.Core;
 
 namespace CursedMod.Events.Handlers.Player;
 

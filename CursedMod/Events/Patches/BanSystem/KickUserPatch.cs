@@ -13,7 +13,6 @@ using CursedMod.Events.Arguments.BanSystem;
 using CursedMod.Events.Handlers.BanSystem;
 using HarmonyLib;
 using NorthwoodLib.Pools;
-using PluginAPI.Core;
 
 namespace CursedMod.Events.Patches.BanSystem;
 
