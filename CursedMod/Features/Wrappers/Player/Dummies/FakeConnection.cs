@@ -10,7 +10,7 @@ using System;
 using Mirror;
 using PluginAPI.Core;
 
-/*namespace CursedMod.Features.Wrappers.Player.Dummies;
+namespace CursedMod.Features.Wrappers.Player.Dummies;
 
 public class FakeConnection : NetworkConnectionToClient
 {
@@ -30,7 +30,9 @@ public class FakeConnection : NetworkConnectionToClient
 
     public override void Disconnect()
     {
-        Log.Info("Destroying dummy."); 
-        CursedDummy.Dictionary[identity.gameObject.GetComponent<ReferenceHub>()].Destroy();
+        Log.Info("Destroying dummy.");
+
+        CursedDummy.Dictionary.Remove(identity.gameObject.GetComponent<ReferenceHub>());
+        NetworkServer.RemovePlayerForConnection(this, true);
     }
-}*/
+}

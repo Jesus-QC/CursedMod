@@ -6,8 +6,9 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
-/*using System.Collections.Generic;
+using System.Collections.Generic;
 using System.Reflection.Emit;
+using CursedMod.Features.Wrappers.Player;
 using CursedMod.Features.Wrappers.Player.Dummies;
 using HarmonyLib;
 using NorthwoodLib.Pools;
@@ -30,7 +31,7 @@ public class ClientInstanceModePatch
             new (OpCodes.Ldsfld, AccessTools.Field(typeof(CursedDummy), nameof(CursedDummy.Dictionary))),
             new (OpCodes.Ldarg_0),
             new (OpCodes.Ldfld, AccessTools.Field(typeof(CharacterClassManager), nameof(CharacterClassManager._hub))),
-            new (OpCodes.Callvirt, AccessTools.Method(typeof(Dictionary<ReferenceHub, CursedDummy>), nameof(Dictionary<ReferenceHub, CursedDummy>.ContainsKey))),
+            new (OpCodes.Callvirt, AccessTools.Method(typeof(Dictionary<ReferenceHub, CursedPlayer>), nameof(Dictionary<ReferenceHub, CursedPlayer>.ContainsKey))),
             new (OpCodes.Brfalse_S, skip),
             new (OpCodes.Ldc_I4_2),
             new (OpCodes.Starg_S, 1),
@@ -41,4 +42,4 @@ public class ClientInstanceModePatch
 
         ListPool<CodeInstruction>.Shared.Return(newInstructions);
     }
-}*/
+}

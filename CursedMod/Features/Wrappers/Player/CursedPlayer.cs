@@ -47,7 +47,7 @@ public class CursedPlayer
     {
         ReferenceHub = hub;
         
-        if (hub == ReferenceHub.HostHub)
+        if (hub == ReferenceHub.HostHub || NetworkConnection.address == "npc")
             return;
         
         SetUp();
@@ -129,6 +129,8 @@ public class CursedPlayer
     public AdminFlagsStat AdminFlagsStat => PlayerStats.GetModule<AdminFlagsStat>();
     
     public HumeShieldStat HumeShieldStat => PlayerStats.GetModule<HumeShieldStat>();
+
+    public bool IsDummy => ReferenceHub == ReferenceHub.HostHub || NetworkConnection.address == "npc";
     
     public string SaltedUserId => CharacterClassManager.SaltedUserId;
     
@@ -532,7 +534,7 @@ public class CursedPlayer
     public static CursedPlayer Get(ICommandSender sender) => TryGet(sender, out CursedPlayer player) ? player : CursedServer.LocalPlayer;
    
     public static CursedPlayer Get(uint netId) => TryGet(netId, out CursedPlayer player) ? player : CursedServer.LocalPlayer;
-    
+
     public IEnumerable<CursedItem> GetItems()
     {
         return Items.Values.Select(CursedItem.Get);
