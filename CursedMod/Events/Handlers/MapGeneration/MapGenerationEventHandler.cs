@@ -19,6 +19,7 @@ public static class MapGenerationEventHandler
     public static void CacheAPI()
     {
         CursedLogger.InternalDebug("Caching api");
+        CursedServer.LocalPlayer = new CursedPlayer(ReferenceHub.HostHub);
         CursedFacility.AmbientSoundPlayer = CursedServer.LocalPlayer.GetComponent<AmbientSoundPlayer>();
         CursedWarhead.OutsidePanel = CursedWarhead.Controller.GetComponent<AlphaWarheadOutsitePanel>();
     }

@@ -17,9 +17,7 @@ namespace CursedMod.Features.Wrappers.Server;
 
 public static class CursedServer
 {
-    private static CursedPlayer _local;
-
-    public static CursedPlayer LocalPlayer => _local ??= new CursedPlayer(ReferenceHub.HostHub);
+    public static CursedPlayer LocalPlayer { get; internal set; }
 
     public static ushort Port
     {
