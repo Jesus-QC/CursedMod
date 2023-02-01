@@ -6,10 +6,13 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
+using System;
 using CursedMod.Features.Logger;
 using CursedMod.Features.Wrappers.Facility;
 using CursedMod.Features.Wrappers.Player;
+using CursedMod.Features.Wrappers.Player.Dummies;
 using CursedMod.Features.Wrappers.Server;
+using PluginAPI.Core;
 using UnityEngine.SceneManagement;
 
 namespace CursedMod.Events.Handlers.MapGeneration;
@@ -19,9 +22,8 @@ public static class MapGenerationEventHandler
     public static void CacheAPI()
     {
         CursedLogger.InternalDebug("Caching api");
-        CursedServer.LocalPlayer = new CursedPlayer(ReferenceHub.HostHub);
-        CursedFacility.AmbientSoundPlayer = CursedServer.LocalPlayer.GetComponent<AmbientSoundPlayer>();
         CursedWarhead.OutsidePanel = CursedWarhead.Controller.GetComponent<AlphaWarheadOutsitePanel>();
+        CursedServer.LocalPlayer = new CursedPlayer(ReferenceHub.HostHub);
     }
 
     public static void OnChangingScene(Scene scene, LoadSceneMode loadMode)
@@ -31,7 +33,6 @@ public static class MapGenerationEventHandler
             return;
         
         CursedPlayer.Dictionary.Clear();
-        
-        // CursedDummy.Dictionary.Clear();
+        CursedDummy.Dictionary.Clear();
     }
 }
