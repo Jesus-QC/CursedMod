@@ -18,7 +18,7 @@ namespace CursedMod.Features.Patches.Facility;
 [HarmonyPatch(typeof(AmbientSoundPlayer), nameof(AmbientSoundPlayer.Start))]
 public class AmbientSoundPlayerStartPatch
 {
-    private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
+    private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions)
     {
         List<CodeInstruction> newInstructions = EventManager.CheckEvent<AmbientSoundPlayerStartPatch>(31, instructions);
 
