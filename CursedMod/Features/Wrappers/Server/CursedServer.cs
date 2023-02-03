@@ -170,9 +170,9 @@ public static class CursedServer
     
     public static string IpAddress => ServerConsole.Ip;
     
-    public static double Ticks => Math.Round(1f / Time.smoothDeltaTime);
+    public static double TicksPerSecond => Math.Round(1f / Time.smoothDeltaTime);
     
-    public static double Frames => Math.Round(1f / Time.deltaTime);
+    public static double FramesPerSecond => Math.Round(1f / Time.deltaTime);
 
     public static bool IsBeta => GameCore.Version.PublicBeta || GameCore.Version.PrivateBeta;
     
