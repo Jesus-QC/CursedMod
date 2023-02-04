@@ -536,6 +536,14 @@ public class CursedPlayer
    
     public static CursedPlayer Get(uint netId) => TryGet(netId, out CursedPlayer player) ? player : CursedServer.LocalPlayer;
 
+    public void Kill(string text) => Kill(new CustomReasonDamageHandler(text, float.MaxValue));
+
+    public void Kill(DamageHandlerBase damageHandlerBase) => PlayerStats.KillPlayer(damageHandlerBase);
+
+    public void Damage(float amount, string reason = "") => PlayerStats.DealDamage(new CustomReasonDamageHandler(reason, amount));
+    
+    public void Damage(DamageHandlerBase damageHandlerBase) => PlayerStats.DealDamage(damageHandlerBase);
+    
     public IEnumerable<CursedItem> GetItems()
     {
         return Items.Values.Select(CursedItem.Get);
