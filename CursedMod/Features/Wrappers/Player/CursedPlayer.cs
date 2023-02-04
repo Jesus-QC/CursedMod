@@ -141,7 +141,6 @@ public class CursedPlayer
     public byte KickPower => ServerRoles.KickPower;
     
     // public bool IsDummy => this is CursedDummy;
-    
     public bool IsDead => Role is RoleTypeId.Spectator or RoleTypeId.Overwatch or RoleTypeId.None;
 
     public bool IsAlive => !IsDead;
@@ -421,6 +420,8 @@ public class CursedPlayer
     public bool IsWhitelisted => WhiteList.IsWhitelisted(UserId);
     
     public CursedVoiceChat VoiceChat => CurrentRole is FpcStandardRoleBase role ? new CursedVoiceChat(role.VoiceModule) : null;
+
+    public bool IsHost => ReferenceHub == ReferenceHub.HostHub;
     
     public static void SendSpawnMessageToAll(NetworkIdentity identity)
     {
