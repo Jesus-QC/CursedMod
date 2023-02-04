@@ -16,6 +16,7 @@ using CursedMod.Features.Wrappers.Inventory.Items.Radio;
 using CursedMod.Features.Wrappers.Inventory.Items.ThrowableProjectiles;
 using CursedMod.Features.Wrappers.Inventory.Items.Usables;
 using CursedMod.Features.Wrappers.Player;
+using CursedMod.Features.Wrappers.Server;
 using InventorySystem;
 using InventorySystem.Items;
 using InventorySystem.Items.Armor;
@@ -124,6 +125,8 @@ public class CursedItem
         owner = null;
         return false;
     }
+
+    public static void Create(ItemType type) => Get(CursedServer.LocalPlayer.Inventory.CreateItemInstance(new ItemIdentifier(type, ItemSerialGenerator.GenerateNext()), false));
 
     public void HoldItem() => Owner.CurrentItem = this;
 
