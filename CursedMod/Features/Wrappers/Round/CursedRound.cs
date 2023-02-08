@@ -14,8 +14,12 @@ namespace CursedMod.Features.Wrappers.Round;
 
 public static class CursedRound
 {
-    public static bool IsRoundStarted => RoundStart.RoundStarted;
+    public static bool IsInLobby => !HasStarted && !HasEnded;
+    
+    public static bool HasStarted => RoundStart.RoundStarted;
 
+    public static bool HasEnded => RoundSummary.singleton._roundEnded;
+    
     public static bool IsRoundLocked
     {
         get => PluginAPI.Core.Round.IsLocked;
