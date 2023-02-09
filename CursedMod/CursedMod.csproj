@@ -75,6 +75,7 @@
     <ItemGroup>
         <Compile Include="EntryPoint.cs" />
         <Compile Include="Events\Arguments\Achievements\PlayerAchievingEventArgs.cs" />
+        <Compile Include="Events\Arguments\Authentication\CheckingReservedSlotEventArgs.cs" />
         <Compile Include="Events\Arguments\BanSystem\BanningPlayerEventArgs.cs" />
         <Compile Include="Events\Arguments\BanSystem\KickingPlayerEventArgs.cs" />
         <Compile Include="Events\Arguments\CommandSystem\ExecutingRemoteAdminCommandEventArgs.cs" />
@@ -88,6 +89,7 @@
         <Compile Include="Events\DynamicEventAttribute.cs" />
         <Compile Include="Events\EventManager.cs" />
         <Compile Include="Events\Handlers\Achievements\AchievementsEventHandler.cs" />
+        <Compile Include="Events\Handlers\Authentication\AuthenticationEventsHandler.cs" />
         <Compile Include="Events\Handlers\BanSystem\BanSystemEventsHandler.cs" />
         <Compile Include="Events\Handlers\CommandSystem\CommandSystemEventsHandler.cs" />
         <Compile Include="Events\Handlers\Items\ItemsEventHandler.cs" />
@@ -95,6 +97,7 @@
         <Compile Include="Events\Handlers\Player\PlayerEventHandlers.cs" />
         <Compile Include="Events\Handlers\Round\RoundEventHandlers.cs" />
         <Compile Include="Events\Patches\Achievements\ServerAchievePatch.cs" />
+        <Compile Include="Events\Patches\Authentication\ReservedSlotCheckPatch.cs" />
         <Compile Include="Events\Patches\BanSystem\BanUserPatch.cs" />
         <Compile Include="Events\Patches\BanSystem\KickUserPatch.cs" />
         <Compile Include="Events\Patches\CommandSystem\RaProcessQueryPatch.cs" />
