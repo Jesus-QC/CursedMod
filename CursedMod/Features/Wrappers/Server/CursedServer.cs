@@ -73,6 +73,10 @@ public static class CursedServer
         set => ServerStatic.StopNextRound = value;
     }
 
+    public static bool IsFull => LiteNetLib4MirrorCore.Host.ConnectedPeersCount >= CustomNetworkManager.slots;
+
+    public static bool IsCompletelyFull => LiteNetLib4MirrorCore.Host.ConnectedPeersCount >= CustomNetworkManager.slots + CustomNetworkManager.reservedSlots;
+    
     public static bool IsInIdleMode
     {
         get => IdleMode.IdleModeActive;
