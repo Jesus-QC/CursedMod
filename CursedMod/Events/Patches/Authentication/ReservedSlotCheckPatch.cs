@@ -32,7 +32,6 @@ public class ReservedSlotCheckPatch
             new (OpCodes.Newobj, AccessTools.GetDeclaredConstructors(typeof(CheckingReservedSlotEventArgs))[0]),
             new (OpCodes.Dup),
             new (OpCodes.Dup),
-            new (OpCodes.Dup),
             new (OpCodes.Call, AccessTools.Method(typeof(AuthenticationEventsHandler), nameof(AuthenticationEventsHandler.OnCheckingReservedSlot))),
             new (OpCodes.Callvirt, AccessTools.PropertyGetter(typeof(CheckingReservedSlotEventArgs), nameof(CheckingReservedSlotEventArgs.HasReservedSlot))),
             new (OpCodes.Stloc_0),
