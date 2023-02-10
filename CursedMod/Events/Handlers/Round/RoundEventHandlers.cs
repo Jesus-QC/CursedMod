@@ -15,6 +15,8 @@ public static class RoundEventHandlers
     public static event EventManager.CursedEventHandler WaitingForPlayers;
     
     public static event EventManager.CursedEventHandler RestartingRound;
+    
+    public static event EventManager.CursedEventHandler RoundEnded;
 
     public static void OnRoundStarted()
     {
@@ -29,5 +31,10 @@ public static class RoundEventHandlers
     public static void OnRestartingRound()
     {
         RestartingRound.InvokeEvent();
+    }
+
+    public static void OnRoundEnded()
+    {
+        RoundEnded.InvokeEvent();
     }
 }
