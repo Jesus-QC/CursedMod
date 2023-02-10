@@ -19,6 +19,8 @@ public static class PlayerEventHandlers
     public static event EventManager.CursedEventHandler<PlayerDisconnectedEventArgs> Disconnected;
     
     public static event EventManager.CursedEventHandler<PlayerChangingRoleEventArgs> ChangingRole;
+    
+    public static event EventManager.CursedEventHandler<PlayerReceivingDamageEventArgs> ReceivingDamage;
 
     public static void OnPlayerJoined(PlayerJoinedEventArgs args)
     {
@@ -35,5 +37,10 @@ public static class PlayerEventHandlers
     public static void OnPlayerChangingRole(PlayerChangingRoleEventArgs args)
     {
         ChangingRole.InvokeEvent(args);
+    }
+
+    public static void OnPlayerReceivingDamage(PlayerReceivingDamageEventArgs args)
+    {
+        ReceivingDamage.InvokeEvent(args);
     }
 }

@@ -86,6 +86,7 @@
         <Compile Include="Events\Arguments\Player\PlayerChangingRoleEventArgs.cs" />
         <Compile Include="Events\Arguments\Player\PlayerDisconnectedEventArgs.cs" />
         <Compile Include="Events\Arguments\Player\PlayerJoinedEventArgs.cs" />
+        <Compile Include="Events\Arguments\Player\PlayerReceivingDamageEventArgs.cs" />
         <Compile Include="Events\DynamicEventAttribute.cs" />
         <Compile Include="Events\EventManager.cs" />
         <Compile Include="Events\Handlers\Achievements\AchievementsEventHandler.cs" />
@@ -104,6 +105,7 @@
         <Compile Include="Events\Patches\Items\DropItemPatch.cs" />
         <Compile Include="Events\Patches\Player\PlayerDisconnectPatch.cs" />
         <Compile Include="Events\Patches\Player\CompleteVerificationPatch.cs" />
+        <Compile Include="Events\Patches\Player\PlayerStats\DealDamagePatch.cs" />
         <Compile Include="Events\Patches\Player\Roles\InitializeRolePatch.cs" />
         <Compile Include="Events\Patches\Round\RestartingRoundPatch.cs" />
         <Compile Include="Events\Patches\Round\RoundStartPatch.cs" />
