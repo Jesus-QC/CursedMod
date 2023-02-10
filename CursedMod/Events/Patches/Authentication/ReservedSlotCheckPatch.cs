@@ -22,7 +22,7 @@ public class ReservedSlotCheckPatch
     {
         List<CodeInstruction> newInstructions = EventManager.CheckEvent<ReservedSlotCheckPatch>(37, instructions);
 
-        int offset = newInstructions.FindIndex(x => x.opcode == OpCodes.Stloc_1);
+        int offset = newInstructions.FindIndex(x => x.opcode == OpCodes.Stloc_1) + 1;
         
         newInstructions.InsertRange(offset, new CodeInstruction[]
         {
