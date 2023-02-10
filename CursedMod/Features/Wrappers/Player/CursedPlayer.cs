@@ -155,6 +155,8 @@ public class CursedPlayer
 
     public bool IsHuman => !IsScp || !IsDead;
     
+    public bool IsCuffed => Inventory.IsDisarmed();
+    
     public float TimeHoldingCurrentItem => Inventory.LastItemSwitch;
 
     public CursedItem CurrentItem
