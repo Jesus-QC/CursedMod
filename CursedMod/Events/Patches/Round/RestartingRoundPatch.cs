@@ -24,7 +24,7 @@ public class RestartingRoundPatch
 
         newInstructions.InsertRange(0, new CodeInstruction[]
         {
-            new (OpCodes.Call, AccessTools.Method(typeof(RoundEventHandlers), nameof(RoundEventHandlers.OnRestartingRound))),
+            new (OpCodes.Call, AccessTools.Method(typeof(RoundEventsHandler), nameof(RoundEventsHandler.OnRestartingRound))),
         });
         
         foreach (CodeInstruction instruction in newInstructions)

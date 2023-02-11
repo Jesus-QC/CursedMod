@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="CompleteVerificationPatch.cs" company="CursedMod">
+// <copyright file="KillPlayerPatch.cs" company="CursedMod">
 // Copyright (c) CursedMod. All rights reserved.
 // Licensed under the GPLv3 license.
 // See LICENSE file in the project root for full license information.
@@ -13,33 +13,33 @@ using CursedMod.Events.Handlers.Player;
 using HarmonyLib;
 using NorthwoodLib.Pools;
 
-namespace CursedMod.Events.Patches.Player;
+namespace CursedMod.Events.Patches.Player.PlayerStats;
 
-[HarmonyPatch(typeof(ServerRoles), nameof(ServerRoles.UserCode_CmdServerSignatureComplete))]
-public class CompleteVerificationPatch
+[HarmonyPatch(typeof(PlayerStatsSystem.PlayerStats), nameof(PlayerStatsSystem.PlayerStats.KillPlayer))]
+public class KillPlayerPatch
 {
     private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
     {
-        List<CodeInstruction> newInstructions = EventManager.CheckEvent<CompleteVerificationPatch>(691, instructions);
+        List<CodeInstruction> newInstructions = EventManager.CheckEvent<KillPlayerPatch>(36, instructions);
 
         Label ret = generator.DefineLabel();
         
         newInstructions[newInstructions.Count - 1].labels.Add(ret);
         
-        newInstructions.InsertRange(newInstructions.FindIndex(x => x.opcode == OpCodes.Pop) + 1, new List<CodeInstruction>()
+        newInstructions.InsertRange(0, new CodeInstruction[]
         {
             new (OpCodes.Ldarg_0),
-            new (OpCodes.Callvirt, AccessTools.PropertyGetter(typeof(ServerRoles), nameof(ServerRoles.isLocalPlayer))),
-            new (OpCodes.Brtrue_S, ret),
-            
-            new (OpCodes.Ldarg_0),
-            new (OpCodes.Newobj, AccessTools.GetDeclaredConstructors(typeof(PlayerJoinedEventArgs))[0]),
-            new (OpCodes.Call, AccessTools.Method(typeof(PlayerEventsHandler), nameof(PlayerEventsHandler.OnPlayerJoined))),
+            new (OpCodes.Ldarg_1),
+            new (OpCodes.Newobj, AccessTools.GetDeclaredConstructors(typeof(PlayerDyingEventArgs))[0]),
+            new (OpCodes.Dup),
+            new (OpCodes.Call, AccessTools.Method(typeof(PlayerEventsHandler), nameof(PlayerEventsHandler.OnPlayerDying))),
+            new (OpCodes.Callvirt, AccessTools.PropertyGetter(typeof(PlayerDyingEventArgs), nameof(PlayerDyingEventArgs.IsAllowed))),
+            new (OpCodes.Brfalse_S, ret),
         });
-
+        
         foreach (CodeInstruction instruction in newInstructions)
             yield return instruction;
-        
+
         ListPool<CodeInstruction>.Shared.Return(newInstructions);
     }
 }

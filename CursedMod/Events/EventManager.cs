@@ -108,7 +108,7 @@ public static class EventManager
 
     private static void RegisterHookedEvents()
     {
-        SceneManager.sceneLoaded += MapGenerationEventHandler.OnChangingScene;
-        SeedSynchronizer.OnMapGenerated += MapGenerationEventHandler.CacheAPI;
+        SceneManager.sceneLoaded += MapGenerationEventsHandler.OnChangingScene;
+        SeedSynchronizer.OnMapGenerated += MapGenerationEventsHandler.CacheAPI;
     }
 }

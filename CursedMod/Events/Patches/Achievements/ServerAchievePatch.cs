@@ -36,7 +36,7 @@ public class ServerAchievePatch
             new (OpCodes.Newobj, AccessTools.GetDeclaredConstructors(typeof(PlayerAchievingEventArgs))[0]),
             new (OpCodes.Stloc_S, args.LocalIndex),
             new (OpCodes.Ldloc_S, args.LocalIndex),
-            new (OpCodes.Call, AccessTools.Method(typeof(AchievementsEventHandler), nameof(AchievementsEventHandler.OnPlayerAchieving))),
+            new (OpCodes.Call, AccessTools.Method(typeof(AchievementsEventsHandler), nameof(AchievementsEventsHandler.OnPlayerAchieving))),
             new (OpCodes.Ldloc_S, args.LocalIndex),
             new (OpCodes.Callvirt, AccessTools.PropertyGetter(typeof(PlayerAchievingEventArgs), nameof(PlayerAchievingEventArgs.IsAllowed))),
             new (OpCodes.Brfalse_S, ret),

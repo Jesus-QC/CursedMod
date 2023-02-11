@@ -23,7 +23,7 @@ public class RoundStartPatch
 
         newInstructions.InsertRange(0, new CodeInstruction[]
         {
-            new (OpCodes.Call, AccessTools.Method(typeof(RoundEventHandlers), nameof(RoundEventHandlers.OnRoundStarted))),
+            new (OpCodes.Call, AccessTools.Method(typeof(RoundEventsHandler), nameof(RoundEventsHandler.OnRoundStarted))),
         });
 
         foreach (CodeInstruction instruction in newInstructions)

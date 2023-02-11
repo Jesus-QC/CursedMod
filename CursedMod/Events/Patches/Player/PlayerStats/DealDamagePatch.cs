@@ -34,7 +34,7 @@ public class DealDamagePatch
             new (OpCodes.Ldarg_1),
             new (OpCodes.Newobj, AccessTools.GetDeclaredConstructors(typeof(PlayerReceivingDamageEventArgs))[0]),
             new (OpCodes.Dup),
-            new (OpCodes.Call, AccessTools.Method(typeof(PlayerEventHandlers), nameof(PlayerEventHandlers.OnPlayerReceivingDamage))),
+            new (OpCodes.Call, AccessTools.Method(typeof(PlayerEventsHandler), nameof(PlayerEventsHandler.OnPlayerReceivingDamage))),
             new (OpCodes.Callvirt, AccessTools.PropertyGetter(typeof(PlayerReceivingDamageEventArgs), nameof(PlayerReceivingDamageEventArgs.IsAllowed))),
             new (OpCodes.Brfalse_S, ret),
         });

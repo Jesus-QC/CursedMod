@@ -204,7 +204,7 @@ public class RoundSummaryPatch
                 roundEndCancellationData = PluginAPI.Events.EventManager.ExecuteEvent<RoundEndCancellationData>(ServerEventType.RoundEnd, leadingTeam);
             }
             
-            RoundEventHandlers.OnRoundEnded();
+            RoundEventsHandler.OnRoundEnded();
             
             if (Statistics.FastestEndedRound.Duration > RoundStart.RoundLength)
                 Statistics.FastestEndedRound = new Statistics.FastestRound(leadingTeam, RoundStart.RoundLength, DateTime.Now);

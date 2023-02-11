@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="MapGenerationEventHandler.cs" company="CursedMod">
+// <copyright file="MapGenerationEventsHandler.cs" company="CursedMod">
 // Copyright (c) CursedMod. All rights reserved.
 // Licensed under the GPLv3 license.
 // See LICENSE file in the project root for full license information.
@@ -17,7 +17,7 @@ using UnityEngine.SceneManagement;
 
 namespace CursedMod.Events.Handlers.MapGeneration;
 
-public static class MapGenerationEventHandler
+public static class MapGenerationEventsHandler
 {
     public static void CacheAPI()
     {

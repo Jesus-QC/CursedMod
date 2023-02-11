@@ -30,7 +30,7 @@ public class WaitingForPlayersPatch
             new (OpCodes.Ldarg_0),
             new (OpCodes.Callvirt, AccessTools.PropertyGetter(typeof(CharacterClassManager), nameof(CharacterClassManager.isLocalPlayer))),
             new (OpCodes.Brfalse_S, skip),
-            new (OpCodes.Call, AccessTools.Method(typeof(RoundEventHandlers), nameof(RoundEventHandlers.OnWaitingForPlayers))),
+            new (OpCodes.Call, AccessTools.Method(typeof(RoundEventsHandler), nameof(RoundEventsHandler.OnWaitingForPlayers))),
         });
         
         foreach (CodeInstruction instruction in newInstructions)

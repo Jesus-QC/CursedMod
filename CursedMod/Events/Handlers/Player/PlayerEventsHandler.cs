@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="PlayerEventHandlers.cs" company="CursedMod">
+// <copyright file="PlayerEventsHandler.cs" company="CursedMod">
 // Copyright (c) CursedMod. All rights reserved.
 // Licensed under the GPLv3 license.
 // See LICENSE file in the project root for full license information.
@@ -12,7 +12,7 @@ using CursedMod.Features.Wrappers.Player;
 
 namespace CursedMod.Events.Handlers.Player;
 
-public static class PlayerEventHandlers
+public static class PlayerEventsHandler
 {
     public static event EventManager.CursedEventHandler<PlayerJoinedEventArgs> Joined;
     
@@ -21,6 +21,8 @@ public static class PlayerEventHandlers
     public static event EventManager.CursedEventHandler<PlayerChangingRoleEventArgs> ChangingRole;
     
     public static event EventManager.CursedEventHandler<PlayerReceivingDamageEventArgs> ReceivingDamage;
+    
+    public static event EventManager.CursedEventHandler<PlayerDyingEventArgs> Dying;
 
     public static void OnPlayerJoined(PlayerJoinedEventArgs args)
     {
@@ -42,5 +44,10 @@ public static class PlayerEventHandlers
     public static void OnPlayerReceivingDamage(PlayerReceivingDamageEventArgs args)
     {
         ReceivingDamage.InvokeEvent(args);
+    }
+    
+    public static void OnPlayerDying(PlayerDyingEventArgs args)
+    {
+        Dying.InvokeEvent(args);
     }
 }

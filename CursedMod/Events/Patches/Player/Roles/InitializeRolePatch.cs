@@ -37,7 +37,7 @@ public class InitializeRolePatch
             new (OpCodes.Newobj, AccessTools.GetDeclaredConstructors(typeof(PlayerChangingRoleEventArgs))[0]),
             new (OpCodes.Stloc_S, args.LocalIndex),
             new (OpCodes.Ldloc_S, args.LocalIndex),
-            new (OpCodes.Call, AccessTools.Method(typeof(PlayerEventHandlers), nameof(PlayerEventHandlers.OnPlayerChangingRole))),
+            new (OpCodes.Call, AccessTools.Method(typeof(PlayerEventsHandler), nameof(PlayerEventsHandler.OnPlayerChangingRole))),
             
             new (OpCodes.Ldloc_S, args.LocalIndex),
             new (OpCodes.Callvirt, AccessTools.PropertyGetter(typeof(PlayerChangingRoleEventArgs), nameof(PlayerChangingRoleEventArgs.IsAllowed))),

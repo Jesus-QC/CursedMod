@@ -39,7 +39,7 @@ public class DropItemPatch
             new (OpCodes.Newobj, AccessTools.GetDeclaredConstructors(typeof(PlayerDroppingItemEventArgs))[0]),
             new (OpCodes.Stloc_S, args.LocalIndex),
             new (OpCodes.Ldloc_S, args.LocalIndex),
-            new (OpCodes.Call, AccessTools.Method(typeof(ItemsEventHandler), nameof(ItemsEventHandler.OnPlayerDroppingItem))),
+            new (OpCodes.Call, AccessTools.Method(typeof(ItemsEventsHandler), nameof(ItemsEventsHandler.OnPlayerDroppingItem))),
             new (OpCodes.Ldloc_S, args.LocalIndex),
             new (OpCodes.Callvirt, AccessTools.PropertyGetter(typeof(PlayerDroppingItemEventArgs), nameof(PlayerDroppingItemEventArgs.IsAllowed))),
             new (OpCodes.Brfalse_S, ret),
