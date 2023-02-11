@@ -78,6 +78,7 @@
         <Compile Include="Events\Arguments\Authentication\CheckingReservedSlotEventArgs.cs" />
         <Compile Include="Events\Arguments\BanSystem\BanningPlayerEventArgs.cs" />
         <Compile Include="Events\Arguments\BanSystem\KickingPlayerEventArgs.cs" />
+        <Compile Include="Events\Arguments\BanSystem\BanningOfflinePlayerEventArgs.cs" />
         <Compile Include="Events\Arguments\CommandSystem\ExecutingRemoteAdminCommandEventArgs.cs" />
         <Compile Include="Events\Arguments\ICursedCancellableEvent.cs" />
         <Compile Include="Events\Arguments\ICursedItemEvent.cs" />
@@ -102,6 +103,7 @@
         <Compile Include="Events\Patches\Authentication\ReservedSlotCheckPatch.cs" />
         <Compile Include="Events\Patches\BanSystem\BanUserPatch.cs" />
         <Compile Include="Events\Patches\BanSystem\KickUserPatch.cs" />
+        <Compile Include="Events\Patches\BanSystem\OBanUserPatch.cs" />
         <Compile Include="Events\Patches\CommandSystem\RaProcessQueryPatch.cs" />
         <Compile Include="Events\Patches\Items\DropItemPatch.cs" />
         <Compile Include="Events\Patches\Player\PlayerDisconnectPatch.cs" />
