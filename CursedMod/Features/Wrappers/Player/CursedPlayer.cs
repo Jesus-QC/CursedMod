@@ -46,6 +46,8 @@ public class CursedPlayer
     internal CursedPlayer(ReferenceHub hub)
     {
         ReferenceHub = hub;
+        GameObject = ReferenceHub.gameObject;
+        Transform = ReferenceHub.transform;
         
         if (hub == ReferenceHub.HostHub || NetworkConnection.address == "npc")
             return;
@@ -720,9 +722,6 @@ public class CursedPlayer
 
     private void SetUp()
     {
-        GameObject = ReferenceHub.gameObject;
-        Transform = ReferenceHub.transform;
-        
         int index = UserId.LastIndexOf('@');
 
         if (index == -1)
