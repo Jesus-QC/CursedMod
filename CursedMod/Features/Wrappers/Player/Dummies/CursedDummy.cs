@@ -24,7 +24,7 @@ public static class CursedDummy
    
     public static int Count => Dictionary.Count;
 
-    public static CursedPlayer Create(string nick = null, bool verify = false)
+    public static CursedPlayer Create(string nick = null)
     {
         GameObject ply = Object.Instantiate(NetworkManager.singleton.playerPrefab);
         ReferenceHub hub = ply.GetComponent<ReferenceHub>();
