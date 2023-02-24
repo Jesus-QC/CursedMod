@@ -35,8 +35,10 @@ public static class CursedDummy
         NetworkServer.AddPlayerForConnection(new FakeConnection(), ply);
         
         CursedPlayer player = new (hub);
-        
         Dictionary.Add(hub, player);
+        
+        player.CharacterClassManager._privUserId = "ID_NPC";
+       
         return player;
     }
 }
