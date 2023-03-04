@@ -17,6 +17,8 @@ public static class BanSystemEventsHandler
     public static event EventManager.CursedEventHandler<BanningPlayerEventArgs> BanningPlayer;
     
     public static event EventManager.CursedEventHandler<KickingPlayerEventArgs> KickingPlayer;
+    
+    public static event EventManager.CursedEventHandler<IssuingBanEventArgs> IssuingBan;
 
     public static void OnBanningPlayer(BanningPlayerEventArgs args)
     {
@@ -32,4 +34,10 @@ public static class BanSystemEventsHandler
     {
         BanningOfflinePlayer.InvokeEvent(args);
     }
+    
+    public static void OnIssuingBan(IssuingBanEventArgs args)
+    {
+        IssuingBan.InvokeEvent(args);
+    }
+    
 }
