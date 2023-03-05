@@ -26,11 +26,17 @@ public static class PlayerEventsHandler
 
     public static void OnPlayerJoined(PlayerJoinedEventArgs args)
     {
+        if (!CheckPlayer(args.Player))
+            return;
+        
         Joined.InvokeEvent(args);
     }
 
     public static void OnPlayerDisconnected(PlayerDisconnectedEventArgs args)
     {
+        if (!CheckPlayer(args.Player))
+            return;
+        
         Disconnected.InvokeEvent(args); 
         CursedLogger.InternalDebug("Removing player");
         CursedPlayer.Dictionary.Remove(args.Player.ReferenceHub);
@@ -38,16 +44,27 @@ public static class PlayerEventsHandler
 
     public static void OnPlayerChangingRole(PlayerChangingRoleEventArgs args)
     {
+        if (!CheckPlayer(args.Player))
+            return;
+        
         ChangingRole.InvokeEvent(args);
     }
 
     public static void OnPlayerReceivingDamage(PlayerReceivingDamageEventArgs args)
     {
+        if (!CheckPlayer(args.Player))
+            return;
+        
         ReceivingDamage.InvokeEvent(args);
     }
     
     public static void OnPlayerDying(PlayerDyingEventArgs args)
     {
+        if (!CheckPlayer(args.Player))
+            return;
+        
         Dying.InvokeEvent(args);
     }
+
+    private static bool CheckPlayer(CursedPlayer player) => player is not null && !player.IsDummy;
 }

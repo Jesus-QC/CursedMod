@@ -26,7 +26,7 @@ public class IssuingBanPatch
         LocalBuilder builder = generator.DeclareLocal(typeof(IssuingBanEventArgs));
         
         // TODO: This is a temporary event until I have time to implement it correctly
-        newInstructions.InsertRange(0, new CodeInstruction[]
+        newInstructions.InsertRange(0, new[]
         {
             new (OpCodes.Ldarg_0),
             new (OpCodes.Ldarg_1),
