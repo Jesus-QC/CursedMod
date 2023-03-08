@@ -84,13 +84,14 @@
         <Compile Include="Events\Arguments\ICursedCancellableEvent.cs" />
         <Compile Include="Events\Arguments\ICursedItemEvent.cs" />
         <Compile Include="Events\Arguments\ICursedPlayerEvent.cs" />
+        <Compile Include="Events\Arguments\Items\PlayerCancellingThrowEventArgs.cs" />
         <Compile Include="Events\Arguments\Items\PlayerDroppingItemEventArgs.cs" />
-        <Compile Include="Events\Arguments\Player\PlayerCancellingThrowEventArgs.cs" />
         <Compile Include="Events\Arguments\Player\PlayerChangingRoleEventArgs.cs" />
         <Compile Include="Events\Arguments\Player\PlayerDyingEventArgs.cs" />
         <Compile Include="Events\Arguments\Player\PlayerDisconnectedEventArgs.cs" />
         <Compile Include="Events\Arguments\Player\PlayerJoinedEventArgs.cs" />
         <Compile Include="Events\Arguments\Player\PlayerReceivingDamageEventArgs.cs" />
+        <Compile Include="Events\Arguments\SCPs\Scp330\PlayerInteractingScp330EventArgs.cs" />
         <Compile Include="Events\DynamicEventAttribute.cs" />
         <Compile Include="Events\EventManager.cs" />
         <Compile Include="Events\Handlers\Achievements\AchievementsEventsHandler.cs" />
@@ -101,6 +102,7 @@
         <Compile Include="Events\Handlers\MapGeneration\MapGenerationEventsHandler.cs" />
         <Compile Include="Events\Handlers\Player\PlayerEventsHandler.cs" />
         <Compile Include="Events\Handlers\Round\RoundEventsHandler.cs" />
+        <Compile Include="Events\Handlers\SCPs\Scp330\Scp330EventsHandler.cs" />
         <Compile Include="Events\Patches\Achievements\ServerAchievePatch.cs" />
         <Compile Include="Events\Patches\Authentication\ReservedSlotCheckPatch.cs" />
         <Compile Include="Events\Patches\BanSystem\BanUserPatch.cs" />
@@ -119,6 +121,7 @@
         <Compile Include="Events\Patches\Round\RoundStartPatch.cs" />
         <Compile Include="Events\Patches\Round\RoundSummaryPatch.cs" />
         <Compile Include="Events\Patches\Round\WaitingForPlayersPatch.cs" />
+        <Compile Include="Events\Patches\SCPs\Scp330\ServerInteractScp330Patch.cs" />
         <Compile Include="Features\Enums\AuthenticationType.cs" />
         <Compile Include="Features\Enums\DoorType.cs" />
         <Compile Include="Features\Enums\LockerType.cs" />

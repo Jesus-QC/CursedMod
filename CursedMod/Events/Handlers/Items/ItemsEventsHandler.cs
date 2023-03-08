@@ -7,7 +7,6 @@
 // -----------------------------------------------------------------------
 
 using CursedMod.Events.Arguments.Items;
-using CursedMod.Events.Arguments.Player;
 
 namespace CursedMod.Events.Handlers.Items;
 
@@ -15,8 +14,15 @@ public static class ItemsEventsHandler
 {
     public static event EventManager.CursedEventHandler<PlayerDroppingItemEventArgs> PlayerDroppingItem;
 
+    public static event EventManager.CursedEventHandler<PlayerCancellingThrowEventArgs> PlayerCancellingThrow;
+    
     public static void OnPlayerDroppingItem(PlayerDroppingItemEventArgs args)
     {
         PlayerDroppingItem.InvokeEvent(args);
+    }
+    
+    public static void OnPlayerCancellingThrow(PlayerCancellingThrowEventArgs args)
+    {
+        PlayerCancellingThrow.InvokeEvent(args);
     }
 }

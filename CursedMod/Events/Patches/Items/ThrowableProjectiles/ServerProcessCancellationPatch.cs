@@ -8,7 +8,8 @@
 
 using System.Collections.Generic;
 using System.Reflection.Emit;
-using CursedMod.Events.Arguments.Player;
+using CursedMod.Events.Arguments.Items;
+using CursedMod.Events.Handlers.Items;
 using CursedMod.Events.Handlers.Player;
 using HarmonyLib;
 using InventorySystem.Items.ThrowableProjectiles;
@@ -33,7 +34,7 @@ public class ServerProcessCancellationPatch
             new CodeInstruction(OpCodes.Ldarg_0).MoveLabelsFrom(newInstructions[index]),
             new (OpCodes.Newobj, AccessTools.GetDeclaredConstructors(typeof(PlayerCancellingThrowEventArgs))[0]),
             new (OpCodes.Dup),
-            new (OpCodes.Call, AccessTools.Method(typeof(PlayerEventsHandler), nameof(PlayerEventsHandler.OnPlayerCancellingThrow))),
+            new (OpCodes.Call, AccessTools.Method(typeof(ItemsEventsHandler), nameof(ItemsEventsHandler.OnPlayerCancellingThrow))),
             new (OpCodes.Callvirt, AccessTools.PropertyGetter(typeof(PlayerCancellingThrowEventArgs), nameof(PlayerCancellingThrowEventArgs.IsAllowed))),
             new (OpCodes.Brfalse_S, ret),
         });
