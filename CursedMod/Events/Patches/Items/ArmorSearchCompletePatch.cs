@@ -21,7 +21,7 @@ public class ArmorSearchCompletePatch
 {
     private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
     {
-        List<CodeInstruction> newInstructions = EventManager.CheckEvent<Scp244SearchCompletePatch>(37, instructions);
+        List<CodeInstruction> newInstructions = EventManager.CheckEvent<Scp244SearchCompletePatch>(59, instructions);
 
         Label ret = generator.DefineLabel();
 
