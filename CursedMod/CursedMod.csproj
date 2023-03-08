@@ -81,6 +81,7 @@
         <Compile Include="Events\Arguments\BanSystem\KickingPlayerEventArgs.cs" />
         <Compile Include="Events\Arguments\BanSystem\BanningOfflinePlayerEventArgs.cs" />
         <Compile Include="Events\Arguments\CommandSystem\ExecutingRemoteAdminCommandEventArgs.cs" />
+        <Compile Include="Events\Arguments\Facility\Doors\PlayerInteractingDoorEventArgs.cs" />
         <Compile Include="Events\Arguments\ICursedCancellableEvent.cs" />
         <Compile Include="Events\Arguments\ICursedItemEvent.cs" />
         <Compile Include="Events\Arguments\ICursedPlayerEvent.cs" />
@@ -98,6 +99,7 @@
         <Compile Include="Events\Handlers\Authentication\AuthenticationEventsHandler.cs" />
         <Compile Include="Events\Handlers\BanSystem\BanSystemEventsHandler.cs" />
         <Compile Include="Events\Handlers\CommandSystem\CommandSystemEventsHandler.cs" />
+        <Compile Include="Events\Handlers\Facility\Doors\DoorsEventsHandler.cs" />
         <Compile Include="Events\Handlers\Items\ItemsEventsHandler.cs" />
         <Compile Include="Events\Handlers\MapGeneration\MapGenerationEventsHandler.cs" />
         <Compile Include="Events\Handlers\Player\PlayerEventsHandler.cs" />
@@ -110,6 +112,7 @@
         <Compile Include="Events\Patches\BanSystem\KickUserPatch.cs" />
         <Compile Include="Events\Patches\BanSystem\OBanUserPatch.cs" />
         <Compile Include="Events\Patches\CommandSystem\RaProcessQueryPatch.cs" />
+        <Compile Include="Events\Patches\Facility\Doors\ServerInteractDoorVariantPatch.cs" />
         <Compile Include="Events\Patches\Items\DropItemPatch.cs" />
         <Compile Include="Events\Patches\Items\ThrowableProjectiles\ServerProcessCancellationPatch.cs" />
         <Compile Include="Events\Patches\Player\PlayerDisconnectPatch.cs" />
