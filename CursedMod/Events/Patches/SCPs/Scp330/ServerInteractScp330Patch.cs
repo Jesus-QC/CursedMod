@@ -31,7 +31,7 @@ public class ServerInteractScp330Patch
         
         newInstructions.InsertRange(offset, new CodeInstruction[]
         {
-            new (OpCodes.Ldarg_0),
+            new (OpCodes.Ldarg_1),
             new (OpCodes.Newobj, AccessTools.GetDeclaredConstructors(typeof(PlayerInteractingScp330EventArgs))[0]),
             new (OpCodes.Dup),
             new (OpCodes.Call, AccessTools.Method(typeof(Scp330EventsHandler), nameof(Scp330EventsHandler.OnPlayerInteractingScp330))),
