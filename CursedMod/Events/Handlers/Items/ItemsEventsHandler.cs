@@ -16,12 +16,12 @@ public static class ItemsEventsHandler
 
     public static event EventManager.CursedEventHandler<PlayerCancellingThrowEventArgs> PlayerCancellingThrow;
     
-    public static void OnPlayerDroppingItem(PlayerDroppingItemEventArgs args)
+    internal static void OnPlayerDroppingItem(PlayerDroppingItemEventArgs args)
     {
         PlayerDroppingItem.InvokeEvent(args);
     }
     
-    public static void OnPlayerCancellingThrow(PlayerCancellingThrowEventArgs args)
+    internal static void OnPlayerCancellingThrow(PlayerCancellingThrowEventArgs args)
     {
         PlayerCancellingThrow.InvokeEvent(args);
     }

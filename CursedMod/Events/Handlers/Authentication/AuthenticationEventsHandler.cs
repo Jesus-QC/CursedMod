@@ -14,7 +14,7 @@ public static class AuthenticationEventsHandler
 {
     public static event EventManager.CursedEventHandler<CheckingReservedSlotEventArgs> CheckingReservedSlot;
 
-    public static void OnCheckingReservedSlot(CheckingReservedSlotEventArgs args)
+    internal static void OnCheckingReservedSlot(CheckingReservedSlotEventArgs args)
     {
         CheckingReservedSlot.InvokeEvent(args);
     }

@@ -26,7 +26,7 @@ public static class MapGenerationEventsHandler
         CursedServer.LocalPlayer = new CursedPlayer(ReferenceHub.HostHub);
     }
 
-    public static void OnChangingScene(Scene scene, LoadSceneMode loadMode)
+    internal static void OnChangingScene(Scene scene, LoadSceneMode loadMode)
     {
         CursedLogger.InternalDebug("Loading scene " + scene.name + " with mode " + loadMode);
         if (scene.name != "Facility")

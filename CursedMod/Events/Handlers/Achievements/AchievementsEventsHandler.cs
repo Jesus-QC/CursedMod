@@ -14,7 +14,7 @@ public static class AchievementsEventsHandler
 {
     public static event EventManager.CursedEventHandler<PlayerAchievingEventArgs> PlayerAchieving;
 
-    public static void OnPlayerAchieving(PlayerAchievingEventArgs args)
+    internal static void OnPlayerAchieving(PlayerAchievingEventArgs args)
     {
         PlayerAchieving.InvokeEvent(args);
     }

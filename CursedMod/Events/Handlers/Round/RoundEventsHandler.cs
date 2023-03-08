@@ -18,22 +18,22 @@ public static class RoundEventsHandler
     
     public static event EventManager.CursedEventHandler RoundEnded;
 
-    public static void OnRoundStarted()
+    internal static void OnRoundStarted()
     {
         RoundStarted.InvokeEvent();
     }
 
-    public static void OnWaitingForPlayers()
+    internal static void OnWaitingForPlayers()
     {
         WaitingForPlayers.InvokeEvent();
     }
 
-    public static void OnRestartingRound()
+    internal static void OnRestartingRound()
     {
         RestartingRound.InvokeEvent();
     }
 
-    public static void OnRoundEnded()
+    internal static void OnRoundEnded()
     {
         RoundEnded.InvokeEvent();
     }

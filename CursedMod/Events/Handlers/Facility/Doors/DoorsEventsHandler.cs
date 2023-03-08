@@ -14,7 +14,7 @@ public static class DoorsEventsHandler
 {
     public static event EventManager.CursedEventHandler<PlayerInteractingDoorEventArgs> PlayerInteractingDoor;
 
-    public static void OnPlayerInteractingDoor(PlayerInteractingDoorEventArgs args)
+    internal static void OnPlayerInteractingDoor(PlayerInteractingDoorEventArgs args)
     {
        PlayerInteractingDoor.InvokeEvent(args); 
     }

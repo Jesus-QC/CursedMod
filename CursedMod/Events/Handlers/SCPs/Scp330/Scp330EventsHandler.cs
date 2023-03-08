@@ -14,7 +14,7 @@ public static class Scp330EventsHandler
 {
     public static event EventManager.CursedEventHandler<PlayerInteractingScp330EventArgs> PlayerInteractingScp330;
 
-    public static void OnPlayerInteractingScp330(PlayerInteractingScp330EventArgs args)
+    internal static void OnPlayerInteractingScp330(PlayerInteractingScp330EventArgs args)
     {
         PlayerInteractingScp330.InvokeEvent(args);
     }

@@ -20,22 +20,22 @@ public static class BanSystemEventsHandler
     
     public static event EventManager.CursedEventHandler<IssuingBanEventArgs> IssuingBan;
 
-    public static void OnBanningPlayer(BanningPlayerEventArgs args)
+    internal static void OnBanningPlayer(BanningPlayerEventArgs args)
     {
         BanningPlayer.InvokeEvent(args);
     }
 
-    public static void OnKickingPlayer(KickingPlayerEventArgs args)
+    internal static void OnKickingPlayer(KickingPlayerEventArgs args)
     {
         KickingPlayer.InvokeEvent(args);
     }
 
-    public static void OnBanningOfflinePlayer(BanningOfflinePlayerEventArgs args)
+    internal static void OnBanningOfflinePlayer(BanningOfflinePlayerEventArgs args)
     {
         BanningOfflinePlayer.InvokeEvent(args);
     }
     
-    public static void OnIssuingBan(IssuingBanEventArgs args)
+    internal static void OnIssuingBan(IssuingBanEventArgs args)
     {
         IssuingBan.InvokeEvent(args);
     }

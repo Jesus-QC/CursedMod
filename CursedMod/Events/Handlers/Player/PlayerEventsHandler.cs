@@ -24,7 +24,7 @@ public static class PlayerEventsHandler
     
     public static event EventManager.CursedEventHandler<PlayerDyingEventArgs> Dying;
 
-    public static void OnPlayerJoined(PlayerJoinedEventArgs args)
+    internal static void OnPlayerJoined(PlayerJoinedEventArgs args)
     {
         if (!CheckPlayer(args.Player))
             return;
@@ -32,7 +32,7 @@ public static class PlayerEventsHandler
         Joined.InvokeEvent(args);
     }
 
-    public static void OnPlayerDisconnected(PlayerDisconnectedEventArgs args)
+    internal static void OnPlayerDisconnected(PlayerDisconnectedEventArgs args)
     {
         if (!CheckPlayer(args.Player))
             return;
@@ -42,7 +42,7 @@ public static class PlayerEventsHandler
         CursedPlayer.Dictionary.Remove(args.Player.ReferenceHub);
     }
 
-    public static void OnPlayerChangingRole(PlayerChangingRoleEventArgs args)
+    internal static void OnPlayerChangingRole(PlayerChangingRoleEventArgs args)
     {
         if (!CheckPlayer(args.Player))
             return;
@@ -50,7 +50,7 @@ public static class PlayerEventsHandler
         ChangingRole.InvokeEvent(args);
     }
 
-    public static void OnPlayerReceivingDamage(PlayerReceivingDamageEventArgs args)
+    internal static void OnPlayerReceivingDamage(PlayerReceivingDamageEventArgs args)
     {
         if (!CheckPlayer(args.Player))
             return;
@@ -58,7 +58,7 @@ public static class PlayerEventsHandler
         ReceivingDamage.InvokeEvent(args);
     }
     
-    public static void OnPlayerDying(PlayerDyingEventArgs args)
+    internal static void OnPlayerDying(PlayerDyingEventArgs args)
     {
         if (!CheckPlayer(args.Player))
             return;

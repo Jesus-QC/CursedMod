@@ -14,7 +14,7 @@ public static class CommandSystemEventsHandler
 {
     public static event EventManager.CursedEventHandler<ExecutingRemoteAdminCommandEventArgs> ExecutingRemoteAdminCommand;
 
-    public static void OnExecutingRemoteAdminCommand(ExecutingRemoteAdminCommandEventArgs args)
+    internal static void OnExecutingRemoteAdminCommand(ExecutingRemoteAdminCommandEventArgs args)
     {
         ExecutingRemoteAdminCommand.InvokeEvent(args);
     }
