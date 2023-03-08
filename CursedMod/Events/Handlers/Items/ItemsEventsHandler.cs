@@ -7,6 +7,7 @@
 // -----------------------------------------------------------------------
 
 using CursedMod.Events.Arguments.Items;
+using CursedMod.Events.Arguments.Player;
 
 namespace CursedMod.Events.Handlers.Items;
 

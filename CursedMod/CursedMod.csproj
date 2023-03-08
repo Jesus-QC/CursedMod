@@ -85,6 +85,7 @@
         <Compile Include="Events\Arguments\ICursedItemEvent.cs" />
         <Compile Include="Events\Arguments\ICursedPlayerEvent.cs" />
         <Compile Include="Events\Arguments\Items\PlayerDroppingItemEventArgs.cs" />
+        <Compile Include="Events\Arguments\Player\PlayerCancellingThrowEventArgs.cs" />
         <Compile Include="Events\Arguments\Player\PlayerChangingRoleEventArgs.cs" />
         <Compile Include="Events\Arguments\Player\PlayerDyingEventArgs.cs" />
         <Compile Include="Events\Arguments\Player\PlayerDisconnectedEventArgs.cs" />
@@ -108,6 +109,7 @@
         <Compile Include="Events\Patches\BanSystem\OBanUserPatch.cs" />
         <Compile Include="Events\Patches\CommandSystem\RaProcessQueryPatch.cs" />
         <Compile Include="Events\Patches\Items\DropItemPatch.cs" />
+        <Compile Include="Events\Patches\Items\ThrowableProjectiles\ServerProcessCancellationPatch.cs" />
         <Compile Include="Events\Patches\Player\PlayerDisconnectPatch.cs" />
         <Compile Include="Events\Patches\Player\CompleteVerificationPatch.cs" />
         <Compile Include="Events\Patches\Player\PlayerStats\DealDamagePatch.cs" />

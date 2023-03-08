@@ -23,6 +23,8 @@ public static class PlayerEventsHandler
     public static event EventManager.CursedEventHandler<PlayerReceivingDamageEventArgs> ReceivingDamage;
     
     public static event EventManager.CursedEventHandler<PlayerDyingEventArgs> Dying;
+    
+    public static event EventManager.CursedEventHandler<PlayerCancellingThrowEventArgs> PlayerCancellingThrow;
 
     public static void OnPlayerJoined(PlayerJoinedEventArgs args)
     {
@@ -66,5 +68,10 @@ public static class PlayerEventsHandler
         Dying.InvokeEvent(args);
     }
 
+    public static void OnPlayerCancellingThrow(PlayerCancellingThrowEventArgs args)
+    {
+        PlayerCancellingThrow.InvokeEvent(args);
+    }
+    
     private static bool CheckPlayer(CursedPlayer player) => player is not null && !player.IsDummy;
 }
