@@ -7,6 +7,8 @@
 // -----------------------------------------------------------------------
 
 using CursedMod.Features.Wrappers.Player;
+using InventorySystem.Items.Pickups;
+using Mirror;
 
 namespace CursedMod.Features.Wrappers.Facility;
 
@@ -44,4 +46,20 @@ public static class CursedFacility
         => RoundSummary.singleton.RpcShowRoundSummary(listStart, listFinish, leadingTeam, eDS, eSc, scpKills, roundCd, seconds);
     
     public static void PlayAmbientSound(int id) => AmbientSoundPlayer.RpcPlaySound(id);
+
+    public static void CleanItems()
+    {
+        ItemPickupBase[] array = UnityEngine.Object.FindObjectsOfType<ItemPickupBase>();
+
+        foreach (ItemPickupBase item in array)
+            NetworkServer.Destroy(item.gameObject);
+    }
+    
+    public static void CleanCorpses()
+    {
+        BasicRagdoll[] array = UnityEngine.Object.FindObjectsOfType<BasicRagdoll>();
+
+        foreach (BasicRagdoll item in array)
+            NetworkServer.Destroy(item.gameObject);
+    }
 }
