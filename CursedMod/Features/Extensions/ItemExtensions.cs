@@ -15,4 +15,11 @@ public static class ItemExtensions
         int i = (int)itemType;
         return i is > -1 and < 12;
     }
+
+    public static bool IsWeapon(this ItemType itemType)
+    {
+        return itemType is ItemType.GunCom45 or ItemType.GunCrossvec or ItemType.GunLogicer or ItemType.GunRevolver
+            or ItemType.GunShotgun or ItemType.GunAK or ItemType.GunCOM15 or ItemType.GunCOM18 or ItemType.GunE11SR
+            or ItemType.GunFSP9;
+    }
 }
