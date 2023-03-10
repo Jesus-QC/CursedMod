@@ -8,8 +8,10 @@
 
 using System.Collections.Generic;
 using System.Linq;
+using CursedMod.Features.Wrappers.Player;
 using Footprinting;
 using InventorySystem.Items.Firearms;
+using InventorySystem.Items.Firearms.Attachments;
 using InventorySystem.Items.Firearms.Attachments.Components;
 using InventorySystem.Items.Firearms.BasicMessages;
 using InventorySystem.Items.Firearms.Modules;
@@ -152,4 +154,19 @@ public class CursedFirearmItem : CursedItem
     }
 
     public IEnumerable<CursedFirearmAttachment> GetAttachments() => Attachments.Select(CursedFirearmAttachment.Get);
+
+    public void SetPlayerAttachments(CursedPlayer player)
+    {
+        if (player is null)
+            return;
+
+        if (AttachmentsServerHandler.PlayerPreferences.TryGetValue(player.ReferenceHub, out var value) && value.TryGetValue(FirearmBase.ItemTypeId, out var value2))
+            FirearmBase.ApplyAttachmentsCode(value2, reValidate: true);
+
+        FirearmStatusFlags firearmStatusFlags = FirearmStatusFlags.MagazineInserted;
+        if (FirearmBase.HasAdvantageFlag(AttachmentDescriptiveAdvantages.Flashlight))
+            firearmStatusFlags |= FirearmStatusFlags.FlashlightEnabled;
+
+        FirearmBase.Status = new FirearmStatus(FirearmBase.AmmoManagerModule.MaxAmmo, firearmStatusFlags, FirearmBase.GetCurrentAttachmentsCode());
+    }
 }
