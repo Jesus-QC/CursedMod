@@ -139,6 +139,7 @@
         <Compile Include="Features\Enums\EnvironmentalHazardType.cs" />
         <Compile Include="Features\Enums\ShootingTargetType.cs" />
         <Compile Include="Features\Extensions\CollectionExtensions.cs" />
+        <Compile Include="Features\Extensions\ItemExtensions.cs" />
         <Compile Include="Features\Extensions\RoleExtensions.cs" />
         <Compile Include="Features\Logger\CursedLogger.cs" />
         <Compile Include="Features\Patches\Dummies\ClientInstanceModePatch.cs" />
