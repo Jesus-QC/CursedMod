@@ -157,25 +157,10 @@ public class CursedFirearmItem : CursedItem
 
     public static void SetPlayerAttachments(this CursedFirearmItem firearm, CursedPlayer player)
     {
-        if (player == null)
+        if (player is null)
             return;
 
         if (AttachmentsServerHandler.PlayerPreferences.TryGetValue(player.ReferenceHub, out var value) && value.TryGetValue(firearm.Base.ItemTypeId, out var value2))
-            firearm.FirearmBase.ApplyAttachmentsCode(value2, reValidate: true);
-
-        FirearmStatusFlags firearmStatusFlags = FirearmStatusFlags.MagazineInserted;
-        if (firearm.FirearmBase.HasAdvantageFlag(AttachmentDescriptiveAdvantages.Flashlight))
-            firearmStatusFlags |= FirearmStatusFlags.FlashlightEnabled;
-
-        firearm.Status = new FirearmStatus(firearm.AmmoManagerModule.MaxAmmo, firearmStatusFlags, firearm.FirearmBase.GetCurrentAttachmentsCode());
-    }
-
-    public static void SetPlayerAttachments(this CursedFirearmItem firearm, ReferenceHub player)
-    {
-        if (player == null)
-            return;
-
-        if (AttachmentsServerHandler.PlayerPreferences.TryGetValue(player, out var value) && value.TryGetValue(firearm.Base.ItemTypeId, out var value2))
             firearm.FirearmBase.ApplyAttachmentsCode(value2, reValidate: true);
 
         FirearmStatusFlags firearmStatusFlags = FirearmStatusFlags.MagazineInserted;
