@@ -95,6 +95,7 @@
         <Compile Include="Events\Arguments\Player\PlayerDisconnectedEventArgs.cs" />
         <Compile Include="Events\Arguments\Player\PlayerJoinedEventArgs.cs" />
         <Compile Include="Events\Arguments\Player\PlayerReceivingDamageEventArgs.cs" />
+        <Compile Include="Events\Arguments\Respawning\RespawningTeamEventArgs.cs" />
         <Compile Include="Events\Arguments\SCPs\Scp330\PlayerInteractingScp330EventArgs.cs" />
         <Compile Include="Events\DynamicEventAttribute.cs" />
         <Compile Include="Events\EventManager.cs" />
@@ -106,6 +107,7 @@
         <Compile Include="Events\Handlers\Items\ItemsEventsHandler.cs" />
         <Compile Include="Events\Handlers\MapGeneration\MapGenerationEventsHandler.cs" />
         <Compile Include="Events\Handlers\Player\PlayerEventsHandler.cs" />
+        <Compile Include="Events\Handlers\Respawning\RespawningEventsHandler.cs" />
         <Compile Include="Events\Handlers\Round\RoundEventsHandler.cs" />
         <Compile Include="Events\Handlers\SCPs\Scp330\Scp330EventsHandler.cs" />
         <Compile Include="Events\Patches\Achievements\ServerAchievePatch.cs" />
@@ -128,6 +130,7 @@
         <Compile Include="Events\Patches\Player\PlayerStats\DealDamagePatch.cs" />
         <Compile Include="Events\Patches\Player\PlayerStats\KillPlayerPatch.cs" />
         <Compile Include="Events\Patches\Player\Roles\InitializeRolePatch.cs" />
+        <Compile Include="Events\Patches\Respawning\RespawnManagerPatch.cs" />
         <Compile Include="Events\Patches\Round\RestartingRoundPatch.cs" />
         <Compile Include="Events\Patches\Round\RoundStartPatch.cs" />
         <Compile Include="Events\Patches\Round\RoundSummaryPatch.cs" />
