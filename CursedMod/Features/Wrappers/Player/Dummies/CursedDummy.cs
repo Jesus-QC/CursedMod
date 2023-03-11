@@ -41,4 +41,6 @@ public static class CursedDummy
        
         return player;
     }
+
+    public static bool IsDummy(this ReferenceHub hub) => Dictionary.ContainsKey(hub);
 }
