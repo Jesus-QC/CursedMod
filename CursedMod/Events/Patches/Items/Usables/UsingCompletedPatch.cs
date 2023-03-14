@@ -21,7 +21,7 @@ public class UsingCompletedPatch
 {
     private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
     {
-        List<CodeInstruction> newInstructions = EventManager.CheckEvent<UsingCompletedPatch>(0, instructions);
+        List<CodeInstruction> newInstructions = EventManager.CheckEvent<UsingCompletedPatch>(16, instructions);
         
         newInstructions.AddRange(new CodeInstruction[]
         {
