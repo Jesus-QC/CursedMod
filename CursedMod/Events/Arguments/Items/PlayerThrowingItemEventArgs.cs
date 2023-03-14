@@ -16,15 +16,13 @@ namespace CursedMod.Events.Arguments.Items;
 
 public class PlayerThrowingItemEventArgs : EventArgs, ICursedCancellableEvent, ICursedPlayerEvent
 {
-    public PlayerThrowingItemEventArgs(ThrowableItem throwable, float forceAmount, float upwardFactor, Vector3 torque, Vector3 startVel)
+    public PlayerThrowingItemEventArgs(ThrowableItem throwable, ThrowableItem.ProjectileSettings projectileSettings, bool fullForce)
     {
         IsAllowed = true;
         Item = CursedThrowableItem.Get(throwable);
         Player = Item.Owner;
-        ForceAmount = forceAmount;
-        UpwardFactor = upwardFactor;
-        Torque = torque;
-        StartVelocity = startVel;
+        ProjectileSettings = projectileSettings;
+        FullForce = fullForce;
     }
     
     public bool IsAllowed { get; set; }
@@ -33,11 +31,7 @@ public class PlayerThrowingItemEventArgs : EventArgs, ICursedCancellableEvent, I
     
     public CursedThrowableItem Item { get; }
 
-    public float ForceAmount { get; set; }
+    public ThrowableItem.ProjectileSettings ProjectileSettings { get; set; }
     
-    public float UpwardFactor { get; set; }
-    
-    public Vector3 Torque { get; set; }
-    
-    public Vector3 StartVelocity { get; set; }
+    public bool FullForce { get; set; }
 }

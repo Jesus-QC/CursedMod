@@ -16,25 +16,25 @@ using NorthwoodLib.Pools;
 
 namespace CursedMod.Events.Patches.Items.ThrowableProjectiles;
 
-[HarmonyPatch(typeof(ThrowableItem), nameof(ThrowableItem.ServerThrow))]
+[HarmonyPatch(typeof(ThrowableItem), nameof(ThrowableItem.ServerProcessThrowConfirmation))]
 public class ServerThrowPatch
 {
     private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
     {
-        List<CodeInstruction> newInstructions = EventManager.CheckEvent<ServerThrowPatch>(82, instructions);
+        List<CodeInstruction> newInstructions = EventManager.CheckEvent<ServerThrowPatch>(96, instructions);
 
         LocalBuilder args = generator.DeclareLocal(typeof(PlayerThrowingItemEventArgs));
         Label ret = generator.DefineLabel();
         
         newInstructions[newInstructions.Count - 1].labels.Add(ret);
         
-        newInstructions.InsertRange(0, new CodeInstruction[]
+        int offset = newInstructions.FindLastIndex(x => x.opcode == OpCodes.Newarr) - 2;
+        
+        newInstructions.InsertRange(offset, new[]
         {
-            new (OpCodes.Ldarg_0),
+            new CodeInstruction(OpCodes.Ldarg_0).MoveLabelsFrom(newInstructions[offset]),
+            new (OpCodes.Ldloc_S, 4),
             new (OpCodes.Ldarg_1),
-            new (OpCodes.Ldarg_2),
-            new (OpCodes.Ldarg_3),
-            new (OpCodes.Ldarg_S, 4),
             new (OpCodes.Newobj, AccessTools.GetDeclaredConstructors(typeof(PlayerThrowingItemEventArgs))[0]),
             new (OpCodes.Dup),
             new (OpCodes.Stloc_S, args.LocalIndex),
@@ -44,20 +44,12 @@ public class ServerThrowPatch
             new (OpCodes.Brfalse_S, ret),
             
             new (OpCodes.Ldloc_S, args.LocalIndex),
-            new (OpCodes.Callvirt, AccessTools.PropertyGetter(typeof(PlayerThrowingItemEventArgs), nameof(PlayerThrowingItemEventArgs.ForceAmount))),
+            new (OpCodes.Callvirt, AccessTools.PropertyGetter(typeof(PlayerThrowingItemEventArgs), nameof(PlayerThrowingItemEventArgs.FullForce))),
             new (OpCodes.Starg_S, 1),
             
             new (OpCodes.Ldloc_S, args.LocalIndex),
-            new (OpCodes.Callvirt, AccessTools.PropertyGetter(typeof(PlayerThrowingItemEventArgs), nameof(PlayerThrowingItemEventArgs.UpwardFactor))),
-            new (OpCodes.Starg_S, 2),
-            
-            new (OpCodes.Ldloc_S, args.LocalIndex),
-            new (OpCodes.Callvirt, AccessTools.PropertyGetter(typeof(PlayerThrowingItemEventArgs), nameof(PlayerThrowingItemEventArgs.Torque))),
-            new (OpCodes.Starg_S, 3),
-            
-            new (OpCodes.Ldloc_S, args.LocalIndex),
-            new (OpCodes.Callvirt, AccessTools.PropertyGetter(typeof(PlayerThrowingItemEventArgs), nameof(PlayerThrowingItemEventArgs.StartVelocity))),
-            new (OpCodes.Starg_S, 4),
+            new (OpCodes.Callvirt, AccessTools.PropertyGetter(typeof(PlayerThrowingItemEventArgs), nameof(PlayerThrowingItemEventArgs.ProjectileSettings))),
+            new (OpCodes.Stloc_S, 4),
         });
         
         foreach (CodeInstruction instruction in newInstructions)
