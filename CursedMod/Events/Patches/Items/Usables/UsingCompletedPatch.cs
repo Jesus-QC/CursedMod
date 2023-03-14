@@ -23,7 +23,7 @@ public class UsingCompletedPatch
     {
         List<CodeInstruction> newInstructions = EventManager.CheckEvent<UsingCompletedPatch>(16, instructions);
         
-        newInstructions.AddRange(new CodeInstruction[]
+        newInstructions.InsertRange(0, new CodeInstruction[]
         {
             new (OpCodes.Ldarg_0),
             new (OpCodes.Newobj, AccessTools.GetDeclaredConstructors(typeof(PlayerUsedItemEventArgs))[0]),
