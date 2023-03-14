@@ -22,4 +22,11 @@ public static class ItemExtensions
             or ItemType.GunShotgun or ItemType.GunAK or ItemType.GunCOM15 or ItemType.GunCOM18 or ItemType.GunE11SR
             or ItemType.GunFSP9;
     }
+
+    public static bool IsScpItem(this ItemType itemType)
+    {
+        return itemType is ItemType.SCP018 or ItemType.SCP207 or ItemType.SCP244a or ItemType.SCP244b or ItemType.SCP268
+            or ItemType.SCP330 or ItemType.SCP500 or ItemType.SCP1576 or ItemType.SCP1576 or ItemType.SCP1853
+            or ItemType.SCP2176;
+    }
 }
