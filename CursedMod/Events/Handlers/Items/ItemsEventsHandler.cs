@@ -21,6 +21,8 @@ public static class ItemsEventsHandler
     public static event EventManager.CursedEventHandler<PlayerCancellingUsableEventArgs> PlayerCancellingUsable;
     
     public static event EventManager.CursedEventHandler<PlayerUsingItemEventArgs> PlayerUsingItem;
+
+    public static event EventManager.CursedEventHandler<PlayerUsedItemEventArgs> PlayerUsedItem;
     
     internal static void OnPlayerPickingUpItem(PlayerPickingUpItemEventArgs args)
     {
@@ -45,5 +47,10 @@ public static class ItemsEventsHandler
     internal static void OnPlayerUsingItem(PlayerUsingItemEventArgs args)
     {
         PlayerUsingItem.InvokeEvent(args);
+    }
+    
+    internal static void OnPlayerUsedItem(PlayerUsedItemEventArgs args)
+    {
+        PlayerUsedItem.InvokeEvent(args);
     }
 }
