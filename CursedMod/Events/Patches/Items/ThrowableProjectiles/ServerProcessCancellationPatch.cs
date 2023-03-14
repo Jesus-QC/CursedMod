@@ -10,7 +10,6 @@ using System.Collections.Generic;
 using System.Reflection.Emit;
 using CursedMod.Events.Arguments.Items;
 using CursedMod.Events.Handlers.Items;
-using CursedMod.Events.Handlers.Player;
 using HarmonyLib;
 using InventorySystem.Items.ThrowableProjectiles;
 using NorthwoodLib.Pools;

@@ -27,6 +27,11 @@ public class CursedThrowableItem : CursedItem
     public bool ReadyToThrow => ThrowableBase.ReadyToThrow;
     
     public bool ReadyToCancel => ThrowableBase.ReadyToThrow;
+    
+    public static CursedThrowableItem Get(ThrowableItem item)
+    {
+        return new CursedThrowableItem(item);
+    }
 
     public void PropelBody(Rigidbody rigidbody, Vector3 torque, Vector3 relativeVelocity, float forceAmount, float upwardFactor)
         => ThrowableBase.PropelBody(rigidbody, torque, relativeVelocity, forceAmount, upwardFactor);
