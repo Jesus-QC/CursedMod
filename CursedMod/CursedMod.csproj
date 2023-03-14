@@ -90,6 +90,7 @@
         <Compile Include="Events\Arguments\Items\PlayerCancellingUsableEventArgs.cs" />
         <Compile Include="Events\Arguments\Items\PlayerDroppingItemEventArgs.cs" />
         <Compile Include="Events\Arguments\Items\PlayerPickingUpItemEventArgs.cs" />
+        <Compile Include="Events\Arguments\Items\PlayerUsingItemEventArgs.cs" />
         <Compile Include="Events\Arguments\Player\PlayerChangingRoleEventArgs.cs" />
         <Compile Include="Events\Arguments\Player\PlayerDyingEventArgs.cs" />
         <Compile Include="Events\Arguments\Player\PlayerDisconnectedEventArgs.cs" />

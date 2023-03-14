@@ -24,7 +24,7 @@ public class UsableItemReceivedStatusPatch
         List<CodeInstruction> newInstructions = EventManager.CheckEvent<UsableItemReceivedStatusPatch>(161, instructions);
 
         Label ret = generator.DefineLabel();
-        int offset = newInstructions.FindIndex(x => x.opcode == OpCodes.Newarr) - 2;
+        int offset = newInstructions.FindLastIndex(x => x.opcode == OpCodes.Newarr) - 2;
         
         newInstructions[newInstructions.Count - 1].labels.Add(ret);
         
@@ -35,6 +35,18 @@ public class UsableItemReceivedStatusPatch
             new (OpCodes.Dup),
             new (OpCodes.Call, AccessTools.Method(typeof(ItemsEventsHandler), nameof(ItemsEventsHandler.OnPlayerCancellingUsable))),
             new (OpCodes.Callvirt, AccessTools.PropertyGetter(typeof(PlayerCancellingUsableEventArgs), nameof(PlayerCancellingUsableEventArgs.IsAllowed))),
+            new (OpCodes.Brfalse_S, ret),
+        });
+        
+        offset = newInstructions.FindIndex(x => x.opcode == OpCodes.Newarr) - 2;
+        
+        newInstructions.InsertRange(offset, new CodeInstruction[]
+        {
+            new (OpCodes.Ldloc_1),
+            new (OpCodes.Newobj, AccessTools.GetDeclaredConstructors(typeof(PlayerUsingItemEventArgs))[0]),
+            new (OpCodes.Dup),
+            new (OpCodes.Call, AccessTools.Method(typeof(ItemsEventsHandler), nameof(ItemsEventsHandler.OnPlayerUsingItem))),
+            new (OpCodes.Callvirt, AccessTools.PropertyGetter(typeof(PlayerUsingItemEventArgs), nameof(PlayerUsingItemEventArgs.IsAllowed))),
             new (OpCodes.Brfalse_S, ret),
         });
         
