@@ -29,9 +29,9 @@ public class RespawnManagerPatch
 
         newInstructions[offset + 11].labels.Add(ret);
         
-        newInstructions.InsertRange(offset, new CodeInstruction[]
+        newInstructions.InsertRange(offset, new[]
         {
-            new (OpCodes.Newobj, AccessTools.GetDeclaredConstructors(typeof(RespawningTeamEventArgs))[0]),
+            new CodeInstruction(OpCodes.Newobj, AccessTools.GetDeclaredConstructors(typeof(RespawningTeamEventArgs))[0]).MoveLabelsFrom(newInstructions[offset]),
             new (OpCodes.Dup),
             new (OpCodes.Call, AccessTools.Method(typeof(RespawningEventsHandler), nameof(RespawningEventsHandler.OnRespawningTeam))),
             new (OpCodes.Callvirt, AccessTools.PropertyGetter(typeof(RespawningTeamEventArgs), nameof(RespawningTeamEventArgs.IsAllowed))),
