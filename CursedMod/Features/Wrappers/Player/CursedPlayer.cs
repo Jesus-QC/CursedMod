@@ -173,6 +173,8 @@ public class CursedPlayer
     
     public bool CanInteract => PlayerInteract.CanInteract;
 
+    public Color RoleColor => CurrentRole.RoleColor;
+
     public bool BadgeHidden
     {
         get => !string.IsNullOrEmpty(ServerRoles.HiddenBadge);
