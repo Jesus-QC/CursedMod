@@ -6,15 +6,20 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
+using System.Collections.Generic;
+using CursedMod.Features.Wrappers.Facility.Hazards;
 using UnityEngine;
 
 namespace CursedMod.Features.Wrappers.Facility.Props;
 
 public class CursedTeslaGate
 {
-    internal CursedTeslaGate(TeslaGate gate)
+    public static readonly Dictionary<TeslaGate, CursedTeslaGate> Dictionary = new ();
+    
+    private CursedTeslaGate(TeslaGate gate)
     {
         Base = gate;
+        Dictionary.Add(gate, this);
     }
     
     public TeslaGate Base { get; }
@@ -24,6 +29,8 @@ public class CursedTeslaGate
         get => Base.sizeOfTrigger;
         set => Base.sizeOfTrigger = value;
     }
+
+    public static CursedTeslaGate Get(TeslaGate teslaGate) => Dictionary.ContainsKey(teslaGate) ? Dictionary[teslaGate] : new CursedTeslaGate(teslaGate);
 
     public bool IsInRange(Vector3 position) => Base.InRange(position);
 

@@ -17,13 +17,13 @@ namespace CursedMod.Features.Wrappers.Facility.Props;
 
 public class CursedLockerChamber
 {
-    internal CursedLockerChamber(LockerChamber lockerChamber)
+    private CursedLockerChamber(LockerChamber lockerChamber)
     {
         Base = lockerChamber;
         GameObject = Base.gameObject;
         Transform = Base.transform;
     }
-    
+
     public LockerChamber Base { get; }
     
     public GameObject GameObject { get; }
@@ -55,6 +55,8 @@ public class CursedLockerChamber
     }
     
     public bool CanInteract => Base.CanInteract;
+    
+    public static CursedLockerChamber Get(LockerChamber lockerChamber) => new (lockerChamber);
     
     public IEnumerable<CursedPickup> GetSpawnedItems() => Base._content.Select(CursedPickup.Get);
     

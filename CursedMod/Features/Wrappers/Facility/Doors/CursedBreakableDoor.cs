@@ -63,6 +63,6 @@ public class CursedBreakableDoor : CursedDoor
             return false;
         
         BreakableBase.ServerDamage(MaxHealth, type);
-        return true;
+        return BreakableBase.IsDestroyed;
     }
 }

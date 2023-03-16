@@ -18,9 +18,7 @@ public class CursedLightningController
     }
     
     public FlickerableLightController Base { get; }
-    
-    public CursedRoom Room { get; } // todo
-    
+
     public Color Color
     {
         get => Base._warheadLightColor;
@@ -53,5 +51,10 @@ public class CursedLightningController
     {
         Color = FlickerableLightController.DefaultWarheadColor;
         WarheadLightOverride = false;
+    }
+
+    public void FlickerLights(float duration)
+    {
+        Base.ServerFlickerLights(duration);
     }
 }

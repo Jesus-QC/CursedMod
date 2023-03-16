@@ -6,6 +6,10 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
+using System.Collections.Generic;
+using System.Linq;
+using UnityEngine;
+
 namespace CursedMod.Features.Wrappers.Facility.PocketDimension;
 
 public class CursedPocketDimensionExit
@@ -22,4 +26,6 @@ public class CursedPocketDimensionExit
         get => Base._type;
         set => Base._type = value;
     }
+
+    public static CursedPocketDimensionExit Get(PocketDimensionTeleport pocketDimensionTeleport) => new (pocketDimensionTeleport);
 }

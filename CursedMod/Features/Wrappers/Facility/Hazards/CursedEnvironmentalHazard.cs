@@ -16,8 +16,11 @@ namespace CursedMod.Features.Wrappers.Facility.Hazards;
 
 public class CursedEnvironmentalHazard
 {
+    public static readonly Dictionary<EnvironmentalHazard, CursedEnvironmentalHazard> Dictionary = new ();
+    
     internal CursedEnvironmentalHazard(EnvironmentalHazard hazard)
     {
+        Dictionary.Add(hazard, this);
         EnvironmentalHazard = hazard;
         HazardType = EnvironmentalHazardType.Other;
     }
@@ -56,6 +59,9 @@ public class CursedEnvironmentalHazard
     
     public static CursedEnvironmentalHazard Get(EnvironmentalHazard environmentalHazard)
     {
+        if (Dictionary.ContainsKey(environmentalHazard))
+            return Dictionary[environmentalHazard];
+        
         return environmentalHazard switch
         {
             SinkholeEnvironmentalHazard sinkholeEnvironmentalHazard => new CursedSinkholeHazard(sinkholeEnvironmentalHazard),

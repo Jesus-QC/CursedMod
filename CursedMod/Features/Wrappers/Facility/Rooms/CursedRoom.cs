@@ -6,6 +6,10 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
+using System.Collections.Generic;
+using System.Linq;
+using CursedMod.Features.Wrappers.Facility.Doors;
+using Interactables.Interobjects.DoorUtils;
 using MapGeneration;
 using UnityEngine;
 
@@ -13,13 +17,26 @@ namespace CursedMod.Features.Wrappers.Facility.Rooms;
 
 public class CursedRoom
 {
-    internal CursedRoom(RoomIdentifier room)
+    public static readonly Dictionary<RoomIdentifier, CursedRoom> Dictionary = new ();
+    
+    private CursedRoom(RoomIdentifier room)
     {
         Room = room;
+
+        Dictionary.Add(room, this);
+        
+        FlickerableLightController lightController = room.GetComponentInChildren<FlickerableLightController>();
+        
+        if (lightController is null)
+            return;
+        
+        LightningController = new CursedLightningController(lightController);
     }
     
     public RoomIdentifier Room { get; }
 
+    public CursedLightningController LightningController { get; }
+    
     public Vector3 Position => Room.transform.position;
     
     public Quaternion Rotation => Room.transform.rotation;
@@ -31,4 +48,10 @@ public class CursedRoom
     public RoomName Name => Room.Name;
     
     public FacilityZone Zone => Room.Zone;
+
+    public IEnumerable<CursedDoor> GetDoors() => DoorVariant.DoorsByRoom.ContainsKey(Room) ? DoorVariant.DoorsByRoom[Room].Select(CursedDoor.Get) : Enumerable.Empty<CursedDoor>();
+
+    public static IEnumerable<CursedRoom> GetAllRooms() => RoomIdentifier.AllRoomIdentifiers.Select(Get);
+
+    public static CursedRoom Get(RoomIdentifier roomIdentifier) => Dictionary.ContainsKey(roomIdentifier) ? Dictionary[roomIdentifier] : new CursedRoom(roomIdentifier);
 }

@@ -18,10 +18,14 @@ namespace CursedMod.Features.Wrappers.Facility.Props;
 
 public class CursedLocker
 {
+    public static readonly Dictionary<Locker, CursedLocker> Dictionary = new ();
+    
     internal CursedLocker(Locker locker)
     {
         Base = locker;
-        Chambers = Base.Chambers.Select(chamber => new CursedLockerChamber(chamber));
+        Chambers = Base.Chambers.Select(CursedLockerChamber.Get);
+        
+        Dictionary.Add(locker, this);
     }
     
     public Locker Base { get; }
@@ -46,7 +50,9 @@ public class CursedLocker
         set => Base.transform.localScale = value;
     }
 
-    public CursedLocker Create(LockerType lockerType, Vector3 position, Vector3 rotation, Vector3? scale = null)
+    public static CursedLocker Get(Locker locker) => Dictionary.ContainsKey(locker) ? Dictionary[locker] : new CursedLocker(locker);
+
+    public static CursedLocker Create(LockerType lockerType, Vector3 position, Vector3 rotation, Vector3? scale = null)
     {
         Locker prefab = Object.Instantiate(CursedPrefabManager.Lockers[lockerType], position, Quaternion.Euler(rotation));
 

@@ -125,7 +125,7 @@ public class CursedItem
         owner = null;
         return false;
     }
-
+    
     public static CursedItem Create(ItemType type) => Get(CursedServer.LocalPlayer.Inventory.CreateItemInstance(new ItemIdentifier(type, ItemSerialGenerator.GenerateNext()), false));
 
     public void HoldItem() => Owner.CurrentItem = this;

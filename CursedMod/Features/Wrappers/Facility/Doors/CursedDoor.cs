@@ -6,6 +6,8 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
+using System.Collections.Generic;
+using System.Linq;
 using CursedMod.Features.Enums;
 using CursedMod.Features.Wrappers.Player;
 using Interactables.Interobjects;
@@ -20,8 +22,12 @@ namespace CursedMod.Features.Wrappers.Facility.Doors;
 
 public class CursedDoor
 {
+    public static readonly Dictionary<DoorVariant, CursedDoor> Dictionary = new ();
+
     internal CursedDoor(DoorVariant door)
     {
+        Dictionary.Add(door, this);
+        
         Base = door;
         GameObject = door.gameObject;
         Transform = door.transform;
@@ -103,16 +109,21 @@ public class CursedDoor
 
     public bool IsGate => Base is PryableDoor;
     
-    public bool IsCheckpoint => Base is CheckpointDoor;
+    public bool IsCheckpointDoor => Base is CheckpointDoor;
     
-    public bool IsElevator => Base is ElevatorDoor;
+    public bool IsElevatorDoor => Base is ElevatorDoor;
 
     public bool IsDamageable => Base is IDamageableDoor;
     
-    public bool IsBroken => Base is IDamageableDoor { IsDestroyed: true };
-    
+    public bool IsDestroyed => Base is IDamageableDoor { IsDestroyed: true };
+
+    public static IEnumerable<CursedDoor> GetAllDoors() => DoorVariant.AllDoors.Select(Get);
+
     public static CursedDoor Get(DoorVariant doorVariant)
     {
+        if (Dictionary.ContainsKey(doorVariant))
+            return Dictionary[doorVariant];
+        
         return doorVariant switch
         {
             BreakableDoor breakableDoor => new CursedBreakableDoor(breakableDoor),
@@ -143,9 +154,9 @@ public class CursedDoor
         if (spawn)
             NetworkServer.Spawn(door.gameObject);
 
-        return new CursedDoor(door);
+        return Get(door);
     }
-    
+
     public void TriggerState() => IsOpened = !IsOpened;
     
     public void Open() => IsOpened = true;
