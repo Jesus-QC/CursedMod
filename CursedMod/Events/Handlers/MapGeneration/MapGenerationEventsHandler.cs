@@ -9,8 +9,13 @@
 using System;
 using CursedMod.Features.Logger;
 using CursedMod.Features.Wrappers.Facility;
+using CursedMod.Features.Wrappers.Facility.Doors;
+using CursedMod.Features.Wrappers.Facility.Hazards;
+using CursedMod.Features.Wrappers.Facility.Props;
+using CursedMod.Features.Wrappers.Facility.Rooms;
 using CursedMod.Features.Wrappers.Player;
 using CursedMod.Features.Wrappers.Player.Dummies;
+using CursedMod.Features.Wrappers.Player.Ragdolls;
 using CursedMod.Features.Wrappers.Server;
 using PluginAPI.Core;
 using UnityEngine.SceneManagement;
@@ -34,5 +39,11 @@ public static class MapGenerationEventsHandler
         
         CursedPlayer.Dictionary.Clear();
         CursedDummy.Dictionary.Clear();
+        CursedRagdoll.Dictionary.Clear();
+        CursedDoor.Dictionary.Clear();
+        CursedLocker.Dictionary.Clear();
+        CursedTeslaGate.Dictionary.Clear();
+        CursedEnvironmentalHazard.Dictionary.Clear();
+        CursedRoom.Dictionary.Clear();
     }
 }

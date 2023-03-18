@@ -26,7 +26,7 @@ public class ClientInstanceModePatch
         
         newInstructions[0].labels.Add(skip);
         
-        newInstructions.InsertRange(0, new List<CodeInstruction>()
+        newInstructions.InsertRange(0, new List<CodeInstruction>
         {
             new (OpCodes.Ldsfld, AccessTools.Field(typeof(CursedDummy), nameof(CursedDummy.Dictionary))),
             new (OpCodes.Ldarg_0),
