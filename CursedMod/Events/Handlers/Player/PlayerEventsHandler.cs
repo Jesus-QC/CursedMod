@@ -23,6 +23,8 @@ public static class PlayerEventsHandler
     public static event EventManager.CursedEventHandler<PlayerReceivingDamageEventArgs> ReceivingDamage;
     
     public static event EventManager.CursedEventHandler<PlayerDyingEventArgs> Dying;
+    
+    public static event EventManager.CursedEventHandler<PlayerEscapingEventArgs> Escaping;
 
     internal static void OnPlayerJoined(PlayerJoinedEventArgs args)
     {
@@ -64,6 +66,14 @@ public static class PlayerEventsHandler
             return;
         
         Dying.InvokeEvent(args);
+    }
+    
+    internal static void OnPlayerEscaping(PlayerEscapingEventArgs args)
+    {
+        if (!CheckPlayer(args.Player))
+            return;
+        
+        Escaping.InvokeEvent(args);
     }
 
     private static bool CheckPlayer(CursedPlayer player) => player is not null && !player.IsDummy;

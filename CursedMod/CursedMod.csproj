@@ -96,6 +96,7 @@
         <Compile Include="Events\Arguments\Player\PlayerChangingRoleEventArgs.cs" />
         <Compile Include="Events\Arguments\Player\PlayerDyingEventArgs.cs" />
         <Compile Include="Events\Arguments\Player\PlayerDisconnectedEventArgs.cs" />
+        <Compile Include="Events\Arguments\Player\PlayerEscapingEventArgs.cs" />
         <Compile Include="Events\Arguments\Player\PlayerJoinedEventArgs.cs" />
         <Compile Include="Events\Arguments\Player\PlayerReceivingDamageEventArgs.cs" />
         <Compile Include="Events\Arguments\Respawning\RespawningTeamEventArgs.cs" />
@@ -130,6 +131,7 @@
         <Compile Include="Events\Patches\Items\ThrowableProjectiles\ServerThrowPatch.cs" />
         <Compile Include="Events\Patches\Items\Usables\UsableItemReceivedStatusPatch.cs" />
         <Compile Include="Events\Patches\Items\Usables\UsingCompletedPatch.cs" />
+        <Compile Include="Events\Patches\Player\EscapeSystem\PlayerEscapePatch.cs" />
         <Compile Include="Events\Patches\Player\PlayerDisconnectPatch.cs" />
         <Compile Include="Events\Patches\Player\CompleteVerificationPatch.cs" />
         <Compile Include="Events\Patches\Player\PlayerStats\DealDamagePatch.cs" />
