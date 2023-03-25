@@ -7,6 +7,7 @@
 // -----------------------------------------------------------------------
 
 using System;
+using CursedMod.Events.Arguments.MapGeneration;
 using CursedMod.Features.Logger;
 using CursedMod.Features.Wrappers.Facility;
 using CursedMod.Features.Wrappers.Facility.Doors;
@@ -24,16 +25,25 @@ namespace CursedMod.Events.Handlers.MapGeneration;
 
 public static class MapGenerationEventsHandler
 {
-    public static void CacheAPI()
+    public static event EventManager.CursedEventHandler MapGenerated;
+    
+    public static event EventManager.CursedEventHandler<GeneratingSeedEventArgs> GeneratingSeed;
+    
+    internal static void CacheAPI()
     {
         CursedLogger.InternalDebug("Caching api");
-        CursedWarhead.OutsidePanel = CursedWarhead.Controller.GetComponent<AlphaWarheadOutsitePanel>();
         CursedServer.LocalPlayer = new CursedPlayer(ReferenceHub.HostHub);
+        CursedWarhead.OutsidePanel = CursedWarhead.Controller.GetComponent<AlphaWarheadOutsitePanel>();
+        MapGenerated.InvokeEvent();
+    }
+
+    internal static void OnGeneratingSeed(GeneratingSeedEventArgs args)
+    {
+        GeneratingSeed.InvokeEvent(args);
     }
 
     internal static void OnChangingScene(Scene scene, LoadSceneMode loadMode)
     {
-        CursedLogger.InternalDebug("Loading scene " + scene.name + " with mode " + loadMode);
         if (scene.name != "Facility")
             return;
         
