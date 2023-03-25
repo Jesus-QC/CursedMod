@@ -16,6 +16,8 @@
         <Rule Id="SA1507" Action="Error" />
         <Rule Id="SA1128" Action="Error" />
         <Rule Id="SA1638" Action="Error" />
-        <Rule Id="SA1600" Action="None" />
+        
+        <Rule Id="SA1600" Action="None" /> <!--- Documentation -->
+        <Rule Id="SA1602" Action="None" /> <!--- Enum Documentation -->
     </Rules>
 </RuleSet>

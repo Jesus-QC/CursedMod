@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Reflection;
 using CursedMod.Events.Handlers.MapGeneration;
+using CursedMod.Features.Logger;
 using HarmonyLib;
 using MapGeneration;
 using NorthwoodLib.Pools;
@@ -32,25 +33,25 @@ public static class EventManager
     {
         try
         {
-            Log.Warning("Patching events.");
-            
             Stopwatch watch = Stopwatch.StartNew();
             
             Harmony.PatchAll();
             
-            Log.Warning("Events patched in " + watch.Elapsed.ToString("c"));
+            CursedLogger.InternalPrint("Events patched in " + watch.Elapsed.ToString("c"));
 
+#if DEBUG
             foreach (MethodBase patch in Harmony.GetPatchedMethods())
             {
-                Log.Debug(patch.DeclaringType + "::" + patch.Name);
+                CursedLogger.InternalDebug(patch.DeclaringType + "::" + patch.Name);
             }
+#endif
 
             RegisterHookedEvents();
         }
         catch (Exception e)
         {
-            Log.Error("An exception occurred when patching the events.");
-            Log.Error(e.ToString());
+            CursedLogger.LogError("An exception occurred when patching the events.");
+            CursedLogger.LogError(e.ToString());
         }
     }
 
@@ -68,8 +69,8 @@ public static class EventManager
             }
             catch (Exception e)
             {
-                Log.Error("An error occurred while handling the event " + eventHandler.GetType().Name);
-                Log.Error(e.ToString());
+                CursedLogger.LogError("An error occurred while handling the event " + eventHandler.GetType().Name);
+                CursedLogger.LogError(e.ToString());
                 throw;
             }
         }
@@ -88,8 +89,8 @@ public static class EventManager
             }
             catch (Exception e)
             {
-                Log.Error("An error occurred while handling the event " + eventHandler.GetType().Name);
-                Log.Error(e.ToString());
+                CursedLogger.LogError("An error occurred while handling the event " + eventHandler.GetType().Name);
+                CursedLogger.LogError(e.ToString());
                 throw;
             }
         }
@@ -102,7 +103,7 @@ public static class EventManager
         if (originalCodes == newInstructions.Count)
             return newInstructions;
         
-        Log.Error(typeof(T).FullDescription() + $" has an incorrect number of OpCodes ({originalCodes} != {newInstructions.Count}). The patch may be broken or bugged.");
+        CursedLogger.LogError(typeof(T).FullDescription() + $" has an incorrect number of OpCodes ({originalCodes} != {newInstructions.Count}). The patch may be broken or bugged.");
         return newInstructions;
     }
 
