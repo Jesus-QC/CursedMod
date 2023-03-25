@@ -48,8 +48,12 @@ public abstract class CursedModule : ICursedModule
     {
         string configPath = Path.Combine(ModuleDirectory.FullName, name + ".yml");
 
-        if (File.Exists(configPath)) 
-            return YamlParser.Deserializer.Deserialize<T>(File.ReadAllText(configPath));
+        if (File.Exists(configPath))
+        {
+            T config = YamlParser.Deserializer.Deserialize<T>(File.ReadAllText(configPath));
+            SaveConfig(config, name); // Updates new properties inside the config
+            return config;
+        }
         
         T newInstance = Activator.CreateInstance<T>();
         SaveConfig(newInstance, name);
