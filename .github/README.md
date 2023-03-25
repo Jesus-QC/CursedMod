@@ -1,11 +1,11 @@
 <h1 align="center">CursedMod</h1>
 
 <div align="center">
-	<a href="https://discord.gg/pqgQ5yeWU7">Home</a>
+	<a href="https://docs.cursedsl.com">Home</a>
   <span> • </span>
-    	<a href="https://discord.gg/pqgQ5yeWU7">Install</a>
+    	<a href="https://docs.cursedsl.com">Install</a>
   <span> • </span>
-	<a href="https://discord.gg/pqgQ5yeWU7">Support</a>
+	<a href="https://docs.cursedsl.com">Support</a>
   <span> • </span>
         <a href="https://discord.gg/pqgQ5yeWU7">Discord</a>
   <p></p>
