@@ -49,9 +49,17 @@ public class CursedRoom
     
     public FacilityZone Zone => Room.Zone;
 
-    public IEnumerable<CursedDoor> GetDoors() => DoorVariant.DoorsByRoom.ContainsKey(Room) ? DoorVariant.DoorsByRoom[Room].Select(CursedDoor.Get) : Enumerable.Empty<CursedDoor>();
+    internal static void CacheAllRooms()
+    {
+        foreach (RoomIdentifier room in RoomIdentifier.AllRoomIdentifiers)
+        {
+            Get(room);
+        }
+    }
 
-    public static IEnumerable<CursedRoom> GetAllRooms() => RoomIdentifier.AllRoomIdentifiers.Select(Get);
+    public static IEnumerable<CursedRoom> GetAllRooms() => Dictionary.Values;
 
     public static CursedRoom Get(RoomIdentifier roomIdentifier) => Dictionary.ContainsKey(roomIdentifier) ? Dictionary[roomIdentifier] : new CursedRoom(roomIdentifier);
+   
+    public IEnumerable<CursedDoor> GetDoors() => DoorVariant.DoorsByRoom.ContainsKey(Room) ? DoorVariant.DoorsByRoom[Room].Select(CursedDoor.Get) : Enumerable.Empty<CursedDoor>();
 }

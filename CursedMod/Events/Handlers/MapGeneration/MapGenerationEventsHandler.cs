@@ -34,6 +34,9 @@ public static class MapGenerationEventsHandler
         CursedLogger.InternalDebug("Caching api");
         CursedServer.LocalPlayer = new CursedPlayer(ReferenceHub.HostHub);
         CursedWarhead.OutsidePanel = CursedWarhead.Controller.GetComponent<AlphaWarheadOutsitePanel>();
+        
+        CursedRoom.CacheAllRooms();
+        
         MapGenerated.InvokeEvent();
     }
 

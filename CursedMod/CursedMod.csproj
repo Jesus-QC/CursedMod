@@ -103,6 +103,7 @@
         <Compile Include="Events\Arguments\Player\PlayerEscapingEventArgs.cs" />
         <Compile Include="Events\Arguments\Player\PlayerJoinedEventArgs.cs" />
         <Compile Include="Events\Arguments\Player\PlayerReceivingDamageEventArgs.cs" />
+        <Compile Include="Events\Arguments\Player\RagdollSpawnedEventArgs.cs" />
         <Compile Include="Events\Arguments\Respawning\RespawningTeamEventArgs.cs" />
         <Compile Include="Events\Arguments\SCPs\Scp330\PlayerInteractingScp330EventArgs.cs" />
         <Compile Include="Events\DynamicEventAttribute.cs" />

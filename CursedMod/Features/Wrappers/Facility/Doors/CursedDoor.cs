@@ -7,7 +7,6 @@
 // -----------------------------------------------------------------------
 
 using System.Collections.Generic;
-using System.Linq;
 using CursedMod.Features.Enums;
 using CursedMod.Features.Wrappers.Player;
 using Interactables.Interobjects;
@@ -117,7 +116,15 @@ public class CursedDoor
     
     public bool IsDestroyed => Base is IDamageableDoor { IsDestroyed: true };
 
-    public static IEnumerable<CursedDoor> GetAllDoors() => DoorVariant.AllDoors.Select(Get);
+    internal static void CacheAllDoors()
+    {
+        foreach (DoorVariant door in DoorVariant.AllDoors)
+        {
+            Get(door);
+        }   
+    }
+    
+    public static IEnumerable<CursedDoor> GetAllDoors() => Dictionary.Values;
 
     public static CursedDoor Get(DoorVariant doorVariant)
     {

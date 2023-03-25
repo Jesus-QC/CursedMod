@@ -25,6 +25,8 @@ public static class PlayerEventsHandler
     public static event EventManager.CursedEventHandler<PlayerDyingEventArgs> Dying;
     
     public static event EventManager.CursedEventHandler<PlayerEscapingEventArgs> Escaping;
+    
+    public static event EventManager.CursedEventHandler<RagdollSpawnedEventArgs> RagdollSpawned;
 
     internal static void OnPlayerJoined(PlayerJoinedEventArgs args)
     {
@@ -74,6 +76,11 @@ public static class PlayerEventsHandler
             return;
         
         Escaping.InvokeEvent(args);
+    }
+
+    internal static void OnRagdollSpawned(BasicRagdoll ragdoll)
+    {
+        RagdollSpawned.InvokeEvent(new RagdollSpawnedEventArgs(ragdoll));
     }
 
     private static bool CheckPlayer(CursedPlayer player) => player is not null && !player.IsDummy;
