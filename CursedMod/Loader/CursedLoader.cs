@@ -65,7 +65,7 @@ public static class CursedLoader
                         continue;
                     
                     ICursedModule module = Activator.CreateInstance(type) as ICursedModule;
-                    LoadModule(module);
+                    LoadModule(module, moduleAssembly);
                 }
             }
             catch (Exception e)
@@ -97,9 +97,10 @@ public static class CursedLoader
         EnabledModules.Clear();
     }
 
-    public static void LoadModule(ICursedModule module)
+    public static void LoadModule(ICursedModule module, Assembly assembly)
     {
         CursedLogger.LogInformation($"Loading {module}");
+        module.ModuleAssembly = assembly;
         LoadModuleProperties(module);
         LoadedModules.Add(module);
     }
@@ -112,6 +113,7 @@ public static class CursedLoader
                 return;
             
             module.OnLoaded();
+            module.OnRegisteringCommands();
         }
         catch (Exception e)
         {
