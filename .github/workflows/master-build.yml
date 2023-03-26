@@ -13,6 +13,7 @@ on:
 
 env:
   REFERENCES: https://dependencies.cursedsl.com/master.zip
+  PROJECT_FOLDER: CursedMod
 
 jobs:
   build:
@@ -65,4 +66,4 @@ jobs:
       uses: actions/upload-artifact@v3
       with:
         name: CursedMod.dll
-        path: ${{ Project_Path }}\bin\Release\CursedMod.dll
+        path: ${{ PROJECT_FOLDER }}\bin\Release\CursedMod.dll
