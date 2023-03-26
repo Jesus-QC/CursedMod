@@ -16,6 +16,8 @@ using CursedMod.Features.Logger;
 using CursedMod.Features.Wrappers.Facility;
 using CursedMod.Features.Wrappers.Inventory.Items;
 using CursedMod.Features.Wrappers.Inventory.Pickups;
+using CursedMod.Features.Wrappers.Player.Roles;
+using CursedMod.Features.Wrappers.Player.Roles.SCPs;
 using CursedMod.Features.Wrappers.Player.VoiceChat;
 using CursedMod.Features.Wrappers.Server;
 using CustomPlayerEffects;
@@ -290,11 +292,29 @@ public class CursedPlayer
         set => SetRole(value);
     }
     
-    public PlayerRoleBase CurrentRole
+    public PlayerRoleBase RoleBase
     {
         get => RoleManager.CurrentRole;
         set => RoleManager.CurrentRole = value;
     }
+    
+    public CursedRole CurrentRole => CursedRole.Get(RoleBase);
+    
+    public CursedScp049Role CursedScp049Role => CurrentRole as CursedScp049Role;
+    
+    public CursedScp079Role CursedScp079Role => CurrentRole as CursedScp079Role;
+    
+    public CursedScp096Role CursedScp096Role => CurrentRole as CursedScp096Role;
+    
+    public CursedScp106Role CursedScp106Role => CurrentRole as CursedScp106Role;
+    
+    public CursedScp173Role CursedScp173Role => CurrentRole as CursedScp173Role;
+    
+    public CursedScp939Role CursedScp939Role => CurrentRole as CursedScp939Role;
+    
+    public CursedZombieRole CursedZombieRole => CurrentRole as CursedZombieRole;
+    
+    public CursedHumanRole CursedHumanRole => CurrentRole as CursedHumanRole; 
 
     public bool IsInOverWatch
     {
@@ -425,8 +445,23 @@ public class CursedPlayer
 
     // difference: this also returns true if the whitelist is disabled
     public bool IsWhitelisted => WhiteList.IsWhitelisted(UserId);
-    
-    public CursedVoiceChat VoiceChat => CurrentRole is FpcStandardRoleBase role ? new CursedVoiceChat(role.VoiceModule) : null;
+
+    public CursedVoiceChat VoiceChat
+    {
+        get
+        {
+            if (CurrentRole is CursedFpcRole fpcRole)
+                return new CursedVoiceChat(fpcRole.VoiceModule);
+
+            if (CurrentRole is CursedScp079Role scp079Role)
+                return new CursedVoiceChat(scp079Role.VoiceModule);
+
+            if (CurrentRole is CursedNoneRole noneRole)
+                return new CursedVoiceChat(noneRole.VoiceModule);
+
+            return null;
+        }
+    }
 
     public bool IsHost => ReferenceHub == ReferenceHub.HostHub;
     

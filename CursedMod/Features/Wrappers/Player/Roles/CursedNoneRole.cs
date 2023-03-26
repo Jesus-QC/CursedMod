@@ -21,7 +21,7 @@ public class CursedNoneRole : CursedRole
     
     public NoneRole NoneRoleBase { get; }
 
-    public VoiceModuleBase VoiceModuleBase
+    public VoiceModuleBase VoiceModule
     {
         get => NoneRoleBase.VoiceModule;
         set => NoneRoleBase.VoiceModule = value;

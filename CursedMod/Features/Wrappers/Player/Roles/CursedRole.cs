@@ -23,11 +23,11 @@ public class CursedRole
 
     public PlayerRoleBase RoleBase { get; }
 
-    public RoleTypeId RoleType => RoleBase.RoleTypeId;
+    public RoleTypeId RoleTypeId => RoleBase.RoleTypeId;
 
     public Team Team => RoleBase.Team;
 
-    public Color Color => RoleBase.RoleColor;
+    public Color RoleColor => RoleBase.RoleColor;
 
     public string Name => RoleBase.RoleName;
 
