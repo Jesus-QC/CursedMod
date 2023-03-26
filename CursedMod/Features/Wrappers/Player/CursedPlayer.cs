@@ -288,7 +288,7 @@ public class CursedPlayer
 
     public RoleTypeId Role
     {
-        get => CurrentRole.RoleTypeId;
+        get => RoleBase.RoleTypeId;
         set => SetRole(value);
     }
     
