@@ -7,7 +7,6 @@
 // -----------------------------------------------------------------------
 
 using System;
-using CursedMod.Features.Wrappers.Inventory.Items;
 using CursedMod.Features.Wrappers.Inventory.Items.Usables;
 using CursedMod.Features.Wrappers.Player;
 using InventorySystem.Items.Usables;

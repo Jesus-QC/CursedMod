@@ -6,7 +6,6 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
-using System;
 using CursedMod.Events.Arguments.MapGeneration;
 using CursedMod.Features.Logger;
 using CursedMod.Features.Wrappers.Facility;
@@ -18,7 +17,6 @@ using CursedMod.Features.Wrappers.Player;
 using CursedMod.Features.Wrappers.Player.Dummies;
 using CursedMod.Features.Wrappers.Player.Ragdolls;
 using CursedMod.Features.Wrappers.Server;
-using PluginAPI.Core;
 using UnityEngine.SceneManagement;
 
 namespace CursedMod.Events.Handlers.MapGeneration;

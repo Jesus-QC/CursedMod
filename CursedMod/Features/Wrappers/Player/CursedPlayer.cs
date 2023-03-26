@@ -36,6 +36,7 @@ using RemoteAdmin;
 using Security;
 using UnityEngine;
 using Utils.Networking;
+using VoiceChat;
 
 namespace CursedMod.Features.Wrappers.Player;
 
@@ -158,7 +159,7 @@ public class CursedPlayer
     public bool IsHuman => !IsScp || !IsDead;
     
     public bool IsCuffed => Inventory.IsDisarmed();
-    
+
     public float TimeHoldingCurrentItem => Inventory.LastItemSwitch;
 
     public CursedItem CurrentItem
@@ -680,6 +681,50 @@ public class CursedPlayer
 
     public void DropEverything() => Inventory.ServerDropEverything();
 
+    public void Mute(bool isTemporary = true)
+    {
+        if (isTemporary)
+        {
+            VoiceChatMutes.SetFlags(ReferenceHub, VcMuteFlags.GlobalRegular);
+            return;
+        }
+        
+        VoiceChatMutes.IssueLocalMute(UserId);
+    }
+
+    public void IntercomMute(bool isTemporary)
+    {
+        if (isTemporary)
+        {
+            VoiceChatMutes.SetFlags(ReferenceHub, VcMuteFlags.GlobalRegular);
+            return;
+        }
+        
+        VoiceChatMutes.IssueLocalMute(UserId, true);
+    }
+
+    public void Unmute(bool removeMute = true)
+    {
+        if (removeMute)
+        {
+            VoiceChatMutes.RevokeLocalMute(UserId);
+            return;
+        }
+        
+        VoiceChatMutes.SetFlags(ReferenceHub, VcMuteFlags.None);
+    }
+
+    public void IntercomUnmute(bool removeMute = true)
+    {
+        if (removeMute)
+        {
+            VoiceChatMutes.RevokeLocalMute(UserId, true);
+            return;
+        }
+        
+        VoiceChatMutes.SetFlags(ReferenceHub, VcMuteFlags.None);
+    }
+    
     public void ClearInventory(bool onlyItems = false)
     {
         foreach (ItemBase item in Inventory.UserInventory.Items.Values)

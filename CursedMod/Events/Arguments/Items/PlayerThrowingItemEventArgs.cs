@@ -10,7 +10,6 @@ using System;
 using CursedMod.Features.Wrappers.Inventory.Items.ThrowableProjectiles;
 using CursedMod.Features.Wrappers.Player;
 using InventorySystem.Items.ThrowableProjectiles;
-using UnityEngine;
 
 namespace CursedMod.Events.Arguments.Items;
 

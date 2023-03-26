@@ -9,7 +9,6 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Reflection;
 using CursedMod.Events.Handlers.MapGeneration;
 using CursedMod.Events.Handlers.Player;
 using CursedMod.Features.Logger;
@@ -17,7 +16,6 @@ using HarmonyLib;
 using MapGeneration;
 using NorthwoodLib.Pools;
 using PlayerRoles.Ragdolls;
-using PluginAPI.Core;
 using UnityEngine.SceneManagement;
 
 namespace CursedMod.Events;

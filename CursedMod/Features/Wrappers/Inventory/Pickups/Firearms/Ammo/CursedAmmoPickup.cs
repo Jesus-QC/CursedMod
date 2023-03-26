@@ -7,7 +7,6 @@
 // -----------------------------------------------------------------------
 
 using InventorySystem.Items.Firearms.Ammo;
-using InventorySystem.Items.Pickups;
 
 namespace CursedMod.Features.Wrappers.Inventory.Pickups.Firearms.Ammo;
 

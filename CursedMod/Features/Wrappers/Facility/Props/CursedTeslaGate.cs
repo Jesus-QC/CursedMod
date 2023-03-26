@@ -7,7 +7,6 @@
 // -----------------------------------------------------------------------
 
 using System.Collections.Generic;
-using CursedMod.Features.Wrappers.Facility.Hazards;
 using UnityEngine;
 
 namespace CursedMod.Features.Wrappers.Facility.Props;

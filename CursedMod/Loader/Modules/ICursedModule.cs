@@ -9,7 +9,6 @@
 using System.IO;
 using System.Reflection;
 using CursedMod.Loader.Modules.Configuration;
-using CursedMod.Loader.Modules.Enums;
 
 namespace CursedMod.Loader.Modules;
 
