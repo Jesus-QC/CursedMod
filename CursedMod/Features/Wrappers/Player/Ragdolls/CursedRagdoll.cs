@@ -1,4 +1,13 @@
-﻿using System.Collections.Generic;
+﻿// -----------------------------------------------------------------------
+// <copyright file="CursedRagdoll.cs" company="CursedMod">
+// Copyright (c) CursedMod. All rights reserved.
+// Licensed under the GPLv3 license.
+// See LICENSE file in the project root for full license information.
+// </copyright>
+// -----------------------------------------------------------------------
+
+using System.Collections.Generic;
+using System.Linq;
 using Mirror;
 using PlayerRoles;
 using UnityEngine;
@@ -7,17 +16,17 @@ namespace CursedMod.Features.Wrappers.Player.Ragdolls;
 
 public class CursedRagdoll
 {
-    internal static readonly HashSet<CursedRagdoll> Ragdolls = new ();
-
-    public static IReadOnlyCollection<CursedRagdoll> Collection => Ragdolls;
-
-    public BasicRagdoll Base { get; }
+    public static readonly Dictionary<BasicRagdoll, CursedRagdoll> Dictionary = new ();
 
     private CursedRagdoll(BasicRagdoll ragdoll)
     {
         Base = ragdoll;
-        Ragdolls.Add(this);
+        Dictionary.Add(ragdoll, this);
     }
+
+    public static IReadOnlyCollection<CursedRagdoll> Collection => Dictionary.Values;
+
+    public BasicRagdoll Base { get; }
 
     public bool AutoCleanUp
     {
@@ -35,27 +44,11 @@ public class CursedRagdoll
 
     public RagdollData Data => Base.Info;
 
+    public static CursedRagdoll Get(BasicRagdoll basicRagdoll) => Dictionary.ContainsKey(basicRagdoll) ? Dictionary[basicRagdoll] : new CursedRagdoll(basicRagdoll);
+
+    public static IEnumerable<CursedRagdoll> Get(CursedPlayer player) => Collection.Where(ragdoll => player == ragdoll.Owner);
+
     public void CleanUp() => Base.OnCleanup();
 
     public void Destroy() => NetworkServer.Destroy(Base.gameObject);
-
-    public static CursedRagdoll Get(BasicRagdoll basicRagdoll)
-    {
-        foreach (CursedRagdoll ragdoll in Ragdolls)
-        {
-            if (basicRagdoll == ragdoll.Base)
-                return ragdoll;
-        }
-
-        return new CursedRagdoll(basicRagdoll);
-    }
-
-    public static IEnumerable<CursedRagdoll> Get(CursedPlayer player)
-    {
-        foreach (CursedRagdoll ragdoll in Ragdolls)
-        {
-            if (player == ragdoll.Owner)
-                yield return ragdoll;
-        }
-    }
 }

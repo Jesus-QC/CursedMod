@@ -1,10 +1,24 @@
-﻿using AdminToys;
+﻿// -----------------------------------------------------------------------
+// <copyright file="CursedPrimitiveObject.cs" company="CursedMod">
+// Copyright (c) CursedMod. All rights reserved.
+// Licensed under the GPLv3 license.
+// See LICENSE file in the project root for full license information.
+// </copyright>
+// -----------------------------------------------------------------------
+
+using AdminToys;
 using UnityEngine;
 
 namespace CursedMod.Features.Wrappers.AdminToys;
 
 public class CursedPrimitiveObject : CursedAdminToy
 {
+    internal CursedPrimitiveObject(PrimitiveObjectToy primitive)
+        : base(primitive)
+    {
+        Base = primitive;
+    }
+
     public PrimitiveObjectToy Base { get; }
 
     public PrimitiveType PrimitiveType
@@ -17,11 +31,6 @@ public class CursedPrimitiveObject : CursedAdminToy
     {
         get => Base.MaterialColor;
         set => Base.NetworkMaterialColor = value;
-    }
-    
-    internal CursedPrimitiveObject(PrimitiveObjectToy primitive) : base(primitive)
-    {
-        Base = primitive;
     }
     
     public static CursedPrimitiveObject Create(PrimitiveType? type = null, Vector3? position = null, Vector3? scale = null, Vector3? rotation = null, Color? color = null)

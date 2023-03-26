@@ -1,8 +1,16 @@
-﻿using CursedMod.Features.Enums;
-using MapGeneration.Distributors;
-using Mirror;
+﻿// -----------------------------------------------------------------------
+// <copyright file="CursedLocker.cs" company="CursedMod">
+// Copyright (c) CursedMod. All rights reserved.
+// Licensed under the GPLv3 license.
+// See LICENSE file in the project root for full license information.
+// </copyright>
+// -----------------------------------------------------------------------
+
 using System.Collections.Generic;
 using System.Linq;
+using CursedMod.Features.Enums;
+using MapGeneration.Distributors;
+using Mirror;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
@@ -10,13 +18,17 @@ namespace CursedMod.Features.Wrappers.Facility.Props;
 
 public class CursedLocker
 {
-    public Locker Base { get; }
-
-    public CursedLocker(Locker locker)
+    public static readonly Dictionary<Locker, CursedLocker> Dictionary = new ();
+    
+    internal CursedLocker(Locker locker)
     {
         Base = locker;
-        Chambers = Base.Chambers.Select(chamber => new CursedLockerChamber(chamber));
+        Chambers = Base.Chambers.Select(CursedLockerChamber.Get);
+        
+        Dictionary.Add(locker, this);
     }
+    
+    public Locker Base { get; }
 
     public IEnumerable<CursedLockerChamber> Chambers { get; }
 
@@ -38,7 +50,9 @@ public class CursedLocker
         set => Base.transform.localScale = value;
     }
 
-    public CursedLocker Create(LockerType lockerType, Vector3 position, Vector3 rotation, Vector3? scale = null)
+    public static CursedLocker Get(Locker locker) => Dictionary.ContainsKey(locker) ? Dictionary[locker] : new CursedLocker(locker);
+
+    public static CursedLocker Create(LockerType lockerType, Vector3 position, Vector3 rotation, Vector3? scale = null)
     {
         Locker prefab = Object.Instantiate(CursedPrefabManager.Lockers[lockerType], position, Quaternion.Euler(rotation));
 

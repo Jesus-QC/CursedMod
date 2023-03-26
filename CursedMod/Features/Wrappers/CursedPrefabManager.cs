@@ -22,6 +22,7 @@ namespace CursedMod.Features.Wrappers;
 
 public static class CursedPrefabManager
 {
+    private static readonly Dictionary<LockerType, Locker> LockerStructures = new ();
     private static PrimitiveObjectToy _primitiveObjectToy;
     private static LightSourceToy _lightSourceToy;
     private static ShootingTarget _sportShootingTarget;
@@ -30,7 +31,6 @@ public static class CursedPrefabManager
     private static DoorVariant _lczDoor;
     private static DoorVariant _hczDoor;
     private static DoorVariant _ezDoor;
-    private static readonly Dictionary<LockerType, Locker> LockerStructures = new ();
 
     public static PrimitiveObjectToy PrimitiveObject
     {

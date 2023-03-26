@@ -1,15 +1,24 @@
-﻿using InventorySystem.Items.Armor;
+﻿// -----------------------------------------------------------------------
+// <copyright file="CursedBodyArmorItem.cs" company="CursedMod">
+// Copyright (c) CursedMod. All rights reserved.
+// Licensed under the GPLv3 license.
+// See LICENSE file in the project root for full license information.
+// </copyright>
+// -----------------------------------------------------------------------
+
+using InventorySystem.Items.Armor;
 
 namespace CursedMod.Features.Wrappers.Inventory.Items.Armor;
 
 public class CursedBodyArmorItem : CursedItem
 {
-    public BodyArmor ArmorBase { get; }
-    
-    internal CursedBodyArmorItem(BodyArmor itemBase) : base(itemBase)
+    internal CursedBodyArmorItem(BodyArmor itemBase)
+        : base(itemBase)
     {
         ArmorBase = itemBase;
     }
+    
+    public BodyArmor ArmorBase { get; }
 
     public int HelmetEfficacy
     {

@@ -1,7 +1,17 @@
-﻿using System.Collections.Generic;
+﻿// -----------------------------------------------------------------------
+// <copyright file="CursedFirearmItem.cs" company="CursedMod">
+// Copyright (c) CursedMod. All rights reserved.
+// Licensed under the GPLv3 license.
+// See LICENSE file in the project root for full license information.
+// </copyright>
+// -----------------------------------------------------------------------
+
+using System.Collections.Generic;
 using System.Linq;
+using CursedMod.Features.Wrappers.Player;
 using Footprinting;
 using InventorySystem.Items.Firearms;
+using InventorySystem.Items.Firearms.Attachments;
 using InventorySystem.Items.Firearms.Attachments.Components;
 using InventorySystem.Items.Firearms.BasicMessages;
 using InventorySystem.Items.Firearms.Modules;
@@ -10,20 +20,13 @@ namespace CursedMod.Features.Wrappers.Inventory.Items.Firearms;
 
 public class CursedFirearmItem : CursedItem
 {
-    public Firearm FirearmBase { get; }
-    
-    internal CursedFirearmItem(Firearm itemBase) : base(itemBase)
+    internal CursedFirearmItem(Firearm itemBase)
+        : base(itemBase)
     {
         FirearmBase = itemBase;
     }
-
-    public static CursedFirearmItem Get(Firearm firearm)
-    {
-        if (firearm is AutomaticFirearm automaticFirearm)
-            return new CursedAutomaticFirearmItem(automaticFirearm);
-
-        return new CursedFirearmItem(firearm);
-    }
+    
+    public Firearm FirearmBase { get; }
 
     public FirearmBaseStats BaseStats => FirearmBase.BaseStats;
 
@@ -135,12 +138,35 @@ public class CursedFirearmItem : CursedItem
         get => FirearmBase.Attachments;
         set => FirearmBase.Attachments = value;
     }
-
-    public IEnumerable<CursedFirearmAttachment> GetAttachments() => Attachments.Select(CursedFirearmAttachment.Get);
-
+    
     public uint AttachmentsCode
     {
         get => Status.Attachments;
         set => Status = new FirearmStatus(Status.Ammo, Status.Flags, value);
+    }
+    
+    public static CursedFirearmItem Get(Firearm firearm)
+    {
+        if (firearm is AutomaticFirearm automaticFirearm)
+            return new CursedAutomaticFirearmItem(automaticFirearm);
+
+        return new CursedFirearmItem(firearm);
+    }
+
+    public IEnumerable<CursedFirearmAttachment> GetAttachments() => Attachments.Select(CursedFirearmAttachment.Get);
+
+    public void SetPlayerAttachments(CursedPlayer player)
+    {
+        if (player is null)
+            return;
+
+        if (AttachmentsServerHandler.PlayerPreferences.TryGetValue(player.ReferenceHub, out var value) && value.TryGetValue(FirearmBase.ItemTypeId, out var value2))
+            FirearmBase.ApplyAttachmentsCode(value2, reValidate: true);
+
+        FirearmStatusFlags firearmStatusFlags = FirearmStatusFlags.MagazineInserted;
+        if (FirearmBase.HasAdvantageFlag(AttachmentDescriptiveAdvantages.Flashlight))
+            firearmStatusFlags |= FirearmStatusFlags.FlashlightEnabled;
+
+        FirearmBase.Status = new FirearmStatus(FirearmBase.AmmoManagerModule.MaxAmmo, firearmStatusFlags, FirearmBase.GetCurrentAttachmentsCode());
     }
 }

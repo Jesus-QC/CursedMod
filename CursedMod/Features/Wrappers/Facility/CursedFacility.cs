@@ -1,10 +1,21 @@
-﻿using CursedMod.Features.Wrappers.Player;
+﻿// -----------------------------------------------------------------------
+// <copyright file="CursedFacility.cs" company="CursedMod">
+// Copyright (c) CursedMod. All rights reserved.
+// Licensed under the GPLv3 license.
+// See LICENSE file in the project root for full license information.
+// </copyright>
+// -----------------------------------------------------------------------
+
+using CursedMod.Features.Wrappers.Player;
+using InventorySystem.Items.Pickups;
+using Mirror;
 
 namespace CursedMod.Features.Wrappers.Facility;
 
 public static class CursedFacility
 {
     public static Broadcast Broadcast => Broadcast.Singleton;
+    
     public static AmbientSoundPlayer AmbientSoundPlayer { get; internal set; }
 
     public static void ShowBroadcast(string message, ushort duration = 5, Broadcast.BroadcastFlags flags = Broadcast.BroadcastFlags.Normal)
@@ -31,8 +42,24 @@ public static class CursedFacility
         }
     }
 
-    public static void ShowRoundSummary(RoundSummary.SumInfo_ClassList listStart, RoundSummary.SumInfo_ClassList listFinish, RoundSummary.LeadingTeam leadingTeam, int eDS, int eSc, int scpKills,
-        int roundCd, int seconds) => RoundSummary.singleton.RpcShowRoundSummary(listStart, listFinish, leadingTeam, eDS, eSc, scpKills, roundCd, seconds);
+    public static void ShowRoundSummary(RoundSummary.SumInfo_ClassList listStart, RoundSummary.SumInfo_ClassList listFinish, RoundSummary.LeadingTeam leadingTeam, int eDS, int eSc, int scpKills, int roundCd, int seconds)
+        => RoundSummary.singleton.RpcShowRoundSummary(listStart, listFinish, leadingTeam, eDS, eSc, scpKills, roundCd, seconds);
     
     public static void PlayAmbientSound(int id) => AmbientSoundPlayer.RpcPlaySound(id);
+
+    public static void CleanItems()
+    {
+        ItemPickupBase[] array = UnityEngine.Object.FindObjectsOfType<ItemPickupBase>();
+
+        foreach (ItemPickupBase item in array)
+            NetworkServer.Destroy(item.gameObject);
+    }
+    
+    public static void CleanCorpses()
+    {
+        BasicRagdoll[] array = UnityEngine.Object.FindObjectsOfType<BasicRagdoll>();
+
+        foreach (BasicRagdoll item in array)
+            NetworkServer.Destroy(item.gameObject);
+    }
 }

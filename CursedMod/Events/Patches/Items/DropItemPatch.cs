@@ -1,4 +1,12 @@
-﻿using System.Collections.Generic;
+﻿// -----------------------------------------------------------------------
+// <copyright file="DropItemPatch.cs" company="CursedMod">
+// Copyright (c) CursedMod. All rights reserved.
+// Licensed under the GPLv3 license.
+// See LICENSE file in the project root for full license information.
+// </copyright>
+// -----------------------------------------------------------------------
+
+using System.Collections.Generic;
 using System.Reflection.Emit;
 using CursedMod.Events.Arguments.Items;
 using CursedMod.Events.Handlers.Items;
@@ -11,8 +19,7 @@ namespace CursedMod.Events.Patches.Items;
 [HarmonyPatch(typeof(Inventory), nameof(Inventory.UserCode_CmdDropItem))]
 public class DropItemPatch
 {
-    private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions,
-        ILGenerator generator)
+    private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
     {
         List<CodeInstruction> newInstructions = EventManager.CheckEvent<DropItemPatch>(174, instructions);
 
@@ -32,13 +39,13 @@ public class DropItemPatch
             new (OpCodes.Newobj, AccessTools.GetDeclaredConstructors(typeof(PlayerDroppingItemEventArgs))[0]),
             new (OpCodes.Stloc_S, args.LocalIndex),
             new (OpCodes.Ldloc_S, args.LocalIndex),
-            new (OpCodes.Call, AccessTools.Method(typeof(ItemsEventHandler), nameof(ItemsEventHandler.OnPlayerDroppingItem))),
+            new (OpCodes.Call, AccessTools.Method(typeof(ItemsEventsHandler), nameof(ItemsEventsHandler.OnPlayerDroppingItem))),
             new (OpCodes.Ldloc_S, args.LocalIndex),
             new (OpCodes.Callvirt, AccessTools.PropertyGetter(typeof(PlayerDroppingItemEventArgs), nameof(PlayerDroppingItemEventArgs.IsAllowed))),
             new (OpCodes.Brfalse_S, ret),
             new (OpCodes.Ldloc_S, args.LocalIndex),
             new (OpCodes.Callvirt, AccessTools.PropertyGetter(typeof(PlayerDroppingItemEventArgs), nameof(PlayerDroppingItemEventArgs.IsThrow))),
-            new (OpCodes.Starg_S, 2)
+            new (OpCodes.Starg_S, 2),
         });
         
         foreach (CodeInstruction instruction in newInstructions)

@@ -1,16 +1,24 @@
-﻿using PlayerRoles.Voice;
+﻿// -----------------------------------------------------------------------
+// <copyright file="CursedVoiceChat.cs" company="CursedMod">
+// Copyright (c) CursedMod. All rights reserved.
+// Licensed under the GPLv3 license.
+// See LICENSE file in the project root for full license information.
+// </copyright>
+// -----------------------------------------------------------------------
+
+using PlayerRoles.Voice;
 using VoiceChat;
 
 namespace CursedMod.Features.Wrappers.Player.VoiceChat;
 
 public class CursedVoiceChat
 {
-    public VoiceModuleBase VoiceModule { get; }
-
-    public CursedVoiceChat(VoiceModuleBase voiceModule)
+    internal CursedVoiceChat(VoiceModuleBase voiceModule)
     {
         VoiceModule = voiceModule;
     }
+    
+    public VoiceModuleBase VoiceModule { get; }
 
     public VoiceChatChannel LastChannel => VoiceModule._lastChannel;
 

@@ -1,17 +1,23 @@
-﻿using Interactables.Interobjects;
+﻿// -----------------------------------------------------------------------
+// <copyright file="CursedAirlockController.cs" company="CursedMod">
+// Copyright (c) CursedMod. All rights reserved.
+// Licensed under the GPLv3 license.
+// See LICENSE file in the project root for full license information.
+// </copyright>
+// -----------------------------------------------------------------------
+
+using Interactables.Interobjects;
 
 namespace CursedMod.Features.Wrappers.Facility.Doors;
 
 public class CursedAirlockController
 {
-    public AirlockController Base { get; }
-    
     internal CursedAirlockController(AirlockController airlockController)
     {
         Base = airlockController;
     }
-
-    public static CursedAirlockController Get(AirlockController controller) => new (controller);
+    
+    public AirlockController Base { get; }
 
     public CursedDoor DoorA
     {
@@ -24,11 +30,7 @@ public class CursedAirlockController
         get => CursedDoor.Get(Base._doorB);
         set => Base._doorB = value.Base;
     }
-
-    public void SendAlarm() => Base.RpcAlarm();
-
-    public void ToggleAirlock() => Base.ToggleAirlock();
-
+    
     public bool AirlockDisabled
     {
         get => Base.AirlockDisabled;
@@ -58,4 +60,10 @@ public class CursedAirlockController
         get => Base._readyToUse;
         set => Base._readyToUse = value;
     }
+
+    public static CursedAirlockController Get(AirlockController controller) => new (controller);
+    
+    public void SendAlarm() => Base.RpcAlarm();
+
+    public void ToggleAirlock() => Base.ToggleAirlock();
 }

@@ -7,6 +7,7 @@
 // -----------------------------------------------------------------------
 
 using CursedMod.Events;
+using CursedMod.Features.Logger;
 using CursedMod.Loader;
 using CursedMod.Loader.Configurations;
 using PluginAPI.Core;
@@ -16,20 +17,24 @@ namespace CursedMod;
 
 internal class EntryPoint
 {
+    [PluginConfig] 
+    public static CursedModConfiguration ModConfiguration;
+
+    public static PluginHandler PluginHandler { get; private set; }
+
     [PluginEntryPoint("CursedMod", CursedModInformation.Version, "A rich low level modding framework.", "Jesus-QC")]
     private void Init()
     {
         if (!ModConfiguration.LoadCursedMod)
             return;
-
-        Log.Info("CursedMod is being loaded");
         
+        PluginHandler = PluginHandler.Get(this);
+
+        CursedLogger.InternalPrint($"Welcome to CursedMod {CursedModInformation.Version}");
+
         EventManager.PatchEvents();
         
-        // Patch Events
-        // Load Plugins
+        CursedPaths.LoadPaths(PluginHandler.PluginDirectoryPath);
+        CursedLoader.LoadAll();
     }
-
-    [PluginConfig]
-    public static CursedModConfiguration ModConfiguration;
 }

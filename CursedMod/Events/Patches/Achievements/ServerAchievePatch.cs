@@ -1,4 +1,12 @@
-﻿using System.Collections.Generic;
+﻿// -----------------------------------------------------------------------
+// <copyright file="ServerAchievePatch.cs" company="CursedMod">
+// Copyright (c) CursedMod. All rights reserved.
+// Licensed under the GPLv3 license.
+// See LICENSE file in the project root for full license information.
+// </copyright>
+// -----------------------------------------------------------------------
+
+using System.Collections.Generic;
 using System.Reflection.Emit;
 using Achievements;
 using CursedMod.Events.Arguments.Achievements;
@@ -28,13 +36,13 @@ public class ServerAchievePatch
             new (OpCodes.Newobj, AccessTools.GetDeclaredConstructors(typeof(PlayerAchievingEventArgs))[0]),
             new (OpCodes.Stloc_S, args.LocalIndex),
             new (OpCodes.Ldloc_S, args.LocalIndex),
-            new (OpCodes.Call, AccessTools.Method(typeof(AchievementsEventHandler), nameof(AchievementsEventHandler.OnPlayerAchieving))),
+            new (OpCodes.Call, AccessTools.Method(typeof(AchievementsEventsHandler), nameof(AchievementsEventsHandler.OnPlayerAchieving))),
             new (OpCodes.Ldloc_S, args.LocalIndex),
             new (OpCodes.Callvirt, AccessTools.PropertyGetter(typeof(PlayerAchievingEventArgs), nameof(PlayerAchievingEventArgs.IsAllowed))),
             new (OpCodes.Brfalse_S, ret),
             new (OpCodes.Ldloc_S, args.LocalIndex),
             new (OpCodes.Callvirt, AccessTools.PropertyGetter(typeof(PlayerAchievingEventArgs), nameof(PlayerAchievingEventArgs.Achievement))),
-            new (OpCodes.Starg_S, 1)
+            new (OpCodes.Starg_S, 1),
         });
 
         foreach (CodeInstruction instruction in newInstructions)

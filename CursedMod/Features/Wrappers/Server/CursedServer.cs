@@ -8,7 +8,7 @@
 
 using System;
 using System.Collections.Generic;
-using CursedMod.Features.Wrappers.Player.Dummies;
+using CursedMod.Features.Wrappers.Player;
 using Mirror;
 using Mirror.LiteNetLib4Mirror;
 using UnityEngine;
@@ -17,9 +17,7 @@ namespace CursedMod.Features.Wrappers.Server;
 
 public static class CursedServer
 {
-    private static CursedDummy _local;
-
-    public static CursedDummy LocalPlayer => _local ??= new CursedDummy(ReferenceHub.HostHub);
+    public static CursedPlayer LocalPlayer { get; internal set; }
 
     public static ushort Port
     {
@@ -75,6 +73,10 @@ public static class CursedServer
         set => ServerStatic.StopNextRound = value;
     }
 
+    public static bool IsFull => LiteNetLib4MirrorCore.Host.ConnectedPeersCount >= CustomNetworkManager.slots;
+
+    public static bool IsCompletelyFull => LiteNetLib4MirrorCore.Host.ConnectedPeersCount >= CustomNetworkManager.slots + CustomNetworkManager.reservedSlots;
+    
     public static bool IsInIdleMode
     {
         get => IdleMode.IdleModeActive;
@@ -124,6 +126,7 @@ public static class CursedServer
 
             return ret;
         }
+        
         set
         {
             for (int i = 0; i < value.Count; i++)
@@ -135,6 +138,7 @@ public static class CursedServer
 
     public static SyncList<ServerConfigSynchronizer.AmmoLimit> SyncedAmmoLimits =>
         ServerConfigSynchronizer.Singleton.AmmoLimitsSync;
+    
     public static SyncList<ServerConfigSynchronizer.PredefinedBanTemplate> RemoteAdminPredefinedBanTemplates 
         => ServerConfigSynchronizer.Singleton.RemoteAdminPredefinedBanTemplates;
 
@@ -170,19 +174,19 @@ public static class CursedServer
     
     public static string IpAddress => ServerConsole.Ip;
     
-    public static double Ticks => Math.Round(1f / Time.smoothDeltaTime);
+    public static double TicksPerSecond => Math.Round(1f / Time.smoothDeltaTime);
     
-    public static double Frames => Math.Round(1f / Time.deltaTime);
+    public static double FramesPerSecond => Math.Round(1f / Time.deltaTime);
 
     public static bool IsBeta => GameCore.Version.PublicBeta || GameCore.Version.PrivateBeta;
     
     public static bool IsDedicated => ServerStatic.IsDedicated;
+    
+    public static string[] StartArguments => StartupArgs.Args;
 
     public static void RefreshServerName() => ServerConsole.singleton.RefreshServerName();
 
     public static void RefreshServerData() => ServerConsole.singleton.RefreshServerData();
     
     public static void SendCommand(string command, CommandSender sender = null) => GameCore.Console.singleton.TypeCommand(command, sender ?? LocalPlayer.Sender);
-
-    public static string[] StartArguments => StartupArgs.Args;
 }

@@ -11,10 +11,12 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Reflection;
 using CursedMod.Events.Handlers.MapGeneration;
+using CursedMod.Events.Handlers.Player;
+using CursedMod.Features.Logger;
 using HarmonyLib;
 using MapGeneration;
 using NorthwoodLib.Pools;
-using PluginAPI.Core;
+using PlayerRoles.Ragdolls;
 using UnityEngine.SceneManagement;
 
 namespace CursedMod.Events;
@@ -23,36 +25,39 @@ public static class EventManager
 {
     private static readonly Harmony Harmony = new ("com.jesusqc.cursedmod");
     
+    public delegate void CursedEventHandler<in T>(T ev)
+        where T : EventArgs;
+    
+    public delegate void CursedEventHandler();
+    
     public static void PatchEvents()
     {
         try
         {
-            Log.Warning("Patching events.");
-            
             Stopwatch watch = Stopwatch.StartNew();
             
             Harmony.PatchAll();
             
-            Log.Warning("Events patched in " + watch.Elapsed.ToString("c"));
+            CursedLogger.InternalPrint("Events patched in " + watch.Elapsed.ToString("c"));
 
+#if DEBUG
             foreach (MethodBase patch in Harmony.GetPatchedMethods())
             {
-                Log.Debug(patch.DeclaringType + "::" + patch.Name);
+                CursedLogger.InternalDebug(patch.DeclaringType + "::" + patch.Name);
             }
+#endif
 
             RegisterHookedEvents();
         }
         catch (Exception e)
         {
-            Log.Error("An exception occurred when patching the events.");
-            Log.Error(e.ToString());
+            CursedLogger.LogError("An exception occurred when patching the events.");
+            CursedLogger.LogError(e.ToString());
         }
     }
-    
-    public delegate void CursedEventHandler<in T>(T ev) where T : EventArgs;
-    public delegate void CursedEventHandler();
 
-    public static void InvokeEvent<T>(this CursedEventHandler<T> eventHandler, T args) where T : EventArgs
+    public static void InvokeEvent<T>(this CursedEventHandler<T> eventHandler, T args)
+        where T : EventArgs
     {
         if (eventHandler is null)
             return;
@@ -65,8 +70,8 @@ public static class EventManager
             }
             catch (Exception e)
             {
-                Log.Error("An error occurred while handling the event " + eventHandler.GetType().Name);
-                Log.Error(e.ToString());
+                CursedLogger.LogError("An error occurred while handling the event " + eventHandler.GetType().Name);
+                CursedLogger.LogError(e.ToString());
                 throw;
             }
         }
@@ -85,8 +90,8 @@ public static class EventManager
             }
             catch (Exception e)
             {
-                Log.Error("An error occurred while handling the event " + eventHandler.GetType().Name);
-                Log.Error(e.ToString());
+                CursedLogger.LogError("An error occurred while handling the event " + eventHandler.GetType().Name);
+                CursedLogger.LogError(e.ToString());
                 throw;
             }
         }
@@ -99,13 +104,14 @@ public static class EventManager
         if (originalCodes == newInstructions.Count)
             return newInstructions;
         
-        Log.Warning(typeof(T).FullDescription() + $" has an incorrect number of OpCodes ({originalCodes} != {newInstructions.Count}). The patch may be broken or bugged.");
+        CursedLogger.LogError(typeof(T).FullDescription() + $" has an incorrect number of OpCodes ({originalCodes} != {newInstructions.Count}). The patch may be broken or bugged.");
         return newInstructions;
     }
 
     private static void RegisterHookedEvents()
     {
-        SceneManager.sceneLoaded += MapGenerationEventHandler.OnChangingScene;
-        SeedSynchronizer.OnMapGenerated += MapGenerationEventHandler.CacheAPI;
+        SceneManager.sceneLoaded += MapGenerationEventsHandler.OnChangingScene;
+        SeedSynchronizer.OnMapGenerated += MapGenerationEventsHandler.CacheAPI;
+        RagdollManager.OnRagdollSpawned += PlayerEventsHandler.OnRagdollSpawned;
     }
 }

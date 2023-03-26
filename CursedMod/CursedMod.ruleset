@@ -3,6 +3,21 @@
     <Rules AnalyzerId="StyleCop.Analyzers" RuleNamespace="StyleCop.Analyzers">
         <Rule Id="SA1101" Action="None" />
         <Rule Id="SA1028" Action="None" />
+        <Rule Id="SA1503" Action="None" />
+        <Rule Id="SA1309" Action="None" />
+        <Rule Id="SA1118" Action="None" />
+        <Rule Id="SA1206" Action="None" />
         <Rule Id="SA1633" Action="Error" />
+        <Rule Id="SA1516" Action="Error" />
+        <Rule Id="SA1201" Action="Error" />
+        <Rule Id="SA1116" Action="Error" />
+        <Rule Id="SA1413" Action="Error" />
+        <Rule Id="SA1000" Action="Error" />
+        <Rule Id="SA1507" Action="Error" />
+        <Rule Id="SA1128" Action="Error" />
+        <Rule Id="SA1638" Action="Error" />
+        
+        <Rule Id="SA1600" Action="None" /> <!--- Documentation -->
+        <Rule Id="SA1602" Action="None" /> <!--- Enum Documentation -->
     </Rules>
 </RuleSet>

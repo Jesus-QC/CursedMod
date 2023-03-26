@@ -1,3 +1,11 @@
+// -----------------------------------------------------------------------
+// <copyright file="Cursed079Camera.cs" company="CursedMod">
+// Copyright (c) CursedMod. All rights reserved.
+// Licensed under the GPLv3 license.
+// See LICENSE file in the project root for full license information.
+// </copyright>
+// -----------------------------------------------------------------------
+
 using MapGeneration;
 using PlayerRoles.PlayableScps.Scp079.Cameras;
 using UnityEngine;
@@ -6,18 +14,19 @@ namespace CursedMod.Features.Wrappers.Facility.Rooms;
 
 public class Cursed079Camera
 {
-    public Scp079Camera BaseCamera { get; }
-    
-    public Cursed079Camera(Scp079Camera baseCamera)
+    internal Cursed079Camera(Scp079Camera baseCamera)
     {
         BaseCamera = baseCamera;
     }
-
+    
+    public Scp079Camera BaseCamera { get; }
+    
     public bool IsActive
     {
         get => BaseCamera.IsActive;
         set => BaseCamera.IsActive = value;
     }
+    
     public GameObject GameObject => BaseCamera.gameObject;
     
     public Transform Transform => BaseCamera.transform;

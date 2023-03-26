@@ -22,5 +22,5 @@ public enum LockerType
     Scp500Pedestal,
     Scp1853Pedestal,
     Scp2176Pedestal,
-    Scp1576Pedestal
+    Scp1576Pedestal,
 }

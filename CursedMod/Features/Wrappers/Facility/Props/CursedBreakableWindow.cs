@@ -1,10 +1,23 @@
-﻿using PlayerStatsSystem;
+﻿// -----------------------------------------------------------------------
+// <copyright file="CursedBreakableWindow.cs" company="CursedMod">
+// Copyright (c) CursedMod. All rights reserved.
+// Licensed under the GPLv3 license.
+// See LICENSE file in the project root for full license information.
+// </copyright>
+// -----------------------------------------------------------------------
+
+using PlayerStatsSystem;
 using UnityEngine;
 
 namespace CursedMod.Features.Wrappers.Facility.Props;
 
 public class CursedBreakableWindow
 {
+    internal CursedBreakableWindow(BreakableWindow window)
+    {
+        Base = window;
+    }
+    
     public BreakableWindow Base { get; }
 
     public Vector3 Position
@@ -30,9 +43,4 @@ public class CursedBreakableWindow
     public bool Damage(float damage, DamageHandlerBase damageHandlerBase, Vector3 position) => Base.Damage(damage, damageHandlerBase, position);
 
     public void ForceDamage(float damage) => Base.ServerDamageWindow(damage);
-    
-    public CursedBreakableWindow(BreakableWindow window)
-    {
-        Base = window;
-    }
 }

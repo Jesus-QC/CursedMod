@@ -1,23 +1,30 @@
-﻿using InventorySystem.Items.Jailbird;
+﻿// -----------------------------------------------------------------------
+// <copyright file="CursedJailbirdItem.cs" company="CursedMod">
+// Copyright (c) CursedMod. All rights reserved.
+// Licensed under the GPLv3 license.
+// See LICENSE file in the project root for full license information.
+// </copyright>
+// -----------------------------------------------------------------------
+
+using InventorySystem.Items.Jailbird;
 
 namespace CursedMod.Features.Wrappers.Inventory.Items.Jailbird;
 
 public class CursedJailbirdItem : CursedItem
 {
-    public JailbirdItem JailbirdBase { get; }
-    
-    internal CursedJailbirdItem(JailbirdItem itemBase) : base(itemBase)
+    internal CursedJailbirdItem(JailbirdItem itemBase)
+        : base(itemBase)
     {
         JailbirdBase = itemBase;
     }
+    
+    public JailbirdItem JailbirdBase { get; }
 
     public int TotalChargesPerformed
     {
         get => JailbirdBase.TotalChargesPerformed;
         set => JailbirdBase.TotalChargesPerformed = value;
     }
-
-    public void Attack() => JailbirdBase.ServerAttack(null);
 
     public JailbirdHitreg HitRegion => JailbirdBase._hitreg;
 
@@ -68,4 +75,6 @@ public class CursedJailbirdItem : CursedItem
         get => JailbirdBase._chargeMovementSpeedLimiter;
         set => JailbirdBase._chargeMovementSpeedLimiter = value;
     }
+    
+    public void Attack() => JailbirdBase.ServerAttack(null);
 }

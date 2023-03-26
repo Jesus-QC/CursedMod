@@ -1,10 +1,24 @@
-﻿using AdminToys;
+﻿// -----------------------------------------------------------------------
+// <copyright file="CursedLightSource.cs" company="CursedMod">
+// Copyright (c) CursedMod. All rights reserved.
+// Licensed under the GPLv3 license.
+// See LICENSE file in the project root for full license information.
+// </copyright>
+// -----------------------------------------------------------------------
+
+using AdminToys;
 using UnityEngine;
 
 namespace CursedMod.Features.Wrappers.AdminToys;
 
 public class CursedLightSource : CursedAdminToy
 {
+    internal CursedLightSource(LightSourceToy lightSource)
+        : base(lightSource)
+    {
+        Base = lightSource;
+    }
+
     public LightSourceToy Base { get; }
 
     public float LightIntensity
@@ -30,12 +44,7 @@ public class CursedLightSource : CursedAdminToy
         get => Base.LightShadows;
         set => Base.NetworkLightShadows = value;
     }
-
-    internal CursedLightSource(LightSourceToy lightSource) : base(lightSource)
-    {
-        Base = lightSource;
-    }
-
+    
     public static CursedLightSource Create(Vector3? position = null, Vector3? rotation = null, Vector3? scale = null, float? lightIntensity = null, float? lightRange = null, Color? lightColor = null, bool? lightShadows = null)
     {
         LightSourceToy lightSourceToy = Object.Instantiate(CursedPrefabManager.LightSource);

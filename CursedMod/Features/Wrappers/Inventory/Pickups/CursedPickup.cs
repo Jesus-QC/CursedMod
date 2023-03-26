@@ -1,7 +1,29 @@
-﻿using CursedMod.Features.Wrappers.Player;
+﻿// -----------------------------------------------------------------------
+// <copyright file="CursedPickup.cs" company="CursedMod">
+// Copyright (c) CursedMod. All rights reserved.
+// Licensed under the GPLv3 license.
+// See LICENSE file in the project root for full license information.
+// </copyright>
+// -----------------------------------------------------------------------
+
+using CursedMod.Features.Wrappers.Inventory.Pickups.Firearms;
+using CursedMod.Features.Wrappers.Inventory.Pickups.Firearms.Ammo;
+using CursedMod.Features.Wrappers.Inventory.Pickups.MicroHID;
+using CursedMod.Features.Wrappers.Inventory.Pickups.Radio;
+using CursedMod.Features.Wrappers.Inventory.Pickups.ThrowableProjectiles;
+using CursedMod.Features.Wrappers.Inventory.Pickups.Usables;
+using CursedMod.Features.Wrappers.Player;
 using CursedMod.Features.Wrappers.Server;
 using InventorySystem;
+using InventorySystem.Items.Firearms;
+using InventorySystem.Items.Firearms.Ammo;
+using InventorySystem.Items.MicroHID;
 using InventorySystem.Items.Pickups;
+using InventorySystem.Items.Radio;
+using InventorySystem.Items.ThrowableProjectiles;
+using InventorySystem.Items.Usables.Scp1576;
+using InventorySystem.Items.Usables.Scp244;
+using InventorySystem.Items.Usables.Scp330;
 using Mirror;
 using UnityEngine;
 
@@ -9,14 +31,6 @@ namespace CursedMod.Features.Wrappers.Inventory.Pickups;
 
 public class CursedPickup
 {
-    public ItemPickupBase Base { get; }
-    
-    public GameObject GameObject { get; }
-    
-    public Transform Transform { get; }
-    
-    public Rigidbody Rigidbody { get; }
-
     internal CursedPickup(ItemPickupBase itemPickupBase)
     {
         Base = itemPickupBase;
@@ -24,14 +38,14 @@ public class CursedPickup
         Transform = Base._transform;
         Rigidbody = Base.RigidBody;
     }
-
-    public static CursedPickup Get(ItemPickupBase pickupBase) => new(pickupBase);
-
-    public static CursedPickup Create(ItemType type, PickupSyncInfo pickupSyncInfo, bool spawn = true) 
-        => Get(CursedServer.LocalPlayer.Inventory.ServerCreatePickup(CursedServer.LocalPlayer.AddItemBase(type), pickupSyncInfo, spawn));
-
-    public static CursedPickup Create(ItemType type, bool spawn = true) 
-        => Create(type, PickupSyncInfo.None);
+    
+    public ItemPickupBase Base { get; }
+    
+    public GameObject GameObject { get; }
+    
+    public Transform Transform { get; }
+    
+    public Rigidbody Rigidbody { get; }
 
     public PickupSyncInfo Info
     {
@@ -52,13 +66,21 @@ public class CursedPickup
     public Vector3 Position
     {
         get => Info.Position;
-        set => Info = new PickupSyncInfo(Info.ItemId, value, Info.Rotation, Info.Weight, Info.Serial);
+        set
+        {
+            Transform.position = value;
+            Info = new PickupSyncInfo(Info.ItemId, value, Info.Rotation, Info.Weight, Info.Serial);
+        }
     }
 
     public Quaternion Rotation
     {
         get => Info.Rotation;
-        set => Info = new PickupSyncInfo(Info.ItemId, Info.Position, value, Info.Weight, Info.Serial);
+        set
+        {
+            Transform.rotation = value;
+            Info = new PickupSyncInfo(Info.ItemId, Info.Position, value, Info.Weight, Info.Serial);
+        }
     }
 
     public Vector3 Scale
@@ -88,6 +110,26 @@ public class CursedPickup
         }
     }
 
+    public static CursedPickup Get(ItemPickupBase pickupBase)
+    {
+        return pickupBase switch
+        {
+            AmmoPickup ammoPickup => new CursedAmmoPickup(ammoPickup),
+            FirearmPickup firearmPickup => new CursedFirearmPickup(firearmPickup),
+            MicroHIDPickup microHidPickup => new CursedMicroHidPickup(microHidPickup),
+            RadioPickup radioPickup => new CursedRadioPickup(radioPickup),
+            TimedGrenadePickup timedGrenadePickup => new CursedTimedGrenadePickup(timedGrenadePickup),
+            Scp244DeployablePickup scp244DeployablePickup => new CursedScp244Pickup(scp244DeployablePickup),
+            Scp330Pickup scp330Pickup => new CursedScp330Pickup(scp330Pickup),
+            Scp1576Pickup scp1576Pickup => new CursedScp1576Pickup(scp1576Pickup),
+            _ => new CursedPickup(pickupBase)
+        };
+    }
+
+    public static CursedPickup Create(ItemType type, PickupSyncInfo pickupSyncInfo, bool spawn = true) => Get(CursedServer.LocalPlayer.Inventory.ServerCreatePickup(CursedServer.LocalPlayer.AddItemBase(type), pickupSyncInfo, spawn));
+
+    public static CursedPickup Create(ItemType type, bool spawn = true) => Create(type, PickupSyncInfo.None, spawn);
+    
     public GameObject Spawn()
     {
         NetworkServer.Spawn(GameObject);

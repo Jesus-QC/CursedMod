@@ -1,4 +1,12 @@
-﻿using System.Collections.Generic;
+﻿// -----------------------------------------------------------------------
+// <copyright file="CursedEnvironmentalHazard.cs" company="CursedMod">
+// Copyright (c) CursedMod. All rights reserved.
+// Licensed under the GPLv3 license.
+// See LICENSE file in the project root for full license information.
+// </copyright>
+// -----------------------------------------------------------------------
+
+using System.Collections.Generic;
 using CursedMod.Features.Enums;
 using CursedMod.Features.Wrappers.Player;
 using Hazards;
@@ -8,37 +16,18 @@ namespace CursedMod.Features.Wrappers.Facility.Hazards;
 
 public class CursedEnvironmentalHazard
 {
-    public EnvironmentalHazard EnvironmentalHazard { get; }
-
-    public CursedEnvironmentalHazard(EnvironmentalHazard hazard)
+    public static readonly Dictionary<EnvironmentalHazard, CursedEnvironmentalHazard> Dictionary = new ();
+    
+    internal CursedEnvironmentalHazard(EnvironmentalHazard hazard)
     {
+        Dictionary.Add(hazard, this);
         EnvironmentalHazard = hazard;
         HazardType = EnvironmentalHazardType.Other;
     }
-
-    public static CursedEnvironmentalHazard Get(EnvironmentalHazard environmentalHazard)
-    {
-        return environmentalHazard switch
-        {
-            SinkholeEnvironmentalHazard sinkholeEnvironmentalHazard => new CursedSinkholeHazard(sinkholeEnvironmentalHazard),
-            TantrumEnvironmentalHazard tantrumEnvironmentalHazard => new CursedTantrumHazard(tantrumEnvironmentalHazard),
-            TemporaryHazard temporaryHazard => new CursedTemporaryHazard(temporaryHazard),
-            _ => new CursedEnvironmentalHazard(environmentalHazard)
-        };
-    }
+    
+    public EnvironmentalHazard EnvironmentalHazard { get; }
 
     public List<ReferenceHub> AffectedPlayers => EnvironmentalHazard.AffectedPlayers;
-
-    public IEnumerable<CursedPlayer> GetAffectedPlayers()
-    {
-        foreach (ReferenceHub hub in AffectedPlayers)
-        {
-            if(!CursedPlayer.TryGet(hub, out CursedPlayer ply))
-                continue;
-                
-            yield return ply;
-        }
-    }
 
     public EnvironmentalHazardType HazardType { get; internal set; }
 
@@ -67,6 +56,31 @@ public class CursedEnvironmentalHazard
     }
 
     public bool IsActive => EnvironmentalHazard.IsActive;
+    
+    public static CursedEnvironmentalHazard Get(EnvironmentalHazard environmentalHazard)
+    {
+        if (Dictionary.ContainsKey(environmentalHazard))
+            return Dictionary[environmentalHazard];
+        
+        return environmentalHazard switch
+        {
+            SinkholeEnvironmentalHazard sinkholeEnvironmentalHazard => new CursedSinkholeHazard(sinkholeEnvironmentalHazard),
+            TantrumEnvironmentalHazard tantrumEnvironmentalHazard => new CursedTantrumHazard(tantrumEnvironmentalHazard),
+            TemporaryHazard temporaryHazard => new CursedTemporaryHazard(temporaryHazard),
+            _ => new CursedEnvironmentalHazard(environmentalHazard)
+        };
+    }
+    
+    public IEnumerable<CursedPlayer> GetAffectedPlayers()
+    {
+        foreach (ReferenceHub hub in AffectedPlayers)
+        {
+            if (!CursedPlayer.TryGet(hub, out CursedPlayer ply))
+                continue;
+                
+            yield return ply;
+        }
+    }
 
     public bool IsInArea(Vector3 sourcePosition, Vector3 targetPosition) => EnvironmentalHazard.IsInArea(sourcePosition, targetPosition);
     

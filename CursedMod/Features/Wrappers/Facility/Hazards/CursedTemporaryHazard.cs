@@ -1,17 +1,26 @@
-﻿using CursedMod.Features.Enums;
+﻿// -----------------------------------------------------------------------
+// <copyright file="CursedTemporaryHazard.cs" company="CursedMod">
+// Copyright (c) CursedMod. All rights reserved.
+// Licensed under the GPLv3 license.
+// See LICENSE file in the project root for full license information.
+// </copyright>
+// -----------------------------------------------------------------------
+
+using CursedMod.Features.Enums;
 using Hazards;
 
 namespace CursedMod.Features.Wrappers.Facility.Hazards;
 
 public class CursedTemporaryHazard : CursedEnvironmentalHazard
 {
-    public TemporaryHazard TemporaryHazard { get; }
-    
-    public CursedTemporaryHazard(TemporaryHazard hazard) : base(hazard)
+    internal CursedTemporaryHazard(TemporaryHazard hazard)
+        : base(hazard)
     {
         TemporaryHazard = hazard;
         HazardType = EnvironmentalHazardType.Temporary;
     }
+    
+    public TemporaryHazard TemporaryHazard { get; }
 
     public float DecaySpeed => TemporaryHazard.DecaySpeed;
 

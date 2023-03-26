@@ -1,4 +1,12 @@
-﻿using CursedMod.Features.Wrappers.Player;
+﻿// -----------------------------------------------------------------------
+// <copyright file="CursedGenerator.cs" company="CursedMod">
+// Copyright (c) CursedMod. All rights reserved.
+// Licensed under the GPLv3 license.
+// See LICENSE file in the project root for full license information.
+// </copyright>
+// -----------------------------------------------------------------------
+
+using CursedMod.Features.Wrappers.Player;
 using Interactables.Interobjects.DoorUtils;
 using MapGeneration.Distributors;
 using Mirror;
@@ -8,13 +16,13 @@ namespace CursedMod.Features.Wrappers.Facility.Props;
 
 public class CursedGenerator
 {
-    public Scp079Generator Base { get; }
-    
-    public CursedGenerator(Scp079Generator generator)
+    internal CursedGenerator(Scp079Generator generator)
     {
         Base = generator;
     }
     
+    public Scp079Generator Base { get; }
+
     public GameObject GameObject => Base.gameObject;
 
     public bool ReadyToActivate => Base.ActivationReady;
@@ -46,6 +54,10 @@ public class CursedGenerator
     public int RemainingTime => Base.RemainingTime;
     
     public float DropdownSpeed => Base.DropdownSpeed;
+    
+    public Transform Transform => Base.transform;
+    
+    public NetworkIdentity NetworkIdentity => Base.netIdentity;
 
     public Vector3 Position
     {
@@ -66,8 +78,6 @@ public class CursedGenerator
             CursedPlayer.SendSpawnMessageToAll(NetworkIdentity);
         }
     }
-    
-    public Transform Transform => Base.transform;
 
     public Vector3 Scale
     {
@@ -93,8 +103,6 @@ public class CursedGenerator
         else
             Base._requiredPermission &= ~permission;
     }
-
-    public NetworkIdentity NetworkIdentity => Base.netIdentity;
 
     public override string ToString() =>
         $"{nameof(CursedGenerator)}: Opened: {Opened} | Engaged {IsEngaged} | Activating: {IsActivating} | Remaining Time: {RemainingTime} | DropdownSpeed: {DropdownSpeed} | Position: {Position} | Rotation: {Rotation} | Scale: {Scale} | Permissions: {RequiredPermissions} | NetId: {NetworkIdentity.netId}";

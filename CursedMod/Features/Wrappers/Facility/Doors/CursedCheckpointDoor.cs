@@ -1,4 +1,12 @@
-﻿using System.Collections.Generic;
+﻿// -----------------------------------------------------------------------
+// <copyright file="CursedCheckpointDoor.cs" company="CursedMod">
+// Copyright (c) CursedMod. All rights reserved.
+// Licensed under the GPLv3 license.
+// See LICENSE file in the project root for full license information.
+// </copyright>
+// -----------------------------------------------------------------------
+
+using System.Collections.Generic;
 using System.Linq;
 using CursedMod.Features.Enums;
 using Interactables.Interobjects;
@@ -8,23 +16,16 @@ namespace CursedMod.Features.Wrappers.Facility.Doors;
 
 public class CursedCheckpointDoor : CursedDoor
 {
-    public CheckpointDoor CheckpointBase { get; }
-    
-    internal CursedCheckpointDoor(CheckpointDoor door) : base(door)
+    internal CursedCheckpointDoor(CheckpointDoor door) 
+        : base(door)
     {
         CheckpointBase = door;
         DoorType = DoorType.Checkpoint;
     }
+    
+    public CheckpointDoor CheckpointBase { get; }
 
-    public IEnumerable<CursedDoor> GetSubDoors() => CheckpointBase._subDoors.Select(Get);
-
-    public bool IsDestroyed => CheckpointBase.IsDestroyed;
-
-    public void ToggleAllDoors(bool newState) => CheckpointBase.ToggleAllDoors(newState);
-
-    public bool DamageDoors(float hp, DoorDamageType type) => CheckpointBase.ServerDamage(hp, type);
-
-    public float GetHealthPercent() => CheckpointBase.GetHealthPercent();
+    public new bool IsDestroyed => CheckpointBase.IsDestroyed;
 
     public float OpeningTime
     {
@@ -55,4 +56,12 @@ public class CursedCheckpointDoor : CursedDoor
         get => CheckpointBase._currentSequence;
         set => CheckpointBase._currentSequence = value;
     }
+    
+    public IEnumerable<CursedDoor> GetSubDoors() => CheckpointBase._subDoors.Select(Get);
+
+    public void ToggleAllDoors(bool newState) => CheckpointBase.ToggleAllDoors(newState);
+
+    public bool DamageDoors(float hp, DoorDamageType type) => CheckpointBase.ServerDamage(hp, type);
+
+    public float GetHealthPercent() => CheckpointBase.GetHealthPercent();
 }

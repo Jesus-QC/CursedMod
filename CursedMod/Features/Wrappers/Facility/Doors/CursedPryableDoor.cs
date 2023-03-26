@@ -1,19 +1,26 @@
-﻿using CursedMod.Features.Enums;
+﻿// -----------------------------------------------------------------------
+// <copyright file="CursedPryableDoor.cs" company="CursedMod">
+// Copyright (c) CursedMod. All rights reserved.
+// Licensed under the GPLv3 license.
+// See LICENSE file in the project root for full license information.
+// </copyright>
+// -----------------------------------------------------------------------
+
+using CursedMod.Features.Enums;
 using Interactables.Interobjects;
 
 namespace CursedMod.Features.Wrappers.Facility.Doors;
 
 public class CursedPryableDoor : CursedDoor
 {
-    public PryableDoor PryableBase { get; }
-    
-    internal CursedPryableDoor(PryableDoor door) : base(door)
+    internal CursedPryableDoor(PryableDoor door)
+        : base(door)
     {
         PryableBase = door;
         DoorType = DoorType.Pryable;
     }
-
-    public bool TryPry() => PryableBase.TryPryGate(ReferenceHub.HostHub);
+    
+    public PryableDoor PryableBase { get; }
 
     public float RemainingPryCooldown
     {
@@ -28,4 +35,6 @@ public class CursedPryableDoor : CursedDoor
     }
 
     public bool IsScp106Passable => PryableBase.IsScp106Passable;
+    
+    public bool TryPry() => PryableBase.TryPryGate(ReferenceHub.HostHub);
 }

@@ -1,4 +1,12 @@
-﻿using System.Collections.Generic;
+﻿// -----------------------------------------------------------------------
+// <copyright file="Scp079RecontainerStartPatch.cs" company="CursedMod">
+// Copyright (c) CursedMod. All rights reserved.
+// Licensed under the GPLv3 license.
+// See LICENSE file in the project root for full license information.
+// </copyright>
+// -----------------------------------------------------------------------
+
+using System.Collections.Generic;
 using System.Reflection.Emit;
 using CursedMod.Events;
 using CursedMod.Events.Patches.Achievements;
@@ -19,7 +27,7 @@ public class Scp079RecontainerStartPatch
         newInstructions.InsertRange(0, new CodeInstruction[]
         {
             new (OpCodes.Ldarg_0),
-            new (OpCodes.Call, AccessTools.PropertySetter(typeof(Cursed079Recontainer), nameof(Cursed079Recontainer.RecontainerBase)))
+            new (OpCodes.Call, AccessTools.PropertySetter(typeof(Cursed079Recontainer), nameof(Cursed079Recontainer.RecontainerBase))),
         });
 
         foreach (CodeInstruction instruction in newInstructions)
