@@ -6,8 +6,10 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
+using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
+using CommandSystem;
 using CursedMod.Loader.Modules.Configuration;
 
 namespace CursedMod.Loader.Modules;
@@ -29,11 +31,17 @@ public interface ICursedModule
     public DirectoryInfo ModuleDirectory { get; set; }
     
     public CursedModuleProperties ModuleProperties { get; set; }
+    
+    public HashSet<ICommand> Commands { get; }
 
     void OnLoaded();
     
     void OnUnloaded();
 
+    void OnRegisteringCommands();
+
+    void OnUnregisteringCommands();
+    
     T GetConfig<T>(string name);
     
     void SaveConfig<T>(T instance, string name);

@@ -6,10 +6,14 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
+using Hazards;
+using Mirror;
 using PlayerRoles.PlayableScps.HumeShield;
 using PlayerRoles.PlayableScps.Scp173;
 using PlayerRoles.PlayableScps.Subroutines;
 using PlayerStatsSystem;
+using RelativePositioning;
+using UnityEngine;
 
 namespace CursedMod.Features.Wrappers.Player.Roles.SCPs;
 
@@ -19,9 +23,18 @@ public class CursedScp173Role : CursedFpcRole
         : base(roleBase)
     {
         ScpRoleBase = roleBase;
+        
+        if (SubroutineModule.TryGetSubroutine(out Scp173BreakneckSpeedsAbility breakneckSpeedsAbility))
+            BreakneckSpeedsAbility = breakneckSpeedsAbility;
+        if (SubroutineModule.TryGetSubroutine(out Scp173TantrumAbility tantrumAbility))
+            TantrumAbility = tantrumAbility;
     }
 
     public Scp173Role ScpRoleBase { get; }
+    
+    public Scp173BreakneckSpeedsAbility BreakneckSpeedsAbility { get; }
+    
+    public Scp173TantrumAbility TantrumAbility { get; }
     
     public HumeShieldModuleBase HumeShieldModule
     {
@@ -42,4 +55,35 @@ public class CursedScp173Role : CursedFpcRole
     }
 
     public ScpDamageHandler DamageHandler => ScpRoleBase.DamageHandler;
+
+    public bool BreakNeckSpeeds
+    {
+        get => BreakneckSpeedsAbility.IsActive;
+        set => BreakneckSpeedsAbility.IsActive = value;
+    }
+
+    public void CreateTantrum()
+    {
+        RaycastHit raycastHit;
+        if (!Physics.Raycast(TantrumAbility.ScpRole.FpcModule.Position, Vector3.down, out raycastHit, 3f, TantrumAbility._tantrumMask))
+        {
+            return;
+        }
+      
+        TantrumAbility.Cooldown.Trigger(30f);
+        TantrumAbility.ServerSendRpc(true);
+        TantrumEnvironmentalHazard tantrumEnvironmentalHazard = Object.Instantiate(TantrumAbility._tantrumPrefab);
+        Vector3 targetPos = raycastHit.point + (Vector3.up * 1.25f);
+        tantrumEnvironmentalHazard.SynchronizedPosition = new RelativePosition(targetPos);
+        
+        NetworkServer.Spawn(tantrumEnvironmentalHazard.gameObject);
+        
+        foreach (TeslaGate teslaGate in TeslaGateController.Singleton.TeslaGates)
+        {
+            if (teslaGate.PlayerInIdleRange(TantrumAbility.Owner))
+            {
+                teslaGate.TantrumsToBeDestroyed.Add(tantrumEnvironmentalHazard);
+            }
+        }
+    }
 }

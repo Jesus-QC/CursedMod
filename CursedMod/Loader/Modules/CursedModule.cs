@@ -7,11 +7,15 @@
 // -----------------------------------------------------------------------
 
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
+using CommandSystem;
 using CursedMod.Features.Logger;
 using CursedMod.Loader.Modules.Configuration;
 using CursedMod.Loader.Modules.Enums;
+using GameCore;
+using PluginAPI.Commands;
 using Serialization;
 
 namespace CursedMod.Loader.Modules;
@@ -34,6 +38,8 @@ public abstract class CursedModule : ICursedModule
 
     public CursedModuleProperties ModuleProperties { get; set; } = new ();
 
+    public HashSet<ICommand> Commands { get; } = new ();
+
     public virtual void OnLoaded()
     {
         CursedLogger.LogInformation($"Enabled {this}");
@@ -42,6 +48,37 @@ public abstract class CursedModule : ICursedModule
     public virtual void OnUnloaded()
     {
         CursedLogger.LogInformation($"Unloaded {this}");
+    }
+
+    public void OnRegisteringCommands()
+    {
+        // TODO: Fix this later
+        foreach (Type type in ModuleAssembly.GetTypes())
+        {
+            try
+            {
+                if (type.IsClass && typeof(ICommand).IsAssignableFrom(type))
+                {
+                    foreach (CustomAttributeData customAttributeData in type.GetCustomAttributesData())
+                    {
+                        if (!(customAttributeData.AttributeType != typeof(CommandHandlerAttribute)))
+                        {
+                            CommandsManager.RegisterCommand(EntryPoint.PluginHandler, (Type)customAttributeData.ConstructorArguments[0].Value, type);
+                        }
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                CursedLogger.LogError("There was an issue while registering a command, exception below:");
+                CursedLogger.LogError(e);
+            }
+        }
+    }
+
+    public void OnUnregisteringCommands()
+    {
+        throw new NotImplementedException();
     }
 
     public T GetConfig<T>(string name)
