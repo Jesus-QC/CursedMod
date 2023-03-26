@@ -8,7 +8,7 @@ description: Writing a plugin may seem difficult, but it is pretty straightforwa
 
 CursedMod implements a Module Pattern to load plugins. Because of this plugins should have a main class that implements the `CursedModule` abstract class.
 
-<pre class="language-csharp"><code class="lang-csharp">public class <a data-footnote-ref href="#user-content-fn-1">MyFirstModule</a> : CursedModule
+<pre class="language-csharp" data-title="MyFirstModule.cs"><code class="lang-csharp">public class <a data-footnote-ref href="#user-content-fn-1">MyFirstModule</a> : CursedModule
 {
     public override string ModuleName => "<a data-footnote-ref href="#user-content-fn-2">MyFirstModule</a>";
     public override string ModuleAuthor => "Me";

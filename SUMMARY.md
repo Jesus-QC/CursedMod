@@ -1,6 +1,6 @@
 # Table of contents
 
-* [CursedMod](README.md)
+* [⚡ CursedMod](README.md)
 
 ## Development
 
