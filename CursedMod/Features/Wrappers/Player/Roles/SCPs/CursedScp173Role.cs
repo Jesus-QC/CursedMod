@@ -28,6 +28,8 @@ public class CursedScp173Role : CursedFpcRole
             BreakneckSpeedsAbility = breakneckSpeedsAbility;
         if (SubroutineModule.TryGetSubroutine(out Scp173TantrumAbility tantrumAbility))
             TantrumAbility = tantrumAbility;
+        if (SubroutineModule.TryGetSubroutine(out Scp173TeleportAbility teleportAbility))
+            TeleportAbility = teleportAbility;
     }
 
     public Scp173Role ScpRoleBase { get; }
@@ -35,6 +37,8 @@ public class CursedScp173Role : CursedFpcRole
     public Scp173BreakneckSpeedsAbility BreakneckSpeedsAbility { get; }
     
     public Scp173TantrumAbility TantrumAbility { get; }
+    
+    public Scp173TeleportAbility TeleportAbility { get; }
     
     public HumeShieldModuleBase HumeShieldModule
     {
@@ -86,4 +90,6 @@ public class CursedScp173Role : CursedFpcRole
             }
         }
     }
+
+    public void BlinkToPosition(Vector3 position) => TeleportAbility._blinkTimer.ServerBlink(position);
 }

@@ -14,7 +14,6 @@ using CommandSystem;
 using CursedMod.Features.Logger;
 using CursedMod.Loader.Modules.Configuration;
 using CursedMod.Loader.Modules.Enums;
-using GameCore;
 using PluginAPI.Commands;
 using Serialization;
 
