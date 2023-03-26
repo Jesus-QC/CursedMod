@@ -18,7 +18,7 @@ CursedMod implements a Module Pattern to load plugins. Because of this plugins s
 }
 </code></pre>
 
-### Entry point
+## Entry point
 
 You can override `CursedModule::OnLoaded()` method to make your entry point:
 
@@ -37,7 +37,7 @@ You can override `CursedModule::OnLoaded()` method to make your entry point:
 
 ## Exit Point
 
-You can override `CursedModule::OnUnloaded()` method to make your entry point:
+You can override `CursedModule::OnUnloaded()` method to make your exit point:
 
 <pre class="language-csharp"><code class="lang-csharp">// Simple example of a case where OnUnloaded is useful.
 public class MyFirstModule : CursedModule

@@ -8,7 +8,7 @@ description: >-
 
 ## Subscribing to events
 
-All your even subscriptions should be done inside your module entry point:
+All your event subscriptions should be done inside your module entry point:
 
 ```csharp
 public override void OnLoaded()
@@ -21,7 +21,7 @@ public override void OnLoaded()
 
 ## Desubscribing to events
 
-All your even desubscriptions should be done inside your module exit point:
+All your event desubscriptions should be done inside your module exit point:
 
 ```csharp
 public override void OnUnloaded()
