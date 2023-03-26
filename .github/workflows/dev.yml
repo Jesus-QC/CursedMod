@@ -3,7 +3,7 @@
 # separate terms of service, privacy policy, and support
 # documentation.
 
-name: Build CursedMod/master
+name: Build CursedMod/dev
 
 on:
   push:
@@ -50,7 +50,8 @@ jobs:
        
     - name: Setup NuGet.exe for use with actions
       uses: NuGet/setup-nuget@v1.1.1
-    - run: nuget restore $env:Solution_Name
+    - name: Get nuget packages 
+      run: nuget restore ${{ env.Solution_Name }}
   
        
     # Restore the application to populate the obj folder with RuntimeIdentifiers
@@ -66,8 +67,14 @@ jobs:
         Configuration: ${{ matrix.configuration }}
     
     # Upload the app
-    - name: Upload build artifacts
+    - name: Upload release results
       uses: actions/upload-artifact@v3
       with:
-        name: CursedMod.dll
+        name: Release Build
         path: ${{ env.PROJECT_FOLDER }}\bin\Release\CursedMod.dll
+    
+    - name: Upload debug results
+      uses: actions/upload-artifact@v3
+      with:
+        name: Debug Build
+        path: ${{ env.PROJECT_FOLDER }}\bin\Debug\CursedMod.dll
