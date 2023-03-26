@@ -115,14 +115,6 @@ public class CursedDoor
     public bool IsDamageable => Base is IDamageableDoor;
     
     public bool IsDestroyed => Base is IDamageableDoor { IsDestroyed: true };
-
-    internal static void CacheAllDoors()
-    {
-        foreach (DoorVariant door in DoorVariant.AllDoors)
-        {
-            Get(door);
-        }   
-    }
     
     public static IEnumerable<CursedDoor> GetAllDoors() => Dictionary.Values;
 
@@ -190,4 +182,12 @@ public class CursedDoor
     }
 
     public override string ToString() => $"{nameof(CursedDoor)}: Opened: {IsOpened} | Position: {Position} | Rotation: {Rotation} | Scale: {Scale} | Permissions: {RequiredPermissions} | DoorId: {DoorId}";
+    
+    internal static void CacheAllDoors()
+    {
+        foreach (DoorVariant door in DoorVariant.AllDoors)
+        {
+            Get(door);
+        }   
+    }
 }

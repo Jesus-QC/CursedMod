@@ -25,7 +25,7 @@ public class CursedCheckpointDoor : CursedDoor
     
     public CheckpointDoor CheckpointBase { get; }
 
-    public bool IsDestroyed => CheckpointBase.IsDestroyed;
+    public new bool IsDestroyed => CheckpointBase.IsDestroyed;
 
     public float OpeningTime
     {

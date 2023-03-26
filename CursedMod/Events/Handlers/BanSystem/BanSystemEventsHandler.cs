@@ -39,5 +39,4 @@ public static class BanSystemEventsHandler
     {
         IssuingBan.InvokeEvent(args);
     }
-    
 }

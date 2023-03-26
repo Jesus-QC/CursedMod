@@ -25,5 +25,5 @@ public class PlayerReceivingDamageEventArgs : EventArgs, ICursedCancellableEvent
     
     public CursedPlayer Player { get; }
 
-    public DamageHandlerBase DamageHandlerBase { get; } //todo: this event has to be recoded
+    public DamageHandlerBase DamageHandlerBase { get; } // todo: this event has to be recoded
 }

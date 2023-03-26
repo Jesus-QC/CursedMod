@@ -41,7 +41,7 @@ public class CursedBreakableDoor : CursedDoor
         set => BreakableBase.IgnoredDamageSources = value;
     }
 
-    public bool IsDestroyed
+    public new bool IsDestroyed
     {
         get => BreakableBase.IsDestroyed;
         set => BreakableBase.IsDestroyed = value;
