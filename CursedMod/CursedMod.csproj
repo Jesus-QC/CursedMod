@@ -71,8 +71,8 @@
         <Reference Include="UnityEngine.PhysicsModule">
           <HintPath>$(SL_REFERENCES)\UnityEngine.PhysicsModule.dll</HintPath>
         </Reference>
-        <Reference Include="YamlDotNet, Version=11.0.0.0">
-          <HintPath>bin\Release\YamlDotNet.dll</HintPath>
+        <Reference Include="YamlDotNet, Version=11">
+          <HintPath>$(SL_REFERENCES)\YamlDotNet.dll</HintPath>
         </Reference>
     </ItemGroup>
     <ItemGroup>
