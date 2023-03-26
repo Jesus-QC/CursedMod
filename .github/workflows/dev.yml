@@ -22,7 +22,7 @@ jobs:
                              # https://help.github.com/en/actions/reference/workflow-syntax-for-github-actions#jobsjob_idruns-on
 
     env:
-      REFERENCES: https://dependencies.cursedsl.com/master.zip
+      REFERENCES: https://dependencies.cursedsl.com/dev.zip
       SL_REFERENCES: ${{ github.workspace }}/References
       PROJECT_FOLDER: CursedMod
       Solution_Name: CursedMod.sln
