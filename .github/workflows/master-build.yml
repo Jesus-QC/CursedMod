@@ -11,10 +11,6 @@ on:
   pull_request:
     branches: [ "dev" ]
 
-env:
-  REFERENCES: https://dependencies.cursedsl.com/master.zip
-  PROJECT_FOLDER: CursedMod
-
 jobs:
   build:
 
@@ -26,8 +22,10 @@ jobs:
                              # https://help.github.com/en/actions/reference/workflow-syntax-for-github-actions#jobsjob_idruns-on
 
     env:
-      Solution_Name: CursedMod.sln                      # Replace with your solution name, i.e. MyWpfApp.sln.
-      Project_Path: CursedMod\CursedMod.csproj                 # Replace with the path to your test project, i.e. MyWpfApp.Tests\MyWpfApp.Tests.csproj.
+      REFERENCES: https://dependencies.cursedsl.com/master.zip
+      PROJECT_FOLDER: CursedMod
+      Solution_Name: CursedMod.sln
+      Project_Path: CursedMod\CursedMod.csproj
 
     steps:
     - name: Checkout
@@ -58,7 +56,7 @@ jobs:
     - name: Build the app
       run: msbuild $env:Project_Path /p:Configuration=$env:Configuration
       env:
-        Project_Path: ${{ Project_Path }}
+        Project_Path: ${{ env.Project_Path }}
         Configuration: ${{ matrix.configuration }}
     
     # Upload the app
