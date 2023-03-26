@@ -66,4 +66,4 @@ jobs:
       uses: actions/upload-artifact@v3
       with:
         name: CursedMod.dll
-        path: ${{ PROJECT_FOLDER }}\bin\Release\CursedMod.dll
+        path: ${{ env.PROJECT_FOLDER }}\bin\Release\CursedMod.dll
