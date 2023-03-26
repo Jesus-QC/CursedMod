@@ -48,6 +48,11 @@ jobs:
         Invoke-WebRequest -Uri ${{ env.REFERENCES }} -OutFile ${{ github.workspace }}/References.zip
         Expand-Archive -Path References.zip -DestinationPath ${{ env.SL_REFERENCES }}
        
+    - name: Setup NuGet.exe for use with actions
+      uses: NuGet/setup-nuget@v1.1.1
+    - run: nuget restore $env:Solution_Name
+  
+       
     # Restore the application to populate the obj folder with RuntimeIdentifiers
     - name: Restore the application
       run: msbuild $env:Solution_Name /t:Restore /p:Configuration=$env:Configuration
