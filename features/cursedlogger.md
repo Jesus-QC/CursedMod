@@ -63,13 +63,12 @@ Logs are a useful way of showing information inside the console to the end user.
 
 &#x20;Each module or plugin has a property called `ShowDebug` inside its base class. To use the **CursedLogger::LogDebug(object, bool, string)** method please follow the next example:
 
-```csharp
-public class MyModule : CursedModule
+<pre class="language-csharp"><code class="lang-csharp">public class MyModule : CursedModule
 {
     public override void OnLoaded()
     {
-        CursedLogger.LogDebug("good implemented debug log", ModuleProperties.ShowDebug);
-        base.OnLoaded();
+<strong>        CursedLogger.LogDebug("good implemented debug log", ModuleProperties.ShowDebug);
+</strong>        base.OnLoaded();
     }
 }
-```
+</code></pre>

@@ -14,3 +14,4 @@
 
 * [Features](features/README.md)
   * [📄 CursedLogger](features/cursedlogger.md)
+  * [💡 AdminToys](features/admintoys.md)
