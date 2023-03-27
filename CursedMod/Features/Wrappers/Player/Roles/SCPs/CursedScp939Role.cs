@@ -18,9 +18,26 @@ public class CursedScp939Role : CursedFpcRole
         : base(roleBase)
     {
         ScpRoleBase = roleBase;
+        
+        if (SubroutineModule.TryGetSubroutine(out Scp939AmnesticCloudAbility amnesticCloud))
+            AmnesticCloudAbility = amnesticCloud;
+        if (SubroutineModule.TryGetSubroutine(out Scp939LungeAbility lungeAbility))
+            LungeAbility = lungeAbility;
+        if (SubroutineModule.TryGetSubroutine(out Scp939FocusAbility focusAbility))
+            FocusAbility = focusAbility;
+        if (SubroutineModule.TryGetSubroutine(out Scp939ClawAbility clawAbility))
+            ClawAbility = clawAbility;
     }
 
     public Scp939Role ScpRoleBase { get; }
+    
+    public Scp939AmnesticCloudAbility AmnesticCloudAbility { get; }
+    
+    public Scp939LungeAbility LungeAbility { get; }
+    
+    public Scp939FocusAbility FocusAbility { get; }
+    
+    public Scp939ClawAbility ClawAbility { get; }
     
     public HumeShieldModuleBase HumeShieldModule
     {
@@ -32,5 +49,23 @@ public class CursedScp939Role : CursedFpcRole
     {
         get => ScpRoleBase.SubroutineModule;
         set => ScpRoleBase.SubroutineModule = value;
+    }
+    
+    public Scp939LungeState LungeState
+    {
+        get => LungeAbility._state;
+        set => LungeAbility.State = value;
+    }
+
+    public bool FocusEnabled
+    {
+        get => FocusAbility._targetState;
+        set => FocusAbility.TargetState = value;
+    } 
+        
+    public void CreateAmnesticCloud(float durationSize)
+    {
+        AmnesticCloudAbility.OnStateEnabled();
+        AmnesticCloudAbility.ServerConfirmPlacement(durationSize);
     }
 }
