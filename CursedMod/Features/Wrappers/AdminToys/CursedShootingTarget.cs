@@ -64,7 +64,7 @@ public class CursedShootingTarget : CursedAdminToy
         }
     }
 
-    public static CursedShootingTarget Create(ShootingTargetType type, Vector3? position = null, Vector3? scale = null, Vector3? rotation = null,bool spawn = false)
+    public static CursedShootingTarget Create(ShootingTargetType type, Vector3? position = null, Vector3? scale = null, Vector3? rotation = null, bool spawn = false)
     {
         ShootingTarget target = type switch
         {
