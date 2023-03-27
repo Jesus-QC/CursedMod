@@ -63,11 +63,11 @@ static CursedLightSource Create(Vector3? position = null, Vector3? rotation = nu
 
 ## Shooting Targets
 
-Shooting targets are admin toys with the shape and functionality of targets that you can shoot and play with that you can spawn on clients. CursedMod lets you easily spawn light sources without any type of issue.
+Shooting targets are admin toys with the shape and functionality of targets that you can shoot and play with that you can spawn on clients. CursedMod lets you easily spawn shooting targets without any type of issue.
 
 #### A rich constructor.
 
-The **Create** method allows you to pass a lot of information in order to create your own light sources in one single method:
+The **Create** method allows you to pass a lot of information in order to create your own shooting targets in one single method:
 
 ```csharp
 static CursedShootingTarget Create(ShootingTargetType type, Vector3? position = null, Vector3? scale = null, Vector3? rotation = null, bool spawn = false)
