@@ -9,3 +9,8 @@
   * [👀 Writing Your First Plugin](development/making-plugins/writing-your-first-plugin.md)
   * [⚙ Adding Configurations](development/making-plugins/adding-configurations.md)
   * [⚡ Using events](development/making-plugins/using-events.md)
+
+***
+
+* [Features](features/README.md)
+  * [📄 CursedLogger](features/cursedlogger.md)
