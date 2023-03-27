@@ -56,14 +56,14 @@ public abstract class CursedModule : ICursedModule
         {
             try
             {
-                if (type.IsClass && typeof(ICommand).IsAssignableFrom(type))
+                if (!type.IsClass || !typeof(ICommand).IsAssignableFrom(type)) 
+                    continue;
+                
+                foreach (CustomAttributeData customAttributeData in type.GetCustomAttributesData())
                 {
-                    foreach (CustomAttributeData customAttributeData in type.GetCustomAttributesData())
+                    if (!(customAttributeData.AttributeType != typeof(CommandHandlerAttribute)))
                     {
-                        if (!(customAttributeData.AttributeType != typeof(CommandHandlerAttribute)))
-                        {
-                            CommandsManager.RegisterCommand(EntryPoint.PluginHandler, (Type)customAttributeData.ConstructorArguments[0].Value, type);
-                        }
+                        CommandsManager.RegisterCommand(EntryPoint.PluginHandler, (Type)customAttributeData.ConstructorArguments[0].Value, type);
                     }
                 }
             }
