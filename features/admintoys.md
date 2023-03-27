@@ -87,4 +87,4 @@ static CursedShootingTarget Create(ShootingTargetType type, Vector3? position = 
 
 In all admin toys you will find a property called `MovementSmoothing`, this property allows you to setup a configurable byte used to lerp positions in clients when they change in order to make them more smooth. An ideal value is equal to your server framerate, by default 60.
 
-<figure><img src="../.gitbook/assets/image (5).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
