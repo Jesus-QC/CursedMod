@@ -54,6 +54,10 @@ public class CursedRoom
     public static CursedRoom Get(RoomIdentifier roomIdentifier) => Dictionary.ContainsKey(roomIdentifier) ? Dictionary[roomIdentifier] : new CursedRoom(roomIdentifier);
     
     public IEnumerable<CursedDoor> GetDoors() => DoorVariant.DoorsByRoom.ContainsKey(Room) ? DoorVariant.DoorsByRoom[Room].Select(CursedDoor.Get) : Enumerable.Empty<CursedDoor>();
+
+    public Vector3 GetPoint(Vector3 localPointOfRoom) => Transform.TransformPoint(localPointOfRoom);
+
+    public Vector3 GetInversePoint(Vector3 globalPoint) => Transform.InverseTransformPoint(globalPoint);
     
     internal static void CacheAllRooms()
     {
