@@ -13,5 +13,6 @@
   * [📄 CursedLogger](development/features/cursedlogger.md)
   * [💡 AdminToys](development/features/admintoys.md)
   * [🤖 Dummies](development/features/dummies.md)
+  * [📍 Room Points](development/features/room-points.md)
 * [Guides](development/guides/README.md)
   * [⌛ MEC](development/guides/mec.md)
