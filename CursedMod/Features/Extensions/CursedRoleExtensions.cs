@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="RoleExtensions.cs" company="CursedMod">
+// <copyright file="CursedRoleExtensions.cs" company="CursedMod">
 // Copyright (c) CursedMod. All rights reserved.
 // Licensed under the GPLv3 license.
 // See LICENSE file in the project root for full license information.
@@ -15,7 +15,7 @@ using UnityEngine;
 
 namespace CursedMod.Features.Extensions;
 
-public static class RoleExtensions
+public static class CursedRoleExtensions
 {
     public static Vector3 GetRandomSpawnPosition(this RoleTypeId roleType)
     {

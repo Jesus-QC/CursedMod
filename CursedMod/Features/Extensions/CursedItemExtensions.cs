@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="ItemExtensions.cs" company="CursedMod">
+// <copyright file="CursedItemExtensions.cs" company="CursedMod">
 // Copyright (c) CursedMod. All rights reserved.
 // Licensed under the GPLv3 license.
 // See LICENSE file in the project root for full license information.
@@ -8,7 +8,7 @@
 
 namespace CursedMod.Features.Extensions;
 
-public static class ItemExtensions
+public static class CursedItemExtensions
 {
     public static bool IsKeyCard(this ItemType itemType)
     {

@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="CollectionExtensions.cs" company="CursedMod">
+// <copyright file="CursedCollectionExtensions.cs" company="CursedMod">
 // Copyright (c) CursedMod. All rights reserved.
 // Licensed under the GPLv3 license.
 // See LICENSE file in the project root for full license information.
@@ -11,7 +11,7 @@ using UnityEngine;
 
 namespace CursedMod.Features.Extensions;
 
-public static class CollectionExtensions
+public static class CursedCollectionExtensions
 {
     public static T GetRandomElement<T>(this List<T> collection)
     {

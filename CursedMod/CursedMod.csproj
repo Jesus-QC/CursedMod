@@ -154,9 +154,9 @@
         <Compile Include="Features\Enums\LockerType.cs" />
         <Compile Include="Features\Enums\EnvironmentalHazardType.cs" />
         <Compile Include="Features\Enums\ShootingTargetType.cs" />
-        <Compile Include="Features\Extensions\CollectionExtensions.cs" />
-        <Compile Include="Features\Extensions\ItemExtensions.cs" />
-        <Compile Include="Features\Extensions\RoleExtensions.cs" />
+        <Compile Include="Features\Extensions\CursedCollectionExtensions.cs" />
+        <Compile Include="Features\Extensions\CursedItemExtensions.cs" />
+        <Compile Include="Features\Extensions\CursedRoleExtensions.cs" />
         <Compile Include="Features\Logger\CursedLogger.cs" />
         <Compile Include="Features\Patches\Dummies\ClientInstanceModePatch.cs" />
         <Compile Include="Features\Patches\Facility\AmbientSoundPlayerStartPatch.cs" />
