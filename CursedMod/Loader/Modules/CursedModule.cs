@@ -66,8 +66,6 @@ public abstract class CursedModule : ICursedModule
                     if (customAttributeData.AttributeType != typeof(CommandHandlerAttribute)) 
                         continue;
                     
-                    CursedLogger.InternalPrint(customAttributeData.ConstructorArguments[0].Value);
-
                     Type cmdType = (Type)customAttributeData.ConstructorArguments[0].Value;
 
                     CursedCommandType commandType;
@@ -79,8 +77,6 @@ public abstract class CursedModule : ICursedModule
                         commandType = CursedCommandType.Client;
                     else
                         continue;
-                    
-                    CursedLogger.LogCritical(customAttributeData.ConstructorArguments[0].Value);
 
                     ICommand command = CursedCommandManager.RegisterCommand(commandType, type);
                     if (command is null)
