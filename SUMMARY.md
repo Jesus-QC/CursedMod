@@ -9,10 +9,9 @@
   * [👀 Writing Your First Plugin](development/making-plugins/writing-your-first-plugin.md)
   * [⚙ Adding Configurations](development/making-plugins/adding-configurations.md)
   * [⚡ Using events](development/making-plugins/using-events.md)
-
-***
-
-* [Features](features/README.md)
-  * [📄 CursedLogger](features/cursedlogger.md)
-  * [💡 AdminToys](features/admintoys.md)
-  * [🤖 Dummies](features/dummies.md)
+* [Features](development/features/README.md)
+  * [📄 CursedLogger](development/features/cursedlogger.md)
+  * [💡 AdminToys](development/features/admintoys.md)
+  * [🤖 Dummies](development/features/dummies.md)
+* [Guides](development/guides/README.md)
+  * [⌛ MEC](development/guides/mec.md)

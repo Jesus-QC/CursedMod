@@ -18,7 +18,7 @@ For this tutorial we will use [Visual Studio](https://visualstudio.microsoft.com
 
 1. Open up Visual Studio and click on `Create a new project` towards the bottom right.
 
-<figure><img src="../../.gitbook/assets/image.png" alt=""><figcaption><p>Open Visual Studio and select Create a new project</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (5).png" alt=""><figcaption><p>Open Visual Studio and select Create a new project</p></figcaption></figure>
 
 2. Select **Class Library (.NET Framework)**
 

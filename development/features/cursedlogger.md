@@ -55,7 +55,7 @@ CursedLogger.LogCritical("Test message", "CursedMod")
 {% endtab %}
 {% endtabs %}
 
-<figure><img src="../.gitbook/assets/image (4).png" alt=""><figcaption><p>The different types of logs.</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (4).png" alt=""><figcaption><p>The different types of logs.</p></figcaption></figure>
 
 ## Where to use
 
