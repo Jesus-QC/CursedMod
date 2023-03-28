@@ -20,21 +20,17 @@ internal class EntryPoint
     [PluginConfig] 
     public static CursedModConfiguration ModConfiguration;
 
-    public static PluginHandler PluginHandler { get; private set; }
-
     [PluginEntryPoint("CursedMod", CursedModInformation.Version, "A rich low level modding framework.", "Jesus-QC")]
     private void Init()
     {
         if (!ModConfiguration.LoadCursedMod)
             return;
-        
-        PluginHandler = PluginHandler.Get(this);
 
         CursedLogger.InternalPrint($"Welcome to CursedMod {CursedModInformation.Version}");
 
         EventManager.PatchEvents();
         
-        CursedPaths.LoadPaths(PluginHandler.PluginDirectoryPath);
+        CursedPaths.LoadPaths();
         CursedLoader.LoadAll();
     }
 }

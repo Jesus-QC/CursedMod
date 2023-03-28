@@ -234,6 +234,8 @@
         <Compile Include="Features\Wrappers\Player\VoiceChat\CursedVoiceChat.cs" />
         <Compile Include="Features\Wrappers\Round\CursedRound.cs" />
         <Compile Include="Features\Wrappers\Server\CursedServer.cs" />
+        <Compile Include="Loader\Commands\CursedCommandManager.cs" />
+        <Compile Include="Loader\Commands\CursedCommandType.cs" />
         <Compile Include="Loader\Configurations\CursedModConfiguration.cs" />
         <Compile Include="Loader\CursedLoader.cs" />
         <Compile Include="Loader\CursedModInformation.cs" />
@@ -241,6 +243,7 @@
         <Compile Include="Loader\Modules\Configuration\CursedModuleProperties.cs" />
         <Compile Include="Loader\Modules\CursedModule.cs" />
         <Compile Include="Loader\Modules\Enums\ModulePriority.cs" />
+        <Compile Include="Loader\Modules\Enums\ModuleType.cs" />
         <Compile Include="Loader\Modules\ICursedModule.cs" />
         <Compile Include="Loader\Modules\CursedModulePriorityComparer.cs" />
         <Compile Include="Properties\AssemblyInfo.cs" />
