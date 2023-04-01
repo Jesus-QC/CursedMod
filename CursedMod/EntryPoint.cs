@@ -10,7 +10,6 @@ using CursedMod.Events;
 using CursedMod.Features.Logger;
 using CursedMod.Loader;
 using CursedMod.Loader.Configurations;
-using PluginAPI.Core;
 using PluginAPI.Core.Attributes;
 
 namespace CursedMod;

@@ -14,7 +14,6 @@ using CursedMod.Features.Wrappers.Player.Roles;
 using HarmonyLib;
 using NorthwoodLib.Pools;
 using PlayerRoles;
-using PluginAPI.Core;
 
 namespace CursedMod.Features.Patches.PlayerRoles;
 

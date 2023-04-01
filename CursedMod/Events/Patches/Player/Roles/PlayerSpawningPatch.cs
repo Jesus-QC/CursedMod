@@ -12,11 +12,8 @@ using System.Reflection.Emit;
 using CursedMod.Events.Arguments.Player;
 using CursedMod.Events.Handlers.Player;
 using HarmonyLib;
-using Mirror;
 using NorthwoodLib.Pools;
-using PlayerRoles.FirstPersonControl;
 using PlayerRoles.FirstPersonControl.Spawnpoints;
-using RelativePositioning;
 
 namespace CursedMod.Events.Patches.Player.Roles;
 

@@ -9,8 +9,6 @@
 using System;
 using CursedMod.Features.Wrappers.Player;
 using PlayerRoles;
-using PlayerRoles.FirstPersonControl;
-using RelativePositioning;
 using UnityEngine;
 
 namespace CursedMod.Events.Arguments.Player;
