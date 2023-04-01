@@ -11,17 +11,18 @@ using CursedMod.Features.Wrappers.Player;
 using PlayerRoles;
 using PlayerRoles.FirstPersonControl;
 using RelativePositioning;
+using UnityEngine;
 
 namespace CursedMod.Events.Arguments.Player;
 
 public class PlayerSpawningEventArgs : EventArgs, ICursedCancellableEvent, ICursedPlayerEvent
 {
-    public PlayerSpawningEventArgs(FpcStandardRoleBase fpcStandardRoleBase, RelativePosition relativePosition, ushort rotation)
+    public PlayerSpawningEventArgs(ReferenceHub referenceHub, PlayerRoleBase roleBase, Vector3 position, float rotation)
     {
         IsAllowed = true;
-        Player = CursedPlayer.Get(fpcStandardRoleBase._lastOwner);
-        RoleType = fpcStandardRoleBase.RoleTypeId;
-        SpawnPosition = relativePosition;
+        Player = CursedPlayer.Get(referenceHub);
+        RoleType = roleBase.RoleTypeId;
+        SpawnPosition = position;
         SpawnRotation = rotation;
     }
     
@@ -31,7 +32,7 @@ public class PlayerSpawningEventArgs : EventArgs, ICursedCancellableEvent, ICurs
     
     public RoleTypeId RoleType { get; }
     
-    public RelativePosition SpawnPosition { get; set; }
+    public Vector3 SpawnPosition { get; set; }
     
-    public ushort SpawnRotation { get; set; }
+    public float SpawnRotation { get; set; }
 }

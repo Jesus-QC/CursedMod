@@ -7,6 +7,7 @@
 // -----------------------------------------------------------------------
 
 using System.Collections.Generic;
+using System.Reflection;
 using System.Reflection.Emit;
 using CursedMod.Events.Arguments.Player;
 using CursedMod.Events.Handlers.Player;
@@ -14,49 +15,49 @@ using HarmonyLib;
 using Mirror;
 using NorthwoodLib.Pools;
 using PlayerRoles.FirstPersonControl;
+using PlayerRoles.FirstPersonControl.Spawnpoints;
 using RelativePositioning;
 
 namespace CursedMod.Events.Patches.Player.Roles;
 
-// [HarmonyPatch(typeof(FpcStandardRoleBase), nameof(FpcStandardRoleBase.ReadSpawnData))]
+[HarmonyPatch]
 public class SpawningPlayerPatch
 {
+    private static MethodInfo TargetMethod() => AccessTools.Method(typeof(RoleSpawnpointManager).GetNestedTypes(AccessTools.all)[1], "<Init>b__2_0");
+    
     private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
     {
-        List<CodeInstruction> newInstructions = EventManager.CheckEvent<SpawningPlayerPatch>(35, instructions);
+        List<CodeInstruction> newInstructions = EventManager.CheckEvent<SpawningPlayerPatch>(38, instructions);
 
         LocalBuilder args = generator.DeclareLocal(typeof(PlayerSpawningEventArgs));
-
         Label ret = generator.DefineLabel();
         
         newInstructions[newInstructions.Count - 1].labels.Add(ret);
-        
-        newInstructions.RemoveRange(0, 10);
-        
-        newInstructions.InsertRange(0, new CodeInstruction[]
+
+        int offset = newInstructions.FindLastIndex(x => x.opcode == OpCodes.Ldarg_1);
+
+        newInstructions.InsertRange(offset, new[]
         {
-            new (OpCodes.Ldarg_0),
-            new (OpCodes.Ldarg_1),
-            new (OpCodes.Call, AccessTools.Method(typeof(RelativePositionSerialization), nameof(RelativePositionSerialization.ReadRelativePosition))),
-            new (OpCodes.Ldarg_1),
-            new (OpCodes.Call, AccessTools.Method(typeof(NetworkReaderExtensions), nameof(NetworkReaderExtensions.ReadUInt16))),
+            new CodeInstruction(OpCodes.Ldarg_1).MoveLabelsFrom(newInstructions[offset]),
+            new (OpCodes.Ldarg_3),
+            new (OpCodes.Ldloc_1),
+            new (OpCodes.Ldloc_2),
             new (OpCodes.Newobj, AccessTools.GetDeclaredConstructors(typeof(PlayerSpawningEventArgs))[0]),
+            
             new (OpCodes.Dup),
             new (OpCodes.Call, AccessTools.Method(typeof(PlayerEventsHandler), nameof(PlayerEventsHandler.OnPlayerSpawning))),
             new (OpCodes.Stloc_S, args.LocalIndex),
             new (OpCodes.Ldloc_S, args.LocalIndex),
             new (OpCodes.Callvirt, AccessTools.PropertyGetter(typeof(PlayerSpawningEventArgs), nameof(PlayerSpawningEventArgs.IsAllowed))),
             new (OpCodes.Brfalse_S, ret),
+            
             new (OpCodes.Ldloc_S, args.LocalIndex),
             new (OpCodes.Callvirt, AccessTools.PropertyGetter(typeof(PlayerSpawningEventArgs), nameof(PlayerSpawningEventArgs.SpawnPosition))),
-            new (OpCodes.Stloc_0),
-            new (OpCodes.Ldarg_0),
-            new (OpCodes.Call, AccessTools.PropertyGetter(typeof(FpcStandardRoleBase), nameof(FpcStandardRoleBase.FpcModule))),
-            new (OpCodes.Callvirt, AccessTools.PropertyGetter(typeof(FirstPersonMovementModule), nameof(FirstPersonMovementModule.MouseLook))),
+            new (OpCodes.Stloc_1),
+ 
             new (OpCodes.Ldloc_S, args.LocalIndex),
             new (OpCodes.Callvirt, AccessTools.PropertyGetter(typeof(PlayerSpawningEventArgs), nameof(PlayerSpawningEventArgs.SpawnRotation))),
-            new (OpCodes.Ldc_I4, 0x7fff),
-            new (OpCodes.Callvirt, AccessTools.Method(typeof(FpcMouseLook), nameof(FpcMouseLook.ApplySyncValues))),
+            new (OpCodes.Stloc_2),
         });
         
         foreach (CodeInstruction instruction in newInstructions)
