@@ -209,6 +209,44 @@ public class CursedPlayer
         get => Transform.eulerAngles;
         set => ReferenceHub.TryOverridePosition(Position, value);
     }
+
+    public float HorizontalRotation
+    {
+        get
+        {
+            if (CurrentRole is not CursedFpcRole fpcRole)
+                return 0;
+
+            return fpcRole.FpcModule.MouseLook.CurrentHorizontal;
+        }
+        
+        set
+        {
+            if (CurrentRole is not CursedFpcRole fpcRole)
+                return;
+
+            fpcRole.FpcModule.MouseLook.CurrentHorizontal = value;
+        }
+    }
+    
+    public float VerticalRotation
+    {
+        get
+        {
+            if (CurrentRole is not CursedFpcRole fpcRole)
+                return 0;
+
+            return fpcRole.FpcModule.MouseLook.CurrentVertical;
+        }
+        
+        set
+        {
+            if (CurrentRole is not CursedFpcRole fpcRole)
+                return;
+
+            fpcRole.FpcModule.MouseLook.CurrentVertical = value;
+        }
+    }
     
     public Vector3 Scale
     {
