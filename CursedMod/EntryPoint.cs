@@ -18,7 +18,11 @@ namespace CursedMod;
 internal class EntryPoint
 {
     [PluginConfig] 
+#pragma warning disable CS0649
+#pragma warning disable SA1401
     public static CursedModConfiguration ModConfiguration;
+#pragma warning restore SA1401
+#pragma warning restore CS0649
 
     [PluginEntryPoint("CursedMod", CursedModInformation.Version, "A rich low level modding framework.", "Jesus-QC")]
     private void Init()
