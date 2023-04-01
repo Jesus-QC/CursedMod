@@ -14,6 +14,7 @@ using CursedMod.Features.Wrappers.Player.Roles;
 using HarmonyLib;
 using NorthwoodLib.Pools;
 using PlayerRoles;
+using PluginAPI.Core;
 
 namespace CursedMod.Features.Patches.PlayerRoles;
 
@@ -24,7 +25,7 @@ public class InitRolePatch
     {
         List<CodeInstruction> newInstructions = EventManager.CheckEvent<InitRolePatch>(13, instructions);
 
-        newInstructions.AddRange(new CodeInstruction[]
+        newInstructions.InsertRange(newInstructions.Count - 1, new CodeInstruction[]
         {
             new (OpCodes.Ldarg_0),
             new (OpCodes.Ldarg_1),

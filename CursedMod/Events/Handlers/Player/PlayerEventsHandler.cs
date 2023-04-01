@@ -20,7 +20,7 @@ public static class PlayerEventsHandler
     
     public static event EventManager.CursedEventHandler<PlayerChangingRoleEventArgs> ChangingRole;
     
-    public static event EventManager.CursedEventHandler<PlayerSpawningEventArgs> Spawning;
+    // public static event EventManager.CursedEventHandler<PlayerSpawningEventArgs> Spawning;
     
     public static event EventManager.CursedEventHandler<PlayerReceivingDamageEventArgs> ReceivingDamage;
     
@@ -61,7 +61,7 @@ public static class PlayerEventsHandler
         if (!CheckPlayer(args.Player))
             return;
         
-        Spawning.InvokeEvent(args);
+        // Spawning.InvokeEvent(args);
     }
 
     internal static void OnPlayerReceivingDamage(PlayerReceivingDamageEventArgs args)

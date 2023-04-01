@@ -18,7 +18,7 @@ using RelativePositioning;
 
 namespace CursedMod.Events.Patches.Player.Roles;
 
-[HarmonyPatch(typeof(FpcStandardRoleBase), nameof(FpcStandardRoleBase.ReadSpawnData))]
+// [HarmonyPatch(typeof(FpcStandardRoleBase), nameof(FpcStandardRoleBase.ReadSpawnData))]
 public class SpawningPlayerPatch
 {
     private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
