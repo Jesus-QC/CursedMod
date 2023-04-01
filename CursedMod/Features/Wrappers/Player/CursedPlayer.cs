@@ -72,12 +72,14 @@ public class CursedPlayer
     public GameObject GameObject { get; private set; }
     
     public Transform Transform { get; internal set; }
-    
+
     public PlayerSharedStorage SharedStorage { get; } = new ();
 
     public AuthenticationType AuthenticationType { get; private set; }
     
     public string RawUserId { get; private set; }
+
+    public CursedRole CurrentRole { get; internal set; }
     
     public Transform PlayerCameraReference => ReferenceHub.PlayerCameraReference;
 
@@ -297,9 +299,7 @@ public class CursedPlayer
         get => RoleManager.CurrentRole;
         set => RoleManager.CurrentRole = value;
     }
-    
-    public CursedRole CurrentRole => CursedRole.Get(RoleBase);
-    
+
     public CursedScp049Role CursedScp049Role => CurrentRole as CursedScp049Role;
     
     public CursedScp079Role CursedScp079Role => CurrentRole as CursedScp079Role;
