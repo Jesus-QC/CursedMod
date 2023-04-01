@@ -104,6 +104,7 @@
         <Compile Include="Events\Arguments\Player\PlayerJoinedEventArgs.cs" />
         <Compile Include="Events\Arguments\Player\PlayerReceivingDamageEventArgs.cs" />
         <Compile Include="Events\Arguments\Player\RagdollSpawnedEventArgs.cs" />
+        <Compile Include="Events\Arguments\Player\PlayerSpawningEventArgs.cs" />
         <Compile Include="Events\Arguments\Respawning\RespawningTeamEventArgs.cs" />
         <Compile Include="Events\Arguments\SCPs\Scp330\PlayerInteractingScp330EventArgs.cs" />
         <Compile Include="Events\DynamicEventAttribute.cs" />
@@ -143,6 +144,7 @@
         <Compile Include="Events\Patches\Player\PlayerStats\DealDamagePatch.cs" />
         <Compile Include="Events\Patches\Player\PlayerStats\KillPlayerPatch.cs" />
         <Compile Include="Events\Patches\Player\Roles\InitializeRolePatch.cs" />
+        <Compile Include="Events\Patches\Player\Roles\PlayerSpawningPatch.cs" />
         <Compile Include="Events\Patches\Respawning\RespawnManagerPatch.cs" />
         <Compile Include="Events\Patches\Round\RestartingRoundPatch.cs" />
         <Compile Include="Events\Patches\Round\RoundStartPatch.cs" />
