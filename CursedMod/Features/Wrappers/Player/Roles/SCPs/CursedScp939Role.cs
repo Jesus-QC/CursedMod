@@ -6,9 +6,13 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
+using Mirror;
 using PlayerRoles.PlayableScps.HumeShield;
 using PlayerRoles.PlayableScps.Scp939;
+using PlayerRoles.PlayableScps.Scp939.Mimicry;
 using PlayerRoles.PlayableScps.Subroutines;
+using RelativePositioning;
+using UnityEngine;
 
 namespace CursedMod.Features.Wrappers.Player.Roles.SCPs;
 
@@ -27,6 +31,11 @@ public class CursedScp939Role : CursedFpcRole
             FocusAbility = focusAbility;
         if (SubroutineModule.TryGetSubroutine(out Scp939ClawAbility clawAbility))
             ClawAbility = clawAbility;
+        if (!SubroutineModule.TryGetSubroutine(out EnvironmentalMimicry environmentalMimicry)) 
+            return;
+        
+        EnvironmentalMimicry = environmentalMimicry;
+        MimicPointController = environmentalMimicry._mimicPoint;
     }
 
     public Scp939Role ScpRoleBase { get; }
@@ -38,6 +47,10 @@ public class CursedScp939Role : CursedFpcRole
     public Scp939FocusAbility FocusAbility { get; }
     
     public Scp939ClawAbility ClawAbility { get; }
+    
+    public EnvironmentalMimicry EnvironmentalMimicry { get; }
+    
+    public MimicPointController MimicPointController { get; }
     
     public HumeShieldModuleBase HumeShieldModule
     {
@@ -67,5 +80,28 @@ public class CursedScp939Role : CursedFpcRole
     {
         AmnesticCloudAbility.OnStateEnabled();
         AmnesticCloudAbility.ServerConfirmPlacement(durationSize);
+    }
+
+    public void PlayMimicrySound(byte category, byte sound, int cooldown = 0)
+    {
+        EnvironmentalMimicry._syncCat = category;
+        EnvironmentalMimicry._syncSound = sound;
+        EnvironmentalMimicry.Cooldown.NextUse = NetworkTime.time + cooldown;
+        EnvironmentalMimicry.ServerSendRpc(true);
+    }
+
+    public void SetMimicPoint(Vector3 position)
+    {
+        MimicPointController._syncMessage = MimicPointController.RpcStateMsg.PlacedByUser;
+        MimicPointController._syncPos = new RelativePosition(position);
+        MimicPointController.Active = true;
+        MimicPointController.ServerSendRpc(true);
+    }
+
+    public void RemoveMimicPoint()
+    {
+        MimicPointController._syncMessage = MimicPointController.RpcStateMsg.RemovedByUser;
+        MimicPointController.Active = false;
+        MimicPointController.ServerSendRpc(true);
     }
 }
