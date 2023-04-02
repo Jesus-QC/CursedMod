@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.Reflection.Emit;
 using CursedMod.Events;
 using CursedMod.Features.Wrappers.Player;
+using CursedMod.Features.Wrappers.Player.Dummies;
 using CursedMod.Features.Wrappers.Player.Roles;
 using HarmonyLib;
 using NorthwoodLib.Pools;
@@ -39,6 +40,13 @@ public class InitRolePatch
 
     private static void HandleRoleChange(PlayerRoleBase roleBase, ReferenceHub hub)
     {
+        if (hub.IsDummy())
+        {
+            CursedPlayer dummy = CursedDummy.Dictionary[hub];
+            dummy.CurrentRole = CursedRole.Get(roleBase);
+            return;
+        }
+        
         if (!CursedPlayer.TryGet(hub, out CursedPlayer player))
             return;
         
