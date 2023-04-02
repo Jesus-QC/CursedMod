@@ -6,9 +6,14 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
+using System.ComponentModel;
+
 namespace CursedMod.Loader.Configurations;
 
 public class CursedModConfiguration
 {
     public bool LoadCursedMod { get; set; } = true;
+
+    [Description("Whether or not CursedMod version is shown in the server name")]
+    public bool ShowCursedModVersion { get; set; } = true;
 }

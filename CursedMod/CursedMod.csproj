@@ -160,6 +160,7 @@
         <Compile Include="Features\Extensions\CursedItemExtensions.cs" />
         <Compile Include="Features\Extensions\CursedRoleExtensions.cs" />
         <Compile Include="Features\Logger\CursedLogger.cs" />
+        <Compile Include="Features\Patches\ReloadServerNamePatch.cs" />
         <Compile Include="Features\Patches\Dummies\ClientInstanceModePatch.cs" />
         <Compile Include="Features\Patches\Facility\AmbientSoundPlayerStartPatch.cs" />
         <Compile Include="Features\Patches\Facility\Scp079RecontainerStartPatch.cs" />
