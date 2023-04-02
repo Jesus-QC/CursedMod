@@ -14,6 +14,6 @@ public class CursedModConfiguration
 {
     public bool LoadCursedMod { get; set; } = true;
 
-    [Description("Whether or not CursedMod version is shown in the server name")]
+    [Description("Whether or not CursedMod adds an invisible tracker to the server name.")]
     public bool ShowCursedModVersion { get; set; } = true;
 }

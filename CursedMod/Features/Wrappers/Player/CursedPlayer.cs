@@ -51,6 +51,7 @@ public class CursedPlayer
         ReferenceHub = hub;
         GameObject = ReferenceHub.gameObject;
         Transform = ReferenceHub.transform;
+        CurrentRole = CursedRole.Get(RoleBase);
         
         if (hub == ReferenceHub.HostHub || NetworkConnection.address == "npc")
             return;

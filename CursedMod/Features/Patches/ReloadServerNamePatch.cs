@@ -9,6 +9,7 @@
 using System.Collections.Generic;
 using System.Reflection.Emit;
 using CursedMod.Events;
+
 using CursedMod.Loader;
 using CursedMod.Loader.Configurations;
 using HarmonyLib;
@@ -16,7 +17,8 @@ using NorthwoodLib.Pools;
 
 namespace CursedMod.Features.Patches;
 
-[HarmonyPatch(typeof(ServerConsole), nameof(ServerConsole.ReloadServerName))]
+// todo: disabled until unity 2019
+// [HarmonyPatch(typeof(ServerConsole), nameof(ServerConsole.ReloadServerName))]
 public class ReloadServerNamePatch
 {
     private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
@@ -31,8 +33,10 @@ public class ReloadServerNamePatch
             new (OpCodes.Ldsfld, AccessTools.Field(typeof(EntryPoint), nameof(EntryPoint.ModConfiguration))),
             new (OpCodes.Callvirt, AccessTools.PropertyGetter(typeof(CursedModConfiguration), nameof(CursedModConfiguration.ShowCursedModVersion))),
             new (OpCodes.Brfalse_S, ret),
-
-            new (OpCodes.Ldstr, $"{ServerConsole._serverName}<color=#00000000><size=1>CursedMod {CursedModInformation.Version}</size></color>"),
+            
+            new (OpCodes.Ldsfld, AccessTools.Field(typeof(ServerConsole), nameof(ServerConsole._serverName))),
+            new (OpCodes.Ldstr, $"<size=-1>CursedMod {CursedModInformation.Version}</size>"),
+            new (OpCodes.Call, AccessTools.Method(typeof(string), nameof(string.Concat), new[] { typeof(string), typeof(string) })),
             new (OpCodes.Stsfld, AccessTools.Field(typeof(ServerConsole), nameof(ServerConsole._serverName))),
         });
 

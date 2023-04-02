@@ -162,8 +162,8 @@ public static class CursedServer
 
     public static string ServerName
     {
-        get => ServerConfigSynchronizer.Singleton.ServerName;
-        set => ServerConfigSynchronizer.Singleton.NetworkServerName = value;
+        get => ServerConsole._serverName;
+        set => ServerConsole._serverName = value;
     }
     
     public static HashSet<string> ReservedSlotUsers => ReservedSlot.Users;
