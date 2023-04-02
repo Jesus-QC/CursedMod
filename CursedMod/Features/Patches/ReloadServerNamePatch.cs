@@ -29,11 +29,7 @@ public class ReloadServerNamePatch
             new (OpCodes.Callvirt, AccessTools.PropertyGetter(typeof(CursedModConfiguration), nameof(CursedModConfiguration.ShowCursedModVersion))),
             new (OpCodes.Brfalse_S, ret),
 
-            new (OpCodes.Ldstr, "{0}<color=#00000000><size=1>CursedMod {1}</size></color>"),
-            new (OpCodes.Ldsfld, AccessTools.Field(typeof(ServerConsole), nameof(ServerConsole._serverName))),
-            new (OpCodes.Callvirt, AccessTools.PropertyGetter(typeof(CursedModInformation), nameof(CursedModInformation.Version))),
-
-            new (OpCodes.Call, AccessTools.Method(typeof(string), nameof(string.Format), new[] { typeof(string), typeof(object), typeof(object) })),
+            new (OpCodes.Ldstr, $"{ServerConsole._serverName}<color=#00000000><size=1>CursedMod {CursedModInformation.Version}</size></color>"),
             new (OpCodes.Stsfld, AccessTools.Field(typeof(ServerConsole), nameof(ServerConsole._serverName))),
         });
 
