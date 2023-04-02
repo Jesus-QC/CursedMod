@@ -135,9 +135,8 @@ public static class EventManager
             isDynamicEvent = true;
             
             object value = dynamicEventAttribute.EventInfo.GetValue(null);
-            Delegate[] invocationList = value?.GetType().GetMethod("GetInvocationList")?.Invoke(dynamicEventAttribute.EventInfo.GetValue(null), null) as Delegate[];
 
-            if (invocationList is null)
+            if (value is null)
                 continue;
 
             Harmony.CreateClassProcessor(type).Patch();
