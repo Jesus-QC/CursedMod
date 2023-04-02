@@ -16,6 +16,7 @@ using NorthwoodLib.Pools;
 
 namespace CursedMod.Events.Patches.Items;
 
+[DynamicEventPatch(typeof(ItemsEventsHandler), nameof(ItemsEventsHandler.PlayerPickingUpItem))]
 [HarmonyPatch(typeof(Scp330SearchCompletor), nameof(Scp330SearchCompletor.Complete))]
 public class Scp330SearchCompletePatch
 {

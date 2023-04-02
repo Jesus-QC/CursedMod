@@ -16,6 +16,7 @@ using NorthwoodLib.Pools;
 
 namespace CursedMod.Events.Patches.Achievements;
 
+[DynamicEventPatch(typeof(AchievementsEventsHandler), nameof(AchievementsEventsHandler.PlayerAchieving))]
 [HarmonyPatch(typeof(AchievementHandlerBase), nameof(AchievementHandlerBase.ServerAchieve))]
 public class ServerAchievePatch
 {

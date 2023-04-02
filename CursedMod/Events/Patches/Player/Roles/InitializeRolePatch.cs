@@ -16,6 +16,7 @@ using PlayerRoles;
 
 namespace CursedMod.Events.Patches.Player.Roles;
 
+[DynamicEventPatch(typeof(PlayerEventsHandler), nameof(PlayerEventsHandler.ChangingRole))]
 [HarmonyPatch(typeof(PlayerRoleManager), nameof(PlayerRoleManager.InitializeNewRole))]
 public class InitializeRolePatch
 {

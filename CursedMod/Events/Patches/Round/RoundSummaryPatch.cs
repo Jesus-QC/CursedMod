@@ -26,6 +26,7 @@ using Utils.NonAllocLINQ;
 
 namespace CursedMod.Events.Patches.Round;
 
+[DynamicEventPatch(typeof(RoundEventsHandler), nameof(RoundEventsHandler.RoundEnded))]
 [HarmonyPatch(typeof(RoundSummary), nameof(RoundSummary.Start))]
 public class RoundSummaryPatch
 {

@@ -16,6 +16,7 @@ using NorthwoodLib.Pools;
 
 namespace CursedMod.Events.Patches.Items.Usables;
 
+[DynamicEventPatch(typeof(ItemsEventsHandler), nameof(ItemsEventsHandler.PlayerUsedItem))]
 [HarmonyPatch(typeof(Consumable), nameof(Consumable.ServerOnUsingCompleted))] // Todo: add scp268 scp244 scp1576 and scp330 because they use a different method
 public class UsingCompletedPatch
 {

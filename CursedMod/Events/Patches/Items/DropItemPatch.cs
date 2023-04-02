@@ -16,6 +16,7 @@ using NorthwoodLib.Pools;
 
 namespace CursedMod.Events.Patches.Items;
 
+[DynamicEventPatch(typeof(ItemsEventsHandler), nameof(ItemsEventsHandler.PlayerDroppingItem))]
 [HarmonyPatch(typeof(Inventory), nameof(Inventory.UserCode_CmdDropItem))]
 public class DropItemPatch
 {

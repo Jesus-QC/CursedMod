@@ -31,9 +31,9 @@ internal class EntryPoint
 
         CursedLogger.InternalPrint($"Welcome to CursedMod {CursedModInformation.Version}");
 
-        EventManager.PatchEvents();
-        
         CursedPaths.LoadPaths();
         CursedLoader.LoadAll();
+        
+        EventManager.PatchEvents();
     }
 }

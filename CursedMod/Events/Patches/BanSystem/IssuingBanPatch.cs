@@ -15,6 +15,7 @@ using NorthwoodLib.Pools;
 
 namespace CursedMod.Events.Patches.BanSystem;
 
+[DynamicEventPatch(typeof(BanSystemEventsHandler), nameof(BanSystemEventsHandler.IssuingBan))]
 [HarmonyPatch(typeof(BanHandler), nameof(BanHandler.IssueBan))]
 public class IssuingBanPatch
 {

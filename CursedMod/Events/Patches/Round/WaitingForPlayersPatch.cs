@@ -14,6 +14,7 @@ using NorthwoodLib.Pools;
 
 namespace CursedMod.Events.Patches.Round;
 
+[DynamicEventPatch(typeof(RoundEventsHandler), nameof(RoundEventsHandler.WaitingForPlayers))]
 [HarmonyPatch(typeof(CharacterClassManager), nameof(CharacterClassManager.Init))]
 public class WaitingForPlayersPatch
 {

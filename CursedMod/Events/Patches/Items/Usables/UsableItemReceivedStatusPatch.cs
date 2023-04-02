@@ -16,6 +16,8 @@ using NorthwoodLib.Pools;
 
 namespace CursedMod.Events.Patches.Items.Usables;
 
+[DynamicEventPatch(typeof(ItemsEventsHandler), nameof(ItemsEventsHandler.PlayerCancellingUsable))]
+[DynamicEventPatch(typeof(ItemsEventsHandler), nameof(ItemsEventsHandler.PlayerUsingItem))]
 [HarmonyPatch(typeof(UsableItemsController), nameof(UsableItemsController.ServerReceivedStatus))]
 public class UsableItemReceivedStatusPatch
 {

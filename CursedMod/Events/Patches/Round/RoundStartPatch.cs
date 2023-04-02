@@ -14,6 +14,7 @@ using NorthwoodLib.Pools;
 
 namespace CursedMod.Events.Patches.Round;
 
+[DynamicEventPatch(typeof(RoundEventsHandler), nameof(RoundEventsHandler.RoundStarted))]
 [HarmonyPatch(typeof(CharacterClassManager), nameof(CharacterClassManager.RpcRoundStarted))]
 public class RoundStartPatch
 {

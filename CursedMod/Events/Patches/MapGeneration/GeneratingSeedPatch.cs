@@ -16,10 +16,11 @@ using NorthwoodLib.Pools;
 
 namespace CursedMod.Events.Patches.MapGeneration;
 
+[DynamicEventPatch(typeof(MapGenerationEventsHandler), nameof(MapGenerationEventsHandler.GeneratingSeed))]
 [HarmonyPatch(typeof(SeedSynchronizer), nameof(SeedSynchronizer.Start))]
 public class GeneratingSeedPatch
 {
-    private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
+    private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions)
     {
         List<CodeInstruction> newInstructions = EventManager.CheckEvent<GeneratingSeedPatch>(37, instructions);
 

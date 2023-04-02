@@ -15,6 +15,7 @@ using RoundRestarting;
 
 namespace CursedMod.Events.Patches.Round;
 
+[DynamicEventPatch(typeof(RoundEventsHandler), nameof(RoundEventsHandler.RestartingRound))]
 [HarmonyPatch(typeof(RoundRestart), nameof(RoundRestart.InitiateRoundRestart))]
 public class RestartingRoundPatch
 {

@@ -107,7 +107,7 @@
         <Compile Include="Events\Arguments\Player\PlayerSpawningEventArgs.cs" />
         <Compile Include="Events\Arguments\Respawning\RespawningTeamEventArgs.cs" />
         <Compile Include="Events\Arguments\SCPs\Scp330\PlayerInteractingScp330EventArgs.cs" />
-        <Compile Include="Events\DynamicEventAttribute.cs" />
+        <Compile Include="Events\DynamicEventPatchAttribute.cs" />
         <Compile Include="Events\EventManager.cs" />
         <Compile Include="Events\Handlers\Achievements\AchievementsEventsHandler.cs" />
         <Compile Include="Events\Handlers\Authentication\AuthenticationEventsHandler.cs" />

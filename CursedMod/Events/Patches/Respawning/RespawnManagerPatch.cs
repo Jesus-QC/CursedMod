@@ -16,6 +16,7 @@ using Respawning;
 
 namespace CursedMod.Events.Patches.Respawning;
 
+[DynamicEventPatch(typeof(RespawningEventsHandler), nameof(RespawningEventsHandler.RespawningTeam))]
 [HarmonyPatch(typeof(RespawnManager), nameof(RespawnManager.Spawn))]
 public class RespawnManagerPatch
 {

@@ -18,6 +18,7 @@ using RemoteAdmin;
 
 namespace CursedMod.Events.Patches.CommandSystem;
 
+[DynamicEventPatch(typeof(CommandSystemEventsHandler), nameof(CommandSystemEventsHandler.ExecutingRemoteAdminCommand))]
 [HarmonyPatch(typeof(CommandProcessor), nameof(CommandProcessor.ProcessQuery))]
 public class RaProcessQueryPatch
 {

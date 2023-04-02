@@ -17,6 +17,7 @@ using PlayerRoles.FirstPersonControl.Spawnpoints;
 
 namespace CursedMod.Events.Patches.Player.Roles;
 
+[DynamicEventPatch(typeof(PlayerEventsHandler), nameof(PlayerEventsHandler.Spawning))]
 [HarmonyPatch]
 public class SpawningPlayerPatch
 {

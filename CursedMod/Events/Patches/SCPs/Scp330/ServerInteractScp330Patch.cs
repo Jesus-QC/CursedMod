@@ -16,6 +16,7 @@ using NorthwoodLib.Pools;
 
 namespace CursedMod.Events.Patches.SCPs.Scp330;
 
+[DynamicEventPatch(typeof(Scp330EventsHandler), nameof(Scp330EventsHandler.PlayerInteractingScp330))]
 [HarmonyPatch(typeof(Scp330Interobject), nameof(Scp330Interobject.ServerInteract))]
 public class ServerInteractScp330Patch
 {

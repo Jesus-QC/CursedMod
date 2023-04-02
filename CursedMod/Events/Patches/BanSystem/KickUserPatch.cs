@@ -16,6 +16,7 @@ using NorthwoodLib.Pools;
 
 namespace CursedMod.Events.Patches.BanSystem;
 
+[DynamicEventPatch(typeof(BanSystemEventsHandler), nameof(BanSystemEventsHandler.KickingPlayer))]
 [HarmonyPatch(typeof(BanPlayer), nameof(BanPlayer.KickUser), typeof(ReferenceHub), typeof(ICommandSender), typeof(string))]
 public class KickUserPatch
 {

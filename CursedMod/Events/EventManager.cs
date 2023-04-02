@@ -35,17 +35,26 @@ public static class EventManager
         try
         {
             Stopwatch watch = Stopwatch.StartNew();
-            
+#if !DEBUG            
+            foreach (Type type in Assembly.GetExecutingAssembly().GetTypes())
+            {
+                if (!type.IsClass)
+                    continue;
+                    
+                if (TryDynamicPatching(type))
+                    continue;
+                
+                Harmony.CreateClassProcessor(type).Patch();
+            }
+#else
             Harmony.PatchAll();
-            
-            CursedLogger.InternalPrint("Events patched in " + watch.Elapsed.ToString("c"));
-
-#if DEBUG
             foreach (MethodBase patch in Harmony.GetPatchedMethods())
             {
                 CursedLogger.InternalDebug(patch.DeclaringType + "::" + patch.Name);
             }
 #endif
+            watch.Stop();
+            CursedLogger.InternalPrint("Events patched in " + watch.Elapsed.ToString("c"));
 
             RegisterHookedEvents();
         }
@@ -113,5 +122,28 @@ public static class EventManager
         SceneManager.sceneLoaded += MapGenerationEventsHandler.OnChangingScene;
         SeedSynchronizer.OnMapGenerated += MapGenerationEventsHandler.CacheAPI;
         RagdollManager.OnRagdollSpawned += PlayerEventsHandler.OnRagdollSpawned;
+    }
+    
+    private static bool TryDynamicPatching(Type type)
+    {
+        bool isDynamicEvent = false;
+        foreach (Attribute attribute in type.GetCustomAttributes())
+        {
+            if (attribute is not DynamicEventPatchAttribute dynamicEventAttribute)
+                continue;
+
+            isDynamicEvent = true;
+            
+            object value = dynamicEventAttribute.EventInfo.GetValue(null);
+            Delegate[] invocationList = value?.GetType().GetMethod("GetInvocationList")?.Invoke(dynamicEventAttribute.EventInfo.GetValue(null), null) as Delegate[];
+
+            if (invocationList is null)
+                continue;
+
+            Harmony.CreateClassProcessor(type).Patch();
+            return true;
+        }
+
+        return isDynamicEvent;
     }
 }

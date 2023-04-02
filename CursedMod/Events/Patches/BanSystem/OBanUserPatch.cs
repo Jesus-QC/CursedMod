@@ -16,6 +16,7 @@ using NorthwoodLib.Pools;
 
 namespace CursedMod.Events.Patches.BanSystem;
 
+[DynamicEventPatch(typeof(BanSystemEventsHandler), nameof(BanSystemEventsHandler.BanningOfflinePlayer))]
 [HarmonyPatch(typeof(OfflineBanCommand), nameof(OfflineBanCommand.Execute))]
 public class OBanUserPatch
 {

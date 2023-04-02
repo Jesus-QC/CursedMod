@@ -15,6 +15,7 @@ using NorthwoodLib.Pools;
 
 namespace CursedMod.Events.Patches.Authentication;
 
+[DynamicEventPatch(typeof(AuthenticationEventsHandler), nameof(AuthenticationEventsHandler.CheckingReservedSlot))]
 [HarmonyPatch(typeof(ReservedSlot), nameof(ReservedSlot.HasReservedSlot))]
 public class ReservedSlotCheckPatch
 {

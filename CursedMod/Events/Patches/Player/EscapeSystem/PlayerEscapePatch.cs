@@ -15,6 +15,7 @@ using NorthwoodLib.Pools;
 
 namespace CursedMod.Events.Patches.Player.EscapeSystem;
 
+[DynamicEventPatch(typeof(PlayerEventsHandler), nameof(PlayerEventsHandler.Escaping))]
 [HarmonyPatch(typeof(Escape), nameof(Escape.ServerHandlePlayer))]
 public class PlayerEscapePatch
 {

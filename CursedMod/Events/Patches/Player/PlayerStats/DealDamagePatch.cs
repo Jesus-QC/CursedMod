@@ -15,6 +15,7 @@ using NorthwoodLib.Pools;
 
 namespace CursedMod.Events.Patches.Player.PlayerStats;
 
+[DynamicEventPatch(typeof(PlayerEventsHandler), nameof(PlayerEventsHandler.ReceivingDamage))]
 [HarmonyPatch(typeof(PlayerStatsSystem.PlayerStats), nameof(PlayerStatsSystem.PlayerStats.DealDamage))]
 public class DealDamagePatch
 {
