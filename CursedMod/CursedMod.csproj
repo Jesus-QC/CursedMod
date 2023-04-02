@@ -151,7 +151,6 @@
         <Compile Include="Events\Patches\Round\RoundSummaryPatch.cs" />
         <Compile Include="Events\Patches\Round\WaitingForPlayersPatch.cs" />
         <Compile Include="Events\Patches\SCPs\Scp330\ServerInteractScp330Patch.cs" />
-        <Compile Include="Events\Patches\Server\ReloadServerNamePatch.cs" />
         <Compile Include="Features\Enums\AuthenticationType.cs" />
         <Compile Include="Features\Enums\DoorType.cs" />
         <Compile Include="Features\Enums\LockerType.cs" />
@@ -161,6 +160,7 @@
         <Compile Include="Features\Extensions\CursedItemExtensions.cs" />
         <Compile Include="Features\Extensions\CursedRoleExtensions.cs" />
         <Compile Include="Features\Logger\CursedLogger.cs" />
+        <Compile Include="Features\Patches\ReloadServerNamePatch.cs" />
         <Compile Include="Features\Patches\Dummies\ClientInstanceModePatch.cs" />
         <Compile Include="Features\Patches\Facility\AmbientSoundPlayerStartPatch.cs" />
         <Compile Include="Features\Patches\Facility\Scp079RecontainerStartPatch.cs" />
