@@ -8,12 +8,13 @@
 
 using System.Collections.Generic;
 using System.Reflection.Emit;
+using CursedMod.Events;
 using CursedMod.Loader;
 using CursedMod.Loader.Configurations;
 using HarmonyLib;
 using NorthwoodLib.Pools;
 
-namespace CursedMod.Events.Patches.Server;
+namespace CursedMod.Features.Patches;
 
 [HarmonyPatch(typeof(ServerConsole), nameof(ServerConsole.ReloadServerName))]
 public class ReloadServerNamePatch
@@ -23,9 +24,11 @@ public class ReloadServerNamePatch
         List<CodeInstruction> newInstructions = EventManager.CheckEvent<ReloadServerNamePatch>(6, instructions);
         Label ret = generator.DefineLabel();
 
+        newInstructions[newInstructions.Count - 1].labels.Add(ret);
+        
         newInstructions.InsertRange(newInstructions.Count - 1, new CodeInstruction[]
         {
-            new (OpCodes.Call, AccessTools.Field(typeof(EntryPoint), nameof(EntryPoint.ModConfiguration))),
+            new (OpCodes.Ldsfld, AccessTools.Field(typeof(EntryPoint), nameof(EntryPoint.ModConfiguration))),
             new (OpCodes.Callvirt, AccessTools.PropertyGetter(typeof(CursedModConfiguration), nameof(CursedModConfiguration.ShowCursedModVersion))),
             new (OpCodes.Brfalse_S, ret),
 
