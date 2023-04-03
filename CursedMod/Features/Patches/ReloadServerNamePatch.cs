@@ -9,7 +9,6 @@
 using System.Collections.Generic;
 using System.Reflection.Emit;
 using CursedMod.Events;
-
 using CursedMod.Loader;
 using CursedMod.Loader.Configurations;
 using HarmonyLib;

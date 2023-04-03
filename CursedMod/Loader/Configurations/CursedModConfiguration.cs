@@ -16,4 +16,7 @@ public class CursedModConfiguration
 
     [Description("Whether or not CursedMod adds an invisible tracker to the server name.")]
     public bool ShowCursedModVersion { get; set; } = true;
+
+    [Description("Whether or not CursedMod should use dynamic patching.")]
+    public bool UseDynamicPatching { get; set; } = true;
 }

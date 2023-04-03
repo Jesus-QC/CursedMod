@@ -35,19 +35,26 @@ public static class EventManager
         try
         {
             Stopwatch watch = Stopwatch.StartNew();
-#if !DEBUG            
-            foreach (Type type in Assembly.GetExecutingAssembly().GetTypes())
+#if !DEBUG
+            if (EntryPoint.ModConfiguration.UseDynamicPatching)
             {
-                if (!type.IsClass)
-                    continue;
+                foreach (Type type in Assembly.GetExecutingAssembly().GetTypes())
+                {
+                    if (!type.IsClass)
+                        continue;
                     
-                if (TryDynamicPatching(type))
-                    continue;
+                    if (TryDynamicPatching(type))
+                        continue;
                 
-                Harmony.CreateClassProcessor(type).Patch();
+                    Harmony.CreateClassProcessor(type).Patch();
+                }
+            }
+            else
+            {
+                Harmony.PatchAll();
             }
 #else
-            Harmony.PatchAll();
+            
             foreach (MethodBase patch in Harmony.GetPatchedMethods())
             {
                 CursedLogger.InternalDebug(patch.DeclaringType + "::" + patch.Name);
