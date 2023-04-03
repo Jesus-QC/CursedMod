@@ -12,7 +12,8 @@ coverY: 0
 ## Features
 
 * Rich API
-* Fast maintenance
+* Dynamic Patching
+* Actively Maintained
 * Priority on performance
 * Highly customisable
 
