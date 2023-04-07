@@ -174,6 +174,7 @@
         <Compile Include="Features\Wrappers\Facility\CursedDecontamination.cs" />
         <Compile Include="Features\Wrappers\Facility\CursedFacility.cs" />
         <Compile Include="Features\Wrappers\Facility\CursedRespawnManager.cs" />
+        <Compile Include="Features\Wrappers\Facility\CursedScp914.cs" />
         <Compile Include="Features\Wrappers\Facility\CursedWarhead.cs" />
         <Compile Include="Features\Wrappers\Facility\Doors\CursedAirlockController.cs" />
         <Compile Include="Features\Wrappers\Facility\Doors\CursedBreakableDoor.cs" />
