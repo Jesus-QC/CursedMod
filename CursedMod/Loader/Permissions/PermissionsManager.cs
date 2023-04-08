@@ -44,8 +44,7 @@ public static class PermissionsManager
                     
                     int index = permission.LastIndexOf(".", StringComparison.Ordinal);
                     string perm = permission.Substring(0, index);
-
-                    CursedLogger.LogInformation("4");
+                    
                     permissionsGroup.SpecialPermissions.Add(perm + ".*");
                 }
             }
