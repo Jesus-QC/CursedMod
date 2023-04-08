@@ -15,8 +15,10 @@ using CursedMod.Features.Logger;
 using CursedMod.Loader.Commands;
 using CursedMod.Loader.Modules.Configuration;
 using CursedMod.Loader.Modules.Enums;
+using GameCore;
 using RemoteAdmin;
 using Serialization;
+using Console = System.Console;
 
 namespace CursedMod.Loader.Modules;
 
@@ -119,24 +121,42 @@ public abstract class CursedModule : ICursedModule
 
     public T GetConfig<T>(string name)
     {
-        string configPath = Path.Combine(ModuleDirectory.FullName, name + ".yml");
-
-        if (File.Exists(configPath))
+        try
         {
-            T config = YamlParser.Deserializer.Deserialize<T>(File.ReadAllText(configPath));
-            SaveConfig(config, name); // Updates new properties inside the config
-            return config;
-        }
+            string configPath = Path.Combine(ModuleDirectory.FullName, name + ".yml");
+
+            if (File.Exists(configPath))
+            {
+                T config = YamlParser.Deserializer.Deserialize<T>(File.ReadAllText(configPath));
+                SaveConfig(config, name); // Updates new properties inside the config
+                return config;
+            }
         
-        T newInstance = Activator.CreateInstance<T>();
-        SaveConfig(newInstance, name);
-        return newInstance;
+            T newInstance = Activator.CreateInstance<T>();
+            SaveConfig(newInstance, name);
+            return newInstance;
+        }
+        catch (Exception e)
+        {
+            CursedLogger.LogError("There was an issue while loading a config, exception below:");
+            CursedLogger.LogError(e);
+        }
+
+        return Activator.CreateInstance<T>();
     }
 
     public void SaveConfig<T>(T instance, string name)
     {
-        string path = Path.Combine(ModuleDirectory.FullName, name + ".yml");
-        File.WriteAllText(path, YamlParser.Serializer.Serialize(instance));
+        try
+        {
+            string path = Path.Combine(ModuleDirectory.FullName, name + ".yml");
+            File.WriteAllText(path, YamlParser.Serializer.Serialize(instance));
+        }
+        catch (Exception e)
+        {
+            CursedLogger.LogError("There was an issue while saving a config, exception below:");
+            CursedLogger.LogError(e);
+        }
     }
 
     public override string ToString()

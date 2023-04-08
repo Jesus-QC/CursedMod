@@ -34,9 +34,9 @@ public static class CursedLoader
     public static void LoadAllDependencies()
     {
         CursedLogger.InternalPrint("Loading global dependencies.");
-        LoadDependencies(CursedPaths.GlobalDependenciesPath.GetFiles("*.dll"));
+        LoadDependencies(CursedPaths.GlobalDependencies.GetFiles("*.dll"));
         CursedLogger.InternalPrint("Loading local dependencies.");
-        LoadDependencies(CursedPaths.LocalDependenciesPath.GetFiles("*.dll"));
+        LoadDependencies(CursedPaths.LocalDependencies.GetFiles("*.dll"));
     }
 
     public static void LoadDependencies(IEnumerable<FileInfo> files)
@@ -59,9 +59,9 @@ public static class CursedLoader
     public static void LoadAllModules()
     {
         CursedLogger.InternalPrint("Loading global modules.");
-        LoadModules(CursedPaths.GlobalPluginsPath.GetFiles("*.dll"), ModuleType.Global);
+        LoadModules(CursedPaths.GlobalPlugins.GetFiles("*.dll"), ModuleType.Global);
         CursedLogger.InternalPrint("Loading local modules.");
-        LoadModules(CursedPaths.LocalPluginsPath.GetFiles("*.dll"), ModuleType.Local);
+        LoadModules(CursedPaths.LocalPlugins.GetFiles("*.dll"), ModuleType.Local);
     }
 
     public static void LoadModules(IEnumerable<FileInfo> files, ModuleType moduleType)
@@ -157,7 +157,7 @@ public static class CursedLoader
         {
             module.ModuleType = moduleType;
 
-            DirectoryInfo pluginsDirectory = moduleType == ModuleType.Global ? CursedPaths.GlobalPluginsPath : CursedPaths.LocalPluginsPath;
+            DirectoryInfo pluginsDirectory = moduleType == ModuleType.Global ? CursedPaths.GlobalPlugins : CursedPaths.LocalPlugins;
             module.ModuleDirectory = Directory.CreateDirectory(Path.Combine(pluginsDirectory.FullName, module.ModuleName));
         
             string propertiesPath = Path.Combine(module.ModuleDirectory.FullName, "properties.yml");

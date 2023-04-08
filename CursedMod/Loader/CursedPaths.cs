@@ -14,30 +14,34 @@ namespace CursedMod.Loader;
 
 public static class CursedPaths
 {
-    public static DirectoryInfo MainPath { get; private set; }
+    public static DirectoryInfo Main { get; private set; }
     
-    public static DirectoryInfo GlobalPath { get; private set; }
+    public static DirectoryInfo Global { get; private set; }
     
-    public static DirectoryInfo LocalPath { get; private set; }
+    public static DirectoryInfo Local { get; private set; }
     
-    public static DirectoryInfo GlobalPluginsPath { get; private set; }
+    public static DirectoryInfo GlobalPlugins { get; private set; }
     
-    public static DirectoryInfo GlobalDependenciesPath { get; private set; }
+    public static DirectoryInfo GlobalDependencies { get; private set; }
     
-    public static DirectoryInfo LocalPluginsPath { get; private set; }
+    public static DirectoryInfo LocalPlugins { get; private set; }
 
-    public static DirectoryInfo LocalDependenciesPath { get; private set; }
+    public static DirectoryInfo LocalDependencies { get; private set; }
+    
+    public static FileInfo Permissions { get; private set; }
 
     public static void LoadPaths()
     {
-        MainPath = Directory.CreateDirectory(Path.Combine(Paths.PluginAPI, "CursedMod"));
-        GlobalPath = MainPath.CreateSubdirectory("Global");
-        LocalPath = MainPath.CreateSubdirectory(CursedServer.Port.ToString());
+        Main = Directory.CreateDirectory(Path.Combine(Paths.PluginAPI, "CursedMod"));
+        Global = Main.CreateSubdirectory("Global");
+        Local = Main.CreateSubdirectory(CursedServer.Port.ToString());
 
-        GlobalPluginsPath = GlobalPath.CreateSubdirectory("Plugins");
-        GlobalDependenciesPath = GlobalPath.CreateSubdirectory("Dependencies");
+        GlobalPlugins = Global.CreateSubdirectory("Plugins");
+        GlobalDependencies = Global.CreateSubdirectory("Dependencies");
         
-        LocalPluginsPath = LocalPath.CreateSubdirectory("Plugins");
-        LocalDependenciesPath = LocalPath.CreateSubdirectory("Dependencies");
+        LocalPlugins = Local.CreateSubdirectory("Plugins");
+        LocalDependencies = Local.CreateSubdirectory("Dependencies");
+
+        Permissions = new FileInfo(Path.Combine(Local.FullName, "Permissions.yml"));
     }
 }

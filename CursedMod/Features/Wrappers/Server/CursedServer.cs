@@ -184,6 +184,8 @@ public static class CursedServer
     
     public static string[] StartArguments => StartupArgs.Args;
 
+    public static PermissionsHandler PermissionsHandler => ServerStatic.GetPermissionsHandler();
+    
     public static void RefreshServerName() => ServerConsole.singleton.RefreshServerName();
 
     public static void RefreshServerData() => ServerConsole.singleton.RefreshServerData();

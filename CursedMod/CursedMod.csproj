@@ -120,6 +120,7 @@
         <Compile Include="Events\Handlers\Respawning\RespawningEventsHandler.cs" />
         <Compile Include="Events\Handlers\Round\RoundEventsHandler.cs" />
         <Compile Include="Events\Handlers\SCPs\Scp330\Scp330EventsHandler.cs" />
+        <Compile Include="Events\Handlers\Server\ServerEventsHandler.cs" />
         <Compile Include="Events\Patches\Achievements\ServerAchievePatch.cs" />
         <Compile Include="Events\Patches\Authentication\ReservedSlotCheckPatch.cs" />
         <Compile Include="Events\Patches\BanSystem\BanUserPatch.cs" />
@@ -151,6 +152,7 @@
         <Compile Include="Events\Patches\Round\RoundSummaryPatch.cs" />
         <Compile Include="Events\Patches\Round\WaitingForPlayersPatch.cs" />
         <Compile Include="Events\Patches\SCPs\Scp330\ServerInteractScp330Patch.cs" />
+        <Compile Include="Events\Patches\Server\CreateMatchPatch.cs" />
         <Compile Include="Features\Enums\AuthenticationType.cs" />
         <Compile Include="Features\Enums\DoorType.cs" />
         <Compile Include="Features\Enums\LockerType.cs" />
@@ -251,6 +253,8 @@
         <Compile Include="Loader\Modules\Enums\ModuleType.cs" />
         <Compile Include="Loader\Modules\ICursedModule.cs" />
         <Compile Include="Loader\Modules\CursedModulePriorityComparer.cs" />
+        <Compile Include="Loader\Permissions\PermissionsGroup.cs" />
+        <Compile Include="Loader\Permissions\PermissionsManager.cs" />
         <Compile Include="Properties\AssemblyInfo.cs" />
     </ItemGroup>
     <ItemGroup>
