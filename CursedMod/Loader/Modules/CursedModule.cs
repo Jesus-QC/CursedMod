@@ -15,10 +15,8 @@ using CursedMod.Features.Logger;
 using CursedMod.Loader.Commands;
 using CursedMod.Loader.Modules.Configuration;
 using CursedMod.Loader.Modules.Enums;
-using GameCore;
 using RemoteAdmin;
 using Serialization;
-using Console = System.Console;
 
 namespace CursedMod.Loader.Modules;
 

@@ -9,6 +9,7 @@
 using CursedMod.Features.Wrappers.Player;
 using InventorySystem.Items.Pickups;
 using Mirror;
+using Subtitles;
 
 namespace CursedMod.Features.Wrappers.Facility;
 
@@ -23,6 +24,14 @@ public static class CursedFacility
         foreach (CursedPlayer player in CursedPlayer.Collection)
         {
             player.ShowBroadcast(message, duration, flags);
+        }
+    }
+    
+    public static void ShowSubtitle(SubtitlePart[] subtitleParts)
+    {
+        foreach (CursedPlayer player in CursedPlayer.Collection)
+        {
+            player.ShowSubtitle(subtitleParts);
         }
     }
 

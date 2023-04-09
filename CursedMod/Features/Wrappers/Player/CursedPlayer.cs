@@ -36,6 +36,7 @@ using PlayerStatsSystem;
 using PluginAPI.Core;
 using RemoteAdmin;
 using Security;
+using Subtitles;
 using UnityEngine;
 using Utils.Networking;
 using VoiceChat;
@@ -709,6 +710,8 @@ public class CursedPlayer
     
     public void ShowBroadcast(string message, ushort duration = 5, Broadcast.BroadcastFlags flags = Broadcast.BroadcastFlags.Normal) => CursedFacility.Broadcast.TargetAddElement(NetworkConnection, message, duration, flags);
 
+    public void ShowSubtitle(SubtitlePart[] subtitleParts) => NetworkConnection.Send(new SubtitleMessage(subtitleParts));
+    
     public void SetRole(RoleTypeId role, RoleChangeReason reason = RoleChangeReason.RemoteAdmin, RoleSpawnFlags flags = RoleSpawnFlags.All) => RoleManager.ServerSetRole(role, reason, flags);
 
     public T AddComponent<T>() 
