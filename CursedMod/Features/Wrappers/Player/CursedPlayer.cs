@@ -522,9 +522,9 @@ public class CursedPlayer
 
     public static bool TryGet(ReferenceHub hub, out CursedPlayer player)
     {
-        if (hub is not null && Dictionary.ContainsKey(hub))
+        if (hub is not null && Dictionary.TryGetValue(hub, out CursedPlayer value))
         {
-            player = Dictionary[hub];
+            player = value;
             return true;
         }
 
@@ -833,7 +833,7 @@ public class CursedPlayer
         }
     }
 
-    public void AddItems(List<ItemType> items)
+    public void AddItems(IEnumerable<ItemType> items)
     {
         foreach (ItemType item in items)
         {
@@ -841,7 +841,7 @@ public class CursedPlayer
         }
     }
     
-    public void SetItems(List<ItemType> items)
+    public void SetItems(IEnumerable<ItemType> items)
     {
         ClearItems();
         AddItems(items);
@@ -861,11 +861,10 @@ public class CursedPlayer
         AddAmmo(ammo);
     }
 
-    public void SetInventory(List<ItemType> items, Dictionary<ItemType, ushort> ammo)
+    public void SetInventory(IEnumerable<ItemType> items, Dictionary<ItemType, ushort> ammo)
     {
         SetItems(items);
         SetAmmo(ammo);
-        
     }
     
     public void SendHitMarker(float size = 2.55f) => Hitmarker.SendHitmarker(ReferenceHub, size);
