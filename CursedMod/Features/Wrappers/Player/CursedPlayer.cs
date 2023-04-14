@@ -631,6 +631,11 @@ public class CursedPlayer
         return Items.Values.Select(CursedItem.Get);
     }
 
+    public IEnumerable<ItemType> GetItemTypes()
+    {
+        return Items.Values.Select(x => x.ItemTypeId);
+    }
+
     public void GrantRoleLoadout(RoleTypeId role, bool resetInventory) => InventoryItemProvider.ServerGrantLoadout(ReferenceHub, role, resetInventory);
 
     public void SetStableGroup(string name)
@@ -804,20 +809,65 @@ public class CursedPlayer
     
     public void ClearInventory(bool onlyItems = false)
     {
-        foreach (ItemBase item in Inventory.UserInventory.Items.Values)
-        {
-            RemoveItem(item);
-        }
+        ClearItems();
 
         if (onlyItems)
             return;
         
+        ClearAmmo();
+    }
+
+    public void ClearItems()
+    {
+        foreach (ItemBase item in Inventory.UserInventory.Items.Values)
+        {
+            RemoveItem(item);
+        }
+    }
+
+    public void ClearAmmo()
+    {
         foreach (ItemType item in Inventory.UserInventory.ReserveAmmo.Keys)
         {
             SetAmmo(item, 0);
         }
     }
 
+    public void AddItems(List<ItemType> items)
+    {
+        foreach (ItemType item in items)
+        {
+            AddItemBase(item);
+        }
+    }
+    
+    public void SetItems(List<ItemType> items)
+    {
+        ClearItems();
+        AddItems(items);
+    }
+
+    public void AddAmmo(Dictionary<ItemType, ushort> ammo)
+    {
+        foreach (KeyValuePair<ItemType, ushort> item in ammo)
+        {
+            AddAmmo(item.Key, item.Value);
+        }
+    }
+    
+    public void SetAmmo(Dictionary<ItemType, ushort> ammo)
+    {
+        ClearAmmo();
+        AddAmmo(ammo);
+    }
+
+    public void SetInventory(List<ItemType> items, Dictionary<ItemType, ushort> ammo)
+    {
+        SetItems(items);
+        SetAmmo(ammo);
+        
+    }
+    
     public void SendHitMarker(float size = 2.55f) => Hitmarker.SendHitmarker(ReferenceHub, size);
 
     public void SendWarheadPanelLeverSound() => PlayerInteract.RpcLeverSound();
