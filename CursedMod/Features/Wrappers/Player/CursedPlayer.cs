@@ -99,8 +99,6 @@ public class CursedPlayer
 
     public Dictionary<ushort, ItemBase> Items => Inventory.UserInventory.Items;
 
-    public Dictionary<ItemType, ushort> ReserveAmmo => Inventory.UserInventory.ReserveAmmo;
-
     public SearchCoordinator SearchCoordinator => ReferenceHub.searchCoordinator;
 
     public ServerRoles ServerRoles => ReferenceHub.serverRoles;
@@ -819,7 +817,7 @@ public class CursedPlayer
 
     public void ClearItems()
     {
-        foreach (ItemBase item in Inventory.UserInventory.Items.Values)
+        foreach (ItemBase item in Items.Values.ToArray())
         {
             RemoveItem(item);
         }
@@ -827,7 +825,8 @@ public class CursedPlayer
 
     public void ClearAmmo()
     {
-        foreach (ItemType item in Inventory.UserInventory.ReserveAmmo.Keys)
+        IEnumerable<ItemType> ammoToBeRemoved = Ammo.Keys.ToArray();
+        foreach (ItemType item in Ammo.Keys.ToArray())
         {
             SetAmmo(item, 0);
         }
