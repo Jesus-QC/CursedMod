@@ -201,13 +201,13 @@ public class CursedPlayer
     public Vector3 Position
     {
         get => Transform.position;
-        set => ReferenceHub.TryOverridePosition(value, Vector3.zero);
+        set => SetPositionAndRotation(value, Vector3.zero);
     }
 
     public Vector3 Rotation
     {
         get => Transform.eulerAngles;
-        set => ReferenceHub.TryOverridePosition(Position, value);
+        set => SetPositionAndRotation(Position, value);
     }
 
     public float HorizontalRotation
@@ -640,6 +640,11 @@ public class CursedPlayer
     {
         ServerRoles.SetGroup(ServerStatic.GetPermissionsHandler().GetGroup(name), true);
         ServerStatic.GetPermissionsHandler()._members.SetOrAddElement(UserId, name);
+    }
+    
+    public void SetPositionAndRotation(Vector3 position, Vector3 rotation)
+    {
+        ReferenceHub.TryOverridePosition(position, rotation);
     }
     
     public void Release()
