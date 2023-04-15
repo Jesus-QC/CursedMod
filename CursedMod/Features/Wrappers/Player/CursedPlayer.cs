@@ -735,6 +735,22 @@ public class CursedPlayer
     
     public CursedItem AddItem(ItemType itemType) => CursedItem.Get(AddItemBase(itemType));
 
+    public void AddItem(CursedItem item)
+    {
+        Inventory.UserInventory.Items[item.Serial] = item.Base;
+        Inventory.SendItemsNextFrame = true;
+    }
+    
+    public void SetItems(IEnumerable<CursedItem> items)
+    {
+        ClearItems();
+        
+        foreach (CursedItem item in items)
+        {
+            AddItem(item);
+        }
+    }
+
     public void DropItem(CursedItem item) => Inventory.ServerDropItem(item.Serial);
 
     public void DropItem(ItemBase itemBase) => Inventory.ServerDropItem(itemBase.ItemSerial);
@@ -750,7 +766,25 @@ public class CursedPlayer
     public void RemoveItem(ItemPickupBase pickupBase) => Inventory.ServerRemoveItem(pickupBase.Info.Serial, pickupBase);
 
     public void RemoveItem(CursedPickup pickup) => Inventory.ServerRemoveItem(pickup.Serial, pickup.Base);
+
+    public void RemoveItemWithoutDestroying(CursedItem cursedItem) => RemoveItemWithoutDestroying(cursedItem.Base);
     
+    public void RemoveItemWithoutDestroying(ItemBase itemBase)
+    {
+        if (itemBase.ItemSerial == Inventory.CurItem.SerialNumber)
+        {
+            Inventory.NetworkCurItem = ItemIdentifier.None;
+        }
+        
+        if (itemBase is IAcquisitionConfirmationTrigger acquisitionConfirmationTrigger)
+        {
+            acquisitionConfirmationTrigger.AcquisitionAlreadyReceived = false;
+        }
+        
+        Inventory.UserInventory.Items.Remove(itemBase.ItemSerial);
+        Inventory.SendItemsNextFrame = true;
+    }
+
     public ushort GetAmmo(ItemType ammoType) => Inventory.GetCurAmmo(ammoType);
     
     public void SetAmmo(ItemType itemType, ushort amount) => Inventory.ServerSetAmmo(itemType, amount);
@@ -821,6 +855,25 @@ public class CursedPlayer
         {
             RemoveItem(item);
         }
+    }
+    
+    public IEnumerable<CursedItem> ClearItemsWithoutDestroying()
+    {
+        IEnumerable<CursedItem> items = GetItems().ToArray();
+
+        foreach (CursedItem item in items)
+        {
+            if (item.Base is IAcquisitionConfirmationTrigger acquisitionConfirmationTrigger)
+            {
+                acquisitionConfirmationTrigger.AcquisitionAlreadyReceived = false;
+            }
+        }
+        
+        Inventory.NetworkCurItem = ItemIdentifier.None;
+        Inventory.UserInventory.Items.Clear(); 
+        Inventory.SendItemsNextFrame = true;
+
+        return items;
     }
 
     public void ClearAmmo()
