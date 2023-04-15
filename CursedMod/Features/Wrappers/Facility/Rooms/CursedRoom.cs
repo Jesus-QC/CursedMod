@@ -12,6 +12,7 @@ using CursedMod.Features.Wrappers.Facility.Doors;
 using Interactables.Interobjects.DoorUtils;
 using MapGeneration;
 using UnityEngine;
+using FacilityZone = MapGeneration.FacilityZone;
 
 namespace CursedMod.Features.Wrappers.Facility.Rooms;
 
@@ -52,6 +53,23 @@ public class CursedRoom
     public static IEnumerable<CursedRoom> GetAllRooms() => Dictionary.Values;
 
     public static CursedRoom Get(RoomIdentifier roomIdentifier) => Dictionary.ContainsKey(roomIdentifier) ? Dictionary[roomIdentifier] : new CursedRoom(roomIdentifier);
+
+    public static bool TryGet(RoomName roomName, out CursedRoom room)
+    {
+        foreach (CursedRoom r in GetAllRooms())
+        {
+            if (r.Name != roomName)
+                continue;
+
+            room = r;
+            return true;
+        }
+
+        room = null;
+        return false;
+    }
+    
+    public static CursedRoom Get(RoomName roomName) => TryGet(roomName, out CursedRoom room) ? room : null;
     
     public IEnumerable<CursedDoor> GetDoors() => DoorVariant.DoorsByRoom.ContainsKey(Room) ? DoorVariant.DoorsByRoom[Room].Select(CursedDoor.Get) : Enumerable.Empty<CursedDoor>();
 
