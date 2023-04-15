@@ -15,6 +15,7 @@ using CursedMod.Features.Wrappers.Inventory.Pickups.Usables;
 using CursedMod.Features.Wrappers.Player;
 using CursedMod.Features.Wrappers.Server;
 using InventorySystem;
+using InventorySystem.Items;
 using InventorySystem.Items.Firearms;
 using InventorySystem.Items.Firearms.Ammo;
 using InventorySystem.Items.MicroHID;
@@ -126,9 +127,28 @@ public class CursedPickup
         };
     }
 
-    public static CursedPickup Create(ItemType type, PickupSyncInfo pickupSyncInfo, bool spawn = true) => Get(CursedServer.LocalPlayer.Inventory.ServerCreatePickup(CursedServer.LocalPlayer.AddItemBase(type), pickupSyncInfo, spawn));
+    public static CursedPickup Create(ItemType type, Vector3? position = null, Vector3? rotation = null, bool spawn = true)
+    {
+        ItemBase itemBase = CursedServer.LocalPlayer.AddItemBase(type);
 
-    public static CursedPickup Create(ItemType type, bool spawn = true) => Create(type, PickupSyncInfo.None, spawn);
+        PickupSyncInfo pickupSyncInfo = new ()
+        {
+            ItemId = type,
+            Weight = itemBase.Weight,
+            Serial = ItemSerialGenerator.GenerateNext(),
+        };
+
+        ItemPickupBase pickupBase = CursedServer.LocalPlayer.Inventory.ServerCreatePickup(itemBase, pickupSyncInfo, spawn);
+
+        if (position.HasValue)
+            pickupBase.transform.position = position.Value;
+        if (rotation.HasValue)
+            pickupBase.transform.eulerAngles = rotation.Value;
+        
+        pickupBase.RefreshPositionAndRotation();
+
+        return Get(pickupBase);
+    }
     
     public GameObject Spawn()
     {

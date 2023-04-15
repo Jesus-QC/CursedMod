@@ -8,8 +8,11 @@
 
 using System.Collections.Generic;
 using System.Linq;
+using CursedMod.Features.Wrappers.Server;
 using Mirror;
 using PlayerRoles;
+using PlayerRoles.Ragdolls;
+using PlayerStatsSystem;
 using UnityEngine;
 
 namespace CursedMod.Features.Wrappers.Player.Ragdolls;
@@ -43,6 +46,31 @@ public class CursedRagdoll
     public Vector3 Position => Base.gameObject.transform.position;
 
     public RagdollData Data => Base.Info;
+
+    public static CursedRagdoll Create(RoleTypeId role, string reason, Vector3 position, Vector3 rotation)
+    {
+        if (!PlayerRoleLoader.TryGetRoleTemplate(role, out PlayerRoleBase roleBase))
+            return null;
+        
+        if (roleBase is not IRagdollRole ragdollRole)
+            return null;
+        
+        GameObject gameObject = Object.Instantiate(ragdollRole.Ragdoll.gameObject);
+
+        if (gameObject.TryGetComponent(out BasicRagdoll basicRagdoll))
+        {
+            Transform transform = ragdollRole.Ragdoll.transform;
+            basicRagdoll.NetworkInfo = new RagdollData(CursedServer.LocalPlayer.ReferenceHub, new CustomReasonDamageHandler(reason), position, transform.localRotation);
+        }
+        else
+        {
+            basicRagdoll = null;
+        }
+        
+        NetworkServer.Spawn(gameObject);
+        
+        return Get(basicRagdoll);
+    }
 
     public static CursedRagdoll Get(BasicRagdoll basicRagdoll) => Dictionary.ContainsKey(basicRagdoll) ? Dictionary[basicRagdoll] : new CursedRagdoll(basicRagdoll);
 
