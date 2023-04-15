@@ -29,6 +29,7 @@ using InventorySystem.Disarming;
 using InventorySystem.Items;
 using InventorySystem.Items.Pickups;
 using InventorySystem.Searching;
+using JetBrains.Annotations;
 using Mirror;
 using PlayerRoles;
 using PlayerRoles.FirstPersonControl;
@@ -39,6 +40,7 @@ using Security;
 using Subtitles;
 using UnityEngine;
 using Utils.Networking;
+using Utils.NonAllocLINQ;
 using VoiceChat;
 
 namespace CursedMod.Features.Wrappers.Player;
@@ -325,6 +327,95 @@ public class CursedPlayer
         get => CharacterClassManager._centralAuthInt;
         set => CharacterClassManager._centralAuthInt = value;
     }
+
+    public float Health
+    {
+        get => HealthStat.CurValue;
+        set => HealthStat.CurValue = value;
+    }
+
+    public float MaxHealth => HealthStat.MaxValue;
+
+    public float MinHealth => HealthStat.MinValue;
+
+    public float HumeShield
+    {
+        get => HumeShieldStat.CurValue;
+        set => HumeShieldStat.CurValue = value;
+    }
+    
+    public float MaxHumeShield => HumeShieldStat.MaxValue;
+
+    public float MinHumeShield => HumeShieldStat.MinValue;
+
+    public AhpStat.AhpProcess ArtificialHealthProcess => AhpStat._activeProcesses.Count == 0 ? null : AhpStat._activeProcesses[0];
+
+    public float ArtificialHealth
+    {
+        get => ArtificialHealthProcess?.CurrentAmount ?? 0;
+
+        set
+        {
+            if (ArtificialHealthProcess is null)
+                return;
+
+            ArtificialHealthProcess.CurrentAmount = value;
+        }
+    }
+    
+    public float ArtificialHealthLimit
+    {
+        get => ArtificialHealthProcess?.Limit ?? 0;
+
+        set
+        {
+            if (ArtificialHealthProcess is null)
+                return;
+
+            ArtificialHealthProcess.Limit = value;
+        }
+    }
+    
+    public float ArtificialHealthDecayRate
+    {
+        get => ArtificialHealthProcess?.DecayRate ?? 0;
+
+        set
+        {
+            if (ArtificialHealthProcess is null)
+                return;
+
+            ArtificialHealthProcess.DecayRate = value;
+        }
+    }
+    
+    public float ArtificialHealthEfficacy
+    {
+        get => ArtificialHealthProcess?.Efficacy ?? 0;
+
+        set
+        {
+            if (ArtificialHealthProcess is null)
+                return;
+
+            ArtificialHealthProcess.Efficacy = value;
+        }
+    }
+    
+    public float ArtificialHealthSustainTime
+    {
+        get => ArtificialHealthProcess?.SustainTime ?? 0;
+
+        set
+        {
+            if (ArtificialHealthProcess is null)
+                return;
+
+            ArtificialHealthProcess.SustainTime = value;
+        }
+    }
+    
+    public bool IsArtificialHealthPersistant => ArtificialHealthProcess?.Persistant ?? false;
 
     public RoleTypeId Role
     {
@@ -800,6 +891,8 @@ public class CursedPlayer
 
     public void DropEverything() => Inventory.ServerDropEverything();
 
+    public void Heal(float amount) => HealthStat.ServerHeal(amount);
+    
     public void Mute(bool isTemporary = true)
     {
         if (isTemporary)
