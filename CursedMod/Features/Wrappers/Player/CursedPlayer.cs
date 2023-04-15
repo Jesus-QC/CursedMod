@@ -825,7 +825,6 @@ public class CursedPlayer
 
     public void ClearAmmo()
     {
-        IEnumerable<ItemType> ammoToBeRemoved = Ammo.Keys.ToArray();
         foreach (ItemType item in Ammo.Keys.ToArray())
         {
             SetAmmo(item, 0);
