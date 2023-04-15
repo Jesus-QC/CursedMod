@@ -29,7 +29,6 @@ using InventorySystem.Disarming;
 using InventorySystem.Items;
 using InventorySystem.Items.Pickups;
 using InventorySystem.Searching;
-using JetBrains.Annotations;
 using Mirror;
 using PlayerRoles;
 using PlayerRoles.FirstPersonControl;
@@ -40,7 +39,6 @@ using Security;
 using Subtitles;
 using UnityEngine;
 using Utils.Networking;
-using Utils.NonAllocLINQ;
 using VoiceChat;
 
 namespace CursedMod.Features.Wrappers.Player;
