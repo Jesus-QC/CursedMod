@@ -48,6 +48,8 @@ public static class PermissionsManager
                     permissionsGroup.SpecialPermissions.Add(perm + ".*");
                 }
             }
+            
+            AddMissingGroups();
         }
         catch (Exception e)
         {
@@ -57,6 +59,25 @@ public static class PermissionsManager
         }
     }
 
+    public static void AddMissingGroups()
+    {
+        if (!PermissionsByGroup.ContainsKey("default"))
+            PermissionsByGroup.Add("default", new PermissionsGroup());
+        
+        foreach (string group in CursedServer.PermissionsHandler._groups.Keys)
+        {
+            if (PermissionsByGroup.ContainsKey(group))
+                continue;
+                
+            PermissionsByGroup.Add(group, new PermissionsGroup
+            {
+                InheritedGroups = new[] { "default" },
+            });
+        }
+        
+        File.WriteAllText(CursedPaths.Permissions.FullName, YamlParser.Serializer.Serialize(PermissionsByGroup));
+    }
+    
     public static void LoadDefaultPermissions(bool save = true)
     {
         CursedLogger.InternalDebug("Loading default permissions...");
