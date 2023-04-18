@@ -75,7 +75,7 @@ public class CursedPlayer
     
     public Transform Transform { get; internal set; }
 
-    public PlayerSharedStorage SharedStorage { get; } = new ();
+    public DataStorage DataStorage { get; } = new ();
 
     public AuthenticationType AuthenticationType { get; private set; }
     
