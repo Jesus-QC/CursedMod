@@ -57,8 +57,8 @@ public static class CursedServer
 
     public static bool IsFriendlyFireEnabled
     {
-        get => ServerConsole.FriendlyFire;
-        set => ServerConsole.FriendlyFire = value;
+        get => PluginAPI.Core.Server.FriendlyFire;
+        set => PluginAPI.Core.Server.FriendlyFire = value;
     }
 
     public static bool IsWhitelistEnabled
