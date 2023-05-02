@@ -20,9 +20,9 @@ public class PlayerDisconnectPatch
 {
     private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions)
     {
-        List<CodeInstruction> newInstructions = EventManager.CheckEvent<PlayerDisconnectPatch>(45, instructions);
+        List<CodeInstruction> newInstructions = EventManager.CheckEvent<PlayerDisconnectPatch>(50, instructions);
 
-        newInstructions.InsertRange(newInstructions.FindIndex(x => x.opcode == OpCodes.Pop) + 1, new CodeInstruction[]
+        newInstructions.InsertRange(0, new CodeInstruction[]
         {
             new (OpCodes.Ldarg_1),
             new (OpCodes.Newobj, AccessTools.GetDeclaredConstructors(typeof(PlayerDisconnectedEventArgs))[0]),
