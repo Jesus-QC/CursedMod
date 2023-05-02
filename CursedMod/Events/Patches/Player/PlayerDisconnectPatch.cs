@@ -20,7 +20,7 @@ public class PlayerDisconnectPatch
 {
     private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions)
     {
-        List<CodeInstruction> newInstructions = EventManager.CheckEvent<PlayerDisconnectPatch>(50, instructions);
+        List<CodeInstruction> newInstructions = EventManager.CheckEvent<PlayerDisconnectPatch>(45, instructions);
 
         newInstructions.InsertRange(0, new CodeInstruction[]
         {
