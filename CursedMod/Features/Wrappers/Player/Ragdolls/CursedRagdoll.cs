@@ -47,7 +47,9 @@ public class CursedRagdoll
 
     public RagdollData Data => Base.Info;
 
-    public static CursedRagdoll Create(RoleTypeId role, string reason, Vector3 position, Vector3 rotation)
+    public static CursedRagdoll Create(RoleTypeId role, string reason, Vector3 position, Vector3 rotation) => Create(role, new CustomReasonDamageHandler(reason), position, rotation);
+
+    public static CursedRagdoll Create(RoleTypeId role, DamageHandlerBase damageHandler, Vector3 position, Vector3 rotation)
     {
         if (!PlayerRoleLoader.TryGetRoleTemplate(role, out PlayerRoleBase roleBase))
             return null;
@@ -59,8 +61,7 @@ public class CursedRagdoll
 
         if (gameObject.TryGetComponent(out BasicRagdoll basicRagdoll))
         {
-            Transform transform = ragdollRole.Ragdoll.transform;
-            basicRagdoll.NetworkInfo = new RagdollData(CursedServer.LocalPlayer.ReferenceHub, new CustomReasonDamageHandler(reason), position, transform.localRotation);
+            basicRagdoll.NetworkInfo = new RagdollData(CursedServer.LocalPlayer.ReferenceHub, damageHandler, position, Quaternion.Euler(rotation));
         }
         else
         {
