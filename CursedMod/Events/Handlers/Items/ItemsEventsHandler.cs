@@ -28,43 +28,77 @@ public static class ItemsEventsHandler
     
     public static event EventManager.CursedEventHandler<PlayerThrowingItemEventArgs> PlayerThrowingItem;
     
+    public static event EventManager.CursedEventHandler<PlayerShootingEventArgs> PlayerShooting;
+    
     internal static void OnPlayerPickingUpItem(PlayerPickingUpItemEventArgs args)
     {
+        if (!args.Player.CheckPlayer())
+            return;
+        
         PlayerPickingUpItem.InvokeEvent(args);
     }
     
     internal static void OnPlayerPickedUpItem(PlayerPickedUpItemEventArgs args)
     {
+        if (!args.Player.CheckPlayer())
+            return;
+        
         PlayerPickedUpItem.InvokeEvent(args);
     }
     
     internal static void OnPlayerDroppingItem(PlayerDroppingItemEventArgs args)
     {
+        if (!args.Player.CheckPlayer())
+            return;
+        
         PlayerDroppingItem.InvokeEvent(args);
     }
     
     internal static void OnPlayerCancellingThrow(PlayerCancellingThrowEventArgs args)
     {
+        if (!args.Player.CheckPlayer())
+            return;
+        
         PlayerCancellingThrow.InvokeEvent(args);
     }
     
     internal static void OnPlayerCancellingUsable(PlayerCancellingUsableEventArgs args)
     {
+        if (!args.Player.CheckPlayer())
+            return;
+        
         PlayerCancellingUsable.InvokeEvent(args);
     }
     
     internal static void OnPlayerUsingItem(PlayerUsingItemEventArgs args)
     {
+        if (!args.Player.CheckPlayer())
+            return;
+        
         PlayerUsingItem.InvokeEvent(args);
     }
     
     internal static void OnPlayerUsedItem(PlayerUsedItemEventArgs args)
     {
+        if (!args.Player.CheckPlayer())
+            return;
+        
         PlayerUsedItem.InvokeEvent(args);
     }
     
     internal static void OnPlayerThrowingItem(PlayerThrowingItemEventArgs args)
     {
+        if (!args.Player.CheckPlayer())
+            return;
+        
         PlayerThrowingItem.InvokeEvent(args);
+    }
+    
+    internal static void OnPlayerShooting(PlayerShootingEventArgs args)
+    {
+        if (!args.Player.CheckPlayer())
+            return;
+        
+        PlayerShooting.InvokeEvent(args);
     }
 }

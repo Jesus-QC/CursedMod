@@ -32,7 +32,7 @@ public static class PlayerEventsHandler
 
     internal static void OnPlayerJoined(PlayerJoinedEventArgs args)
     {
-        if (!CheckPlayer(args.Player))
+        if (!args.Player.CheckPlayer())
             return;
         
         Joined.InvokeEvent(args);
@@ -40,7 +40,7 @@ public static class PlayerEventsHandler
 
     internal static void OnPlayerDisconnected(PlayerDisconnectedEventArgs args)
     {
-        if (!CheckPlayer(args.Player))
+        if (!args.Player.CheckPlayer())
             return;
         
         Disconnected.InvokeEvent(args); 
@@ -50,7 +50,7 @@ public static class PlayerEventsHandler
 
     internal static void OnPlayerChangingRole(PlayerChangingRoleEventArgs args)
     {
-        if (!CheckPlayer(args.Player))
+        if (!args.Player.CheckPlayer())
             return;
         
         ChangingRole.InvokeEvent(args);
@@ -58,7 +58,7 @@ public static class PlayerEventsHandler
 
     internal static void OnPlayerSpawning(PlayerSpawningEventArgs args)
     {
-        if (!CheckPlayer(args.Player))
+        if (!args.Player.CheckPlayer())
             return;
         
         Spawning.InvokeEvent(args);
@@ -66,7 +66,7 @@ public static class PlayerEventsHandler
 
     internal static void OnPlayerReceivingDamage(PlayerReceivingDamageEventArgs args)
     {
-        if (!CheckPlayer(args.Player))
+        if (!args.Player.CheckPlayer())
             return;
         
         ReceivingDamage.InvokeEvent(args);
@@ -74,7 +74,7 @@ public static class PlayerEventsHandler
     
     internal static void OnPlayerDying(PlayerDyingEventArgs args)
     {
-        if (!CheckPlayer(args.Player))
+        if (!args.Player.CheckPlayer())
             return;
         
         Dying.InvokeEvent(args);
@@ -82,7 +82,7 @@ public static class PlayerEventsHandler
     
     internal static void OnPlayerEscaping(PlayerEscapingEventArgs args)
     {
-        if (!CheckPlayer(args.Player))
+        if (!args.Player.CheckPlayer())
             return;
         
         Escaping.InvokeEvent(args);
@@ -92,6 +92,4 @@ public static class PlayerEventsHandler
     {
         RagdollSpawned.InvokeEvent(new RagdollSpawnedEventArgs(ragdoll));
     }
-
-    private static bool CheckPlayer(CursedPlayer player) => player is not null && !player.IsDummy;
 }

@@ -94,6 +94,7 @@
         <Compile Include="Events\Arguments\Items\PlayerDroppingItemEventArgs.cs" />
         <Compile Include="Events\Arguments\Items\PlayerPickedUpItemEventArgs.cs" />
         <Compile Include="Events\Arguments\Items\PlayerPickingUpItemEventArgs.cs" />
+        <Compile Include="Events\Arguments\Items\PlayerShootingEventArgs.cs" />
         <Compile Include="Events\Arguments\Items\PlayerThrowingItemEventArgs.cs" />
         <Compile Include="Events\Arguments\Items\PlayerUsedItemEventArgs.cs" />
         <Compile Include="Events\Arguments\Items\PlayerUsingItemEventArgs.cs" />
@@ -136,6 +137,7 @@
         <Compile Include="Events\Patches\Items\Scp244SearchCompletePatch.cs" />
         <Compile Include="Events\Patches\Items\Scp330SearchCompletePatch.cs" />
         <Compile Include="Events\Patches\Items\ServerAddItemPatch.cs" />
+        <Compile Include="Events\Patches\Items\ShotReceivedPatch.cs" />
         <Compile Include="Events\Patches\Items\ThrowableProjectiles\ServerProcessCancellationPatch.cs" />
         <Compile Include="Events\Patches\Items\ThrowableProjectiles\ServerThrowPatch.cs" />
         <Compile Include="Events\Patches\Items\Usables\UsableItemReceivedStatusPatch.cs" />

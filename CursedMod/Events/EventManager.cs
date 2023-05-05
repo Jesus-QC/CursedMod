@@ -13,6 +13,7 @@ using System.Reflection;
 using CursedMod.Events.Handlers.MapGeneration;
 using CursedMod.Events.Handlers.Player;
 using CursedMod.Features.Logger;
+using CursedMod.Features.Wrappers.Player;
 using HarmonyLib;
 using MapGeneration;
 using NorthwoodLib.Pools;
@@ -152,4 +153,6 @@ public static class EventManager
 
         return isDynamicEvent;
     }
+    
+    internal static bool CheckPlayer(this CursedPlayer player) => player is not null && !player.IsDummy;
 }
