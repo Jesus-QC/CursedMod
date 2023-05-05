@@ -46,9 +46,9 @@ public class CursedRagdoll
 
     public RagdollData Data => Base.Info;
 
-    public static CursedRagdoll Create(RoleTypeId role, string reason, Vector3 position, Vector3 rotation) => Create(role, new CustomReasonDamageHandler(reason), position, rotation);
+    public static CursedRagdoll Create(RoleTypeId role, string reason, Vector3 position, Vector3 rotation, bool spawn = true) => Create(role, new CustomReasonDamageHandler(reason), position, rotation, spawn);
 
-    public static CursedRagdoll Create(RoleTypeId role, DamageHandlerBase damageHandler, Vector3 position, Vector3 rotation)
+    public static CursedRagdoll Create(RoleTypeId role, DamageHandlerBase damageHandler, Vector3 position, Vector3 rotation, bool spawn = true)
     {
         if (!PlayerRoleLoader.TryGetRoleTemplate(role, out PlayerRoleBase roleBase))
             return null;
@@ -67,7 +67,8 @@ public class CursedRagdoll
             basicRagdoll = null;
         }
         
-        NetworkServer.Spawn(gameObject);
+        if (spawn)
+            NetworkServer.Spawn(gameObject);
         
         return Get(basicRagdoll);
     }
@@ -78,5 +79,7 @@ public class CursedRagdoll
 
     public void CleanUp() => Base.OnCleanup();
 
+    public void Spawn() => NetworkServer.Spawn(Base.gameObject);
+    
     public void Destroy() => NetworkServer.Destroy(Base.gameObject);
 }
