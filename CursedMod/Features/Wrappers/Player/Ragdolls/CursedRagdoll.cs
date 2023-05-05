@@ -11,7 +11,6 @@ using System.Linq;
 using CursedMod.Features.Wrappers.Server;
 using Mirror;
 using PlayerRoles;
-using PlayerRoles.Ragdolls;
 using PlayerStatsSystem;
 using UnityEngine;
 
