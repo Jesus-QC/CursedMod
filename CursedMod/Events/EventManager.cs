@@ -125,6 +125,8 @@ public static class EventManager
         return newInstructions;
     }
 
+    internal static bool CheckPlayer(this CursedPlayer player) => player is not null && !player.IsDummy;
+    
     private static void RegisterHookedEvents()
     {
         SceneManager.sceneLoaded += MapGenerationEventsHandler.OnChangingScene;
@@ -153,6 +155,4 @@ public static class EventManager
 
         return isDynamicEvent;
     }
-    
-    internal static bool CheckPlayer(this CursedPlayer player) => player is not null && !player.IsDummy;
 }
