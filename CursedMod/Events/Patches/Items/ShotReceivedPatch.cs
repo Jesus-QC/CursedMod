@@ -16,6 +16,7 @@ using NorthwoodLib.Pools;
 
 namespace CursedMod.Events.Patches.Items;
 
+[DynamicEventPatch(typeof(ItemsEventsHandler), nameof(ItemsEventsHandler.PlayerShooting))]
 [HarmonyPatch(typeof(FirearmBasicMessagesHandler), nameof(FirearmBasicMessagesHandler.ServerShotReceived))]
 public class ShotReceivedPatch
 {
