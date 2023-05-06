@@ -110,6 +110,7 @@
         <Compile Include="Events\Arguments\Player\PlayerSpawningEventArgs.cs" />
         <Compile Include="Events\Arguments\Respawning\RespawningTeamEventArgs.cs" />
         <Compile Include="Events\Arguments\SCPs\Scp049\PlayerFinishReviveEventArgs.cs" />
+        <Compile Include="Events\Arguments\SCPs\Scp049\PlayerSensingEventArgs.cs" />
         <Compile Include="Events\Arguments\SCPs\Scp049\PlayerStartReviveEventArgs.cs" />
         <Compile Include="Events\Arguments\SCPs\Scp106\PlayerStalkingEventArgs.cs" />
         <Compile Include="Events\Arguments\SCPs\Scp106\PlayerUseHunterAtlasEventArgs.cs" />
@@ -168,6 +169,7 @@
         <Compile Include="Events\Patches\Round\WaitingForPlayersPatch.cs" />
         <Compile Include="Events\Patches\SCPs\Scp049\RevivedPatch.cs" />
         <Compile Include="Events\Patches\SCPs\Scp049\RevivingPatch.cs" />
+        <Compile Include="Events\Patches\SCPs\Scp049\SensePlayerPatch.cs" />
         <Compile Include="Events\Patches\SCPs\Scp106\HuntersAtlasPatch.cs" />
         <Compile Include="Events\Patches\SCPs\Scp106\StalkAbilityPatch.cs" />
         <Compile Include="Events\Patches\SCPs\Scp173\PlaceTantrumPatch.cs" />
