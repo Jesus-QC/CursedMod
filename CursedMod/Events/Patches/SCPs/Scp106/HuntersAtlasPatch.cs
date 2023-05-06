@@ -7,11 +7,9 @@
 // -----------------------------------------------------------------------
 
 using System.Collections.Generic;
-using System.Reflection;
 using System.Reflection.Emit;
 using CursedMod.Events.Arguments.SCPs.Scp106;
 using CursedMod.Events.Handlers.SCPs.Scp106;
-using CursedMod.Features.Logger;
 using HarmonyLib;
 using NorthwoodLib.Pools;
 using PlayerRoles.PlayableScps.Scp106;
