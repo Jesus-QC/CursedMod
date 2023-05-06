@@ -7,9 +7,11 @@
 // -----------------------------------------------------------------------
 
 using System.Collections.Generic;
+using System.Reflection;
 using System.Reflection.Emit;
 using CursedMod.Events.Arguments.SCPs.Scp106;
 using CursedMod.Events.Handlers.SCPs.Scp106;
+using CursedMod.Features.Logger;
 using HarmonyLib;
 using NorthwoodLib.Pools;
 using PlayerRoles.PlayableScps.Scp106;
@@ -26,19 +28,18 @@ public class HuntersAtlasPatch
         
         Label returnLabel = generator.DefineLabel();
 
-        const int offset = -2;
-        int index = newInstructions.FindIndex(i => i.opcode == OpCodes.Stfld) + offset;
-
+        int index = newInstructions.FindIndex(i => i.opcode == OpCodes.Ret);
+        
         newInstructions.InsertRange(index, new CodeInstruction[]
         {
-            new (OpCodes.Ldarg_0),
+            new CodeInstruction(OpCodes.Ldarg_0).MoveLabelsFrom(newInstructions[index]),
             new (OpCodes.Newobj, AccessTools.GetDeclaredConstructors(typeof(PlayerUseHunterAtlasEventArgs))[0]),
             new (OpCodes.Dup),
             new (OpCodes.Call, AccessTools.Method(typeof(Scp106EventsHandler), nameof(Scp106EventsHandler.OnPlayerUseHunterAtlas))),
             new (OpCodes.Callvirt, AccessTools.PropertyGetter(typeof(PlayerUseHunterAtlasEventArgs), nameof(PlayerUseHunterAtlasEventArgs.IsAllowed))),
             new (OpCodes.Brfalse_S, returnLabel),
         });
-        
+
         newInstructions[newInstructions.Count - 1].labels.Add(returnLabel);
 
         foreach (var instruction in newInstructions)
