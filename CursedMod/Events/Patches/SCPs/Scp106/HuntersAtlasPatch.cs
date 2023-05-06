@@ -17,17 +17,17 @@ using PlayerRoles.PlayableScps.Scp106;
 namespace CursedMod.Events.Patches.SCPs.Scp106;
 
 [DynamicEventPatch(typeof(Scp106EventsHandler), nameof(Scp106EventsHandler.PlayerUseHunterAtlas))]
-[HarmonyPatch(typeof(Scp106HuntersAtlasAbility), nameof(Scp106HuntersAtlasAbility.ServerProcessCmd))]
+[HarmonyPatch(typeof(Scp106HuntersAtlasAbility), nameof(Scp106HuntersAtlasAbility.SetSubmerged), typeof(bool))]
 public class HuntersAtlasPatch
 {
     private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
     {
-        List<CodeInstruction> newInstructions = EventManager.CheckEvent<HuntersAtlasPatch>(85, instructions);
+        List<CodeInstruction> newInstructions = EventManager.CheckEvent<HuntersAtlasPatch>(25, instructions);
         
         Label returnLabel = generator.DefineLabel();
 
-        const int offset = -1;
-        int index = newInstructions.FindIndex(i => i.opcode == OpCodes.Ldc_I4_1) + offset;
+        const int offset = -2;
+        int index = newInstructions.FindIndex(i => i.opcode == OpCodes.Stfld) + offset;
 
         newInstructions.InsertRange(index, new CodeInstruction[]
         {
