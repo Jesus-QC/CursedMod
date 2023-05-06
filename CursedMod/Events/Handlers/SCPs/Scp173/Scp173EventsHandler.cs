@@ -10,14 +10,14 @@ using CursedMod.Events.Arguments.SCPs.Scp173;
 
 namespace CursedMod.Events.Handlers.SCPs.Scp173;
 
-public class Scp173EventsHandler
+public static class Scp173EventsHandler
 {
     public static event EventManager.CursedEventHandler<PlayerBlinkingEventArgs> PlayerBlinking;
     
     public static event EventManager.CursedEventHandler<PlayerUseBreakneckSpeedEventArgs> PlayerUseBreakneckSpeed;
     
     public static event EventManager.CursedEventHandler<PlayerPlaceTantrumEventArgs> PlayerPlaceTantrum;
-    
+
     internal static void OnPlayerBlinking(PlayerBlinkingEventArgs args)
     {
         PlayerBlinking.InvokeEvent(args);

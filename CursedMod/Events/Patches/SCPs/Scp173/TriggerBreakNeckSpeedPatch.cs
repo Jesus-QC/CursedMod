@@ -17,22 +17,23 @@ using PlayerRoles.PlayableScps.Scp173;
 namespace CursedMod.Events.Patches.SCPs.Scp173;
 
 [DynamicEventPatch(typeof(Scp173EventsHandler), nameof(Scp173EventsHandler.PlayerUseBreakneckSpeed))]
-[HarmonyPatch(typeof(Scp173BreakneckSpeedsAbility), nameof(Scp173BreakneckSpeedsAbility.IsActive), MethodType.Setter)]
+[HarmonyPatch(typeof(Scp173BreakneckSpeedsAbility), nameof(Scp173BreakneckSpeedsAbility.ServerProcessCmd))]
 public class TriggerBreakNeckSpeedPatch
 {
     private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
     {
-        List<CodeInstruction> newInstructions = EventManager.CheckEvent<TriggerBreakNeckSpeedPatch>(53, instructions);
+        List<CodeInstruction> newInstructions = EventManager.CheckEvent<TriggerBreakNeckSpeedPatch>(21, instructions);
 
+        LocalBuilder localBuilder = generator.DeclareLocal(typeof(PlayerUseBreakneckSpeedEventArgs));
         Label retLabel = generator.DefineLabel();
-        
-        int index = newInstructions.FindIndex(instruction => instruction.opcode == OpCodes.Ret) + 1;
-        
-        newInstructions.InsertRange(index, new CodeInstruction[]
+
+        newInstructions.InsertRange(0, new CodeInstruction[]
         {
             new (OpCodes.Ldarg_0),
             new (OpCodes.Newobj, AccessTools.GetDeclaredConstructors(typeof(PlayerUseBreakneckSpeedEventArgs))[0]),
             new (OpCodes.Dup),
+            new (OpCodes.Dup),
+            new (OpCodes.Stloc_S, localBuilder.LocalIndex),
             new (OpCodes.Call, AccessTools.Method(typeof(Scp173EventsHandler), nameof(Scp173EventsHandler.OnPlayerUseBreakneckSpeed))),
             new (OpCodes.Callvirt, AccessTools.PropertyGetter(typeof(PlayerUseBreakneckSpeedEventArgs), nameof(PlayerUseBreakneckSpeedEventArgs.IsAllowed))),
             new (OpCodes.Brfalse_S, retLabel),
