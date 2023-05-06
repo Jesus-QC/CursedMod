@@ -14,7 +14,9 @@ public static class Scp049EventsHandler
 {
     public static event EventManager.CursedEventHandler<PlayerStartReviveEventArgs> PlayerStartRevive;
     
-    public static event EventManager.CursedEventHandler<PlayerFinishReviveEventArgs> PlayerFinishRevive; 
+    public static event EventManager.CursedEventHandler<PlayerFinishReviveEventArgs> PlayerFinishRevive;
+    
+    public static event EventManager.CursedEventHandler<PlayerSensingEventArgs> PlayerSensing; 
 
     internal static void OnPlayerReviving(PlayerStartReviveEventArgs args)
     {
@@ -24,5 +26,10 @@ public static class Scp049EventsHandler
     internal static void OnPlayerRevived(PlayerFinishReviveEventArgs args)
     {
         PlayerFinishRevive.InvokeEvent(args);
+    }
+    
+    internal static void OnPlayerSensing(PlayerSensingEventArgs args)
+    {
+        PlayerSensing.InvokeEvent(args);
     }
 }

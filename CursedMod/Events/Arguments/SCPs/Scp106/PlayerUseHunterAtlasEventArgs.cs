@@ -7,6 +7,7 @@
 // -----------------------------------------------------------------------
 
 using System;
+using CursedMod.Features.Wrappers.Facility.Rooms;
 using CursedMod.Features.Wrappers.Player;
 using PlayerRoles.PlayableScps.Scp106;
 using UnityEngine;
@@ -20,6 +21,7 @@ public class PlayerUseHunterAtlasEventArgs : EventArgs, ICursedCancellableEvent,
         IsAllowed = true;
         Player = CursedPlayer.Get(huntersAtlasAbility.Owner);
         Position = huntersAtlasAbility._syncPos;
+        Room = CursedRoom.Get(huntersAtlasAbility._syncRoom);
     }
     
     public bool IsAllowed { get; set; }
@@ -27,4 +29,6 @@ public class PlayerUseHunterAtlasEventArgs : EventArgs, ICursedCancellableEvent,
     public CursedPlayer Player { get; }
     
     public Vector3 Position { get; }
+    
+    public CursedRoom Room { get; }
 }
