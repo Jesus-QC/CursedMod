@@ -89,6 +89,7 @@
         <Compile Include="Events\Arguments\ICursedItemEvent.cs" />
         <Compile Include="Events\Arguments\ICursedPickupEvent.cs" />
         <Compile Include="Events\Arguments\ICursedPlayerEvent.cs" />
+        <Compile Include="Events\Arguments\ICursedRagdollEvent.cs" />
         <Compile Include="Events\Arguments\Items\PlayerCancellingThrowEventArgs.cs" />
         <Compile Include="Events\Arguments\Items\PlayerCancellingUsableEventArgs.cs" />
         <Compile Include="Events\Arguments\Items\PlayerDroppingItemEventArgs.cs" />
@@ -108,6 +109,13 @@
         <Compile Include="Events\Arguments\Player\RagdollSpawnedEventArgs.cs" />
         <Compile Include="Events\Arguments\Player\PlayerSpawningEventArgs.cs" />
         <Compile Include="Events\Arguments\Respawning\RespawningTeamEventArgs.cs" />
+        <Compile Include="Events\Arguments\SCPs\Scp049\PlayerFinishReviveEventArgs.cs" />
+        <Compile Include="Events\Arguments\SCPs\Scp049\PlayerStartReviveEventArgs.cs" />
+        <Compile Include="Events\Arguments\SCPs\Scp106\PlayerStalkingEventArgs.cs" />
+        <Compile Include="Events\Arguments\SCPs\Scp106\PlayerUseHunterAtlasEventArgs.cs" />
+        <Compile Include="Events\Arguments\SCPs\Scp173\PlayerBlinkingEventArgs.cs" />
+        <Compile Include="Events\Arguments\SCPs\Scp173\PlayerPlaceTantrumEventArgs.cs" />
+        <Compile Include="Events\Arguments\SCPs\Scp173\PlayerUseBreakneckSpeedEventArgs.cs" />
         <Compile Include="Events\Arguments\SCPs\Scp330\PlayerInteractingScp330EventArgs.cs" />
         <Compile Include="Events\DynamicEventPatchAttribute.cs" />
         <Compile Include="Events\EventManager.cs" />
@@ -121,6 +129,9 @@
         <Compile Include="Events\Handlers\Player\PlayerEventsHandler.cs" />
         <Compile Include="Events\Handlers\Respawning\RespawningEventsHandler.cs" />
         <Compile Include="Events\Handlers\Round\RoundEventsHandler.cs" />
+        <Compile Include="Events\Handlers\SCPs\Scp049\Scp049EventsHandler.cs" />
+        <Compile Include="Events\Handlers\SCPs\Scp106\Scp106EventsHandler.cs" />
+        <Compile Include="Events\Handlers\SCPs\Scp173\Scp173EventsHandler.cs" />
         <Compile Include="Events\Handlers\SCPs\Scp330\Scp330EventsHandler.cs" />
         <Compile Include="Events\Handlers\Server\ServerEventsHandler.cs" />
         <Compile Include="Events\Patches\Achievements\ServerAchievePatch.cs" />
@@ -155,6 +166,13 @@
         <Compile Include="Events\Patches\Round\RoundStartPatch.cs" />
         <Compile Include="Events\Patches\Round\RoundSummaryPatch.cs" />
         <Compile Include="Events\Patches\Round\WaitingForPlayersPatch.cs" />
+        <Compile Include="Events\Patches\SCPs\Scp049\RevivedPatch.cs" />
+        <Compile Include="Events\Patches\SCPs\Scp049\RevivingPatch.cs" />
+        <Compile Include="Events\Patches\SCPs\Scp106\HuntersAtlasPatch.cs" />
+        <Compile Include="Events\Patches\SCPs\Scp106\StalkAbilityPatch.cs" />
+        <Compile Include="Events\Patches\SCPs\Scp173\PlaceTantrumPatch.cs" />
+        <Compile Include="Events\Patches\SCPs\Scp173\ServerBlinkPatch.cs" />
+        <Compile Include="Events\Patches\SCPs\Scp173\TriggerBreakNeckSpeedPatch.cs" />
         <Compile Include="Events\Patches\SCPs\Scp330\ServerInteractScp330Patch.cs" />
         <Compile Include="Events\Patches\Server\CreateMatchPatch.cs" />
         <Compile Include="Features\Enums\AuthenticationType.cs" />
