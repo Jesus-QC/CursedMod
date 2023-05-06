@@ -25,8 +25,6 @@ public class PlaceTantrumPatch
     private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
     {
         List<CodeInstruction> newInstructions = EventManager.CheckEvent<PlaceTantrumPatch>(85, instructions);
-        
-        LocalBuilder localBuilder = generator.DeclareLocal(typeof(PlayerPlaceTantrumEventArgs));
 
         Label retLabel = generator.DefineLabel();
         const int offset = -3;
@@ -38,8 +36,6 @@ public class PlaceTantrumPatch
             new (OpCodes.Ldarg_0),
             new (OpCodes.Newobj, AccessTools.GetDeclaredConstructors(typeof(PlayerPlaceTantrumEventArgs))[0]),
             new (OpCodes.Dup),
-            new (OpCodes.Dup),
-            new (OpCodes.Stloc_S, localBuilder.LocalIndex),
             new (OpCodes.Call, AccessTools.Method(typeof(Scp173EventsHandler), nameof(Scp173EventsHandler.OnPlayerPlaceTantrum))),
             new (OpCodes.Callvirt, AccessTools.PropertyGetter(typeof(PlayerPlaceTantrumEventArgs), nameof(PlayerPlaceTantrumEventArgs.IsAllowed))),
             new (OpCodes.Brfalse_S, retLabel),

@@ -23,8 +23,7 @@ public class TriggerBreakNeckSpeedPatch
     private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
     {
         List<CodeInstruction> newInstructions = EventManager.CheckEvent<TriggerBreakNeckSpeedPatch>(21, instructions);
-
-        LocalBuilder localBuilder = generator.DeclareLocal(typeof(PlayerUseBreakneckSpeedEventArgs));
+        
         Label retLabel = generator.DefineLabel();
 
         newInstructions.InsertRange(0, new CodeInstruction[]
@@ -32,8 +31,6 @@ public class TriggerBreakNeckSpeedPatch
             new (OpCodes.Ldarg_0),
             new (OpCodes.Newobj, AccessTools.GetDeclaredConstructors(typeof(PlayerUseBreakneckSpeedEventArgs))[0]),
             new (OpCodes.Dup),
-            new (OpCodes.Dup),
-            new (OpCodes.Stloc_S, localBuilder.LocalIndex),
             new (OpCodes.Call, AccessTools.Method(typeof(Scp173EventsHandler), nameof(Scp173EventsHandler.OnPlayerUseBreakneckSpeed))),
             new (OpCodes.Callvirt, AccessTools.PropertyGetter(typeof(PlayerUseBreakneckSpeedEventArgs), nameof(PlayerUseBreakneckSpeedEventArgs.IsAllowed))),
             new (OpCodes.Brfalse_S, retLabel),

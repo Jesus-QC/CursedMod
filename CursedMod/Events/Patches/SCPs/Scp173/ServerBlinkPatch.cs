@@ -24,7 +24,6 @@ public class ServerBlinkPatch
     {
         List<CodeInstruction> newInstructions = EventManager.CheckEvent<ServerBlinkPatch>(21, instructions);
         
-        LocalBuilder localBuilder = generator.DeclareLocal(typeof(PlayerBlinkingEventArgs));
         Label retLabel = generator.DefineLabel();
         
         newInstructions.InsertRange(0, new CodeInstruction[]
@@ -32,8 +31,6 @@ public class ServerBlinkPatch
             new (OpCodes.Ldarg_0),
             new (OpCodes.Newobj, AccessTools.GetDeclaredConstructors(typeof(PlayerBlinkingEventArgs))[0]),
             new (OpCodes.Dup),
-            new (OpCodes.Dup),
-            new (OpCodes.Stloc, localBuilder.LocalIndex),
             new (OpCodes.Call, AccessTools.Method(typeof(Scp173EventsHandler), nameof(Scp173EventsHandler.OnPlayerBlinking))),
             new (OpCodes.Callvirt, AccessTools.PropertyGetter(typeof(PlayerBlinkingEventArgs), nameof(PlayerBlinkingEventArgs.IsAllowed))),
             new (OpCodes.Brfalse_S, retLabel),
