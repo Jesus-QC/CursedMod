@@ -26,10 +26,6 @@ public class StalkAbilityPatch
         
         Label returnLabel = generator.DefineLabel();
 
-        const int offset = -1;
-        int index = newInstructions.FindIndex(i =>
-                        i.Calls(AccessTools.PropertyGetter(typeof(Scp106StalkAbility), nameof(Scp106StalkAbility.IsActive)))) + offset;
-
         newInstructions.InsertRange(45, new CodeInstruction[]
         {
             new (OpCodes.Ldarg_0),
