@@ -55,7 +55,6 @@ public static class EventManager
                 Harmony.PatchAll();
             }
 #else
-            
             foreach (MethodBase patch in Harmony.GetPatchedMethods())
             {
                 CursedLogger.InternalDebug(patch.DeclaringType + "::" + patch.Name);
