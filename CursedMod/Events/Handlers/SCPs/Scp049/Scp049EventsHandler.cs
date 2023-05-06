@@ -12,10 +12,17 @@ namespace CursedMod.Events.Handlers.SCPs.Scp049;
 
 public static class Scp049EventsHandler
 {
-    public static event EventManager.CursedEventHandler<PlayerRevivingEventArgs> PlayerReviving;
+    public static event EventManager.CursedEventHandler<PlayerStartReviveEventArgs> PlayerStartRevive;
     
-    internal static void OnPlayerReviving(PlayerRevivingEventArgs args)
+    public static event EventManager.CursedEventHandler<PlayerFinishReviveEventArgs> PlayerFinishRevive; 
+
+    internal static void OnPlayerReviving(PlayerStartReviveEventArgs args)
     {
-        PlayerReviving.InvokeEvent(args);
+        PlayerStartRevive.InvokeEvent(args);
+    }
+    
+    internal static void OnPlayerRevived(PlayerFinishReviveEventArgs args)
+    {
+        PlayerFinishRevive.InvokeEvent(args);
     }
 }

@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="RevivingPatch.cs" company="CursedMod">
+// <copyright file="RevivedPatch.cs" company="CursedMod">
 // Copyright (c) CursedMod. All rights reserved.
 // Licensed under the GPLv3 license.
 // See LICENSE file in the project root for full license information.
@@ -16,23 +16,23 @@ using PlayerRoles.PlayableScps.Scp049;
 
 namespace CursedMod.Events.Patches.SCPs.Scp049;
 
-[DynamicEventPatch(typeof(Scp049EventsHandler), nameof(Scp049EventsHandler.PlayerStartRevive))]
-[HarmonyPatch(typeof(Scp049ResurrectAbility), nameof(Scp049ResurrectAbility.ServerValidateBegin))]
-public class RevivingPatch
+[DynamicEventPatch(typeof(Scp049EventsHandler), nameof(Scp049EventsHandler.PlayerFinishRevive))]
+[HarmonyPatch(typeof(Scp049ResurrectAbility), nameof(Scp049ResurrectAbility.ServerComplete))]
+public class RevivedPatch
 {
     private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
     {
-        List<CodeInstruction> newInstructions = EventManager.CheckEvent<RevivingPatch>(16, instructions);
+        List<CodeInstruction> newInstructions = EventManager.CheckEvent<RevivedPatch>(62, instructions);
         
         Label returnLabel = generator.DefineLabel();
         
-        newInstructions.InsertRange(0, new CodeInstruction[]
+        newInstructions.InsertRange(5, new CodeInstruction[]
         {
             new (OpCodes.Ldarg_0),
-            new (OpCodes.Newobj, AccessTools.GetDeclaredConstructors(typeof(PlayerStartReviveEventArgs))[0]),
+            new (OpCodes.Newobj, AccessTools.GetDeclaredConstructors(typeof(PlayerFinishReviveEventArgs))[0]),
             new (OpCodes.Dup),
-            new (OpCodes.Call, AccessTools.Method(typeof(Scp049EventsHandler), nameof(Scp049EventsHandler.OnPlayerReviving))),
-            new (OpCodes.Callvirt, AccessTools.PropertyGetter(typeof(PlayerStartReviveEventArgs), nameof(PlayerStartReviveEventArgs.IsAllowed))),
+            new (OpCodes.Call, AccessTools.Method(typeof(Scp049EventsHandler), nameof(Scp049EventsHandler.OnPlayerRevived))),
+            new (OpCodes.Callvirt, AccessTools.PropertyGetter(typeof(PlayerFinishReviveEventArgs), nameof(PlayerFinishReviveEventArgs.IsAllowed))),
             new (OpCodes.Brfalse_S, returnLabel),
         });
         
@@ -40,7 +40,7 @@ public class RevivingPatch
 
         foreach (var instruction in newInstructions)
             yield return instruction;
-
+        
         ListPool<CodeInstruction>.Shared.Return(newInstructions);
     }
 }
