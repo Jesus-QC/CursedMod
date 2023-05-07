@@ -16,6 +16,8 @@ public static class ZombieEventsHandler
     
     public static event EventManager.CursedEventHandler<PlayerCorpseConsumedEventArgs> PlayerCorpseConsumed;
     
+    public static event EventManager.CursedEventHandler<PlayerBloodlustingEventArgs> PlayerBloodlusting; 
+
     internal static void OnPlayerConsumingCorpse(PlayerConsumingCorpseEventArgs args)
     {
         PlayerConsumingCorpse.InvokeEvent(args);
@@ -24,5 +26,10 @@ public static class ZombieEventsHandler
     internal static void OnPlayerCorpseConsumed(PlayerCorpseConsumedEventArgs args)
     {
         PlayerCorpseConsumed.InvokeEvent(args);
+    }
+    
+    internal static void OnPlayerBloodlusting(PlayerBloodlustingEventArgs args)
+    {
+        PlayerBloodlusting.InvokeEvent(args);
     }
 }
