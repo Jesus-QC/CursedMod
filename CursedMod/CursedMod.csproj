@@ -115,8 +115,9 @@
         <Compile Include="Events\Arguments\SCPs\Scp049\PlayerFinishReviveEventArgs.cs" />
         <Compile Include="Events\Arguments\SCPs\Scp049\PlayerSensingEventArgs.cs" />
         <Compile Include="Events\Arguments\SCPs\Scp049\PlayerStartReviveEventArgs.cs" />
+        <Compile Include="Events\Arguments\SCPs\Scp106\PlayerExitingSubmergeEventArgs.cs" />
         <Compile Include="Events\Arguments\SCPs\Scp106\PlayerStalkingEventArgs.cs" />
-        <Compile Include="Events\Arguments\SCPs\Scp106\PlayerUseHunterAtlasEventArgs.cs" />
+        <Compile Include="Events\Arguments\SCPs\Scp106\PlayerSubmergingEventArgs.cs" />
         <Compile Include="Events\Arguments\SCPs\Scp173\PlayerBlinkingEventArgs.cs" />
         <Compile Include="Events\Arguments\SCPs\Scp173\PlayerPlaceTantrumEventArgs.cs" />
         <Compile Include="Events\Arguments\SCPs\Scp173\PlayerUseBreakneckSpeedEventArgs.cs" />
