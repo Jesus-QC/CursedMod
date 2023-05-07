@@ -109,9 +109,9 @@
         <Compile Include="Events\Arguments\Player\RagdollSpawnedEventArgs.cs" />
         <Compile Include="Events\Arguments\Player\PlayerSpawningEventArgs.cs" />
         <Compile Include="Events\Arguments\Respawning\RespawningTeamEventArgs.cs" />
+        <Compile Include="Events\Arguments\SCPs\Scp0492\PlayerBloodlustingEventArgs.cs" />
         <Compile Include="Events\Arguments\SCPs\Scp0492\PlayerConsumingCorpseEventArgs.cs" />
         <Compile Include="Events\Arguments\SCPs\Scp0492\PlayerCorpseConsumedEventArgs.cs" />
-        <Compile Include="Events\Arguments\SCPs\Scp0492\PlayerBloodlustingEventArgs.cs" />
         <Compile Include="Events\Arguments\SCPs\Scp049\PlayerCallingEventArgs.cs" />
         <Compile Include="Events\Arguments\SCPs\Scp049\PlayerFinishReviveEventArgs.cs" />
         <Compile Include="Events\Arguments\SCPs\Scp049\PlayerSensingEventArgs.cs" />
@@ -123,6 +123,7 @@
         <Compile Include="Events\Arguments\SCPs\Scp173\PlayerPlaceTantrumEventArgs.cs" />
         <Compile Include="Events\Arguments\SCPs\Scp173\PlayerUseBreakneckSpeedEventArgs.cs" />
         <Compile Include="Events\Arguments\SCPs\Scp330\PlayerInteractingScp330EventArgs.cs" />
+        <Compile Include="Events\Arguments\SCPs\Scp939\PlayerSavingVoiceEventArgs.cs" />
         <Compile Include="Events\DynamicEventPatchAttribute.cs" />
         <Compile Include="Events\EventManager.cs" />
         <Compile Include="Events\Handlers\Achievements\AchievementsEventsHandler.cs" />
@@ -140,6 +141,7 @@
         <Compile Include="Events\Handlers\SCPs\Scp106\Scp106EventsHandler.cs" />
         <Compile Include="Events\Handlers\SCPs\Scp173\Scp173EventsHandler.cs" />
         <Compile Include="Events\Handlers\SCPs\Scp330\Scp330EventsHandler.cs" />
+        <Compile Include="Events\Handlers\SCPs\Scp939\Scp939EventsHandler.cs" />
         <Compile Include="Events\Handlers\Server\ServerEventsHandler.cs" />
         <Compile Include="Events\Patches\Achievements\ServerAchievePatch.cs" />
         <Compile Include="Events\Patches\Authentication\ReservedSlotCheckPatch.cs" />
@@ -173,9 +175,9 @@
         <Compile Include="Events\Patches\Round\RoundStartPatch.cs" />
         <Compile Include="Events\Patches\Round\RoundSummaryPatch.cs" />
         <Compile Include="Events\Patches\Round\WaitingForPlayersPatch.cs" />
+        <Compile Include="Events\Patches\SCPs\Scp0492\BloodlustingPatch.cs" />
         <Compile Include="Events\Patches\SCPs\Scp0492\ConsumingCorpsePatch.cs" />
         <Compile Include="Events\Patches\SCPs\Scp0492\CorpseConsumedPatch.cs" />
-        <Compile Include="Events\Patches\SCPs\Scp0492\BloodlustingPatch.cs" />
         <Compile Include="Events\Patches\SCPs\Scp049\CallingZombiesPatch.cs" />
         <Compile Include="Events\Patches\SCPs\Scp049\RevivedPatch.cs" />
         <Compile Include="Events\Patches\SCPs\Scp049\RevivingPatch.cs" />
@@ -186,6 +188,7 @@
         <Compile Include="Events\Patches\SCPs\Scp173\ServerBlinkPatch.cs" />
         <Compile Include="Events\Patches\SCPs\Scp173\TriggerBreakNeckSpeedPatch.cs" />
         <Compile Include="Events\Patches\SCPs\Scp330\ServerInteractScp330Patch.cs" />
+        <Compile Include="Events\Patches\SCPs\Scp939\SaveVoicePatch.cs" />
         <Compile Include="Events\Patches\Server\CreateMatchPatch.cs" />
         <Compile Include="Features\Enums\AuthenticationType.cs" />
         <Compile Include="Features\Enums\DoorType.cs" />
