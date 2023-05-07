@@ -11,13 +11,13 @@ using System.Reflection.Emit;
 using CursedMod.Events.Arguments.SCPs.Scp106;
 using CursedMod.Events.Handlers.SCPs.Scp106;
 using HarmonyLib;
-using Mirror;
 using NorthwoodLib.Pools;
 using PlayerRoles.PlayableScps.Scp106;
 
 namespace CursedMod.Events.Patches.SCPs.Scp106;
 
 [DynamicEventPatch(typeof(Scp106EventsHandler), nameof(Scp106EventsHandler.PlayerSubmerging))]
+[DynamicEventPatch(typeof(Scp106EventsHandler), nameof(Scp106EventsHandler.PlayerExitingSubmerge))]
 [HarmonyPatch(typeof(Scp106HuntersAtlasAbility), nameof(Scp106HuntersAtlasAbility.SetSubmerged), typeof(bool))]
 public class HuntersAtlasPatch
 {
@@ -27,12 +27,15 @@ public class HuntersAtlasPatch
         
         Label returnLabel = generator.DefineLabel();
 
-        newInstructions.InsertRange(0, new CodeInstruction[]
+        const int offset = -2;
+        int index = newInstructions.FindIndex(i => i.opcode == OpCodes.Stfld) + offset;
+
+        newInstructions.InsertRange(index, new CodeInstruction[]
         {
-            new (OpCodes.Ldarg_0),
+            new CodeInstruction(OpCodes.Ldarg_0).MoveLabelsFrom(newInstructions[index]),
             new (OpCodes.Ldarg_1),
-            new (OpCodes.Call, AccessTools.Method(typeof(HuntersAtlasPatch), nameof(ProcessSubmerging))),
-            new (OpCodes.Br, returnLabel),
+            new (OpCodes.Call, AccessTools.Method(typeof(HuntersAtlasPatch), nameof(ProcessSubmergingEvents))),
+            new (OpCodes.Brfalse_S, returnLabel),
         });
 
         newInstructions[newInstructions.Count - 1].labels.Add(returnLabel);
@@ -43,29 +46,19 @@ public class HuntersAtlasPatch
         ListPool<CodeInstruction>.Shared.Return(newInstructions);
     }
 
-    private static void ProcessSubmerging(Scp106HuntersAtlasAbility atlasAbility, bool val)
+    private static bool ProcessSubmergingEvents(Scp106HuntersAtlasAbility atlasAbility, bool val)
     {
-        if (atlasAbility._submerged == val)
-            return;
-        atlasAbility._submerged = val;
-
         if (val)
         {
-            PlayerSubmergingEventArgs args = new (atlasAbility);
-            Scp106EventsHandler.OnPlayerStartSubmerging(args);
-
-            if (!args.IsAllowed)
-                return;
-            
-            atlasAbility._dissolveAnim = true;
-            atlasAbility.ScpRole.Sinkhole.TargetDuration = 2.5f;
+            PlayerSubmergingEventArgs eventArgs = new (atlasAbility);
+            Scp106EventsHandler.OnPlayerStartSubmerging(eventArgs);
+            return eventArgs.IsAllowed;
         }
-        
-        PlayerExitingSubmergeEventArgs args2 = new (atlasAbility);
-        Scp106EventsHandler.OnPlayerExitingSubmerge(args2);
-            
-        if (!NetworkServer.active)
-            return;
-        atlasAbility.ServerSendRpc(true);
+        else
+        {
+            PlayerExitingSubmergeEventArgs eventArgs = new (atlasAbility);
+            Scp106EventsHandler.OnPlayerExitingSubmerge(eventArgs);
+            return eventArgs.IsAllowed;
+        }
     }
 }
