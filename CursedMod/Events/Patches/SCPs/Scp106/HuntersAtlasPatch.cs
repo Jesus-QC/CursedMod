@@ -64,9 +64,6 @@ public class HuntersAtlasPatch
         PlayerExitingSubmergeEventArgs args2 = new (atlasAbility);
         Scp106EventsHandler.OnPlayerExitingSubmerge(args2);
             
-        if (!args2.IsAllowed)
-            return;
-            
         if (!NetworkServer.active)
             return;
         atlasAbility.ServerSendRpc(true);
