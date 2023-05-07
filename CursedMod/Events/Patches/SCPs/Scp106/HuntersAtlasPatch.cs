@@ -11,12 +11,13 @@ using System.Reflection.Emit;
 using CursedMod.Events.Arguments.SCPs.Scp106;
 using CursedMod.Events.Handlers.SCPs.Scp106;
 using HarmonyLib;
+using Mirror;
 using NorthwoodLib.Pools;
 using PlayerRoles.PlayableScps.Scp106;
 
 namespace CursedMod.Events.Patches.SCPs.Scp106;
 
-[DynamicEventPatch(typeof(Scp106EventsHandler), nameof(Scp106EventsHandler.PlayerUseHunterAtlas))]
+[DynamicEventPatch(typeof(Scp106EventsHandler), nameof(Scp106EventsHandler.PlayerSubmerging))]
 [HarmonyPatch(typeof(Scp106HuntersAtlasAbility), nameof(Scp106HuntersAtlasAbility.SetSubmerged), typeof(bool))]
 public class HuntersAtlasPatch
 {
@@ -26,16 +27,12 @@ public class HuntersAtlasPatch
         
         Label returnLabel = generator.DefineLabel();
 
-        int index = newInstructions.FindIndex(i => i.opcode == OpCodes.Ret);
-        
-        newInstructions.InsertRange(index, new CodeInstruction[]
+        newInstructions.InsertRange(0, new CodeInstruction[]
         {
-            new CodeInstruction(OpCodes.Ldarg_0).MoveLabelsFrom(newInstructions[index]),
-            new (OpCodes.Newobj, AccessTools.GetDeclaredConstructors(typeof(PlayerUseHunterAtlasEventArgs))[0]),
-            new (OpCodes.Dup),
-            new (OpCodes.Call, AccessTools.Method(typeof(Scp106EventsHandler), nameof(Scp106EventsHandler.OnPlayerUseHunterAtlas))),
-            new (OpCodes.Callvirt, AccessTools.PropertyGetter(typeof(PlayerUseHunterAtlasEventArgs), nameof(PlayerUseHunterAtlasEventArgs.IsAllowed))),
-            new (OpCodes.Brfalse_S, returnLabel),
+            new (OpCodes.Ldarg_0),
+            new (OpCodes.Ldarg_1),
+            new (OpCodes.Call, AccessTools.Method(typeof(HuntersAtlasPatch), nameof(ProcessSubmerging))),
+            new (OpCodes.Br, returnLabel),
         });
 
         newInstructions[newInstructions.Count - 1].labels.Add(returnLabel);
@@ -44,5 +41,34 @@ public class HuntersAtlasPatch
             yield return instruction;
 
         ListPool<CodeInstruction>.Shared.Return(newInstructions);
+    }
+
+    private static void ProcessSubmerging(Scp106HuntersAtlasAbility atlasAbility, bool val)
+    {
+        if (atlasAbility._submerged == val)
+            return;
+        atlasAbility._submerged = val;
+
+        if (val)
+        {
+            PlayerSubmergingEventArgs args = new (atlasAbility);
+            Scp106EventsHandler.OnPlayerStartSubmerging(args);
+
+            if (!args.IsAllowed)
+                return;
+            
+            atlasAbility._dissolveAnim = true;
+            atlasAbility.ScpRole.Sinkhole.TargetDuration = 2.5f;
+        }
+        
+        PlayerExitingSubmergeEventArgs args2 = new (atlasAbility);
+        Scp106EventsHandler.OnPlayerExitingSubmerge(args2);
+            
+        if (!args2.IsAllowed)
+            return;
+            
+        if (!NetworkServer.active)
+            return;
+        atlasAbility.ServerSendRpc(true);
     }
 }

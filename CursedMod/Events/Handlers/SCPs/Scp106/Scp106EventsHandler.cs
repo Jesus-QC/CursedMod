@@ -12,13 +12,20 @@ namespace CursedMod.Events.Handlers.SCPs.Scp106;
 
 public static class Scp106EventsHandler
 {
-    public static event EventManager.CursedEventHandler<PlayerUseHunterAtlasEventArgs> PlayerUseHunterAtlas;
+    public static event EventManager.CursedEventHandler<PlayerSubmergingEventArgs> PlayerSubmerging;
     
+    public static event EventManager.CursedEventHandler<PlayerExitingSubmergeEventArgs> PlayerExitingSubmerge; 
+
     public static event EventManager.CursedEventHandler<PlayerStalkingEventArgs> PlayerStalking;
-    
-    internal static void OnPlayerUseHunterAtlas(PlayerUseHunterAtlasEventArgs args)
+
+    internal static void OnPlayerStartSubmerging(PlayerSubmergingEventArgs args)
     {
-        PlayerUseHunterAtlas.InvokeEvent(args);
+        PlayerSubmerging.InvokeEvent(args);
+    }
+    
+    internal static void OnPlayerExitingSubmerge(PlayerExitingSubmergeEventArgs args)
+    {
+        PlayerExitingSubmerge.InvokeEvent(args);
     }
     
     internal static void OnPlayerStalking(PlayerStalkingEventArgs args)
