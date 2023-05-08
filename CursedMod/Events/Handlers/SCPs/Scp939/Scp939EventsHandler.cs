@@ -12,15 +12,25 @@ namespace CursedMod.Events.Handlers.SCPs.Scp939;
 
 public static class Scp939EventsHandler
 {
-    public static event EventManager.CursedEventHandler<PlayerSavingVoiceEventArgs> PlayerSavingVoice;
+    public static event EventManager.CursedEventHandler<PlayerSaveVoiceEventArgs> PlayerSaveVoice;
     
     public static event EventManager.CursedEventHandler<PlayerPlaceAmnesticCloudEventArgs> PlayerPlaceAmnesticCloud; 
     
-    public static event EventManager.CursedEventHandler<PlayerCancelCloudPlacementEventArgs> PlayerCancelCloudPlacement; 
+    public static event EventManager.CursedEventHandler<PlayerCancelCloudPlacementEventArgs> PlayerCancelCloudPlacement;
+    
+    public static event EventManager.CursedEventHandler<PlayerPlaySoundEventArgs> PlayerPlaySound;
+    
+    public static event EventManager.CursedEventHandler<PlayerPlayVoiceEventArgs> PlayerPlayVoice;
+    
+    public static event EventManager.CursedEventHandler<PlayerLungeEventArgs> PlayerLunge;
+    
+    public static event EventManager.CursedEventHandler<PlayerPlaceMimicPointEventArgs> PlayerPlaceMimicPoint;
+    
+    public static event EventManager.CursedEventHandler<PlayerRemoveMimicPointEventArgs> PlayerRemoveMimicPoint; 
 
-    internal static void OnPlayerSavingVoice(PlayerSavingVoiceEventArgs args)
+    internal static void OnPlayerSaveVoice(PlayerSaveVoiceEventArgs args)
     {
-        PlayerSavingVoice.InvokeEvent(args);
+        PlayerSaveVoice.InvokeEvent(args);
     }
     
     internal static void OnPlayerPlaceAmnesticCloud(PlayerPlaceAmnesticCloudEventArgs args)
@@ -31,5 +41,30 @@ public static class Scp939EventsHandler
     internal static void OnPlayerCancelCloudPlacement(PlayerCancelCloudPlacementEventArgs args)
     {
         PlayerCancelCloudPlacement.InvokeEvent(args);
+    }
+    
+    internal static void OnPlayerPlaySound(PlayerPlaySoundEventArgs args)
+    {
+        PlayerPlaySound.InvokeEvent(args);
+    }
+    
+    internal static void OnPlayerPlayVoice(PlayerPlayVoiceEventArgs args)
+    {
+        PlayerPlayVoice.InvokeEvent(args);
+    }
+    
+    internal static void OnPlayerLunge(PlayerLungeEventArgs args)
+    {
+        PlayerLunge.InvokeEvent(args);
+    }
+    
+    internal static void OnPlayerPlaceMimicPoint(PlayerPlaceMimicPointEventArgs args)
+    {
+        PlayerPlaceMimicPoint.InvokeEvent(args);
+    }
+    
+    internal static void OnPlayerRemoveMimicPoint(PlayerRemoveMimicPointEventArgs args)
+    {
+        PlayerRemoveMimicPoint.InvokeEvent(args);
     }
 }
