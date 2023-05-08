@@ -11,18 +11,19 @@ using System.Reflection.Emit;
 using CommandSystem;
 using CursedMod.Events.Arguments.BanSystem;
 using CursedMod.Events.Handlers.BanSystem;
+using Footprinting;
 using HarmonyLib;
 using NorthwoodLib.Pools;
 
 namespace CursedMod.Events.Patches.BanSystem;
 
 [DynamicEventPatch(typeof(BanSystemEventsHandler), nameof(BanSystemEventsHandler.BanningPlayer))]
-[HarmonyPatch(typeof(BanPlayer), nameof(BanPlayer.BanUser), typeof(ReferenceHub), typeof(ICommandSender), typeof(string), typeof(long))]
+[HarmonyPatch(typeof(BanPlayer), nameof(BanPlayer.BanUser), typeof(Footprint), typeof(ICommandSender), typeof(string), typeof(long))]
 public class BanUserPatch
 {
     private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
     {
-        List<CodeInstruction> newInstructions = EventManager.CheckEvent<BanUserPatch>(118, instructions);
+        List<CodeInstruction> newInstructions = EventManager.CheckEvent<BanUserPatch>(130, instructions);
 
         Label ret = generator.DefineLabel();
         LocalBuilder args = generator.DeclareLocal(typeof(BanningPlayerEventArgs));

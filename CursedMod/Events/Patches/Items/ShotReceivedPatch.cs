@@ -26,13 +26,13 @@ public class ShotReceivedPatch
 
         Label ret = generator.DefineLabel();
 
-        int offset = newInstructions.FindIndex(x => x.opcode == OpCodes.Ldloc_1) + 5;
+        int offset = newInstructions.FindIndex(x => x.opcode == OpCodes.Ldloc_1) + 8;
         
         newInstructions[newInstructions.Count - 1].labels.Add(ret);
         
         newInstructions.InsertRange(offset, new CodeInstruction[]
         {
-            new (OpCodes.Ldarg_0),
+            new CodeInstruction(OpCodes.Ldarg_0).MoveLabelsFrom(newInstructions[offset]),
             new (OpCodes.Ldarg_1),
             new (OpCodes.Newobj, AccessTools.GetDeclaredConstructors(typeof(PlayerShootingEventArgs))[0]),
             new (OpCodes.Dup),

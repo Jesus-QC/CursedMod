@@ -17,7 +17,7 @@ public class FakeConnection : NetworkConnectionToClient
     private static int _idGenerator = int.MaxValue;
  
     public FakeConnection()
-        : base(_idGenerator--, true, 0)
+        : base(_idGenerator--)
     {
     }
     

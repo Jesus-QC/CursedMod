@@ -43,7 +43,7 @@ public class CursedFpcRole : CursedRole
 
     public ISpawnpointHandler SpawnPointHandler => FpcRoleBase.SpawnpointHandler;
 
-    public Color AmbientLight => FpcRoleBase.AmbientLight;
+    public float AmbientLight => FpcRoleBase.AmbientLight;
 
     public bool InsufficientLight => FpcRoleBase.InsufficientLight;
 
