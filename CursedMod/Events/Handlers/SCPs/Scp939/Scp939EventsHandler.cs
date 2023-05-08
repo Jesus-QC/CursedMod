@@ -18,17 +18,17 @@ public static class Scp939EventsHandler
     
     public static event EventManager.CursedEventHandler<PlayerCancelCloudPlacementEventArgs> PlayerCancelCloudPlacement; 
 
-    public static void OnPlayerSavingVoice(PlayerSavingVoiceEventArgs args)
+    internal static void OnPlayerSavingVoice(PlayerSavingVoiceEventArgs args)
     {
         PlayerSavingVoice.InvokeEvent(args);
     }
     
-    public static void OnPlayerPlaceAmnesticCloud(PlayerPlaceAmnesticCloudEventArgs args)
+    internal static void OnPlayerPlaceAmnesticCloud(PlayerPlaceAmnesticCloudEventArgs args)
     {
         PlayerPlaceAmnesticCloud.InvokeEvent(args);
     }
     
-    public static void OnPlayerCancelCloudPlacement(PlayerCancelCloudPlacementEventArgs args)
+    internal static void OnPlayerCancelCloudPlacement(PlayerCancelCloudPlacementEventArgs args)
     {
         PlayerCancelCloudPlacement.InvokeEvent(args);
     }
