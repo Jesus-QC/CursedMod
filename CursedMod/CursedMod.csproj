@@ -123,6 +123,8 @@
         <Compile Include="Events\Arguments\SCPs\Scp173\PlayerPlaceTantrumEventArgs.cs" />
         <Compile Include="Events\Arguments\SCPs\Scp173\PlayerUseBreakneckSpeedEventArgs.cs" />
         <Compile Include="Events\Arguments\SCPs\Scp330\PlayerInteractingScp330EventArgs.cs" />
+        <Compile Include="Events\Arguments\SCPs\Scp939\PlayerCancelCloudPlacementEventArgs.cs" />
+        <Compile Include="Events\Arguments\SCPs\Scp939\PlayerPlaceAmnesticCloudEventArgs.cs" />
         <Compile Include="Events\Arguments\SCPs\Scp939\PlayerSavingVoiceEventArgs.cs" />
         <Compile Include="Events\DynamicEventPatchAttribute.cs" />
         <Compile Include="Events\EventManager.cs" />
@@ -188,6 +190,8 @@
         <Compile Include="Events\Patches\SCPs\Scp173\ServerBlinkPatch.cs" />
         <Compile Include="Events\Patches\SCPs\Scp173\TriggerBreakNeckSpeedPatch.cs" />
         <Compile Include="Events\Patches\SCPs\Scp330\ServerInteractScp330Patch.cs" />
+        <Compile Include="Events\Patches\SCPs\Scp939\CancelCloudPlacementPatch.cs" />
+        <Compile Include="Events\Patches\SCPs\Scp939\PlaceCloudPatch.cs" />
         <Compile Include="Events\Patches\SCPs\Scp939\SaveVoicePatch.cs" />
         <Compile Include="Events\Patches\Server\CreateMatchPatch.cs" />
         <Compile Include="Features\Enums\AuthenticationType.cs" />
