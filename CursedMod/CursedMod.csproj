@@ -306,6 +306,7 @@
         <Compile Include="Loader\Permissions\PermissionsGroup.cs" />
         <Compile Include="Loader\Permissions\PermissionsManager.cs" />
         <Compile Include="Properties\AssemblyInfo.cs" />
+    </ItemGroup>
     <ItemGroup>
         <None Include="packages.config" />
     </ItemGroup>
