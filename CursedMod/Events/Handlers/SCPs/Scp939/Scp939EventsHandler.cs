@@ -26,7 +26,11 @@ public static class Scp939EventsHandler
     
     public static event EventManager.CursedEventHandler<PlayerPlaceMimicPointEventArgs> PlayerPlaceMimicPoint;
     
-    public static event EventManager.CursedEventHandler<PlayerRemoveMimicPointEventArgs> PlayerRemoveMimicPoint; 
+    public static event EventManager.CursedEventHandler<PlayerRemoveMimicPointEventArgs> PlayerRemoveMimicPoint;
+    
+    public static event EventManager.CursedEventHandler<PlayerRemoveSavedVoiceEventArgs> PlayerRemoveSavedVoice;
+    
+    public static event EventManager.CursedEventHandler<PlayerUseFocusEventArgs> PlayerUseFocus; 
 
     internal static void OnPlayerSaveVoice(PlayerSaveVoiceEventArgs args)
     {
@@ -66,5 +70,15 @@ public static class Scp939EventsHandler
     internal static void OnPlayerRemoveMimicPoint(PlayerRemoveMimicPointEventArgs args)
     {
         PlayerRemoveMimicPoint.InvokeEvent(args);
+    }
+    
+    internal static void OnPlayerRemoveSavedVoice(PlayerRemoveSavedVoiceEventArgs args)
+    {
+        PlayerRemoveSavedVoice.InvokeEvent(args);
+    }
+    
+    internal static void OnPlayerUseFocus(PlayerUseFocusEventArgs args)
+    {
+        PlayerUseFocus.InvokeEvent(args);
     }
 }

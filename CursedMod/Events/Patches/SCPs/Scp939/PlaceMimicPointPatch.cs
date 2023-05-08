@@ -18,6 +18,7 @@ using RelativePositioning;
 namespace CursedMod.Events.Patches.SCPs.Scp939;
 
 [DynamicEventPatch(typeof(Scp939EventsHandler), nameof(Scp939EventsHandler.PlayerPlaceMimicPoint))]
+[DynamicEventPatch(typeof(Scp939EventsHandler), nameof(Scp939EventsHandler.PlayerRemoveMimicPoint))]
 [HarmonyPatch(typeof(MimicPointController), nameof(MimicPointController.ServerProcessCmd))]
 public class PlaceMimicPointPatch
 {
