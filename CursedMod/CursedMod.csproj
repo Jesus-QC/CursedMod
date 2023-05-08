@@ -124,8 +124,13 @@
         <Compile Include="Events\Arguments\SCPs\Scp173\PlayerUseBreakneckSpeedEventArgs.cs" />
         <Compile Include="Events\Arguments\SCPs\Scp330\PlayerInteractingScp330EventArgs.cs" />
         <Compile Include="Events\Arguments\SCPs\Scp939\PlayerCancelCloudPlacementEventArgs.cs" />
+        <Compile Include="Events\Arguments\SCPs\Scp939\PlayerLungeEventArgs.cs" />
         <Compile Include="Events\Arguments\SCPs\Scp939\PlayerPlaceAmnesticCloudEventArgs.cs" />
-        <Compile Include="Events\Arguments\SCPs\Scp939\PlayerSavingVoiceEventArgs.cs" />
+        <Compile Include="Events\Arguments\SCPs\Scp939\PlayerPlaceMimicPointEventArgs.cs" />
+        <Compile Include="Events\Arguments\SCPs\Scp939\PlayerPlaySoundEventArgs.cs" />
+        <Compile Include="Events\Arguments\SCPs\Scp939\PlayerPlayVoiceEventArgs.cs" />
+        <Compile Include="Events\Arguments\SCPs\Scp939\PlayerRemoveMimicPointEventArgs.cs" />
+        <Compile Include="Events\Arguments\SCPs\Scp939\PlayerSaveVoiceEventArgs.cs" />
         <Compile Include="Events\DynamicEventPatchAttribute.cs" />
         <Compile Include="Events\EventManager.cs" />
         <Compile Include="Events\Handlers\Achievements\AchievementsEventsHandler.cs" />
@@ -192,7 +197,11 @@
         <Compile Include="Events\Patches\SCPs\Scp330\ServerInteractScp330Patch.cs" />
         <Compile Include="Events\Patches\SCPs\Scp939\CancelCloudPlacementPatch.cs" />
         <Compile Include="Events\Patches\SCPs\Scp939\PlaceCloudPatch.cs" />
+        <Compile Include="Events\Patches\SCPs\Scp939\PlaceMimicPointPatch.cs" />
+        <Compile Include="Events\Patches\SCPs\Scp939\PlayMimicrySoundPatch.cs" />
+        <Compile Include="Events\Patches\SCPs\Scp939\PlayPlayerVoicePatch.cs" />
         <Compile Include="Events\Patches\SCPs\Scp939\SaveVoicePatch.cs" />
+        <Compile Include="Events\Patches\SCPs\Scp939\UseLungePatch.cs" />
         <Compile Include="Events\Patches\Server\CreateMatchPatch.cs" />
         <Compile Include="Features\Enums\AuthenticationType.cs" />
         <Compile Include="Features\Enums\DoorType.cs" />
@@ -297,7 +306,6 @@
         <Compile Include="Loader\Permissions\PermissionsGroup.cs" />
         <Compile Include="Loader\Permissions\PermissionsManager.cs" />
         <Compile Include="Properties\AssemblyInfo.cs" />
-    </ItemGroup>
     <ItemGroup>
         <None Include="packages.config" />
     </ItemGroup>
