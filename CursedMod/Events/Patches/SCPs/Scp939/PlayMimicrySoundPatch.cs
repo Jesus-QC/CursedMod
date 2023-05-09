@@ -22,7 +22,7 @@ public class PlayMimicrySoundPatch
 {
     private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
     {
-        List<CodeInstruction> newInstructions = EventManager.CheckEvent<PlayMimicrySoundPatch>(25, instructions);
+        List<CodeInstruction> newInstructions = EventManager.CheckEvent<PlayMimicrySoundPatch>(21, instructions);
         
         Label returnLabel = generator.DefineLabel();
 
