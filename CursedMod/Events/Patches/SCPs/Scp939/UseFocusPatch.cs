@@ -45,7 +45,7 @@ public class UseFocusPatch
 
     private static void ProcessFocusEvent(Scp939FocusKeySync focusKeySync, NetworkReader reader)
     {
-        var focusState = reader.ReadBoolean();
+        var focusState = reader.ReadBool();
 
         PlayerUseFocusEventArgs args = new (focusKeySync, focusState);
         Scp939EventsHandler.OnPlayerUseFocus(args);
