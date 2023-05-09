@@ -21,6 +21,10 @@ public static class Scp096EventsHandler
     public static event EventManager.CursedEventHandler<PlayerEnragingEventArgs> PlayerEnraging;
     
     public static event EventManager.CursedEventHandler<PlayerEndEnrageEventArgs> PlayerEndEnrage; 
+    
+    public static event EventManager.CursedEventHandler<PlayerAddTargetEventArgs> PlayerAddTarget;
+    
+    public static event EventManager.CursedEventHandler<PlayerRemoveTargetEventArgs> PlayerRemoveTarget;
 
     internal static void OnPlayerPryGate(PlayerPryGateEventArgs ev)
     {
@@ -45,5 +49,15 @@ public static class Scp096EventsHandler
     internal static void OnPlayerEndEnrage(PlayerEndEnrageEventArgs ev)
     {
         PlayerEndEnrage.InvokeEvent(ev);
+    }
+    
+    internal static void OnPlayerAddTarget(PlayerAddTargetEventArgs ev)
+    {
+        PlayerAddTarget.InvokeEvent(ev);
+    }
+    
+    internal static void OnPlayerRemoveTarget(PlayerRemoveTargetEventArgs ev)
+    {
+        PlayerRemoveTarget.InvokeEvent(ev);
     }
 }
