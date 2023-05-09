@@ -28,7 +28,7 @@ public class PlayMimicrySoundPatch
 
         const int offset = 1;
         int index = newInstructions.FindIndex(i =>
-                        i.StoresField(AccessTools.Field(typeof(EnvironmentalMimicry), nameof(EnvironmentalMimicry._syncSound)))) + offset;
+                        i.StoresField(AccessTools.Field(typeof(EnvironmentalMimicry), nameof(EnvironmentalMimicry._syncOption)))) + offset;
         
         newInstructions.InsertRange(index, new CodeInstruction[]
         {
