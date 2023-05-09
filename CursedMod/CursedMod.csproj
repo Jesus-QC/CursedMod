@@ -119,6 +119,8 @@
         <Compile Include="Events\Arguments\SCPs\Scp049\PlayerFinishReviveEventArgs.cs" />
         <Compile Include="Events\Arguments\SCPs\Scp049\PlayerSensingEventArgs.cs" />
         <Compile Include="Events\Arguments\SCPs\Scp049\PlayerStartReviveEventArgs.cs" />
+        <Compile Include="Events\Arguments\SCPs\Scp096\PlayerPryGateEventArgs.cs" />
+        <Compile Include="Events\Arguments\SCPs\Scp096\PlayerTryNotToCryEventArgs.cs" />
         <Compile Include="Events\Arguments\SCPs\Scp106\PlayerExitingSubmergeEventArgs.cs" />
         <Compile Include="Events\Arguments\SCPs\Scp106\PlayerStalkingEventArgs.cs" />
         <Compile Include="Events\Arguments\SCPs\Scp106\PlayerSubmergingEventArgs.cs" />
@@ -150,6 +152,7 @@
         <Compile Include="Events\Handlers\Round\RoundEventsHandler.cs" />
         <Compile Include="Events\Handlers\SCPs\Scp0492\ZombieEventsHandler.cs" />
         <Compile Include="Events\Handlers\SCPs\Scp049\Scp049EventsHandler.cs" />
+        <Compile Include="Events\Handlers\SCPs\Scp096\Scp096EventsHandler.cs" />
         <Compile Include="Events\Handlers\SCPs\Scp106\Scp106EventsHandler.cs" />
         <Compile Include="Events\Handlers\SCPs\Scp173\Scp173EventsHandler.cs" />
         <Compile Include="Events\Handlers\SCPs\Scp330\Scp330EventsHandler.cs" />
@@ -194,6 +197,8 @@
         <Compile Include="Events\Patches\SCPs\Scp049\RevivedPatch.cs" />
         <Compile Include="Events\Patches\SCPs\Scp049\RevivingPatch.cs" />
         <Compile Include="Events\Patches\SCPs\Scp049\SensePlayerPatch.cs" />
+        <Compile Include="Events\Patches\SCPs\Scp096\PryGatePatch.cs" />
+        <Compile Include="Events\Patches\SCPs\Scp096\UseTryNotToCryPatch.cs" />
         <Compile Include="Events\Patches\SCPs\Scp106\HuntersAtlasPatch.cs" />
         <Compile Include="Events\Patches\SCPs\Scp106\StalkAbilityPatch.cs" />
         <Compile Include="Events\Patches\SCPs\Scp173\PlaceTantrumPatch.cs" />
