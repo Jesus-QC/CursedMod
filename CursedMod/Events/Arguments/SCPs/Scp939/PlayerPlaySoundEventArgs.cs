@@ -18,8 +18,7 @@ public class PlayerPlaySoundEventArgs : EventArgs, ICursedCancellableEvent, ICur
     {
         IsAllowed = true;
         Player = CursedPlayer.Get(environmentalMimicry.Owner);
-        Option = environmentalMimicry._syncSound;
-        Category = environmentalMimicry._syncCat;
+        Option = environmentalMimicry._syncOption;
     }
     
     public bool IsAllowed { get; set; }
@@ -27,6 +26,4 @@ public class PlayerPlaySoundEventArgs : EventArgs, ICursedCancellableEvent, ICur
     public CursedPlayer Player { get; }
     
     public byte Option { get; }
-    
-    public byte Category { get; }
 }
