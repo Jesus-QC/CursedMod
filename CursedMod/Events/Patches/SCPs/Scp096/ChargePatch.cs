@@ -22,7 +22,7 @@ public class ChargePatch
 {
     private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
     {
-        List<CodeInstruction> newInstructions = EventManager.CheckEvent<ChargePatch>(8, instructions);
+        List<CodeInstruction> newInstructions = EventManager.CheckEvent<ChargePatch>(38, instructions);
         
         Label returnLabel = generator.DefineLabel();
         const int offset = 1;
