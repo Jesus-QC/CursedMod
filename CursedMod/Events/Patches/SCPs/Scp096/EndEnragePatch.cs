@@ -26,11 +26,11 @@ public class EndEnragePatch
 
         Label retLabel = generator.DefineLabel();
         LocalBuilder localBuilder = generator.DeclareLocal(typeof(PlayerEndEnrageEventArgs));
-        int index = newInstructions.FindIndex(i => i.opcode == OpCodes.Ret);
+        int index = newInstructions.FindIndex(i => i.IsLdarg(1));
         
         newInstructions.InsertRange(index, new CodeInstruction[]
         {
-            new (OpCodes.Ldarg_0),
+            new CodeInstruction(OpCodes.Ldarg_0).MoveLabelsFrom(newInstructions[index]),
             new (OpCodes.Ldarg_1),
             new (OpCodes.Newobj, AccessTools.GetDeclaredConstructors(typeof(PlayerEndEnrageEventArgs))[0]),
             new (OpCodes.Dup),
