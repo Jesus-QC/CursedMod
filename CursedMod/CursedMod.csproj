@@ -119,6 +119,9 @@
         <Compile Include="Events\Arguments\SCPs\Scp049\PlayerFinishReviveEventArgs.cs" />
         <Compile Include="Events\Arguments\SCPs\Scp049\PlayerSensingEventArgs.cs" />
         <Compile Include="Events\Arguments\SCPs\Scp049\PlayerStartReviveEventArgs.cs" />
+        <Compile Include="Events\Arguments\SCPs\Scp096\PlayerChargingEventArgs.cs" />
+        <Compile Include="Events\Arguments\SCPs\Scp096\PlayerEndEnrageEventArgs.cs" />
+        <Compile Include="Events\Arguments\SCPs\Scp096\PlayerEnragingEventArgs.cs" />
         <Compile Include="Events\Arguments\SCPs\Scp096\PlayerPryGateEventArgs.cs" />
         <Compile Include="Events\Arguments\SCPs\Scp096\PlayerTryNotToCryEventArgs.cs" />
         <Compile Include="Events\Arguments\SCPs\Scp106\PlayerExitingSubmergeEventArgs.cs" />
@@ -197,7 +200,10 @@
         <Compile Include="Events\Patches\SCPs\Scp049\RevivedPatch.cs" />
         <Compile Include="Events\Patches\SCPs\Scp049\RevivingPatch.cs" />
         <Compile Include="Events\Patches\SCPs\Scp049\SensePlayerPatch.cs" />
+        <Compile Include="Events\Patches\SCPs\Scp096\ChargePatch.cs" />
+        <Compile Include="Events\Patches\SCPs\Scp096\EndEnragePatch.cs" />
         <Compile Include="Events\Patches\SCPs\Scp096\PryGatePatch.cs" />
+        <Compile Include="Events\Patches\SCPs\Scp096\EnragingPatch.cs" />
         <Compile Include="Events\Patches\SCPs\Scp096\UseTryNotToCryPatch.cs" />
         <Compile Include="Events\Patches\SCPs\Scp106\HuntersAtlasPatch.cs" />
         <Compile Include="Events\Patches\SCPs\Scp106\StalkAbilityPatch.cs" />
