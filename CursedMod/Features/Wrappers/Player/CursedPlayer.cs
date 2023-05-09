@@ -795,7 +795,7 @@ public class CursedPlayer
 
     public void Disconnect(string message) => CharacterClassManager.DisconnectClient(NetworkConnection, message);
 
-    public void ShowTag(bool global = false) => CharacterClassManager.UserCode_CmdRequestShowTag(global);
+    public void ShowTag(bool global = false) => CharacterClassManager.UserCode_CmdRequestShowTag__Boolean(global);
     
     public void HideTag() => CharacterClassManager.UserCode_CmdRequestHideTag();
 

@@ -9,15 +9,16 @@
 using System;
 using CommandSystem;
 using CursedMod.Features.Wrappers.Player;
+using Footprinting;
 
 namespace CursedMod.Events.Arguments.BanSystem;
 
 public class BanningPlayerEventArgs : EventArgs, ICursedCancellableEvent, ICursedPlayerEvent
 {
-    public BanningPlayerEventArgs(ReferenceHub target, ICommandSender issuer, string reason, long duration)
+    public BanningPlayerEventArgs(Footprint target, ICommandSender issuer, string reason, long duration)
     {
         IsAllowed = true;
-        Player = CursedPlayer.Get(target);
+        Player = CursedPlayer.Get(target.Hub);
         Issuer = CursedPlayer.Get(issuer);
         Reason = reason;
         Duration = duration;

@@ -82,11 +82,10 @@ public class CursedScp939Role : CursedFpcRole
         AmnesticCloudAbility.ServerConfirmPlacement(durationSize);
     }
 
-    public void PlayMimicrySound(byte category, byte sound, int cooldown = 0)
+    public void PlayMimicrySound(byte sound, int cooldown = 0)
     {
-        EnvironmentalMimicry._syncCat = category;
-        EnvironmentalMimicry._syncSound = sound;
-        EnvironmentalMimicry.Cooldown.NextUse = NetworkTime.time + cooldown;
+        EnvironmentalMimicry._syncOption = sound;
+        EnvironmentalMimicry.Cooldown.Trigger(cooldown);
         EnvironmentalMimicry.ServerSendRpc(true);
     }
 

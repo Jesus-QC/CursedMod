@@ -15,12 +15,12 @@ using NorthwoodLib.Pools;
 
 namespace CursedMod.Events.Patches.Player;
 
-[HarmonyPatch(typeof(ServerRoles), nameof(ServerRoles.UserCode_CmdServerSignatureComplete))]
+[HarmonyPatch(typeof(ServerRoles), nameof(ServerRoles.UserCode_CmdServerSignatureComplete__String__String__String__Boolean))]
 public class CompleteVerificationPatch
 {
     private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
     {
-        List<CodeInstruction> newInstructions = EventManager.CheckEvent<CompleteVerificationPatch>(691, instructions);
+        List<CodeInstruction> newInstructions = EventManager.CheckEvent<CompleteVerificationPatch>(707, instructions);
 
         Label ret = generator.DefineLabel();
         

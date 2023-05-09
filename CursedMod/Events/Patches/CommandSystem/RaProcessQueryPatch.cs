@@ -24,7 +24,7 @@ public class RaProcessQueryPatch
 {
     private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
     {
-        List<CodeInstruction> newInstructions = EventManager.CheckEvent<RaProcessQueryPatch>(316, instructions);
+        List<CodeInstruction> newInstructions = EventManager.CheckEvent<RaProcessQueryPatch>(312, instructions);
 
         Label ret = generator.DefineLabel();
         LocalBuilder args = generator.DeclareLocal(typeof(ExecutingRemoteAdminCommandEventArgs));

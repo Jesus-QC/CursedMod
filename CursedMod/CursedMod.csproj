@@ -58,6 +58,9 @@
         <Reference Include="PluginAPI">
           <HintPath>$(SL_REFERENCES)\PluginAPI-Publicized.dll</HintPath>
         </Reference>
+        <Reference Include="Pooling">
+          <HintPath>$(SL_REFERENCES)\Pooling.dll</HintPath>
+        </Reference>
         <Reference Include="System" />
         <Reference Include="System.Core" />
         <Reference Include="System.Data" />
