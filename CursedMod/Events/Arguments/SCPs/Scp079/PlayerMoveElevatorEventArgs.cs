@@ -30,7 +30,7 @@ public class PlayerMoveElevatorEventArgs : EventArgs, ICursedCancellableEvent, I
 
     public CursedPlayer Player { get; }
     
-    public float PowerCost { get; set; }
+    public int PowerCost { get; set; }
 
     public ElevatorChamber ElevatorChamber { get; }
     
