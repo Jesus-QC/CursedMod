@@ -20,7 +20,9 @@ public static class Scp079EventsHandler
     
     public static event EventManager.CursedEventHandler<PlayerMoveElevatorEventArgs> PlayerMoveElevator;
     
-    public static event EventManager.CursedEventHandler<PlayerUseLockdownEventArgs> PlayerUseLockdown; 
+    public static event EventManager.CursedEventHandler<PlayerUseLockdownEventArgs> PlayerUseLockdown;
+
+    public static event EventManager.CursedEventHandler<PlayerCancelLockdownEventArgs> PlayerCancelLockdown; 
 
     internal static void OnPlayerBlackoutRoom(PlayerBlackoutRoomEventArgs args)
     {
@@ -45,5 +47,10 @@ public static class Scp079EventsHandler
     internal static void OnPlayerUseLockdown(PlayerUseLockdownEventArgs args)
     {
         PlayerUseLockdown.InvokeEvent(args);
+    }
+
+    internal static void OnPlayerCancelLockdown(PlayerCancelLockdownEventArgs args)
+    {
+        PlayerCancelLockdown.InvokeEvent(args);
     }
 }
