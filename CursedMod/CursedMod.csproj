@@ -121,6 +121,7 @@
         <Compile Include="Events\Arguments\SCPs\Scp049\PlayerStartReviveEventArgs.cs" />
         <Compile Include="Events\Arguments\SCPs\Scp079\PlayerBlackoutRoomEventArgs.cs" />
         <Compile Include="Events\Arguments\SCPs\Scp079\PlayerBlackoutZoneEventArgs.cs" />
+        <Compile Include="Events\Arguments\SCPs\Scp079\PlayerCancelLockdownEventArgs.cs" />
         <Compile Include="Events\Arguments\SCPs\Scp079\PlayerChangeCameraEventArgs.cs" />
         <Compile Include="Events\Arguments\SCPs\Scp079\PlayerMoveElevatorEventArgs.cs" />
         <Compile Include="Events\Arguments\SCPs\Scp079\PlayerUseLockdownEventArgs.cs" />
@@ -212,6 +213,8 @@
         <Compile Include="Events\Patches\SCPs\Scp079\BlackoutZoneAbilityPatch.cs" />
         <Compile Include="Events\Patches\SCPs\Scp079\CurrentCameraPatch.cs" />
         <Compile Include="Events\Patches\SCPs\Scp079\ElevatorStateChangerPatch.cs" />
+        <Compile Include="Events\Patches\SCPs\Scp079\LockdownActivatePatch.cs" />
+        <Compile Include="Events\Patches\SCPs\Scp079\ServerCancelLockdownPatch.cs" />
         <Compile Include="Events\Patches\SCPs\Scp096\AddTargetPatch.cs" />
         <Compile Include="Events\Patches\SCPs\Scp096\ChargePatch.cs" />
         <Compile Include="Events\Patches\SCPs\Scp096\EndEnragePatch.cs" />
