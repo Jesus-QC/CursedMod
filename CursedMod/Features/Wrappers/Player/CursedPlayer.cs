@@ -153,7 +153,6 @@ public class CursedPlayer
 
     public byte KickPower => ServerRoles.KickPower;
     
-    // public bool IsDummy => this is CursedDummy;
     public bool IsDead => Role is RoleTypeId.Spectator or RoleTypeId.Overwatch or RoleTypeId.None;
 
     public bool IsAlive => !IsDead;
