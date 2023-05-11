@@ -26,8 +26,7 @@ public class LockdownActivatePatch
         List<CodeInstruction> newInstructions = EventManager.CheckEvent<LockdownActivatePatch>(50, instructions);
         
         Label returnLabel = generator.DefineLabel();
-        const int offset = 1;
-        int index = newInstructions.FindIndex(i => i.opcode == OpCodes.Ret) + offset;
+        int index = newInstructions.FindIndex(i => i.opcode == OpCodes.Ldc_I4_S);
         
         newInstructions.InsertRange(index, new CodeInstruction[]
         {
