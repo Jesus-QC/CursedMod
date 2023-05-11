@@ -68,7 +68,13 @@ public class CursedPlayer
     public static List<CursedPlayer> List => Collection.ToList();
    
     public static int Count => Dictionary.Count;
+
+    public static IEnumerable<CursedPlayer> SpectatorList => Collection.Where(player => player.IsDead);
+
+    public static IEnumerable<CursedPlayer> ScpList => Collection.Where(player => player.IsScp);
     
+    public static IEnumerable<CursedPlayer> HumanList => Collection.Where(player => player.IsHuman);
+
     public ReferenceHub ReferenceHub { get; }
     
     public GameObject GameObject { get; private set; }
@@ -147,7 +153,6 @@ public class CursedPlayer
 
     public byte KickPower => ServerRoles.KickPower;
     
-    // public bool IsDummy => this is CursedDummy;
     public bool IsDead => Role is RoleTypeId.Spectator or RoleTypeId.Overwatch or RoleTypeId.None;
 
     public bool IsAlive => !IsDead;
