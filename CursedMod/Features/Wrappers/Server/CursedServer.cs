@@ -166,6 +166,18 @@ public static class CursedServer
         set => ServerConsole._serverName = value;
     }
     
+    public static string VerKey
+    {
+        get => ServerConsole.Password;
+        set => ServerConsole.Password = value;
+    }
+
+    public static bool DropPlayerItemsOnDisconnect
+    {
+        get => CustomNetworkManager.TypedSingleton._disconnectDrop;
+        set => CustomNetworkManager.TypedSingleton._disconnectDrop = value;
+    }
+    
     public static HashSet<string> ReservedSlotUsers => ReservedSlot.Users;
 
     public static bool AdminConnected => PlayerList._anyAdminOnServer;
@@ -176,6 +188,7 @@ public static class CursedServer
     
     public static double TicksPerSecond => Math.Round(1f / Time.smoothDeltaTime);
     
+    // Literally the same as ticks per second, but in our case we are using delta time instead of smooth delta time because yes.
     public static double FramesPerSecond => Math.Round(1f / Time.deltaTime);
 
     public static bool IsBeta => GameCore.Version.PublicBeta || GameCore.Version.PrivateBeta;
