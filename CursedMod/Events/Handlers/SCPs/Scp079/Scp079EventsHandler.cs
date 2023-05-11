@@ -23,6 +23,10 @@ public static class Scp079EventsHandler
     public static event EventManager.CursedEventHandler<PlayerUseLockdownEventArgs> PlayerUseLockdown;
 
     public static event EventManager.CursedEventHandler<PlayerCancelLockdownEventArgs> PlayerCancelLockdown; 
+    
+    public static event EventManager.CursedEventHandler<PlayerLevelUpEventArgs> PlayerLevelUp;
+    
+    public static event EventManager.CursedEventHandler<PlayerGainExperienceEventArgs> PlayerGainExperience;
 
     internal static void OnPlayerBlackoutRoom(PlayerBlackoutRoomEventArgs args)
     {
@@ -52,5 +56,15 @@ public static class Scp079EventsHandler
     internal static void OnPlayerCancelLockdown(PlayerCancelLockdownEventArgs args)
     {
         PlayerCancelLockdown.InvokeEvent(args);
+    }
+    
+    internal static void OnPlayerLevelUp(PlayerLevelUpEventArgs args)
+    {
+        PlayerLevelUp.InvokeEvent(args);
+    }
+    
+    internal static void OnPlayerGainExperience(PlayerGainExperienceEventArgs args)
+    {
+        PlayerGainExperience.InvokeEvent(args);
     }
 }
