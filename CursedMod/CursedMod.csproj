@@ -251,6 +251,7 @@
         <Compile Include="Loader\Commands\CursedCommandManager.cs" />
         <Compile Include="Loader\Commands\CursedCommandType.cs" />
         <Compile Include="Loader\Configurations\CursedModConfiguration.cs" />
+        <Compile Include="Loader\Configurations\CursedModConfigurationManager.cs" />
         <Compile Include="Loader\CursedLoader.cs" />
         <Compile Include="Loader\CursedModInformation.cs" />
         <Compile Include="Loader\CursedPaths.cs" />

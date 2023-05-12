@@ -29,8 +29,8 @@ public class ReloadServerNamePatch
         
         newInstructions.InsertRange(newInstructions.Count - 1, new CodeInstruction[]
         {
-            new (OpCodes.Ldsfld, AccessTools.Field(typeof(EntryPoint), nameof(EntryPoint.ModConfiguration))),
-            new (OpCodes.Callvirt, AccessTools.PropertyGetter(typeof(CursedModConfiguration), nameof(CursedModConfiguration.ShowCursedModVersion))),
+            new (OpCodes.Ldsfld, AccessTools.Field(typeof(CursedModConfigurationManager), nameof(CursedModConfigurationManager.LoadedConfiguration))),
+            new (OpCodes.Callvirt, AccessTools.PropertyGetter(typeof(CursedModConfiguration), nameof(CursedModConfiguration.UseNameTracking))),
             new (OpCodes.Brfalse_S, ret),
             
             new (OpCodes.Ldsfld, AccessTools.Field(typeof(ServerConsole), nameof(ServerConsole._serverName))),
