@@ -88,6 +88,7 @@
         <Compile Include="Events\Arguments\BanSystem\BanningOfflinePlayerEventArgs.cs" />
         <Compile Include="Events\Arguments\CommandSystem\ExecutingRemoteAdminCommandEventArgs.cs" />
         <Compile Include="Events\Arguments\Facility\Doors\PlayerInteractingDoorEventArgs.cs" />
+        <Compile Include="Events\Arguments\Facility\Warhead\PlayerStartingDetonationEventArgs.cs" />
         <Compile Include="Events\Arguments\ICursedCancellableEvent.cs" />
         <Compile Include="Events\Arguments\ICursedItemEvent.cs" />
         <Compile Include="Events\Arguments\ICursedPickupEvent.cs" />
@@ -119,6 +120,7 @@
         <Compile Include="Events\Handlers\BanSystem\BanSystemEventsHandler.cs" />
         <Compile Include="Events\Handlers\CommandSystem\CommandSystemEventsHandler.cs" />
         <Compile Include="Events\Handlers\Facility\Doors\DoorsEventsHandler.cs" />
+        <Compile Include="Events\Handlers\Facility\Warhead\WarheadEventsHandler.cs" />
         <Compile Include="Events\Handlers\Items\ItemsEventsHandler.cs" />
         <Compile Include="Events\Handlers\MapGeneration\MapGenerationEventsHandler.cs" />
         <Compile Include="Events\Handlers\Player\PlayerEventsHandler.cs" />
@@ -134,6 +136,7 @@
         <Compile Include="Events\Patches\BanSystem\OBanUserPatch.cs" />
         <Compile Include="Events\Patches\CommandSystem\RaProcessQueryPatch.cs" />
         <Compile Include="Events\Patches\Facility\Doors\ServerInteractDoorVariantPatch.cs" />
+        <Compile Include="Events\Patches\Facility\Warhead\StartDetonationPatch.cs" />
         <Compile Include="Events\Patches\Items\ArmorSearchCompletePatch.cs" />
         <Compile Include="Events\Patches\Items\DropItemPatch.cs" />
         <Compile Include="Events\Patches\Items\ItemSearchCompletePatch.cs" />
