@@ -1,5 +1,5 @@
 // -----------------------------------------------------------------------
-// <copyright file="StartDetonationPatch.cs" company="CursedMod">
+// <copyright file="CancelDetonationPatch.cs" company="CursedMod">
 // Copyright (c) CursedMod. All rights reserved.
 // Licensed under the GPLv3 license.
 // See LICENSE file in the project root for full license information.
@@ -15,16 +15,15 @@ using NorthwoodLib.Pools;
 
 namespace CursedMod.Events.Patches.Facility.Warhead;
 
-[DynamicEventPatch(typeof(WarheadEventsHandler), nameof(WarheadEventsHandler.PlayerStartingDetonation))]
-[HarmonyPatch(typeof(AlphaWarheadController), nameof(AlphaWarheadController.StartDetonation))]
-public class StartDetonationPatch
+[DynamicEventPatch(typeof(WarheadEventsHandler), nameof(WarheadEventsHandler.PlayerCancelingDetonation))]
+[HarmonyPatch(typeof(AlphaWarheadController), nameof(AlphaWarheadController.CancelDetonation))]
+public class CancelDetonationPatch
 {
     private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
     {
         List<CodeInstruction> newInstructions = EventManager.CheckEvent<StartDetonationPatch>(119, instructions);
 
         Label ret = generator.DefineLabel();
-        LocalBuilder args = generator.DeclareLocal(typeof(PlayerStartingDetonationEventArgs));
 
         int index = newInstructions.FindIndex(x => x.opcode == OpCodes.Ret) + 1;
         
@@ -35,19 +34,11 @@ public class StartDetonationPatch
             new CodeInstruction(OpCodes.Ldarg_1).MoveLabelsFrom(newInstructions[index]),
             new (OpCodes.Ldarg_2),
             new (OpCodes.Ldarg_3),
-            new (OpCodes.Newobj, AccessTools.GetDeclaredConstructors(typeof(PlayerStartingDetonationEventArgs))[0]),
+            new (OpCodes.Newobj, AccessTools.GetDeclaredConstructors(typeof(PlayerCancelingDetonationEventArgs))[0]),
             new (OpCodes.Dup),
-            new (OpCodes.Stloc_S, args.LocalIndex),
             new (OpCodes.Call, AccessTools.Method(typeof(WarheadEventsHandler), nameof(WarheadEventsHandler.OnPlayerStartingDetonation))),
-            new (OpCodes.Ldloc_S, args.LocalIndex),
-            new (OpCodes.Callvirt, AccessTools.PropertyGetter(typeof(PlayerStartingDetonationEventArgs), nameof(PlayerStartingDetonationEventArgs.IsAllowed))),
+            new (OpCodes.Callvirt, AccessTools.PropertyGetter(typeof(PlayerCancelingDetonationEventArgs), nameof(PlayerCancelingDetonationEventArgs.IsAllowed))),
             new (OpCodes.Brfalse_S, ret),
-            new (OpCodes.Ldloc_S, args.LocalIndex),
-            new (OpCodes.Callvirt, AccessTools.PropertyGetter(typeof(PlayerStartingDetonationEventArgs), nameof(PlayerStartingDetonationEventArgs.IsAutomatic))),
-            new (OpCodes.Starg_S, 0),
-            new (OpCodes.Ldloc_S, args.LocalIndex),
-            new (OpCodes.Callvirt, AccessTools.PropertyGetter(typeof(PlayerStartingDetonationEventArgs), nameof(PlayerStartingDetonationEventArgs.SuppressSubtitles))),
-            new (OpCodes.Starg_S, 1),
         });
         
         foreach (CodeInstruction instruction in newInstructions)

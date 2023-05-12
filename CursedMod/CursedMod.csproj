@@ -88,6 +88,7 @@
         <Compile Include="Events\Arguments\BanSystem\BanningOfflinePlayerEventArgs.cs" />
         <Compile Include="Events\Arguments\CommandSystem\ExecutingRemoteAdminCommandEventArgs.cs" />
         <Compile Include="Events\Arguments\Facility\Doors\PlayerInteractingDoorEventArgs.cs" />
+        <Compile Include="Events\Arguments\Facility\Warhead\PlayerCancelingDetonationEventArgs.cs" />
         <Compile Include="Events\Arguments\Facility\Warhead\PlayerStartingDetonationEventArgs.cs" />
         <Compile Include="Events\Arguments\ICursedCancellableEvent.cs" />
         <Compile Include="Events\Arguments\ICursedItemEvent.cs" />
@@ -136,6 +137,7 @@
         <Compile Include="Events\Patches\BanSystem\OBanUserPatch.cs" />
         <Compile Include="Events\Patches\CommandSystem\RaProcessQueryPatch.cs" />
         <Compile Include="Events\Patches\Facility\Doors\ServerInteractDoorVariantPatch.cs" />
+        <Compile Include="Events\Patches\Facility\Warhead\CancelDetonationPatch.cs" />
         <Compile Include="Events\Patches\Facility\Warhead\StartDetonationPatch.cs" />
         <Compile Include="Events\Patches\Items\ArmorSearchCompletePatch.cs" />
         <Compile Include="Events\Patches\Items\DropItemPatch.cs" />
