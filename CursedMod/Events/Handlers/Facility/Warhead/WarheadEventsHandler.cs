@@ -15,6 +15,8 @@ public static class WarheadEventsHandler
     public static event EventManager.CursedEventHandler<PlayerStartingDetonationEventArgs> PlayerStartingDetonation;
     
     public static event EventManager.CursedEventHandler<PlayerCancelingDetonationEventArgs> PlayerCancelingDetonation;
+    
+    public static event EventManager.CursedEventHandler<WarheadDetonatingEventArgs> WarheadDetonating;
 
     internal static void OnPlayerStartingDetonation(PlayerStartingDetonationEventArgs args)
     {
@@ -24,5 +26,10 @@ public static class WarheadEventsHandler
     internal static void OnPlayerCancelingDetonation(PlayerCancelingDetonationEventArgs args)
     {
         PlayerCancelingDetonation.InvokeEvent(args); 
+    }
+    
+    internal static void OnWarheadDetonating(WarheadDetonatingEventArgs args)
+    {
+        WarheadDetonating.InvokeEvent(args); 
     }
 }
