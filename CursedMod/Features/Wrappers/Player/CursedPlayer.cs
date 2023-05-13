@@ -490,6 +490,21 @@ public class CursedPlayer
         set => CharacterClassManager.GodMode = value;
     }
 
+    public bool HasNoClipPermitted
+    {
+        get => FpcNoclip.IsPermitted(ReferenceHub);
+        set
+        {
+            if (value)
+            {
+                FpcNoclip.PermitPlayer(ReferenceHub);
+                return;
+            }
+            
+            FpcNoclip.UnpermitPlayer(ReferenceHub);
+        }
+    }
+
     public bool HasNoClip
     {
         get => AdminFlagsStat.HasFlag(AdminFlags.Noclip);

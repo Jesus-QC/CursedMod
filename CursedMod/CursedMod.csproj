@@ -111,6 +111,7 @@
         <Compile Include="Events\Arguments\Player\PlayerEscapingEventArgs.cs" />
         <Compile Include="Events\Arguments\Player\PlayerJoinedEventArgs.cs" />
         <Compile Include="Events\Arguments\Player\PlayerReceivingDamageEventArgs.cs" />
+        <Compile Include="Events\Arguments\Player\PlayerTogglingNoClipEventArgs.cs" />
         <Compile Include="Events\Arguments\Player\PlayerUsingVoiceChatEventArgs.cs" />
         <Compile Include="Events\Arguments\Player\RagdollSpawnedEventArgs.cs" />
         <Compile Include="Events\Arguments\Player\PlayerSpawningEventArgs.cs" />
@@ -162,6 +163,7 @@
         <Compile Include="Events\Patches\Player\PlayerStats\KillPlayerPatch.cs" />
         <Compile Include="Events\Patches\Player\Roles\InitializeRolePatch.cs" />
         <Compile Include="Events\Patches\Player\Roles\PlayerSpawningPatch.cs" />
+        <Compile Include="Events\Patches\Player\ToggleNoClipPatch.cs" />
         <Compile Include="Events\Patches\Player\VoiceChat\TransceiverReceiveMessagePatch.cs" />
         <Compile Include="Events\Patches\Respawning\RespawnManagerPatch.cs" />
         <Compile Include="Events\Patches\Round\RestartingRoundPatch.cs" />

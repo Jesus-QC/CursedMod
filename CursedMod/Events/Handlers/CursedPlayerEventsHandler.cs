@@ -29,6 +29,8 @@ public static class CursedPlayerEventsHandler
     public static event EventManager.CursedEventHandler<PlayerEscapingEventArgs> Escaping;
 
     public static event EventManager.CursedEventHandler<PlayerUsingVoiceChatEventArgs> UsingVoiceChat;
+    
+    public static event EventManager.CursedEventHandler<PlayerTogglingNoClipEventArgs> TogglingNoClip;
 
     internal static void OnPlayerJoined(PlayerJoinedEventArgs args)
     {
@@ -94,5 +96,13 @@ public static class CursedPlayerEventsHandler
             return;
         
         UsingVoiceChat.InvokeEvent(args);
+    }
+
+    internal static void OnPlayerTogglingNoClip(PlayerTogglingNoClipEventArgs args)
+    {
+        if (!args.Player.CheckPlayer())
+            return;
+        
+        TogglingNoClip.InvokeEvent(args);
     }
 }
