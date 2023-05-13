@@ -16,7 +16,7 @@ using NorthwoodLib.Pools;
 namespace CursedMod.Events.Patches.Facility.Warhead;
 
 [DynamicEventPatch(typeof(CursedWarheadEventsHandler), nameof(CursedWarheadEventsHandler.PlayerCancelingDetonation))]
-[HarmonyPatch(typeof(AlphaWarheadController), nameof(AlphaWarheadController.CancelDetonation))]
+[HarmonyPatch(typeof(AlphaWarheadController), nameof(AlphaWarheadController.CancelDetonation), typeof(ReferenceHub))]
 public class CancelDetonationPatch
 {
     private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator generator)

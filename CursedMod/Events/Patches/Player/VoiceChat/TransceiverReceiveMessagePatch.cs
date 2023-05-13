@@ -22,7 +22,7 @@ public class TransceiverReceiveMessagePatch
 {
     private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
     {
-        List<CodeInstruction> newInstructions = EventManager.CheckEvent<TransceiverReceiveMessagePatch>(89, instructions);
+        List<CodeInstruction> newInstructions = EventManager.CheckEvent<TransceiverReceiveMessagePatch>(84, instructions);
 
         Label ret = generator.DefineLabel();
         LocalBuilder args = generator.DeclareLocal(typeof(PlayerUsingVoiceChatEventArgs));
