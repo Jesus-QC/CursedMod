@@ -9,14 +9,14 @@
 using System.Collections.Generic;
 using System.Reflection.Emit;
 using CursedMod.Events.Arguments.SCPs.Scp079;
-using CursedMod.Events.Handlers.SCPs.Scp079;
+using CursedMod.Events.Handlers;
 using HarmonyLib;
 using NorthwoodLib.Pools;
 using PlayerRoles.PlayableScps.Scp079;
 
 namespace CursedMod.Events.Patches.SCPs.Scp079;
 
-[DynamicEventPatch(typeof(Scp079EventsHandler), nameof(Scp079EventsHandler.PlayerBlackoutZone))]
+[DynamicEventPatch(typeof(CursedScp079EventsHandler), nameof(CursedScp079EventsHandler.PlayerBlackoutZone))]
 [HarmonyPatch(typeof(Scp079BlackoutZoneAbility), nameof(Scp079BlackoutZoneAbility.ServerProcessCmd))]
 public class BlackoutZoneAbilityPatch
 {
@@ -44,7 +44,7 @@ public class BlackoutZoneAbilityPatch
     private static bool ProcessBlackoutZoneEvent(Scp079BlackoutZoneAbility blackoutZoneAbility)
     {
         PlayerBlackoutZoneEventArgs args = new (blackoutZoneAbility, blackoutZoneAbility._cost, blackoutZoneAbility._duration);
-        Scp079EventsHandler.OnPlayerBlackoutZone(args);
+        CursedScp079EventsHandler.OnPlayerBlackoutZone(args);
         
         if (args.IsAllowed)
         {

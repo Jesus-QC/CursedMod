@@ -9,14 +9,14 @@
 using System.Collections.Generic;
 using System.Reflection.Emit;
 using CursedMod.Events.Arguments.SCPs.Scp939;
-using CursedMod.Events.Handlers.SCPs.Scp939;
+using CursedMod.Events.Handlers;
 using HarmonyLib;
 using NorthwoodLib.Pools;
 using PlayerRoles.PlayableScps.Scp939;
 
 namespace CursedMod.Events.Patches.SCPs.Scp939;
 
-[DynamicEventPatch(typeof(Scp939EventsHandler), nameof(Scp939EventsHandler.PlayerPlaceAmnesticCloud))]
+[DynamicEventPatch(typeof(CursedScp939EventsHandler), nameof(CursedScp939EventsHandler.PlayerPlaceAmnesticCloud))]
 [HarmonyPatch(typeof(Scp939AmnesticCloudAbility), nameof(Scp939AmnesticCloudAbility.OnStateEnabled))]
 public class PlaceCloudPatch
 {
@@ -29,12 +29,12 @@ public class PlaceCloudPatch
         const int offset = -2;
         int index = newInstructions.FindIndex(i => i.opcode == OpCodes.Callvirt) + offset;
         
-        newInstructions.InsertRange(index, new CodeInstruction[]
+        newInstructions.InsertRange(0, new CodeInstruction[]
         {
             new CodeInstruction(OpCodes.Ldarg_0).MoveLabelsFrom(newInstructions[index]),
             new (OpCodes.Newobj, AccessTools.GetDeclaredConstructors(typeof(PlayerPlaceAmnesticCloudEventArgs))[0]),
             new (OpCodes.Dup),
-            new (OpCodes.Call, AccessTools.Method(typeof(Scp939EventsHandler), nameof(Scp939EventsHandler.OnPlayerPlaceAmnesticCloud))),
+            new (OpCodes.Call, AccessTools.Method(typeof(CursedScp939EventsHandler), nameof(CursedScp939EventsHandler.OnPlayerPlaceAmnesticCloud))),
             new (OpCodes.Callvirt, AccessTools.PropertyGetter(typeof(PlayerPlaceAmnesticCloudEventArgs), nameof(PlayerPlaceAmnesticCloudEventArgs.IsAllowed))),
             new (OpCodes.Brfalse_S, returnLabel),
         });

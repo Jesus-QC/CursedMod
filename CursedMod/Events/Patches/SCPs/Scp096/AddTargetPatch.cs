@@ -9,7 +9,7 @@
 using System.Collections.Generic;
 using System.Reflection.Emit;
 using CursedMod.Events.Arguments.SCPs.Scp096;
-using CursedMod.Events.Handlers.SCPs.Scp096;
+using CursedMod.Events.Handlers;
 using CursedMod.Features.Wrappers.Player;
 using HarmonyLib;
 using NorthwoodLib.Pools;
@@ -17,7 +17,7 @@ using PlayerRoles.PlayableScps.Scp096;
 
 namespace CursedMod.Events.Patches.SCPs.Scp096;
 
-[DynamicEventPatch(typeof(Scp096EventsHandler), nameof(Scp096EventsHandler.PlayerAddTarget))]
+[DynamicEventPatch(typeof(CursedScp096EventsHandler), nameof(CursedScp096EventsHandler.PlayerAddTarget))]
 [HarmonyPatch(typeof(Scp096TargetsTracker), nameof(Scp096TargetsTracker.AddTarget))]
 public class AddTargetPatch
 {
@@ -37,7 +37,7 @@ public class AddTargetPatch
             new (OpCodes.Ldarg_2),
             new (OpCodes.Newobj, AccessTools.GetDeclaredConstructors(typeof(PlayerAddTargetEventArgs))[0]),
             new (OpCodes.Dup),
-            new (OpCodes.Call, AccessTools.Method(typeof(Scp096EventsHandler), nameof(Scp096EventsHandler.OnPlayerAddTarget))),
+            new (OpCodes.Call, AccessTools.Method(typeof(CursedScp096EventsHandler), nameof(CursedScp096EventsHandler.OnPlayerAddTarget))),
             new (OpCodes.Call, AccessTools.PropertyGetter(typeof(PlayerAddTargetEventArgs), nameof(PlayerAddTargetEventArgs.IsAllowed))),
             new (OpCodes.Brfalse_S, retLabel),
         });

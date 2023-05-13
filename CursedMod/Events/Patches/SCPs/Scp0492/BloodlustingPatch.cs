@@ -9,7 +9,7 @@
 using System.Collections.Generic;
 using System.Reflection.Emit;
 using CursedMod.Events.Arguments.SCPs.Scp0492;
-using CursedMod.Events.Handlers.SCPs.Scp0492;
+using CursedMod.Events.Handlers;
 using CursedMod.Features.Wrappers.Player;
 using HarmonyLib;
 using NorthwoodLib.Pools;
@@ -17,7 +17,7 @@ using PlayerRoles.PlayableScps.Scp049.Zombies;
 
 namespace CursedMod.Events.Patches.SCPs.Scp0492;
 
-[DynamicEventPatch(typeof(ZombieEventsHandler), nameof(ZombieEventsHandler.PlayerBloodlusting))]
+[DynamicEventPatch(typeof(CursedZombieEventsHandler), nameof(CursedZombieEventsHandler.PlayerBloodlusting))]
 [HarmonyPatch(typeof(ZombieBloodlustAbility), nameof(ZombieBloodlustAbility.AnyTargets))]
 public class BloodlustingPatch
 {
@@ -38,7 +38,7 @@ public class BloodlustingPatch
             new (OpCodes.Call, AccessTools.Method(typeof(CursedPlayer), nameof(CursedPlayer.Get), new[] { typeof(ReferenceHub) })),
             new (OpCodes.Newobj, AccessTools.GetDeclaredConstructors(typeof(PlayerBloodlustingEventArgs))[0]),
             new (OpCodes.Dup),
-            new (OpCodes.Call, AccessTools.Method(typeof(ZombieEventsHandler), nameof(ZombieEventsHandler.OnPlayerBloodlusting))),
+            new (OpCodes.Call, AccessTools.Method(typeof(CursedZombieEventsHandler), nameof(CursedZombieEventsHandler.OnPlayerBloodlusting))),
             new (OpCodes.Callvirt, AccessTools.PropertyGetter(typeof(PlayerBloodlustingEventArgs), nameof(PlayerBloodlustingEventArgs.IsAllowed))),
             new (OpCodes.Brfalse_S, retLabel),
         });

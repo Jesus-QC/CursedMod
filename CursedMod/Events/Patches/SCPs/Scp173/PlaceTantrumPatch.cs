@@ -9,7 +9,7 @@
 using System.Collections.Generic;
 using System.Reflection.Emit;
 using CursedMod.Events.Arguments.SCPs.Scp173;
-using CursedMod.Events.Handlers.SCPs.Scp173;
+using CursedMod.Events.Handlers;
 using HarmonyLib;
 using Mirror;
 using NorthwoodLib.Pools;
@@ -18,7 +18,7 @@ using UnityEngine;
 
 namespace CursedMod.Events.Patches.SCPs.Scp173;
 
-[DynamicEventPatch(typeof(Scp173EventsHandler), nameof(Scp173EventsHandler.PlayerPlaceTantrum))]
+[DynamicEventPatch(typeof(CursedScp173EventsHandler), nameof(CursedScp173EventsHandler.PlayerPlaceTantrum))]
 [HarmonyPatch(typeof(Scp173TantrumAbility), nameof(Scp173TantrumAbility.ServerProcessCmd))]
 public class PlaceTantrumPatch
 {
@@ -36,7 +36,7 @@ public class PlaceTantrumPatch
             new (OpCodes.Ldarg_0),
             new (OpCodes.Newobj, AccessTools.GetDeclaredConstructors(typeof(PlayerPlaceTantrumEventArgs))[0]),
             new (OpCodes.Dup),
-            new (OpCodes.Call, AccessTools.Method(typeof(Scp173EventsHandler), nameof(Scp173EventsHandler.OnPlayerPlaceTantrum))),
+            new (OpCodes.Call, AccessTools.Method(typeof(CursedScp173EventsHandler), nameof(CursedScp173EventsHandler.OnPlayerPlaceTantrum))),
             new (OpCodes.Callvirt, AccessTools.PropertyGetter(typeof(PlayerPlaceTantrumEventArgs), nameof(PlayerPlaceTantrumEventArgs.IsAllowed))),
             new (OpCodes.Brfalse_S, retLabel),
         });

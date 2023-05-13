@@ -9,14 +9,14 @@
 using System.Collections.Generic;
 using System.Reflection.Emit;
 using CursedMod.Events.Arguments.SCPs.Scp079;
-using CursedMod.Events.Handlers.SCPs.Scp079;
+using CursedMod.Events.Handlers;
 using HarmonyLib;
 using NorthwoodLib.Pools;
 using PlayerRoles.PlayableScps.Scp079.Cameras;
 
 namespace CursedMod.Events.Patches.SCPs.Scp079;
 
-[DynamicEventPatch(typeof(Scp079EventsHandler), nameof(Scp079EventsHandler.PlayerChangeCamera))]
+[DynamicEventPatch(typeof(CursedScp079EventsHandler), nameof(CursedScp079EventsHandler.PlayerChangeCamera))]
 [HarmonyPatch(typeof(Scp079CurrentCameraSync), nameof(Scp079CurrentCameraSync.ServerProcessCmd))]
 public class CurrentCameraPatch
 {
@@ -48,7 +48,7 @@ public class CurrentCameraPatch
     private static bool ProcessChangeCameraEvent(Scp079CurrentCameraSync currentCameraSync, ref float switchCost)
     {
         PlayerChangeCameraEventArgs args = new (currentCameraSync, (int)switchCost);
-        Scp079EventsHandler.OnPlayerChangeCamera(args);
+        CursedScp079EventsHandler.OnPlayerChangeCamera(args);
         
         currentCameraSync.ServerSendRpc(true);
         

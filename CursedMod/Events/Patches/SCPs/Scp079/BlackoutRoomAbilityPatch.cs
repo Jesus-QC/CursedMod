@@ -9,14 +9,14 @@
 using System.Collections.Generic;
 using System.Reflection.Emit;
 using CursedMod.Events.Arguments.SCPs.Scp079;
-using CursedMod.Events.Handlers.SCPs.Scp079;
+using CursedMod.Events.Handlers;
 using HarmonyLib;
 using NorthwoodLib.Pools;
 using PlayerRoles.PlayableScps.Scp079;
 
 namespace CursedMod.Events.Patches.SCPs.Scp079;
 
-[DynamicEventPatch(typeof(Scp079EventsHandler), nameof(Scp079EventsHandler.PlayerBlackoutRoom))]
+[DynamicEventPatch(typeof(CursedScp079EventsHandler), nameof(CursedScp079EventsHandler.PlayerBlackoutRoom))]
 [HarmonyPatch(typeof(Scp079BlackoutRoomAbility), nameof(Scp079BlackoutRoomAbility.ServerProcessCmd))]
 public class BlackoutRoomAbilityPatch
 {
@@ -33,7 +33,7 @@ public class BlackoutRoomAbilityPatch
             new CodeInstruction(OpCodes.Ldarg_0).MoveLabelsFrom(newInstructions[index]),
             new (OpCodes.Newobj, AccessTools.GetDeclaredConstructors(typeof(PlayerBlackoutRoomEventArgs))[0]),
             new (OpCodes.Dup),
-            new (OpCodes.Call, AccessTools.Method(typeof(Scp079EventsHandler), nameof(Scp079EventsHandler.OnPlayerBlackoutRoom))),
+            new (OpCodes.Call, AccessTools.Method(typeof(CursedScp079EventsHandler), nameof(CursedScp079EventsHandler.OnPlayerBlackoutRoom))),
             new (OpCodes.Callvirt, AccessTools.PropertyGetter(typeof(PlayerBlackoutRoomEventArgs), nameof(PlayerBlackoutRoomEventArgs.IsAllowed))),
             new (OpCodes.Brfalse_S, returnLabel),
         });

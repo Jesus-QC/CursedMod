@@ -9,7 +9,7 @@
 using System.Collections.Generic;
 using System.Reflection.Emit;
 using CursedMod.Events.Arguments.SCPs.Scp079;
-using CursedMod.Events.Handlers.SCPs.Scp079;
+using CursedMod.Events.Handlers;
 using HarmonyLib;
 using NorthwoodLib.Pools;
 using PlayerRoles.PlayableScps.Scp079;
@@ -17,7 +17,7 @@ using PlayerRoles.PlayableScps.Scp079.Cameras;
 
 namespace CursedMod.Events.Patches.SCPs.Scp079;
 
-[DynamicEventPatch(typeof(Scp079EventsHandler), nameof(Scp079EventsHandler.PlayerUseLockdown))]
+[DynamicEventPatch(typeof(CursedScp079EventsHandler), nameof(CursedScp079EventsHandler.PlayerUseLockdown))]
 [HarmonyPatch(typeof(Scp079LockdownRoomAbility), nameof(Scp079LockdownRoomAbility.ServerProcessCmd))]
 public class LockdownActivatePatch
 {
@@ -37,7 +37,7 @@ public class LockdownActivatePatch
             new (OpCodes.Callvirt, AccessTools.PropertyGetter(typeof(Scp079Camera), nameof(Scp079Camera.Room))),
             new (OpCodes.Newobj, AccessTools.GetDeclaredConstructors(typeof(PlayerUseLockdownEventArgs))[0]),
             new (OpCodes.Dup),
-            new (OpCodes.Call, AccessTools.Method(typeof(Scp079EventsHandler), nameof(Scp079EventsHandler.OnPlayerUseLockdown))),
+            new (OpCodes.Call, AccessTools.Method(typeof(CursedScp079EventsHandler), nameof(CursedScp079EventsHandler.OnPlayerUseLockdown))),
             new (OpCodes.Callvirt, AccessTools.PropertyGetter(typeof(PlayerUseLockdownEventArgs), nameof(PlayerUseLockdownEventArgs.IsAllowed))),
             new (OpCodes.Brfalse_S, returnLabel),
         });

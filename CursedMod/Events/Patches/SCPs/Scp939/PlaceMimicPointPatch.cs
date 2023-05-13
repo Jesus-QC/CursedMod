@@ -9,7 +9,7 @@
 using System.Collections.Generic;
 using System.Reflection.Emit;
 using CursedMod.Events.Arguments.SCPs.Scp939;
-using CursedMod.Events.Handlers.SCPs.Scp939;
+using CursedMod.Events.Handlers;
 using HarmonyLib;
 using NorthwoodLib.Pools;
 using PlayerRoles.PlayableScps.Scp939.Mimicry;
@@ -17,8 +17,8 @@ using RelativePositioning;
 
 namespace CursedMod.Events.Patches.SCPs.Scp939;
 
-[DynamicEventPatch(typeof(Scp939EventsHandler), nameof(Scp939EventsHandler.PlayerPlaceMimicPoint))]
-[DynamicEventPatch(typeof(Scp939EventsHandler), nameof(Scp939EventsHandler.PlayerRemoveMimicPoint))]
+[DynamicEventPatch(typeof(CursedScp939EventsHandler), nameof(CursedScp939EventsHandler.PlayerPlaceMimicPoint))]
+[DynamicEventPatch(typeof(CursedScp939EventsHandler), nameof(CursedScp939EventsHandler.PlayerRemoveMimicPoint))]
 [HarmonyPatch(typeof(MimicPointController), nameof(MimicPointController.ServerProcessCmd))]
 public class PlaceMimicPointPatch
 {
@@ -48,7 +48,7 @@ public class PlaceMimicPointPatch
         if (controller.Active)
         {
             PlayerRemoveMimicPointEventArgs args = new (controller);
-            Scp939EventsHandler.OnPlayerRemoveMimicPoint(args);
+            CursedScp939EventsHandler.OnPlayerRemoveMimicPoint(args);
             
             if (!args.IsAllowed)
                 return;
@@ -59,7 +59,7 @@ public class PlaceMimicPointPatch
         else
         {
             PlayerPlaceMimicPointEventArgs args = new (controller);
-            Scp939EventsHandler.OnPlayerPlaceMimicPoint(args);
+            CursedScp939EventsHandler.OnPlayerPlaceMimicPoint(args);
 
             if (!args.IsAllowed)
                 return;

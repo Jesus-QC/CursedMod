@@ -9,14 +9,14 @@
 using System.Collections.Generic;
 using System.Reflection.Emit;
 using CursedMod.Events.Arguments.SCPs.Scp049;
-using CursedMod.Events.Handlers.SCPs.Scp049;
+using CursedMod.Events.Handlers;
 using HarmonyLib;
 using NorthwoodLib.Pools;
 using PlayerRoles.PlayableScps.Scp049;
 
 namespace CursedMod.Events.Patches.SCPs.Scp049;
 
-[DynamicEventPatch(typeof(Scp049EventsHandler), nameof(Scp049EventsHandler.PlayerFinishRevive))]
+[DynamicEventPatch(typeof(CursedScp049EventsHandler), nameof(CursedScp049EventsHandler.PlayerFinishRevive))]
 [HarmonyPatch(typeof(Scp049ResurrectAbility), nameof(Scp049ResurrectAbility.ServerComplete))]
 public class RevivedPatch
 {
@@ -31,7 +31,7 @@ public class RevivedPatch
             new (OpCodes.Ldarg_0),
             new (OpCodes.Newobj, AccessTools.GetDeclaredConstructors(typeof(PlayerFinishReviveEventArgs))[0]),
             new (OpCodes.Dup),
-            new (OpCodes.Call, AccessTools.Method(typeof(Scp049EventsHandler), nameof(Scp049EventsHandler.OnPlayerRevived))),
+            new (OpCodes.Call, AccessTools.Method(typeof(CursedScp049EventsHandler), nameof(CursedScp049EventsHandler.OnPlayerRevived))),
             new (OpCodes.Callvirt, AccessTools.PropertyGetter(typeof(PlayerFinishReviveEventArgs), nameof(PlayerFinishReviveEventArgs.IsAllowed))),
             new (OpCodes.Brfalse_S, returnLabel),
         });

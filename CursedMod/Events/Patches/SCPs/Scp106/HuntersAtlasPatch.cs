@@ -9,15 +9,15 @@
 using System.Collections.Generic;
 using System.Reflection.Emit;
 using CursedMod.Events.Arguments.SCPs.Scp106;
-using CursedMod.Events.Handlers.SCPs.Scp106;
+using CursedMod.Events.Handlers;
 using HarmonyLib;
 using NorthwoodLib.Pools;
 using PlayerRoles.PlayableScps.Scp106;
 
 namespace CursedMod.Events.Patches.SCPs.Scp106;
 
-[DynamicEventPatch(typeof(Scp106EventsHandler), nameof(Scp106EventsHandler.PlayerSubmerging))]
-[DynamicEventPatch(typeof(Scp106EventsHandler), nameof(Scp106EventsHandler.PlayerExitingSubmerge))]
+[DynamicEventPatch(typeof(CursedScp106EventsHandler), nameof(CursedScp106EventsHandler.PlayerSubmerging))]
+[DynamicEventPatch(typeof(CursedScp106EventsHandler), nameof(CursedScp106EventsHandler.PlayerExitingSubmerge))]
 [HarmonyPatch(typeof(Scp106HuntersAtlasAbility), nameof(Scp106HuntersAtlasAbility.SetSubmerged), typeof(bool))]
 public class HuntersAtlasPatch
 {
@@ -51,13 +51,13 @@ public class HuntersAtlasPatch
         if (val)
         {
             PlayerSubmergingEventArgs eventArgs = new (atlasAbility);
-            Scp106EventsHandler.OnPlayerStartSubmerging(eventArgs);
+            CursedScp106EventsHandler.OnPlayerStartSubmerging(eventArgs);
             return eventArgs.IsAllowed;
         }
         else
         {
             PlayerExitingSubmergeEventArgs eventArgs = new (atlasAbility);
-            Scp106EventsHandler.OnPlayerExitingSubmerge(eventArgs);
+            CursedScp106EventsHandler.OnPlayerExitingSubmerge(eventArgs);
             return eventArgs.IsAllowed;
         }
     }

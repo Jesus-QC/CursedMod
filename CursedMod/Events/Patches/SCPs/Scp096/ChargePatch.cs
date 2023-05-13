@@ -9,14 +9,14 @@
 using System.Collections.Generic;
 using System.Reflection.Emit;
 using CursedMod.Events.Arguments.SCPs.Scp096;
-using CursedMod.Events.Handlers.SCPs.Scp096;
+using CursedMod.Events.Handlers;
 using HarmonyLib;
 using NorthwoodLib.Pools;
 using PlayerRoles.PlayableScps.Scp096;
 
 namespace CursedMod.Events.Patches.SCPs.Scp096;
 
-[DynamicEventPatch(typeof(Scp096EventsHandler), nameof(Scp096EventsHandler.PlayerCharging))]
+[DynamicEventPatch(typeof(CursedScp096EventsHandler), nameof(CursedScp096EventsHandler.PlayerCharging))]
 [HarmonyPatch(typeof(Scp096ChargeAbility), nameof(Scp096ChargeAbility.ServerProcessCmd))]
 public class ChargePatch
 {
@@ -33,7 +33,7 @@ public class ChargePatch
             new CodeInstruction(OpCodes.Ldarg_0).MoveLabelsFrom(newInstructions[index]),
             new (OpCodes.Newobj, AccessTools.GetDeclaredConstructors(typeof(PlayerChargingEventArgs))[0]),
             new (OpCodes.Dup),
-            new (OpCodes.Call, AccessTools.Method(typeof(Scp096EventsHandler), nameof(Scp096EventsHandler.OnPlayerCharging))),
+            new (OpCodes.Call, AccessTools.Method(typeof(CursedScp096EventsHandler), nameof(CursedScp096EventsHandler.OnPlayerCharging))),
             new (OpCodes.Callvirt, AccessTools.PropertyGetter(typeof(PlayerChargingEventArgs), nameof(PlayerChargingEventArgs.IsAllowed))),
             new (OpCodes.Brfalse_S, returnLabel),
         });

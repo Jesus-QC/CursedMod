@@ -9,14 +9,14 @@
 using System.Collections.Generic;
 using System.Reflection.Emit;
 using CursedMod.Events.Arguments.SCPs.Scp096;
-using CursedMod.Events.Handlers.SCPs.Scp096;
+using CursedMod.Events.Handlers;
 using HarmonyLib;
 using NorthwoodLib.Pools;
 using PlayerRoles.PlayableScps.Scp096;
 
 namespace CursedMod.Events.Patches.SCPs.Scp096;
 
-[DynamicEventPatch(typeof(Scp096EventsHandler), nameof(Scp096EventsHandler.PlayerEndEnrage))]
+[DynamicEventPatch(typeof(CursedScp096EventsHandler), nameof(CursedScp096EventsHandler.PlayerEndEnrage))]
 [HarmonyPatch(typeof(Scp096RageManager), nameof(Scp096RageManager.ServerEndEnrage))]
 public class EndEnragePatch
 {
@@ -36,7 +36,7 @@ public class EndEnragePatch
             new (OpCodes.Dup),
             new (OpCodes.Dup),
             new (OpCodes.Stloc_S, localBuilder.LocalIndex),
-            new (OpCodes.Call, AccessTools.Method(typeof(Scp096EventsHandler), nameof(Scp096EventsHandler.OnPlayerEndEnrage))),
+            new (OpCodes.Call, AccessTools.Method(typeof(CursedScp096EventsHandler), nameof(CursedScp096EventsHandler.OnPlayerEndEnrage))),
             new (OpCodes.Callvirt, AccessTools.PropertyGetter(typeof(PlayerEndEnrageEventArgs), nameof(PlayerEndEnrageEventArgs.IsAllowed))),
             new (OpCodes.Brfalse_S, retLabel),
             new (OpCodes.Ldloc_S, localBuilder.LocalIndex),

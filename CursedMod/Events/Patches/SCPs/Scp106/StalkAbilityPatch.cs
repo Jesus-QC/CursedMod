@@ -9,14 +9,14 @@
 using System.Collections.Generic;
 using System.Reflection.Emit;
 using CursedMod.Events.Arguments.SCPs.Scp106;
-using CursedMod.Events.Handlers.SCPs.Scp106;
+using CursedMod.Events.Handlers;
 using HarmonyLib;
 using NorthwoodLib.Pools;
 using PlayerRoles.PlayableScps.Scp106;
 
 namespace CursedMod.Events.Patches.SCPs.Scp106;
 
-[DynamicEventPatch(typeof(Scp106EventsHandler), nameof(Scp106EventsHandler.PlayerStalking))]
+[DynamicEventPatch(typeof(CursedScp106EventsHandler), nameof(CursedScp106EventsHandler.PlayerStalking))]
 [HarmonyPatch(typeof(Scp106StalkAbility), nameof(Scp106StalkAbility.ServerProcessCmd))]
 public class StalkAbilityPatch
 {
@@ -31,7 +31,7 @@ public class StalkAbilityPatch
             new (OpCodes.Ldarg_0),
             new (OpCodes.Newobj, AccessTools.GetDeclaredConstructors(typeof(PlayerStalkingEventArgs))[0]),
             new (OpCodes.Dup),
-            new (OpCodes.Call, AccessTools.Method(typeof(Scp106EventsHandler), nameof(Scp106EventsHandler.OnPlayerStalking))),
+            new (OpCodes.Call, AccessTools.Method(typeof(CursedScp106EventsHandler), nameof(CursedScp106EventsHandler.OnPlayerStalking))),
             new (OpCodes.Callvirt, AccessTools.PropertyGetter(typeof(PlayerStalkingEventArgs), nameof(PlayerStalkingEventArgs.IsAllowed))),
             new (OpCodes.Brfalse_S, returnLabel),
         });

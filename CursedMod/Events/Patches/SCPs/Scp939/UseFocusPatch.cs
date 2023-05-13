@@ -9,7 +9,7 @@
 using System.Collections.Generic;
 using System.Reflection.Emit;
 using CursedMod.Events.Arguments.SCPs.Scp939;
-using CursedMod.Events.Handlers.SCPs.Scp939;
+using CursedMod.Events.Handlers;
 using HarmonyLib;
 using Mirror;
 using NorthwoodLib.Pools;
@@ -17,7 +17,7 @@ using PlayerRoles.PlayableScps.Scp939;
 
 namespace CursedMod.Events.Patches.SCPs.Scp939;
 
-[DynamicEventPatch(typeof(Scp939EventsHandler), nameof(Scp939EventsHandler.PlayerUseFocus))]
+[DynamicEventPatch(typeof(CursedScp939EventsHandler), nameof(CursedScp939EventsHandler.PlayerUseFocus))]
 [HarmonyPatch(typeof(Scp939FocusKeySync), nameof(Scp939FocusKeySync.ServerProcessCmd))]
 public class UseFocusPatch
 {
@@ -48,7 +48,7 @@ public class UseFocusPatch
         var focusState = reader.ReadBool();
 
         PlayerUseFocusEventArgs args = new (focusKeySync, focusState);
-        Scp939EventsHandler.OnPlayerUseFocus(args);
+        CursedScp939EventsHandler.OnPlayerUseFocus(args);
 
         if (!args.IsAllowed)
             return;

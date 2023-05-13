@@ -9,7 +9,7 @@
 using System.Collections.Generic;
 using System.Reflection.Emit;
 using CursedMod.Events.Arguments.SCPs.Scp0492;
-using CursedMod.Events.Handlers.SCPs.Scp0492;
+using CursedMod.Events.Handlers;
 using HarmonyLib;
 using NorthwoodLib.Pools;
 using PlayerRoles.PlayableScps.Scp049;
@@ -17,7 +17,7 @@ using PlayerRoles.PlayableScps.Scp049.Zombies;
 
 namespace CursedMod.Events.Patches.SCPs.Scp0492;
 
-[DynamicEventPatch(typeof(ZombieEventsHandler), nameof(ZombieEventsHandler.PlayerConsumingCorpse))]
+[DynamicEventPatch(typeof(CursedZombieEventsHandler), nameof(CursedZombieEventsHandler.PlayerConsumingCorpse))]
 [HarmonyPatch(typeof(RagdollAbilityBase<ZombieRole>), nameof(RagdollAbilityBase<ZombieRole>.ServerProcessCmd))]
 public class ConsumingCorpsePatch
 {
@@ -35,7 +35,7 @@ public class ConsumingCorpsePatch
             new (OpCodes.Ldarg_0),
             new (OpCodes.Newobj, AccessTools.GetDeclaredConstructors(typeof(PlayerConsumingCorpseEventArgs))[0]),
             new (OpCodes.Dup),
-            new (OpCodes.Call, AccessTools.Method(typeof(ZombieEventsHandler), nameof(ZombieEventsHandler.OnPlayerConsumingCorpse))),
+            new (OpCodes.Call, AccessTools.Method(typeof(CursedZombieEventsHandler), nameof(CursedZombieEventsHandler.OnPlayerConsumingCorpse))),
             new (OpCodes.Callvirt, AccessTools.PropertyGetter(typeof(PlayerConsumingCorpseEventArgs), nameof(PlayerConsumingCorpseEventArgs.IsAllowed))),
             new (OpCodes.Brfalse_S, retLabel),
         });

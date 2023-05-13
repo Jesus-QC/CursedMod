@@ -9,14 +9,14 @@
 using System.Collections.Generic;
 using System.Reflection.Emit;
 using CursedMod.Events.Arguments.SCPs.Scp0492;
-using CursedMod.Events.Handlers.SCPs.Scp0492;
+using CursedMod.Events.Handlers;
 using HarmonyLib;
 using NorthwoodLib.Pools;
 using PlayerRoles.PlayableScps.Scp049.Zombies;
 
 namespace CursedMod.Events.Patches.SCPs.Scp0492;
 
-[DynamicEventPatch(typeof(ZombieEventsHandler), nameof(ZombieEventsHandler.PlayerCorpseConsumed))]
+[DynamicEventPatch(typeof(CursedZombieEventsHandler), nameof(CursedZombieEventsHandler.PlayerCorpseConsumed))]
 [HarmonyPatch(typeof(ZombieConsumeAbility), nameof(ZombieConsumeAbility.ServerComplete))]
 public class CorpseConsumedPatch
 {
@@ -31,7 +31,7 @@ public class CorpseConsumedPatch
         {
             new CodeInstruction(OpCodes.Ldarg_0).MoveLabelsFrom(newInstructions[index]),
             new (OpCodes.Newobj, AccessTools.GetDeclaredConstructors(typeof(PlayerCorpseConsumedEventArgs))[0]),
-            new (OpCodes.Call, AccessTools.Method(typeof(ZombieEventsHandler), nameof(ZombieEventsHandler.OnPlayerCorpseConsumed))),
+            new (OpCodes.Call, AccessTools.Method(typeof(CursedZombieEventsHandler), nameof(CursedZombieEventsHandler.OnPlayerCorpseConsumed))),
         });
         
         foreach (var instruction in newInstructions)
