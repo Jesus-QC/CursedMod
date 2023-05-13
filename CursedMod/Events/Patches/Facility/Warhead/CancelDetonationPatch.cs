@@ -32,8 +32,6 @@ public class CancelDetonationPatch
         newInstructions.InsertRange(index, new CodeInstruction[] 
         {
             new CodeInstruction(OpCodes.Ldarg_1).MoveLabelsFrom(newInstructions[index]),
-            new (OpCodes.Ldarg_2),
-            new (OpCodes.Ldarg_3),
             new (OpCodes.Newobj, AccessTools.GetDeclaredConstructors(typeof(PlayerCancelingDetonationEventArgs))[0]),
             new (OpCodes.Dup),
             new (OpCodes.Call, AccessTools.Method(typeof(CursedWarheadEventsHandler), nameof(CursedWarheadEventsHandler.OnPlayerStartingDetonation))),
