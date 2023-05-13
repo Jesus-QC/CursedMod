@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="MapGenerationEventsHandler.cs" company="CursedMod">
+// <copyright file="CursedMapGenerationEventsHandler.cs" company="CursedMod">
 // Copyright (c) CursedMod. All rights reserved.
 // Licensed under the GPLv3 license.
 // See LICENSE file in the project root for full license information.
@@ -19,9 +19,9 @@ using CursedMod.Features.Wrappers.Player.Ragdolls;
 using CursedMod.Features.Wrappers.Server;
 using UnityEngine.SceneManagement;
 
-namespace CursedMod.Events.Handlers.MapGeneration;
+namespace CursedMod.Events.Handlers;
 
-public static class MapGenerationEventsHandler
+public static class CursedMapGenerationEventsHandler
 {
     public static event EventManager.CursedEventHandler MapGenerated;
     

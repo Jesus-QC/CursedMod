@@ -9,13 +9,13 @@
 using System.Collections.Generic;
 using System.Reflection.Emit;
 using CursedMod.Events.Arguments.Authentication;
-using CursedMod.Events.Handlers.Authentication;
+using CursedMod.Events.Handlers;
 using HarmonyLib;
 using NorthwoodLib.Pools;
 
 namespace CursedMod.Events.Patches.Authentication;
 
-[DynamicEventPatch(typeof(AuthenticationEventsHandler), nameof(AuthenticationEventsHandler.CheckingReservedSlot))]
+[DynamicEventPatch(typeof(CursedAuthenticationEventsHandler), nameof(CursedAuthenticationEventsHandler.CheckingReservedSlot))]
 [HarmonyPatch(typeof(ReservedSlot), nameof(ReservedSlot.HasReservedSlot))]
 public class ReservedSlotCheckPatch
 {
@@ -33,7 +33,7 @@ public class ReservedSlotCheckPatch
             new (OpCodes.Newobj, AccessTools.GetDeclaredConstructors(typeof(CheckingReservedSlotEventArgs))[0]),
             new (OpCodes.Dup),
             new (OpCodes.Dup),
-            new (OpCodes.Call, AccessTools.Method(typeof(AuthenticationEventsHandler), nameof(AuthenticationEventsHandler.OnCheckingReservedSlot))),
+            new (OpCodes.Call, AccessTools.Method(typeof(CursedAuthenticationEventsHandler), nameof(CursedAuthenticationEventsHandler.OnCheckingReservedSlot))),
             new (OpCodes.Callvirt, AccessTools.PropertyGetter(typeof(CheckingReservedSlotEventArgs), nameof(CheckingReservedSlotEventArgs.HasReservedSlot))),
             new (OpCodes.Stloc_0),
             new (OpCodes.Callvirt, AccessTools.PropertyGetter(typeof(CheckingReservedSlotEventArgs), nameof(CheckingReservedSlotEventArgs.CheckReservedSlotCancellationData))),

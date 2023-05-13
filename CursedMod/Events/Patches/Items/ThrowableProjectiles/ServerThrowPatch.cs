@@ -9,14 +9,14 @@
 using System.Collections.Generic;
 using System.Reflection.Emit;
 using CursedMod.Events.Arguments.Items;
-using CursedMod.Events.Handlers.Items;
+using CursedMod.Events.Handlers;
 using HarmonyLib;
 using InventorySystem.Items.ThrowableProjectiles;
 using NorthwoodLib.Pools;
 
 namespace CursedMod.Events.Patches.Items.ThrowableProjectiles;
 
-[DynamicEventPatch(typeof(ItemsEventsHandler), nameof(ItemsEventsHandler.PlayerThrowingItem))]
+[DynamicEventPatch(typeof(CursedItemsEventsHandler), nameof(CursedItemsEventsHandler.PlayerThrowingItem))]
 [HarmonyPatch(typeof(ThrowableItem), nameof(ThrowableItem.ServerProcessThrowConfirmation))]
 public class ServerThrowPatch
 {
@@ -39,7 +39,7 @@ public class ServerThrowPatch
             new (OpCodes.Newobj, AccessTools.GetDeclaredConstructors(typeof(PlayerThrowingItemEventArgs))[0]),
             new (OpCodes.Dup),
             new (OpCodes.Stloc_S, args.LocalIndex),
-            new (OpCodes.Call, AccessTools.Method(typeof(ItemsEventsHandler), nameof(ItemsEventsHandler.OnPlayerThrowingItem))),
+            new (OpCodes.Call, AccessTools.Method(typeof(CursedItemsEventsHandler), nameof(CursedItemsEventsHandler.OnPlayerThrowingItem))),
             new (OpCodes.Ldloc_S, args.LocalIndex),
             new (OpCodes.Callvirt, AccessTools.PropertyGetter(typeof(PlayerThrowingItemEventArgs), nameof(PlayerThrowingItemEventArgs.IsAllowed))),
             new (OpCodes.Brfalse_S, ret),

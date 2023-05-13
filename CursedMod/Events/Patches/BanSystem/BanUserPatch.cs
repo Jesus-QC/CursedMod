@@ -10,14 +10,14 @@ using System.Collections.Generic;
 using System.Reflection.Emit;
 using CommandSystem;
 using CursedMod.Events.Arguments.BanSystem;
-using CursedMod.Events.Handlers.BanSystem;
+using CursedMod.Events.Handlers;
 using Footprinting;
 using HarmonyLib;
 using NorthwoodLib.Pools;
 
 namespace CursedMod.Events.Patches.BanSystem;
 
-[DynamicEventPatch(typeof(BanSystemEventsHandler), nameof(BanSystemEventsHandler.BanningPlayer))]
+[DynamicEventPatch(typeof(CursedBanSystemEventsHandler), nameof(CursedBanSystemEventsHandler.BanningPlayer))]
 [HarmonyPatch(typeof(BanPlayer), nameof(BanPlayer.BanUser), typeof(Footprint), typeof(ICommandSender), typeof(string), typeof(long))]
 public class BanUserPatch
 {
@@ -41,7 +41,7 @@ public class BanUserPatch
             new (OpCodes.Newobj, AccessTools.GetDeclaredConstructors(typeof(BanningPlayerEventArgs))[0]),
             new (OpCodes.Stloc_S, args.LocalIndex),
             new (OpCodes.Ldloc_S, args.LocalIndex),
-            new (OpCodes.Call, AccessTools.Method(typeof(BanSystemEventsHandler), nameof(BanSystemEventsHandler.OnBanningPlayer))),
+            new (OpCodes.Call, AccessTools.Method(typeof(CursedBanSystemEventsHandler), nameof(CursedBanSystemEventsHandler.OnBanningPlayer))),
             new (OpCodes.Ldloc_S, args.LocalIndex),
             new (OpCodes.Callvirt, AccessTools.PropertyGetter(typeof(BanningPlayerEventArgs), nameof(BanningPlayerEventArgs.IsAllowed))),
             new (OpCodes.Brfalse_S, ret),

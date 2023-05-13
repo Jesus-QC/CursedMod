@@ -9,14 +9,14 @@
 using System.Collections.Generic;
 using System.Reflection.Emit;
 using CursedMod.Events.Arguments.MapGeneration;
-using CursedMod.Events.Handlers.MapGeneration;
+using CursedMod.Events.Handlers;
 using HarmonyLib;
 using MapGeneration;
 using NorthwoodLib.Pools;
 
 namespace CursedMod.Events.Patches.MapGeneration;
 
-[DynamicEventPatch(typeof(MapGenerationEventsHandler), nameof(MapGenerationEventsHandler.GeneratingSeed))]
+[DynamicEventPatch(typeof(CursedMapGenerationEventsHandler), nameof(CursedMapGenerationEventsHandler.GeneratingSeed))]
 [HarmonyPatch(typeof(SeedSynchronizer), nameof(SeedSynchronizer.Start))]
 public class GeneratingSeedPatch
 {
@@ -30,7 +30,7 @@ public class GeneratingSeedPatch
         {
             new (OpCodes.Newobj, AccessTools.GetDeclaredConstructors(typeof(GeneratingSeedEventArgs))[0]),
             new (OpCodes.Dup),
-            new (OpCodes.Call, AccessTools.Method(typeof(MapGenerationEventsHandler), nameof(MapGenerationEventsHandler.OnGeneratingSeed))),
+            new (OpCodes.Call, AccessTools.Method(typeof(CursedMapGenerationEventsHandler), nameof(CursedMapGenerationEventsHandler.OnGeneratingSeed))),
             new (OpCodes.Callvirt, AccessTools.PropertyGetter(typeof(GeneratingSeedEventArgs), nameof(GeneratingSeedEventArgs.Seed))),
         });
         

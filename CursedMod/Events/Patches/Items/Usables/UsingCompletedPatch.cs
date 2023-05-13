@@ -9,14 +9,14 @@
 using System.Collections.Generic;
 using System.Reflection.Emit;
 using CursedMod.Events.Arguments.Items;
-using CursedMod.Events.Handlers.Items;
+using CursedMod.Events.Handlers;
 using HarmonyLib;
 using InventorySystem.Items.Usables;
 using NorthwoodLib.Pools;
 
 namespace CursedMod.Events.Patches.Items.Usables;
 
-[DynamicEventPatch(typeof(ItemsEventsHandler), nameof(ItemsEventsHandler.PlayerUsedItem))]
+[DynamicEventPatch(typeof(CursedItemsEventsHandler), nameof(CursedItemsEventsHandler.PlayerUsedItem))]
 [HarmonyPatch(typeof(Consumable), nameof(Consumable.ServerOnUsingCompleted))] // Todo: add scp268 scp244 scp1576 and scp330 because they use a different method
 public class UsingCompletedPatch
 {
@@ -28,7 +28,7 @@ public class UsingCompletedPatch
         {
             new (OpCodes.Ldarg_0),
             new (OpCodes.Newobj, AccessTools.GetDeclaredConstructors(typeof(PlayerUsedItemEventArgs))[0]),
-            new (OpCodes.Call, AccessTools.Method(typeof(ItemsEventsHandler), nameof(ItemsEventsHandler.OnPlayerUsedItem))),
+            new (OpCodes.Call, AccessTools.Method(typeof(CursedItemsEventsHandler), nameof(CursedItemsEventsHandler.OnPlayerUsedItem))),
         });
         
         foreach (CodeInstruction instruction in newInstructions)

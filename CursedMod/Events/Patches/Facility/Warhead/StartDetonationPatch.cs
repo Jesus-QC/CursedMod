@@ -9,13 +9,13 @@
 using System.Collections.Generic;
 using System.Reflection.Emit;
 using CursedMod.Events.Arguments.Facility.Warhead;
-using CursedMod.Events.Handlers.Facility.Warhead;
+using CursedMod.Events.Handlers;
 using HarmonyLib;
 using NorthwoodLib.Pools;
 
 namespace CursedMod.Events.Patches.Facility.Warhead;
 
-[DynamicEventPatch(typeof(WarheadEventsHandler), nameof(WarheadEventsHandler.PlayerStartingDetonation))]
+[DynamicEventPatch(typeof(CursedWarheadEventsHandler), nameof(CursedWarheadEventsHandler.PlayerStartingDetonation))]
 [HarmonyPatch(typeof(AlphaWarheadController), nameof(AlphaWarheadController.StartDetonation))]
 public class StartDetonationPatch
 {
@@ -38,7 +38,7 @@ public class StartDetonationPatch
             new (OpCodes.Newobj, AccessTools.GetDeclaredConstructors(typeof(PlayerStartingDetonationEventArgs))[0]),
             new (OpCodes.Dup),
             new (OpCodes.Stloc_S, args.LocalIndex),
-            new (OpCodes.Call, AccessTools.Method(typeof(WarheadEventsHandler), nameof(WarheadEventsHandler.OnPlayerStartingDetonation))),
+            new (OpCodes.Call, AccessTools.Method(typeof(CursedWarheadEventsHandler), nameof(CursedWarheadEventsHandler.OnPlayerStartingDetonation))),
             new (OpCodes.Ldloc_S, args.LocalIndex),
             new (OpCodes.Callvirt, AccessTools.PropertyGetter(typeof(PlayerStartingDetonationEventArgs), nameof(PlayerStartingDetonationEventArgs.IsAllowed))),
             new (OpCodes.Brfalse_S, ret),

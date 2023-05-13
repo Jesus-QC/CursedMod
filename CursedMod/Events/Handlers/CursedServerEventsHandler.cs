@@ -1,5 +1,5 @@
 // -----------------------------------------------------------------------
-// <copyright file="ServerEventsHandler.cs" company="CursedMod">
+// <copyright file="CursedServerEventsHandler.cs" company="CursedMod">
 // Copyright (c) CursedMod. All rights reserved.
 // Licensed under the GPLv3 license.
 // See LICENSE file in the project root for full license information.
@@ -8,9 +8,9 @@
 
 using CursedMod.Loader.Permissions;
 
-namespace CursedMod.Events.Handlers.Server;
+namespace CursedMod.Events.Handlers;
 
-public static class ServerEventsHandler
+public static class CursedServerEventsHandler
 {
     public static event EventManager.CursedEventHandler LoadedConfigs;
 

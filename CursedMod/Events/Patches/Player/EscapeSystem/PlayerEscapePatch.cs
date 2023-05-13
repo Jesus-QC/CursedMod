@@ -9,13 +9,13 @@
 using System.Collections.Generic;
 using System.Reflection.Emit;
 using CursedMod.Events.Arguments.Player;
-using CursedMod.Events.Handlers.Player;
+using CursedMod.Events.Handlers;
 using HarmonyLib;
 using NorthwoodLib.Pools;
 
 namespace CursedMod.Events.Patches.Player.EscapeSystem;
 
-[DynamicEventPatch(typeof(PlayerEventsHandler), nameof(PlayerEventsHandler.Escaping))]
+[DynamicEventPatch(typeof(CursedPlayerEventsHandler), nameof(CursedPlayerEventsHandler.Escaping))]
 [HarmonyPatch(typeof(Escape), nameof(Escape.ServerHandlePlayer))]
 public class PlayerEscapePatch
 {
@@ -37,7 +37,7 @@ public class PlayerEscapePatch
             new (OpCodes.Ldloc_1),
             new (OpCodes.Newobj, AccessTools.GetDeclaredConstructors(typeof(PlayerEscapingEventArgs))[0]),
             new (OpCodes.Dup),
-            new (OpCodes.Call, AccessTools.Method(typeof(PlayerEventsHandler), nameof(PlayerEventsHandler.OnPlayerEscaping))),
+            new (OpCodes.Call, AccessTools.Method(typeof(CursedPlayerEventsHandler), nameof(CursedPlayerEventsHandler.OnPlayerEscaping))),
             new (OpCodes.Stloc_S, args.LocalIndex),
             new (OpCodes.Ldloc_S, args.LocalIndex),
             new (OpCodes.Callvirt, AccessTools.PropertyGetter(typeof(PlayerEscapingEventArgs), nameof(PlayerEscapingEventArgs.IsAllowed))),

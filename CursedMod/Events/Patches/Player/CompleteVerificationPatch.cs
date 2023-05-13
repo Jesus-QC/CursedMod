@@ -9,7 +9,7 @@
 using System.Collections.Generic;
 using System.Reflection.Emit;
 using CursedMod.Events.Arguments.Player;
-using CursedMod.Events.Handlers.Player;
+using CursedMod.Events.Handlers;
 using HarmonyLib;
 using NorthwoodLib.Pools;
 
@@ -34,7 +34,7 @@ public class CompleteVerificationPatch
             
             new (OpCodes.Ldarg_0),
             new (OpCodes.Newobj, AccessTools.GetDeclaredConstructors(typeof(PlayerJoinedEventArgs))[0]),
-            new (OpCodes.Call, AccessTools.Method(typeof(PlayerEventsHandler), nameof(PlayerEventsHandler.OnPlayerJoined))),
+            new (OpCodes.Call, AccessTools.Method(typeof(CursedPlayerEventsHandler), nameof(CursedPlayerEventsHandler.OnPlayerJoined))),
         });
 
         foreach (CodeInstruction instruction in newInstructions)

@@ -9,13 +9,13 @@
 using System.Collections.Generic;
 using System.Reflection.Emit;
 using CursedMod.Events.Arguments.Facility.Warhead;
-using CursedMod.Events.Handlers.Facility.Warhead;
+using CursedMod.Events.Handlers;
 using HarmonyLib;
 using NorthwoodLib.Pools;
 
 namespace CursedMod.Events.Patches.Facility.Warhead;
 
-[DynamicEventPatch(typeof(WarheadEventsHandler), nameof(WarheadEventsHandler.PlayerCancelingDetonation))]
+[DynamicEventPatch(typeof(CursedWarheadEventsHandler), nameof(CursedWarheadEventsHandler.PlayerCancelingDetonation))]
 [HarmonyPatch(typeof(AlphaWarheadController), nameof(AlphaWarheadController.CancelDetonation))]
 public class CancelDetonationPatch
 {
@@ -36,7 +36,7 @@ public class CancelDetonationPatch
             new (OpCodes.Ldarg_3),
             new (OpCodes.Newobj, AccessTools.GetDeclaredConstructors(typeof(PlayerCancelingDetonationEventArgs))[0]),
             new (OpCodes.Dup),
-            new (OpCodes.Call, AccessTools.Method(typeof(WarheadEventsHandler), nameof(WarheadEventsHandler.OnPlayerStartingDetonation))),
+            new (OpCodes.Call, AccessTools.Method(typeof(CursedWarheadEventsHandler), nameof(CursedWarheadEventsHandler.OnPlayerStartingDetonation))),
             new (OpCodes.Callvirt, AccessTools.PropertyGetter(typeof(PlayerCancelingDetonationEventArgs), nameof(PlayerCancelingDetonationEventArgs.IsAllowed))),
             new (OpCodes.Brfalse_S, ret),
         });

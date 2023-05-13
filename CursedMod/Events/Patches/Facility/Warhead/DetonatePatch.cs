@@ -9,13 +9,13 @@
 using System.Collections.Generic;
 using System.Reflection.Emit;
 using CursedMod.Events.Arguments.Facility.Warhead;
-using CursedMod.Events.Handlers.Facility.Warhead;
+using CursedMod.Events.Handlers;
 using HarmonyLib;
 using NorthwoodLib.Pools;
 
 namespace CursedMod.Events.Patches.Facility.Warhead;
 
-[DynamicEventPatch(typeof(WarheadEventsHandler), nameof(WarheadEventsHandler.WarheadDetonating))]
+[DynamicEventPatch(typeof(CursedWarheadEventsHandler), nameof(CursedWarheadEventsHandler.WarheadDetonating))]
 [HarmonyPatch(typeof(AlphaWarheadController), nameof(AlphaWarheadController.Detonate))]
 public class DetonatePatch
 {
@@ -31,7 +31,7 @@ public class DetonatePatch
         {
             new (OpCodes.Newobj, AccessTools.GetDeclaredConstructors(typeof(WarheadDetonatingEventArgs))[0]),
             new (OpCodes.Dup),
-            new (OpCodes.Call, AccessTools.Method(typeof(WarheadEventsHandler), nameof(WarheadEventsHandler.OnWarheadDetonating))),
+            new (OpCodes.Call, AccessTools.Method(typeof(CursedWarheadEventsHandler), nameof(CursedWarheadEventsHandler.OnWarheadDetonating))),
             new (OpCodes.Callvirt, AccessTools.PropertyGetter(typeof(WarheadDetonatingEventArgs), nameof(WarheadDetonatingEventArgs.IsAllowed))),
             new (OpCodes.Brfalse_S, ret),
         });

@@ -9,14 +9,14 @@
 using System.Collections.Generic;
 using System.Reflection.Emit;
 using CursedMod.Events.Arguments.Items;
-using CursedMod.Events.Handlers.Items;
+using CursedMod.Events.Handlers;
 using HarmonyLib;
 using InventorySystem;
 using NorthwoodLib.Pools;
 
 namespace CursedMod.Events.Patches.Items;
 
-[DynamicEventPatch(typeof(ItemsEventsHandler), nameof(ItemsEventsHandler.PlayerPickedUpItem))]
+[DynamicEventPatch(typeof(CursedItemsEventsHandler), nameof(CursedItemsEventsHandler.PlayerPickedUpItem))]
 [HarmonyPatch(typeof(InventoryExtensions), nameof(InventoryExtensions.ServerAddItem))]
 public class ServerAddItemPatch
 {
@@ -29,7 +29,7 @@ public class ServerAddItemPatch
             new (OpCodes.Ldarg_0),
             new (OpCodes.Ldloc_1),
             new (OpCodes.Newobj, AccessTools.GetDeclaredConstructors(typeof(PlayerPickedUpItemEventArgs))[0]),
-            new (OpCodes.Call, AccessTools.Method(typeof(ItemsEventsHandler), nameof(ItemsEventsHandler.OnPlayerPickedUpItem))),
+            new (OpCodes.Call, AccessTools.Method(typeof(CursedItemsEventsHandler), nameof(CursedItemsEventsHandler.OnPlayerPickedUpItem))),
         });
         
         foreach (CodeInstruction instruction in newInstructions)

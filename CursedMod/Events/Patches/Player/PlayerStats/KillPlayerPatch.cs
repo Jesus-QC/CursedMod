@@ -9,13 +9,13 @@
 using System.Collections.Generic;
 using System.Reflection.Emit;
 using CursedMod.Events.Arguments.Player;
-using CursedMod.Events.Handlers.Player;
+using CursedMod.Events.Handlers;
 using HarmonyLib;
 using NorthwoodLib.Pools;
 
 namespace CursedMod.Events.Patches.Player.PlayerStats;
 
-[DynamicEventPatch(typeof(PlayerEventsHandler), nameof(PlayerEventsHandler.Dying))]
+[DynamicEventPatch(typeof(CursedPlayerEventsHandler), nameof(CursedPlayerEventsHandler.Dying))]
 [HarmonyPatch(typeof(PlayerStatsSystem.PlayerStats), nameof(PlayerStatsSystem.PlayerStats.KillPlayer))]
 public class KillPlayerPatch
 {
@@ -33,7 +33,7 @@ public class KillPlayerPatch
             new (OpCodes.Ldarg_1),
             new (OpCodes.Newobj, AccessTools.GetDeclaredConstructors(typeof(PlayerDyingEventArgs))[0]),
             new (OpCodes.Dup),
-            new (OpCodes.Call, AccessTools.Method(typeof(PlayerEventsHandler), nameof(PlayerEventsHandler.OnPlayerDying))),
+            new (OpCodes.Call, AccessTools.Method(typeof(CursedPlayerEventsHandler), nameof(CursedPlayerEventsHandler.OnPlayerDying))),
             new (OpCodes.Callvirt, AccessTools.PropertyGetter(typeof(PlayerDyingEventArgs), nameof(PlayerDyingEventArgs.IsAllowed))),
             new (OpCodes.Brfalse_S, ret),
         });

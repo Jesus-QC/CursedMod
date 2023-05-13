@@ -9,7 +9,7 @@
 using System.Collections.Generic;
 using System.Reflection.Emit;
 using CursedMod.Events.Arguments.Player;
-using CursedMod.Events.Handlers.Player;
+using CursedMod.Events.Handlers;
 using HarmonyLib;
 using NorthwoodLib.Pools;
 
@@ -26,7 +26,7 @@ public class PlayerDisconnectPatch
         {
             new (OpCodes.Ldarg_1),
             new (OpCodes.Newobj, AccessTools.GetDeclaredConstructors(typeof(PlayerDisconnectedEventArgs))[0]),
-            new (OpCodes.Call, AccessTools.Method(typeof(PlayerEventsHandler), nameof(PlayerEventsHandler.OnPlayerDisconnected))),
+            new (OpCodes.Call, AccessTools.Method(typeof(CursedPlayerEventsHandler), nameof(CursedPlayerEventsHandler.OnPlayerDisconnected))),
         });
 
         foreach (CodeInstruction instruction in newInstructions)

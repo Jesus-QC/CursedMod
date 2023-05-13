@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="PlayerEventsHandler.cs" company="CursedMod">
+// <copyright file="CursedPlayerEventsHandler.cs" company="CursedMod">
 // Copyright (c) CursedMod. All rights reserved.
 // Licensed under the GPLv3 license.
 // See LICENSE file in the project root for full license information.
@@ -10,9 +10,9 @@ using CursedMod.Events.Arguments.Player;
 using CursedMod.Features.Logger;
 using CursedMod.Features.Wrappers.Player;
 
-namespace CursedMod.Events.Handlers.Player;
+namespace CursedMod.Events.Handlers;
 
-public static class PlayerEventsHandler
+public static class CursedPlayerEventsHandler
 {
     public static event EventManager.CursedEventHandler<PlayerJoinedEventArgs> Joined;
     
@@ -27,8 +27,8 @@ public static class PlayerEventsHandler
     public static event EventManager.CursedEventHandler<PlayerDyingEventArgs> Dying;
     
     public static event EventManager.CursedEventHandler<PlayerEscapingEventArgs> Escaping;
-    
-    public static event EventManager.CursedEventHandler<RagdollSpawnedEventArgs> RagdollSpawned;
+
+    public static event EventManager.CursedEventHandler<PlayerUsingVoiceChatEventArgs> UsingVoiceChat;
 
     internal static void OnPlayerJoined(PlayerJoinedEventArgs args)
     {
@@ -87,9 +87,12 @@ public static class PlayerEventsHandler
         
         Escaping.InvokeEvent(args);
     }
-
-    internal static void OnRagdollSpawned(BasicRagdoll ragdoll)
+    
+    internal static void OnPlayerUsingVoiceChat(PlayerUsingVoiceChatEventArgs args)
     {
-        RagdollSpawned.InvokeEvent(new RagdollSpawnedEventArgs(ragdoll));
+        if (!args.Player.CheckPlayer())
+            return;
+        
+        UsingVoiceChat.InvokeEvent(args);
     }
 }

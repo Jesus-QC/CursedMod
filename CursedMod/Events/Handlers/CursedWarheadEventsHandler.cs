@@ -1,5 +1,5 @@
 // -----------------------------------------------------------------------
-// <copyright file="WarheadEventsHandler.cs" company="CursedMod">
+// <copyright file="CursedWarheadEventsHandler.cs" company="CursedMod">
 // Copyright (c) CursedMod. All rights reserved.
 // Licensed under the GPLv3 license.
 // See LICENSE file in the project root for full license information.
@@ -8,9 +8,9 @@
 
 using CursedMod.Events.Arguments.Facility.Warhead;
 
-namespace CursedMod.Events.Handlers.Facility.Warhead;
+namespace CursedMod.Events.Handlers;
 
-public static class WarheadEventsHandler
+public static class CursedWarheadEventsHandler
 {
     public static event EventManager.CursedEventHandler<PlayerStartingDetonationEventArgs> PlayerStartingDetonation;
     

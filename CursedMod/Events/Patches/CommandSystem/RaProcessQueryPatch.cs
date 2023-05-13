@@ -11,14 +11,14 @@ using System.Reflection;
 using System.Reflection.Emit;
 using CommandSystem;
 using CursedMod.Events.Arguments.CommandSystem;
-using CursedMod.Events.Handlers.CommandSystem;
+using CursedMod.Events.Handlers;
 using HarmonyLib;
 using NorthwoodLib.Pools;
 using RemoteAdmin;
 
 namespace CursedMod.Events.Patches.CommandSystem;
 
-[DynamicEventPatch(typeof(CommandSystemEventsHandler), nameof(CommandSystemEventsHandler.ExecutingRemoteAdminCommand))]
+[DynamicEventPatch(typeof(CursedCommandSystemEventsHandler), nameof(CursedCommandSystemEventsHandler.ExecutingRemoteAdminCommand))]
 [HarmonyPatch(typeof(CommandProcessor), nameof(CommandProcessor.ProcessQuery))]
 public class RaProcessQueryPatch
 {
@@ -44,7 +44,7 @@ public class RaProcessQueryPatch
             
             // CommandSystemEventsHandler.OnExecutingCommand(args);
             new (OpCodes.Ldloc_S, args.LocalIndex),
-            new (OpCodes.Call, AccessTools.Method(typeof(CommandSystemEventsHandler), nameof(CommandSystemEventsHandler.OnExecutingRemoteAdminCommand))),
+            new (OpCodes.Call, AccessTools.Method(typeof(CursedCommandSystemEventsHandler), nameof(CursedCommandSystemEventsHandler.OnExecutingRemoteAdminCommand))),
             
             // if (!args.IsAllowed) return;
             new (OpCodes.Ldloc_S, args.LocalIndex),

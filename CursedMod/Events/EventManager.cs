@@ -10,8 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Reflection;
-using CursedMod.Events.Handlers.MapGeneration;
-using CursedMod.Events.Handlers.Player;
+using CursedMod.Events.Handlers;
 using CursedMod.Features.Logger;
 using CursedMod.Features.Wrappers.Player;
 using CursedMod.Loader.Configurations;
@@ -130,9 +129,9 @@ public static class EventManager
     
     private static void RegisterHookedEvents()
     {
-        SceneManager.sceneLoaded += MapGenerationEventsHandler.OnChangingScene;
-        SeedSynchronizer.OnMapGenerated += MapGenerationEventsHandler.CacheAPI;
-        RagdollManager.OnRagdollSpawned += PlayerEventsHandler.OnRagdollSpawned;
+        SceneManager.sceneLoaded += CursedMapGenerationEventsHandler.OnChangingScene;
+        SeedSynchronizer.OnMapGenerated += CursedMapGenerationEventsHandler.CacheAPI;
+        RagdollManager.OnRagdollSpawned += CursedFacilityEventsHandler.OnRagdollSpawned;
     }
     
     private static bool TryDynamicPatching(Type type)

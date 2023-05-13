@@ -1,14 +1,14 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="RoundEventsHandler.cs" company="CursedMod">
+// <copyright file="CursedRoundEventsHandler.cs" company="CursedMod">
 // Copyright (c) CursedMod. All rights reserved.
 // Licensed under the GPLv3 license.
 // See LICENSE file in the project root for full license information.
 // </copyright>
 // -----------------------------------------------------------------------
 
-namespace CursedMod.Events.Handlers.Round;
+namespace CursedMod.Events.Handlers;
 
-public static class RoundEventsHandler
+public static class CursedRoundEventsHandler
 {
     public static event EventManager.CursedEventHandler RoundStarted;
     
