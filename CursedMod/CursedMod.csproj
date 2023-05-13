@@ -163,6 +163,7 @@
         <Compile Include="Events\Handlers\CursedBanSystemEventsHandler.cs" />
         <Compile Include="Events\Handlers\CursedCommandSystemEventsHandler.cs" />
         <Compile Include="Events\Handlers\CursedDoorsEventsHandler.cs" />
+        <Compile Include="Events\Handlers\CursedFacilityEventsHandler.cs" />
         <Compile Include="Events\Handlers\CursedItemsEventsHandler.cs" />
         <Compile Include="Events\Handlers\CursedMapGenerationEventsHandler.cs" />
         <Compile Include="Events\Handlers\CursedPlayerEventsHandler.cs" />
