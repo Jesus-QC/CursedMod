@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="ItemsEventsHandler.cs" company="CursedMod">
+// <copyright file="CursedItemsEventsHandler.cs" company="CursedMod">
 // Copyright (c) CursedMod. All rights reserved.
 // Licensed under the GPLv3 license.
 // See LICENSE file in the project root for full license information.
@@ -8,9 +8,9 @@
 
 using CursedMod.Events.Arguments.Items;
 
-namespace CursedMod.Events.Handlers.Items;
+namespace CursedMod.Events.Handlers;
 
-public static class ItemsEventsHandler
+public static class CursedItemsEventsHandler
 {
     public static event EventManager.CursedEventHandler<PlayerPickingUpItemEventArgs> PlayerPickingUpItem;
     

@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="BanSystemEventsHandler.cs" company="CursedMod">
+// <copyright file="CursedBanSystemEventsHandler.cs" company="CursedMod">
 // Copyright (c) CursedMod. All rights reserved.
 // Licensed under the GPLv3 license.
 // See LICENSE file in the project root for full license information.
@@ -8,9 +8,9 @@
 
 using CursedMod.Events.Arguments.BanSystem;
 
-namespace CursedMod.Events.Handlers.BanSystem;
+namespace CursedMod.Events.Handlers;
 
-public static class BanSystemEventsHandler
+public static class CursedBanSystemEventsHandler
 {
     public static event EventManager.CursedEventHandler<BanningOfflinePlayerEventArgs> BanningOfflinePlayer;
     

@@ -28,6 +28,8 @@ public static class CursedPaths
 
     public static DirectoryInfo LocalDependencies { get; private set; }
     
+    public static FileInfo Configuration { get; private set; }
+    
     public static FileInfo Permissions { get; private set; }
 
     public static void LoadPaths()
@@ -42,6 +44,7 @@ public static class CursedPaths
         LocalPlugins = Local.CreateSubdirectory("Plugins");
         LocalDependencies = Local.CreateSubdirectory("Dependencies");
 
+        Configuration = new FileInfo(Path.Combine(Local.FullName, "Configuration.yml"));
         Permissions = new FileInfo(Path.Combine(Local.FullName, "Permissions.yml"));
     }
 }

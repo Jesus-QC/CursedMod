@@ -9,14 +9,14 @@
 using System.Collections.Generic;
 using System.Reflection.Emit;
 using CursedMod.Events.Arguments.Items;
-using CursedMod.Events.Handlers.Items;
+using CursedMod.Events.Handlers;
 using HarmonyLib;
 using InventorySystem.Searching;
 using NorthwoodLib.Pools;
 
 namespace CursedMod.Events.Patches.Items;
 
-[DynamicEventPatch(typeof(ItemsEventsHandler), nameof(ItemsEventsHandler.PlayerPickingUpItem))]
+[DynamicEventPatch(typeof(CursedItemsEventsHandler), nameof(CursedItemsEventsHandler.PlayerPickingUpItem))]
 [HarmonyPatch(typeof(Scp330SearchCompletor), nameof(Scp330SearchCompletor.Complete))]
 public class Scp330SearchCompletePatch
 {
@@ -35,7 +35,7 @@ public class Scp330SearchCompletePatch
             new (OpCodes.Ldloc_0),
             new (OpCodes.Newobj, AccessTools.GetDeclaredConstructors(typeof(PlayerPickingUpItemEventArgs))[0]),
             new (OpCodes.Dup),
-            new (OpCodes.Call, AccessTools.Method(typeof(ItemsEventsHandler), nameof(ItemsEventsHandler.OnPlayerPickingUpItem))),
+            new (OpCodes.Call, AccessTools.Method(typeof(CursedItemsEventsHandler), nameof(CursedItemsEventsHandler.OnPlayerPickingUpItem))),
             new (OpCodes.Callvirt, AccessTools.PropertyGetter(typeof(PlayerPickingUpItemEventArgs), nameof(PlayerPickingUpItemEventArgs.IsAllowed))),
             new (OpCodes.Brfalse_S, ret),
         });

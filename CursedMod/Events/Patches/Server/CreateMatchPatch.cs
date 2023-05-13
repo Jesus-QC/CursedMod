@@ -8,7 +8,7 @@
 
 using System.Collections.Generic;
 using System.Reflection.Emit;
-using CursedMod.Events.Handlers.Server;
+using CursedMod.Events.Handlers;
 using HarmonyLib;
 using NorthwoodLib.Pools;
 
@@ -23,7 +23,7 @@ public class CreateMatchPatch
 
         newInstructions.InsertRange(newInstructions.Count - 1, new CodeInstruction[]
         {
-            new (OpCodes.Call, AccessTools.Method(typeof(ServerEventsHandler), nameof(ServerEventsHandler.OnLoadedConfigs))),
+            new (OpCodes.Call, AccessTools.Method(typeof(CursedServerEventsHandler), nameof(CursedServerEventsHandler.OnLoadedConfigs))),
         });
         
         foreach (CodeInstruction instruction in newInstructions)

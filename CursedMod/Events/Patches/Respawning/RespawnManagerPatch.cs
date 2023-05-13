@@ -9,14 +9,14 @@
 using System.Collections.Generic;
 using System.Reflection.Emit;
 using CursedMod.Events.Arguments.Respawning;
-using CursedMod.Events.Handlers.Respawning;
+using CursedMod.Events.Handlers;
 using HarmonyLib;
 using NorthwoodLib.Pools;
 using Respawning;
 
 namespace CursedMod.Events.Patches.Respawning;
 
-[DynamicEventPatch(typeof(RespawningEventsHandler), nameof(RespawningEventsHandler.RespawningTeam))]
+[DynamicEventPatch(typeof(CursedRespawningEventsHandler), nameof(CursedRespawningEventsHandler.RespawningTeam))]
 [HarmonyPatch(typeof(RespawnManager), nameof(RespawnManager.Spawn))]
 public class RespawnManagerPatch
 {
@@ -35,7 +35,7 @@ public class RespawnManagerPatch
             // TODO: Add selected players in another event
             new CodeInstruction(OpCodes.Newobj, AccessTools.GetDeclaredConstructors(typeof(RespawningTeamEventArgs))[0]).MoveLabelsFrom(newInstructions[offset]),
             new (OpCodes.Dup),
-            new (OpCodes.Call, AccessTools.Method(typeof(RespawningEventsHandler), nameof(RespawningEventsHandler.OnRespawningTeam))),
+            new (OpCodes.Call, AccessTools.Method(typeof(CursedRespawningEventsHandler), nameof(CursedRespawningEventsHandler.OnRespawningTeam))),
             new (OpCodes.Callvirt, AccessTools.PropertyGetter(typeof(RespawningTeamEventArgs), nameof(RespawningTeamEventArgs.IsAllowed))),
             new (OpCodes.Brfalse_S, ret),
         });

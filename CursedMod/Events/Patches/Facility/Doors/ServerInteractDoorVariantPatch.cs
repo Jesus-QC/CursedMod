@@ -9,14 +9,14 @@
 using System.Collections.Generic;
 using System.Reflection.Emit;
 using CursedMod.Events.Arguments.Facility.Doors;
-using CursedMod.Events.Handlers.Facility.Doors;
+using CursedMod.Events.Handlers;
 using HarmonyLib;
 using Interactables.Interobjects.DoorUtils;
 using NorthwoodLib.Pools;
 
 namespace CursedMod.Events.Patches.Facility.Doors;
 
-[DynamicEventPatch(typeof(DoorsEventsHandler), nameof(DoorsEventsHandler.PlayerInteractingDoor))]
+[DynamicEventPatch(typeof(CursedDoorsEventsHandler), nameof(CursedDoorsEventsHandler.PlayerInteractingDoor))]
 [HarmonyPatch(typeof(DoorVariant), nameof(DoorVariant.ServerInteract))]
 public class ServerInteractDoorVariantPatch
 {
@@ -40,7 +40,7 @@ public class ServerInteractDoorVariantPatch
             new (OpCodes.Newobj, AccessTools.GetDeclaredConstructors(typeof(PlayerInteractingDoorEventArgs))[0]),
             new (OpCodes.Dup),
             new (OpCodes.Stloc_S, args.LocalIndex),
-            new (OpCodes.Call, AccessTools.Method(typeof(DoorsEventsHandler), nameof(DoorsEventsHandler.OnPlayerInteractingDoor))),
+            new (OpCodes.Call, AccessTools.Method(typeof(CursedDoorsEventsHandler), nameof(CursedDoorsEventsHandler.OnPlayerInteractingDoor))),
             new (OpCodes.Ldloc_S, args.LocalIndex),
             new (OpCodes.Callvirt, AccessTools.PropertyGetter(typeof(PlayerInteractingDoorEventArgs), nameof(PlayerInteractingDoorEventArgs.IsAllowed))),
             new (OpCodes.Brfalse_S, ret),

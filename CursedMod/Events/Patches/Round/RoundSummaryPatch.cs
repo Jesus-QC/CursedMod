@@ -9,7 +9,7 @@
 using System;
 using System.Collections.Generic;
 using System.Reflection.Emit;
-using CursedMod.Events.Handlers.Round;
+using CursedMod.Events.Handlers;
 using GameCore;
 using HarmonyLib;
 using MEC;
@@ -26,7 +26,7 @@ using Utils.NonAllocLINQ;
 
 namespace CursedMod.Events.Patches.Round;
 
-[DynamicEventPatch(typeof(RoundEventsHandler), nameof(RoundEventsHandler.RoundEnded))]
+[DynamicEventPatch(typeof(CursedRoundEventsHandler), nameof(CursedRoundEventsHandler.RoundEnded))]
 [HarmonyPatch(typeof(RoundSummary), nameof(RoundSummary.Start))]
 public class RoundSummaryPatch
 {
@@ -205,7 +205,7 @@ public class RoundSummaryPatch
                 roundEndCancellationData = PluginAPI.Events.EventManager.ExecuteEvent<RoundEndCancellationData>(ServerEventType.RoundEnd, leadingTeam);
             }
             
-            RoundEventsHandler.OnRoundEnded();
+            CursedRoundEventsHandler.OnRoundEnded();
             
             if (Statistics.FastestEndedRound.Duration > RoundStart.RoundLength)
                 Statistics.FastestEndedRound = new Statistics.FastestRound(leadingTeam, RoundStart.RoundLength, DateTime.Now);

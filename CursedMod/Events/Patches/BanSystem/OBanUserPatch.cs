@@ -10,13 +10,13 @@ using System.Collections.Generic;
 using System.Reflection.Emit;
 using CommandSystem.Commands.RemoteAdmin;
 using CursedMod.Events.Arguments.BanSystem;
-using CursedMod.Events.Handlers.BanSystem;
+using CursedMod.Events.Handlers;
 using HarmonyLib;
 using NorthwoodLib.Pools;
 
 namespace CursedMod.Events.Patches.BanSystem;
 
-[DynamicEventPatch(typeof(BanSystemEventsHandler), nameof(BanSystemEventsHandler.BanningOfflinePlayer))]
+[DynamicEventPatch(typeof(CursedBanSystemEventsHandler), nameof(CursedBanSystemEventsHandler.BanningOfflinePlayer))]
 [HarmonyPatch(typeof(OfflineBanCommand), nameof(OfflineBanCommand.Execute))]
 public class OBanUserPatch
 {
@@ -34,7 +34,7 @@ public class OBanUserPatch
             new (OpCodes.Newobj, AccessTools.GetDeclaredConstructors(typeof(BanningOfflinePlayerEventArgs))[0]),
             new (OpCodes.Stloc_S, args.LocalIndex),
             new (OpCodes.Ldloc_S, args.LocalIndex),
-            new (OpCodes.Call, AccessTools.Method(typeof(BanSystemEventsHandler), nameof(BanSystemEventsHandler.OnBanningOfflinePlayer))),
+            new (OpCodes.Call, AccessTools.Method(typeof(CursedBanSystemEventsHandler), nameof(CursedBanSystemEventsHandler.OnBanningOfflinePlayer))),
             new (OpCodes.Ldloc_S, args.LocalIndex),
             new (OpCodes.Callvirt, AccessTools.PropertyGetter(typeof(BanningOfflinePlayerEventArgs), nameof(BanningOfflinePlayerEventArgs.BanDetails))),
             new (OpCodes.Ldloc_S, args.LocalIndex),

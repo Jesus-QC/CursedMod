@@ -10,13 +10,13 @@ using System.Collections.Generic;
 using System.Reflection.Emit;
 using Achievements;
 using CursedMod.Events.Arguments.Achievements;
-using CursedMod.Events.Handlers.Achievements;
+using CursedMod.Events.Handlers;
 using HarmonyLib;
 using NorthwoodLib.Pools;
 
 namespace CursedMod.Events.Patches.Achievements;
 
-[DynamicEventPatch(typeof(AchievementsEventsHandler), nameof(AchievementsEventsHandler.PlayerAchieving))]
+[DynamicEventPatch(typeof(CursedAchievementsEventsHandler), nameof(CursedAchievementsEventsHandler.PlayerAchieving))]
 [HarmonyPatch(typeof(AchievementHandlerBase), nameof(AchievementHandlerBase.ServerAchieve))]
 public class ServerAchievePatch
 {
@@ -37,7 +37,7 @@ public class ServerAchievePatch
             new (OpCodes.Newobj, AccessTools.GetDeclaredConstructors(typeof(PlayerAchievingEventArgs))[0]),
             new (OpCodes.Stloc_S, args.LocalIndex),
             new (OpCodes.Ldloc_S, args.LocalIndex),
-            new (OpCodes.Call, AccessTools.Method(typeof(AchievementsEventsHandler), nameof(AchievementsEventsHandler.OnPlayerAchieving))),
+            new (OpCodes.Call, AccessTools.Method(typeof(CursedAchievementsEventsHandler), nameof(CursedAchievementsEventsHandler.OnPlayerAchieving))),
             new (OpCodes.Ldloc_S, args.LocalIndex),
             new (OpCodes.Callvirt, AccessTools.PropertyGetter(typeof(PlayerAchievingEventArgs), nameof(PlayerAchievingEventArgs.IsAllowed))),
             new (OpCodes.Brfalse_S, ret),

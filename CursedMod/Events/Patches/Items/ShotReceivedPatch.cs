@@ -9,14 +9,14 @@
 using System.Collections.Generic;
 using System.Reflection.Emit;
 using CursedMod.Events.Arguments.Items;
-using CursedMod.Events.Handlers.Items;
+using CursedMod.Events.Handlers;
 using HarmonyLib;
 using InventorySystem.Items.Firearms.BasicMessages;
 using NorthwoodLib.Pools;
 
 namespace CursedMod.Events.Patches.Items;
 
-[DynamicEventPatch(typeof(ItemsEventsHandler), nameof(ItemsEventsHandler.PlayerShooting))]
+[DynamicEventPatch(typeof(CursedItemsEventsHandler), nameof(CursedItemsEventsHandler.PlayerShooting))]
 [HarmonyPatch(typeof(FirearmBasicMessagesHandler), nameof(FirearmBasicMessagesHandler.ServerShotReceived))]
 public class ShotReceivedPatch
 {
@@ -36,7 +36,7 @@ public class ShotReceivedPatch
             new (OpCodes.Ldarg_1),
             new (OpCodes.Newobj, AccessTools.GetDeclaredConstructors(typeof(PlayerShootingEventArgs))[0]),
             new (OpCodes.Dup),
-            new (OpCodes.Call, AccessTools.Method(typeof(ItemsEventsHandler), nameof(ItemsEventsHandler.OnPlayerShooting))),
+            new (OpCodes.Call, AccessTools.Method(typeof(CursedItemsEventsHandler), nameof(CursedItemsEventsHandler.OnPlayerShooting))),
             new (OpCodes.Callvirt, AccessTools.PropertyGetter(typeof(PlayerShootingEventArgs), nameof(PlayerShootingEventArgs.IsAllowed))),
             new (OpCodes.Brfalse_S, ret),
         });

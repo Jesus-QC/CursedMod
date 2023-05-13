@@ -9,15 +9,15 @@
 using System.Collections.Generic;
 using System.Reflection.Emit;
 using CursedMod.Events.Arguments.Items;
-using CursedMod.Events.Handlers.Items;
+using CursedMod.Events.Handlers;
 using HarmonyLib;
 using InventorySystem.Items.Usables;
 using NorthwoodLib.Pools;
 
 namespace CursedMod.Events.Patches.Items.Usables;
 
-[DynamicEventPatch(typeof(ItemsEventsHandler), nameof(ItemsEventsHandler.PlayerCancellingUsable))]
-[DynamicEventPatch(typeof(ItemsEventsHandler), nameof(ItemsEventsHandler.PlayerUsingItem))]
+[DynamicEventPatch(typeof(CursedItemsEventsHandler), nameof(CursedItemsEventsHandler.PlayerCancellingUsable))]
+[DynamicEventPatch(typeof(CursedItemsEventsHandler), nameof(CursedItemsEventsHandler.PlayerUsingItem))]
 [HarmonyPatch(typeof(UsableItemsController), nameof(UsableItemsController.ServerReceivedStatus))]
 public class UsableItemReceivedStatusPatch
 {
@@ -35,7 +35,7 @@ public class UsableItemReceivedStatusPatch
             new (OpCodes.Ldloc_1),
             new (OpCodes.Newobj, AccessTools.GetDeclaredConstructors(typeof(PlayerCancellingUsableEventArgs))[0]),
             new (OpCodes.Dup),
-            new (OpCodes.Call, AccessTools.Method(typeof(ItemsEventsHandler), nameof(ItemsEventsHandler.OnPlayerCancellingUsable))),
+            new (OpCodes.Call, AccessTools.Method(typeof(CursedItemsEventsHandler), nameof(CursedItemsEventsHandler.OnPlayerCancellingUsable))),
             new (OpCodes.Callvirt, AccessTools.PropertyGetter(typeof(PlayerCancellingUsableEventArgs), nameof(PlayerCancellingUsableEventArgs.IsAllowed))),
             new (OpCodes.Brfalse_S, ret),
         });
@@ -47,7 +47,7 @@ public class UsableItemReceivedStatusPatch
             new (OpCodes.Ldloc_1),
             new (OpCodes.Newobj, AccessTools.GetDeclaredConstructors(typeof(PlayerUsingItemEventArgs))[0]),
             new (OpCodes.Dup),
-            new (OpCodes.Call, AccessTools.Method(typeof(ItemsEventsHandler), nameof(ItemsEventsHandler.OnPlayerUsingItem))),
+            new (OpCodes.Call, AccessTools.Method(typeof(CursedItemsEventsHandler), nameof(CursedItemsEventsHandler.OnPlayerUsingItem))),
             new (OpCodes.Callvirt, AccessTools.PropertyGetter(typeof(PlayerUsingItemEventArgs), nameof(PlayerUsingItemEventArgs.IsAllowed))),
             new (OpCodes.Brfalse_S, ret),
         });

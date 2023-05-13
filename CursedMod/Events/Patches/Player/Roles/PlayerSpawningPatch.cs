@@ -10,14 +10,14 @@ using System.Collections.Generic;
 using System.Reflection;
 using System.Reflection.Emit;
 using CursedMod.Events.Arguments.Player;
-using CursedMod.Events.Handlers.Player;
+using CursedMod.Events.Handlers;
 using HarmonyLib;
 using NorthwoodLib.Pools;
 using PlayerRoles.FirstPersonControl.Spawnpoints;
 
 namespace CursedMod.Events.Patches.Player.Roles;
 
-[DynamicEventPatch(typeof(PlayerEventsHandler), nameof(PlayerEventsHandler.Spawning))]
+[DynamicEventPatch(typeof(CursedPlayerEventsHandler), nameof(CursedPlayerEventsHandler.Spawning))]
 [HarmonyPatch]
 public class SpawningPlayerPatch
 {
@@ -43,7 +43,7 @@ public class SpawningPlayerPatch
             new (OpCodes.Newobj, AccessTools.GetDeclaredConstructors(typeof(PlayerSpawningEventArgs))[0]),
             
             new (OpCodes.Dup),
-            new (OpCodes.Call, AccessTools.Method(typeof(PlayerEventsHandler), nameof(PlayerEventsHandler.OnPlayerSpawning))),
+            new (OpCodes.Call, AccessTools.Method(typeof(CursedPlayerEventsHandler), nameof(CursedPlayerEventsHandler.OnPlayerSpawning))),
             new (OpCodes.Stloc_S, args.LocalIndex),
             new (OpCodes.Ldloc_S, args.LocalIndex),
             new (OpCodes.Callvirt, AccessTools.PropertyGetter(typeof(PlayerSpawningEventArgs), nameof(PlayerSpawningEventArgs.IsAllowed))),

@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="DoorsEventsHandler.cs" company="CursedMod">
+// <copyright file="CursedDoorsEventsHandler.cs" company="CursedMod">
 // Copyright (c) CursedMod. All rights reserved.
 // Licensed under the GPLv3 license.
 // See LICENSE file in the project root for full license information.
@@ -8,9 +8,9 @@
 
 using CursedMod.Events.Arguments.Facility.Doors;
 
-namespace CursedMod.Events.Handlers.Facility.Doors;
+namespace CursedMod.Events.Handlers;
 
-public static class DoorsEventsHandler
+public static class CursedDoorsEventsHandler
 {
     public static event EventManager.CursedEventHandler<PlayerInteractingDoorEventArgs> PlayerInteractingDoor;
 

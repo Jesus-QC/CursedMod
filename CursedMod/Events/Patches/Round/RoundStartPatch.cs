@@ -8,13 +8,13 @@
 
 using System.Collections.Generic;
 using System.Reflection.Emit;
-using CursedMod.Events.Handlers.Round;
+using CursedMod.Events.Handlers;
 using HarmonyLib;
 using NorthwoodLib.Pools;
 
 namespace CursedMod.Events.Patches.Round;
 
-[DynamicEventPatch(typeof(RoundEventsHandler), nameof(RoundEventsHandler.RoundStarted))]
+[DynamicEventPatch(typeof(CursedRoundEventsHandler), nameof(CursedRoundEventsHandler.RoundStarted))]
 [HarmonyPatch(typeof(CharacterClassManager), nameof(CharacterClassManager.RpcRoundStarted))]
 public class RoundStartPatch
 {
@@ -24,7 +24,7 @@ public class RoundStartPatch
 
         newInstructions.InsertRange(0, new CodeInstruction[]
         {
-            new (OpCodes.Call, AccessTools.Method(typeof(RoundEventsHandler), nameof(RoundEventsHandler.OnRoundStarted))),
+            new (OpCodes.Call, AccessTools.Method(typeof(CursedRoundEventsHandler), nameof(CursedRoundEventsHandler.OnRoundStarted))),
         });
 
         foreach (CodeInstruction instruction in newInstructions)

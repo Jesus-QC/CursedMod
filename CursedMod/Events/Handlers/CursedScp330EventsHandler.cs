@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="Scp330EventsHandler.cs" company="CursedMod">
+// <copyright file="CursedScp330EventsHandler.cs" company="CursedMod">
 // Copyright (c) CursedMod. All rights reserved.
 // Licensed under the GPLv3 license.
 // See LICENSE file in the project root for full license information.
@@ -8,9 +8,9 @@
 
 using CursedMod.Events.Arguments.SCPs.Scp330;
 
-namespace CursedMod.Events.Handlers.SCPs.Scp330;
+namespace CursedMod.Events.Handlers;
 
-public static class Scp330EventsHandler
+public static class CursedScp330EventsHandler
 {
     public static event EventManager.CursedEventHandler<PlayerInteractingScp330EventArgs> PlayerInteractingScp330;
 

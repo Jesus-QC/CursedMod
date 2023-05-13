@@ -10,10 +10,10 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Reflection;
-using CursedMod.Events.Handlers.MapGeneration;
-using CursedMod.Events.Handlers.Player;
+using CursedMod.Events.Handlers;
 using CursedMod.Features.Logger;
 using CursedMod.Features.Wrappers.Player;
+using CursedMod.Loader.Configurations;
 using HarmonyLib;
 using MapGeneration;
 using NorthwoodLib.Pools;
@@ -37,8 +37,9 @@ public static class EventManager
         {
             Stopwatch watch = Stopwatch.StartNew();
 #if !DEBUG
-            if (EntryPoint.ModConfiguration.UseDynamicPatching)
+            if (CursedModConfigurationManager.LoadedConfiguration.UseDynamicPatching)
             {
+                CursedLogger.InternalPrint("CursedMod is using dynamic patching.");
                 foreach (Type type in Assembly.GetExecutingAssembly().GetTypes())
                 {
                     if (!type.IsClass)
@@ -128,9 +129,9 @@ public static class EventManager
     
     private static void RegisterHookedEvents()
     {
-        SceneManager.sceneLoaded += MapGenerationEventsHandler.OnChangingScene;
-        SeedSynchronizer.OnMapGenerated += MapGenerationEventsHandler.CacheAPI;
-        RagdollManager.OnRagdollSpawned += PlayerEventsHandler.OnRagdollSpawned;
+        SceneManager.sceneLoaded += CursedMapGenerationEventsHandler.OnChangingScene;
+        SeedSynchronizer.OnMapGenerated += CursedMapGenerationEventsHandler.CacheAPI;
+        RagdollManager.OnRagdollSpawned += CursedFacilityEventsHandler.OnRagdollSpawned;
     }
     
     private static bool TryDynamicPatching(Type type)
