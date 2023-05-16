@@ -44,13 +44,12 @@ public class InitRolePatch
 
     private static void HandleRoleChange(PlayerRoleBase roleBase, ReferenceHub hub)
     {
-        if (hub.IsDummy())
+        if (CursedDummy.Dictionary.TryGetValue(hub, out CursedPlayer dummy))
         {
-            CursedPlayer dummy = CursedDummy.Dictionary[hub];
             dummy.CurrentRole = CursedRole.Get(roleBase);
             return;
         }
-        
+
         if (!CursedPlayer.TryGet(hub, out CursedPlayer player))
             return;
         
