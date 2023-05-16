@@ -26,6 +26,6 @@ For this tutorial we will use [Visual Studio](https://visualstudio.microsoft.com
 
 3. Enter your desired project name, then select the desired **.NET Framework** version (4.8.X)&#x20;
 
-<figure><img src="../../.gitbook/assets/image (1).png" alt=""><figcaption><p>Selecting .NET Framework 4.8.X</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (1) (1).png" alt=""><figcaption><p>Selecting .NET Framework 4.8.X</p></figcaption></figure>
 
 And voilà! The project is created. You can proceed with the next step! 😊

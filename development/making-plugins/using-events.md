@@ -13,7 +13,7 @@ All your event subscriptions should be done inside your module entry point:
 ```csharp
 public override void OnLoaded()
 {
-    PlayerEventsHandler.Joined += OnPlayerJoined;
+    CursedPlayerEventsHandler.Joined += OnPlayerJoined;
     
     base.OnLoaded(); 
 }
@@ -26,7 +26,7 @@ All your event desubscriptions should be done inside your module exit point:
 ```csharp
 public override void OnUnloaded()
 {
-    PlayerEventsHandler.Joined -= OnPlayerJoined;
+    CursedPlayerEventsHandler.Joined -= OnPlayerJoined;
     
     base.OnUnloaded(); 
 }
