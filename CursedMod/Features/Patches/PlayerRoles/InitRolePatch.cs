@@ -12,9 +12,13 @@ using CursedMod.Events;
 using CursedMod.Features.Wrappers.Player;
 using CursedMod.Features.Wrappers.Player.Dummies;
 using CursedMod.Features.Wrappers.Player.Roles;
+using CursedMod.Features.Wrappers.Player.Roles.SCPs;
+using CursedMod.Features.Wrappers.Player.VoiceChat;
 using HarmonyLib;
 using NorthwoodLib.Pools;
 using PlayerRoles;
+using PlayerRoles.FirstPersonControl;
+using PlayerRoles.PlayableScps.Scp079;
 
 namespace CursedMod.Features.Patches.PlayerRoles;
 
@@ -51,5 +55,13 @@ public class InitRolePatch
             return;
         
         player.CurrentRole = CursedRole.Get(roleBase);
+
+        player.VoiceChat = roleBase switch
+        {
+            FpcStandardRoleBase fpcRole => new CursedVoiceChat(fpcRole.VoiceModule),
+            Scp079Role scp079Role => new CursedVoiceChat(scp079Role.VoiceModule),
+            NoneRole noneRole => new CursedVoiceChat(noneRole.VoiceModule),
+            _ => null
+        };
     }
 }

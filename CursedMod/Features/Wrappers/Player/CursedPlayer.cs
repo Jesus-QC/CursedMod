@@ -593,22 +593,7 @@ public class CursedPlayer
     // difference: this also returns true if the whitelist is disabled
     public bool IsWhitelisted => WhiteList.IsWhitelisted(UserId);
 
-    public CursedVoiceChat VoiceChat
-    {
-        get
-        {
-            if (CurrentRole is CursedFpcRole fpcRole)
-                return new CursedVoiceChat(fpcRole.VoiceModule);
-
-            if (CurrentRole is CursedScp079Role scp079Role)
-                return new CursedVoiceChat(scp079Role.VoiceModule);
-
-            if (CurrentRole is CursedNoneRole noneRole)
-                return new CursedVoiceChat(noneRole.VoiceModule);
-
-            return null;
-        }
-    }
+    public CursedVoiceChat VoiceChat { get; internal set; }
 
     public bool IsHost => ReferenceHub == ReferenceHub.HostHub;
     
