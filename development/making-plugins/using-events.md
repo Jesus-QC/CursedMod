@@ -66,7 +66,7 @@ You can feel free to safely use any argument without issues:
 ```csharp
 public void OnPlayerChangingRole(PlayerChangingRoleEventArgs args)
 {
-    args.Player.Username = "CursedMod is cool";
+    args.Player.DisplayNickname = "CursedMod is cool";
     args.NewRole = RoleTypeId.Tutorial;
 }
 ```
