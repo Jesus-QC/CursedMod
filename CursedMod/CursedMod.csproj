@@ -95,6 +95,7 @@
         <Compile Include="Events\Arguments\ICursedItemEvent.cs" />
         <Compile Include="Events\Arguments\ICursedPickupEvent.cs" />
         <Compile Include="Events\Arguments\ICursedPlayerEvent.cs" />
+        <Compile Include="Events\Arguments\ICursedRagdollEvent.cs" />
         <Compile Include="Events\Arguments\Items\PlayerCancellingThrowEventArgs.cs" />
         <Compile Include="Events\Arguments\Items\PlayerCancellingUsableEventArgs.cs" />
         <Compile Include="Events\Arguments\Items\PlayerDroppingItemEventArgs.cs" />
