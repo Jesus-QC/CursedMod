@@ -95,7 +95,6 @@
         <Compile Include="Events\Arguments\ICursedItemEvent.cs" />
         <Compile Include="Events\Arguments\ICursedPickupEvent.cs" />
         <Compile Include="Events\Arguments\ICursedPlayerEvent.cs" />
-        <Compile Include="Events\Arguments\ICursedRagdollEvent.cs" />
         <Compile Include="Events\Arguments\Items\PlayerCancellingThrowEventArgs.cs" />
         <Compile Include="Events\Arguments\Items\PlayerCancellingUsableEventArgs.cs" />
         <Compile Include="Events\Arguments\Items\PlayerDroppingItemEventArgs.cs" />
@@ -157,6 +156,7 @@
         <Compile Include="Events\Arguments\SCPs\Scp939\PlayerRemoveSavedVoiceEventArgs.cs" />
         <Compile Include="Events\Arguments\SCPs\Scp939\PlayerSaveVoiceEventArgs.cs" />
         <Compile Include="Events\Arguments\SCPs\Scp939\PlayerUseFocusEventArgs.cs" />
+        <Compile Include="Events\Arguments\SCPs\Scp330\PlayerInteractingScp330EventArgs.cs" />
         <Compile Include="Events\DynamicEventPatchAttribute.cs" />
         <Compile Include="Events\EventManager.cs" />
         <Compile Include="Events\Handlers\CursedAchievementsEventsHandler.cs" />
@@ -170,16 +170,16 @@
         <Compile Include="Events\Handlers\CursedPlayerEventsHandler.cs" />
         <Compile Include="Events\Handlers\CursedRespawningEventsHandler.cs" />
         <Compile Include="Events\Handlers\CursedRoundEventsHandler.cs" />
-        <Compile Include="Events\Handlers\CursedZombieEventsHandler.cs" />
+        <Compile Include="Events\Handlers\CursedScp049EventsHandler.cs" />
         <Compile Include="Events\Handlers\CursedScp079EventsHandler.cs" />
         <Compile Include="Events\Handlers\CursedScp096EventsHandler.cs" />
         <Compile Include="Events\Handlers\CursedScp106EventsHandler.cs" />
         <Compile Include="Events\Handlers\CursedScp173EventsHandler.cs" />
-        <Compile Include="Events\Handlers\CursedScp330EventsHandler.cs" />
         <Compile Include="Events\Handlers\CursedScp939EventsHandler.cs" />
+        <Compile Include="Events\Handlers\CursedScp330EventsHandler.cs" />
+        <Compile Include="Events\Handlers\CursedZombieEventsHandler.cs" />
         <Compile Include="Events\Handlers\CursedServerEventsHandler.cs" />
         <Compile Include="Events\Handlers\CursedWarheadEventsHandler.cs" />
-        <Compile Include="Events\Handlers\CursedZombieEventsHandler.cs" />
         <Compile Include="Events\Patches\Achievements\ServerAchievePatch.cs" />
         <Compile Include="Events\Patches\Authentication\ReservedSlotCheckPatch.cs" />
         <Compile Include="Events\Patches\BanSystem\BanUserPatch.cs" />
@@ -255,6 +255,7 @@
         <Compile Include="Events\Patches\SCPs\Scp939\SaveVoicePatch.cs" />
         <Compile Include="Events\Patches\SCPs\Scp939\UseFocusPatch.cs" />
         <Compile Include="Events\Patches\SCPs\Scp939\UseLungePatch.cs" />
+        <Compile Include="Events\Patches\SCPs\Scp330\ServerInteractScp330Patch.cs" />
         <Compile Include="Events\Patches\Server\CreateMatchPatch.cs" />
         <Compile Include="Features\Enums\AuthenticationType.cs" />
         <Compile Include="Features\Enums\DoorType.cs" />
