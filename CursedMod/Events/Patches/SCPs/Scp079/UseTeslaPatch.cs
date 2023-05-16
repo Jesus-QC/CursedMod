@@ -28,9 +28,8 @@ public class UseTeslaPatch
         
         Label returnLabel = generator.DefineLabel();
 
-        const int offset = -1;
-        int index = newInstructions.FindIndex(i =>
-            i.Calls(AccessTools.Method(typeof(Scp079RewardManager), nameof(Scp079RewardManager.MarkRoom)))) + offset;
+        const int offset = 2;
+        int index = newInstructions.FindLastIndex(i => i.opcode == OpCodes.Brtrue_S) + offset;
         
         newInstructions.InsertRange(index, new CodeInstruction[]
         {
