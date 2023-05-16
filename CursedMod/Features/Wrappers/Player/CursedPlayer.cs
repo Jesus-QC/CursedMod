@@ -16,6 +16,7 @@ using CursedMod.Features.Logger;
 using CursedMod.Features.Wrappers.Facility;
 using CursedMod.Features.Wrappers.Inventory.Items;
 using CursedMod.Features.Wrappers.Inventory.Pickups;
+using CursedMod.Features.Wrappers.Player.Dummies;
 using CursedMod.Features.Wrappers.Player.Roles;
 using CursedMod.Features.Wrappers.Player.Roles.SCPs;
 using CursedMod.Features.Wrappers.Player.VoiceChat;
@@ -74,6 +75,8 @@ public class CursedPlayer
     public static IEnumerable<CursedPlayer> ScpList => Collection.Where(player => player.IsScp);
     
     public static IEnumerable<CursedPlayer> HumanList => Collection.Where(player => player.IsHuman);
+
+    public static CursedPlayer Random => List[UnityEngine.Random.Range(0, List.Count)];
 
     public ReferenceHub ReferenceHub { get; }
     
@@ -143,7 +146,7 @@ public class CursedPlayer
     
     public HumeShieldStat HumeShieldStat => PlayerStats.GetModule<HumeShieldStat>();
 
-    public bool IsDummy => ReferenceHub == ReferenceHub.HostHub || NetworkConnection.address == "npc";
+    public bool IsDummy => ReferenceHub == ReferenceHub.HostHub || CursedDummy.Dictionary.ContainsKey(ReferenceHub) || NetworkConnection.address == "npc";
     
     public string SaltedUserId => CharacterClassManager.SaltedUserId;
     
@@ -593,22 +596,7 @@ public class CursedPlayer
     // difference: this also returns true if the whitelist is disabled
     public bool IsWhitelisted => WhiteList.IsWhitelisted(UserId);
 
-    public CursedVoiceChat VoiceChat
-    {
-        get
-        {
-            if (CurrentRole is CursedFpcRole fpcRole)
-                return new CursedVoiceChat(fpcRole.VoiceModule);
-
-            if (CurrentRole is CursedScp079Role scp079Role)
-                return new CursedVoiceChat(scp079Role.VoiceModule);
-
-            if (CurrentRole is CursedNoneRole noneRole)
-                return new CursedVoiceChat(noneRole.VoiceModule);
-
-            return null;
-        }
-    }
+    public CursedVoiceChat VoiceChat { get; internal set; }
 
     public bool IsHost => ReferenceHub == ReferenceHub.HostHub;
     
