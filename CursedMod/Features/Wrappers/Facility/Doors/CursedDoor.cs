@@ -120,8 +120,8 @@ public class CursedDoor
 
     public static CursedDoor Get(DoorVariant doorVariant)
     {
-        if (Dictionary.ContainsKey(doorVariant))
-            return Dictionary[doorVariant];
+        if (Dictionary.TryGetValue(doorVariant, out CursedDoor value))
+            return value;
         
         return doorVariant switch
         {
