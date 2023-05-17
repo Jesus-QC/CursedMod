@@ -28,7 +28,9 @@ public static class CursedScp079EventsHandler
     
     public static event EventManager.CursedEventHandler<PlayerGainExperienceEventArgs> PlayerGainExperience;
     
-    public static event EventManager.CursedEventHandler<PlayerUseTeslaEventArgs> PlayerUseTesla; 
+    public static event EventManager.CursedEventHandler<PlayerUseTeslaEventArgs> PlayerUseTesla;
+    
+    public static event EventManager.CursedEventHandler<PlayerPingEventArgs> PlayerPing; 
 
     internal static void OnPlayerBlackoutRoom(PlayerBlackoutRoomEventArgs args)
     {
@@ -73,5 +75,10 @@ public static class CursedScp079EventsHandler
     internal static void OnPlayerUseTesla(PlayerUseTeslaEventArgs args)
     {
         PlayerUseTesla.InvokeEvent(args);
+    }
+    
+    internal static void OnPlayerPing(PlayerPingEventArgs args)
+    {
+        PlayerPing.InvokeEvent(args);
     }
 }
