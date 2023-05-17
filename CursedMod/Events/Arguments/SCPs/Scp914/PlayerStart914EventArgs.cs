@@ -14,19 +14,16 @@ namespace CursedMod.Events.Arguments.SCPs.Scp914;
 
 public class PlayerStart914EventArgs : EventArgs, ICursedCancellableEvent, ICursedPlayerEvent
 {
-    public PlayerStart914EventArgs(Scp914Controller controller, ReferenceHub player, Scp914KnobSetting knobSetting)
+    public PlayerStart914EventArgs(Scp914Controller controller, ReferenceHub player)
     {
         IsAllowed = true;
         Scp914Controller = controller;
         Player = CursedPlayer.Get(player);
-        KnobSetting = knobSetting;
     }
     
     public bool IsAllowed { get; set; }
 
     public CursedPlayer Player { get; }
-    
-    public Scp914KnobSetting KnobSetting { get; }
-    
+
     public Scp914Controller Scp914Controller { get; }
 }
