@@ -149,6 +149,7 @@
         <Compile Include="Events\Arguments\SCPs\Scp173\PlayerBlinkingEventArgs.cs" />
         <Compile Include="Events\Arguments\SCPs\Scp173\PlayerPlaceTantrumEventArgs.cs" />
         <Compile Include="Events\Arguments\SCPs\Scp173\PlayerUseBreakneckSpeedEventArgs.cs" />
+        <Compile Include="Events\Arguments\SCPs\Scp330\PlayerEatScp330EventArgs.cs" />
         <Compile Include="Events\Arguments\SCPs\Scp330\PlayerInteractingScp330EventArgs.cs" />
         <Compile Include="Events\Arguments\SCPs\Scp914\PlayerChangeKnobSettingEventArgs.cs" />
         <Compile Include="Events\Arguments\SCPs\Scp914\PlayerStart914EventArgs.cs" />
@@ -255,6 +256,7 @@
         <Compile Include="Events\Patches\SCPs\Scp173\PlaceTantrumPatch.cs" />
         <Compile Include="Events\Patches\SCPs\Scp173\ServerBlinkPatch.cs" />
         <Compile Include="Events\Patches\SCPs\Scp173\TriggerBreakNeckSpeedPatch.cs" />
+        <Compile Include="Events\Patches\SCPs\Scp330\EatScp330Patch.cs" />
         <Compile Include="Events\Patches\SCPs\Scp330\ServerInteractScp330Patch.cs" />
         <Compile Include="Events\Patches\SCPs\Scp914\ServerInteractPatch.cs" />
         <Compile Include="Events\Patches\SCPs\Scp914\UpgradeItemPatch.cs" />
