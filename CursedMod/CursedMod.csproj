@@ -128,8 +128,10 @@
         <Compile Include="Events\Arguments\SCPs\Scp079\PlayerBlackoutZoneEventArgs.cs" />
         <Compile Include="Events\Arguments\SCPs\Scp079\PlayerCancelLockdownEventArgs.cs" />
         <Compile Include="Events\Arguments\SCPs\Scp079\PlayerChangeCameraEventArgs.cs" />
+        <Compile Include="Events\Arguments\SCPs\Scp079\PlayerChangeDoorStateEventArgs.cs" />
         <Compile Include="Events\Arguments\SCPs\Scp079\PlayerGainExperienceEventArgs.cs" />
         <Compile Include="Events\Arguments\SCPs\Scp079\PlayerLevelUpEventArgs.cs" />
+        <Compile Include="Events\Arguments\SCPs\Scp079\PlayerChangeDoorLockEventArgs.cs" />
         <Compile Include="Events\Arguments\SCPs\Scp079\PlayerMoveElevatorEventArgs.cs" />
         <Compile Include="Events\Arguments\SCPs\Scp079\PlayerPingEventArgs.cs" />
         <Compile Include="Events\Arguments\SCPs\Scp079\PlayerUseLockdownEventArgs.cs" />
@@ -232,10 +234,12 @@
         <Compile Include="Events\Patches\SCPs\Scp049\SensePlayerPatch.cs" />
         <Compile Include="Events\Patches\SCPs\Scp079\BlackoutRoomAbilityPatch.cs" />
         <Compile Include="Events\Patches\SCPs\Scp079\BlackoutZoneAbilityPatch.cs" />
+        <Compile Include="Events\Patches\SCPs\Scp079\ChangeDoorStatePatch.cs" />
         <Compile Include="Events\Patches\SCPs\Scp079\CurrentCameraPatch.cs" />
         <Compile Include="Events\Patches\SCPs\Scp079\ElevatorStateChangerPatch.cs" />
         <Compile Include="Events\Patches\SCPs\Scp079\GainExperiencePatch.cs" />
         <Compile Include="Events\Patches\SCPs\Scp079\GainLevelPatch.cs" />
+        <Compile Include="Events\Patches\SCPs\Scp079\LockDoorPatch.cs" />
         <Compile Include="Events\Patches\SCPs\Scp079\LockdownActivatePatch.cs" />
         <Compile Include="Events\Patches\SCPs\Scp079\PingPatch.cs" />
         <Compile Include="Events\Patches\SCPs\Scp079\ServerCancelLockdownPatch.cs" />
