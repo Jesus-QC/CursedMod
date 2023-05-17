@@ -148,6 +148,9 @@
         <Compile Include="Events\Arguments\SCPs\Scp173\PlayerPlaceTantrumEventArgs.cs" />
         <Compile Include="Events\Arguments\SCPs\Scp173\PlayerUseBreakneckSpeedEventArgs.cs" />
         <Compile Include="Events\Arguments\SCPs\Scp330\PlayerInteractingScp330EventArgs.cs" />
+        <Compile Include="Events\Arguments\SCPs\Scp914\PlayerChangeKnobSettingEventArgs.cs" />
+        <Compile Include="Events\Arguments\SCPs\Scp914\PlayerStart914EventArgs.cs" />
+        <Compile Include="Events\Arguments\SCPs\Scp914\PlayerUpgradeItemEventArgs.cs" />
         <Compile Include="Events\Arguments\SCPs\Scp939\PlayerCancelCloudPlacementEventArgs.cs" />
         <Compile Include="Events\Arguments\SCPs\Scp939\PlayerLungeEventArgs.cs" />
         <Compile Include="Events\Arguments\SCPs\Scp939\PlayerPlaceAmnesticCloudEventArgs.cs" />
@@ -177,6 +180,7 @@
         <Compile Include="Events\Handlers\CursedScp096EventsHandler.cs" />
         <Compile Include="Events\Handlers\CursedScp106EventsHandler.cs" />
         <Compile Include="Events\Handlers\CursedScp173EventsHandler.cs" />
+        <Compile Include="Events\Handlers\CursedScp914EventsHandler.cs" />
         <Compile Include="Events\Handlers\CursedScp939EventsHandler.cs" />
         <Compile Include="Events\Handlers\CursedScp330EventsHandler.cs" />
         <Compile Include="Events\Handlers\CursedZombieEventsHandler.cs" />
@@ -249,6 +253,7 @@
         <Compile Include="Events\Patches\SCPs\Scp173\ServerBlinkPatch.cs" />
         <Compile Include="Events\Patches\SCPs\Scp173\TriggerBreakNeckSpeedPatch.cs" />
         <Compile Include="Events\Patches\SCPs\Scp330\ServerInteractScp330Patch.cs" />
+        <Compile Include="Events\Patches\SCPs\Scp914\ServerInteractPatch.cs" />
         <Compile Include="Events\Patches\SCPs\Scp939\CancelCloudPlacementPatch.cs" />
         <Compile Include="Events\Patches\SCPs\Scp939\PlaceCloudPatch.cs" />
         <Compile Include="Events\Patches\SCPs\Scp939\PlaceMimicPointPatch.cs" />
@@ -258,7 +263,6 @@
         <Compile Include="Events\Patches\SCPs\Scp939\SaveVoicePatch.cs" />
         <Compile Include="Events\Patches\SCPs\Scp939\UseFocusPatch.cs" />
         <Compile Include="Events\Patches\SCPs\Scp939\UseLungePatch.cs" />
-        <Compile Include="Events\Patches\SCPs\Scp330\ServerInteractScp330Patch.cs" />
         <Compile Include="Events\Patches\Server\CreateMatchPatch.cs" />
         <Compile Include="Features\Enums\AuthenticationType.cs" />
         <Compile Include="Features\Enums\DoorType.cs" />
