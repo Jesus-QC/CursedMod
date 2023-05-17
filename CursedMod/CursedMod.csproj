@@ -131,6 +131,7 @@
         <Compile Include="Events\Arguments\SCPs\Scp079\PlayerGainExperienceEventArgs.cs" />
         <Compile Include="Events\Arguments\SCPs\Scp079\PlayerLevelUpEventArgs.cs" />
         <Compile Include="Events\Arguments\SCPs\Scp079\PlayerMoveElevatorEventArgs.cs" />
+        <Compile Include="Events\Arguments\SCPs\Scp079\PlayerPingEventArgs.cs" />
         <Compile Include="Events\Arguments\SCPs\Scp079\PlayerUseLockdownEventArgs.cs" />
         <Compile Include="Events\Arguments\SCPs\Scp079\PlayerUseTeslaEventArgs.cs" />
         <Compile Include="Events\Arguments\SCPs\Scp096\PlayerAddTargetEventArgs.cs" />
@@ -232,6 +233,7 @@
         <Compile Include="Events\Patches\SCPs\Scp079\GainExperiencePatch.cs" />
         <Compile Include="Events\Patches\SCPs\Scp079\GainLevelPatch.cs" />
         <Compile Include="Events\Patches\SCPs\Scp079\LockdownActivatePatch.cs" />
+        <Compile Include="Events\Patches\SCPs\Scp079\PingPatch.cs" />
         <Compile Include="Events\Patches\SCPs\Scp079\ServerCancelLockdownPatch.cs" />
         <Compile Include="Events\Patches\SCPs\Scp079\UseTeslaPatch.cs" />
         <Compile Include="Events\Patches\SCPs\Scp096\AddTargetPatch.cs" />
