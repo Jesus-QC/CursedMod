@@ -33,9 +33,7 @@ public class BloodlustingPatch
         newInstructions.InsertRange(index, new CodeInstruction[]
         {
             new (OpCodes.Ldarg_1),
-            new (OpCodes.Call, AccessTools.Method(typeof(CursedPlayer), nameof(CursedPlayer.Get), new[] { typeof(ReferenceHub) })),
             new (OpCodes.Ldloc_1),
-            new (OpCodes.Call, AccessTools.Method(typeof(CursedPlayer), nameof(CursedPlayer.Get), new[] { typeof(ReferenceHub) })),
             new (OpCodes.Newobj, AccessTools.GetDeclaredConstructors(typeof(PlayerBloodlustingEventArgs))[0]),
             new (OpCodes.Dup),
             new (OpCodes.Call, AccessTools.Method(typeof(CursedZombieEventsHandler), nameof(CursedZombieEventsHandler.OnPlayerBloodlusting))),

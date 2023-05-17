@@ -33,7 +33,6 @@ public class AddTargetPatch
         {
             new CodeInstruction(OpCodes.Ldarg_0).MoveLabelsFrom(newInstructions[index]),
             new (OpCodes.Ldarg_1),
-            new (OpCodes.Call, AccessTools.Method(typeof(CursedPlayer), nameof(CursedPlayer.Get), new[] { typeof(ReferenceHub) })),
             new (OpCodes.Ldarg_2),
             new (OpCodes.Newobj, AccessTools.GetDeclaredConstructors(typeof(PlayerAddTargetEventArgs))[0]),
             new (OpCodes.Dup),
