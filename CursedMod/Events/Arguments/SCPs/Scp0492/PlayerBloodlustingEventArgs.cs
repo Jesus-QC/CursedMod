@@ -13,11 +13,11 @@ namespace CursedMod.Events.Arguments.SCPs.Scp0492;
 
 public class PlayerBloodlustingEventArgs : EventArgs, ICursedCancellableEvent, ICursedPlayerEvent
 {
-    public PlayerBloodlustingEventArgs(CursedPlayer player, CursedPlayer target)
+    public PlayerBloodlustingEventArgs(ReferenceHub player, ReferenceHub target)
     {
         IsAllowed = true;
-        Player = player;
-        Target = target;
+        Player = CursedPlayer.Get(player);
+        Target = CursedPlayer.Get(target);
     }
     
     public bool IsAllowed { get; set; }

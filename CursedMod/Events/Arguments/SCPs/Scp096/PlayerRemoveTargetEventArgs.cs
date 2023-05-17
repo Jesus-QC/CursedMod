@@ -14,11 +14,11 @@ namespace CursedMod.Events.Arguments.SCPs.Scp096;
 
 public class PlayerRemoveTargetEventArgs : EventArgs, ICursedCancellableEvent, ICursedPlayerEvent
 {
-    public PlayerRemoveTargetEventArgs(Scp096TargetsTracker targetsTracker, CursedPlayer target)
+    public PlayerRemoveTargetEventArgs(Scp096TargetsTracker targetsTracker, ReferenceHub target)
     {
         IsAllowed = true;
         Player = CursedPlayer.Get(targetsTracker.Owner);
-        Target = target;
+        Target = CursedPlayer.Get(target);
     }
     
     public bool IsAllowed { get; set; }

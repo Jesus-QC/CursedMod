@@ -9,18 +9,16 @@
 using System;
 using System.Collections.Generic;
 using CursedMod.Features.Wrappers.Inventory.Pickups;
-using CursedMod.Features.Wrappers.Player;
 using Scp914;
 using UnityEngine;
 
 namespace CursedMod.Events.Arguments.SCPs.Scp914;
 
-public class PlayerUpgradeItemEventArgs : EventArgs, ICursedCancellableEvent, ICursedPlayerEvent, ICursedPickupEvent
+public class PlayerUpgradeItemEventArgs : EventArgs, ICursedCancellableEvent, ICursedPickupEvent
 {
-    public PlayerUpgradeItemEventArgs(CursedPlayer player, CursedPickup pickup, List<CursedPickup> pickups, Vector3 outputPosition, Scp914KnobSetting knobSetting)
+    public PlayerUpgradeItemEventArgs(CursedPickup pickup, List<CursedPickup> pickups, Vector3 outputPosition, Scp914KnobSetting knobSetting)
     {
         IsAllowed = true;
-        Player = player;
         Pickup = pickup;
         PickupsToUpgrade = pickups;
         OutputPosition = outputPosition;
@@ -33,8 +31,6 @@ public class PlayerUpgradeItemEventArgs : EventArgs, ICursedCancellableEvent, IC
     
     public List<CursedPickup> PickupsToUpgrade { get; }
 
-    public CursedPlayer Player { get; }
-    
     public Vector3 OutputPosition { get; }
     
     public Scp914KnobSetting KnobSetting { get; }

@@ -14,11 +14,11 @@ namespace CursedMod.Events.Arguments.SCPs.Scp096;
 
 public class PlayerAddTargetEventArgs : EventArgs, ICursedCancellableEvent, ICursedPlayerEvent
 {
-    public PlayerAddTargetEventArgs(Scp096TargetsTracker targetsTracker, CursedPlayer target, bool isForLooking)
+    public PlayerAddTargetEventArgs(Scp096TargetsTracker targetsTracker, ReferenceHub target, bool isForLooking)
     {
         IsAllowed = true;
         Player = CursedPlayer.Get(targetsTracker.Owner);
-        Target = target;
+        Target = CursedPlayer.Get(target);
         IsForLooking = isForLooking;
     }
     

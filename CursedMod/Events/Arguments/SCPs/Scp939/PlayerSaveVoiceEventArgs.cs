@@ -14,11 +14,11 @@ namespace CursedMod.Events.Arguments.SCPs.Scp939;
 
 public class PlayerSaveVoiceEventArgs : EventArgs, ICursedCancellableEvent, ICursedPlayerEvent
 {
-    public PlayerSaveVoiceEventArgs(MimicryRecorder recorder, CursedPlayer target)
+    public PlayerSaveVoiceEventArgs(MimicryRecorder recorder, ReferenceHub target)
     {
         IsAllowed = true;
         Player = CursedPlayer.Get(recorder.Owner);
-        Target = target;
+        Target = CursedPlayer.Get(target);
     }
     
     public bool IsAllowed { get; set; }
