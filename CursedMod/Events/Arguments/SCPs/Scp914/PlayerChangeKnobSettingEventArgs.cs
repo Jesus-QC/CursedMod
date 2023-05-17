@@ -26,7 +26,7 @@ public class PlayerChangeKnobSettingEventArgs : EventArgs, ICursedCancellableEve
 
     public CursedPlayer Player { get; }
     
-    public Scp914KnobSetting KnobSetting { get; set; }
+    public Scp914KnobSetting KnobSetting { get; }
     
     public Scp914Controller Scp914Controller { get; }
 }
