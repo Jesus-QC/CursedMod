@@ -31,6 +31,10 @@ public static class CursedScp079EventsHandler
     public static event EventManager.CursedEventHandler<PlayerUseTeslaEventArgs> PlayerUseTesla;
     
     public static event EventManager.CursedEventHandler<PlayerPingEventArgs> PlayerPing; 
+    
+    public static event EventManager.CursedEventHandler<PlayerChangeDoorLockEventArgs> PlayerChangeDoorLock;
+    
+    public static event EventManager.CursedEventHandler<PlayerChangeDoorStateEventArgs> PlayerChangeDoorState;
 
     internal static void OnPlayerBlackoutRoom(PlayerBlackoutRoomEventArgs args)
     {
@@ -80,5 +84,15 @@ public static class CursedScp079EventsHandler
     internal static void OnPlayerPing(PlayerPingEventArgs args)
     {
         PlayerPing.InvokeEvent(args);
+    }
+    
+    internal static void OnPlayerChangeDoorLock(PlayerChangeDoorLockEventArgs args)
+    {
+        PlayerChangeDoorLock.InvokeEvent(args);
+    }
+    
+    internal static void OnPlayerChangeDoorState(PlayerChangeDoorStateEventArgs args)
+    {
+        PlayerChangeDoorState.InvokeEvent(args);
     }
 }
