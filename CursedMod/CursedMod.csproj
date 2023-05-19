@@ -231,6 +231,10 @@
         <Compile Include="Features\Wrappers\Inventory\Items\ThrowableProjectiles\CursedThrowableItem.cs" />
         <Compile Include="Features\Wrappers\Inventory\Items\Usables\CursedConsumableItem.cs" />
         <Compile Include="Features\Wrappers\Inventory\Items\Usables\CursedUsableItem.cs" />
+        <Compile Include="Features\Wrappers\Inventory\Items\Usables\UsableItems\CursedScp1576Item.cs" />
+        <Compile Include="Features\Wrappers\Inventory\Items\Usables\UsableItems\CursedScp244Item.cs" />
+        <Compile Include="Features\Wrappers\Inventory\Items\Usables\UsableItems\CursedScp268Item.cs" />
+        <Compile Include="Features\Wrappers\Inventory\Items\Usables\UsableItems\CursedScp330Item.cs" />
         <Compile Include="Features\Wrappers\Inventory\Pickups\CursedPickup.cs" />
         <Compile Include="Features\Wrappers\Inventory\Pickups\Firearms\Ammo\CursedAmmoPickup.cs" />
         <Compile Include="Features\Wrappers\Inventory\Pickups\Firearms\CursedFirearmPickup.cs" />
