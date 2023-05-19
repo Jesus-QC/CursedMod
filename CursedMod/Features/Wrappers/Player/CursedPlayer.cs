@@ -353,6 +353,17 @@ public class CursedPlayer
     public float MaxHumeShield => HumeShieldStat.MaxValue;
 
     public float MinHumeShield => HumeShieldStat.MinValue;
+    
+    public float HumeShieldRegeneration
+    {
+        get
+        {
+            if (HumeShieldStat.TryGetHsModule(out var hsModuleBase))
+                return hsModuleBase.HsRegeneration;
+
+            return 0;
+        }
+    }
 
     public AhpStat.AhpProcess ArtificialHealthProcess => AhpStat._activeProcesses.Count == 0 ? null : AhpStat._activeProcesses[0];
 
