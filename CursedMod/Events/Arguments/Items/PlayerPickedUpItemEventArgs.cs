@@ -8,12 +8,9 @@
 
 using System;
 using CursedMod.Features.Wrappers.Inventory.Items;
-using CursedMod.Features.Wrappers.Inventory.Pickups;
 using CursedMod.Features.Wrappers.Player;
 using InventorySystem;
 using InventorySystem.Items;
-using InventorySystem.Items.Pickups;
-using InventorySystem.Searching;
 
 namespace CursedMod.Events.Arguments.Items;
 

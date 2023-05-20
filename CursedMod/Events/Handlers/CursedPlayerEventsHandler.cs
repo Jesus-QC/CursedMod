@@ -16,6 +16,8 @@ public static class CursedPlayerEventsHandler
 {
     public static event EventManager.CursedEventHandler<PlayerJoinedEventArgs> Joined;
     
+    public static event EventManager.CursedEventHandler<PlayerDisconnectingEventArgs> Disconnecting;
+    
     public static event EventManager.CursedEventHandler<PlayerDisconnectedEventArgs> Disconnected;
     
     public static event EventManager.CursedEventHandler<PlayerChangingRoleEventArgs> ChangingRole;
@@ -40,6 +42,14 @@ public static class CursedPlayerEventsHandler
         Joined.InvokeEvent(args);
     }
 
+    internal static void OnPlayerDisconnecting(PlayerDisconnectingEventArgs args)
+    {
+        if (!args.Player.CheckPlayer())
+            return;
+        
+        Disconnecting.InvokeEvent(args);
+    }
+    
     internal static void OnPlayerDisconnected(PlayerDisconnectedEventArgs args)
     {
         if (!args.Player.CheckPlayer())
