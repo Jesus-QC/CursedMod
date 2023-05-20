@@ -12,7 +12,6 @@ using CursedMod.Events;
 using CursedMod.Features.Wrappers.Player;
 using CursedMod.Features.Wrappers.Player.Dummies;
 using CursedMod.Features.Wrappers.Player.Roles;
-using CursedMod.Features.Wrappers.Player.Roles.SCPs;
 using CursedMod.Features.Wrappers.Player.VoiceChat;
 using HarmonyLib;
 using NorthwoodLib.Pools;

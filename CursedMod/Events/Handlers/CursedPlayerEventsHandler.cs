@@ -50,7 +50,7 @@ public static class CursedPlayerEventsHandler
         Disconnecting.InvokeEvent(args);
     }
     
-    internal static void OnPlayerDisconnected(PlayerDisconnectingEventArgs args)
+    internal static void OnPlayerDisconnected(PlayerDisconnectedEventArgs args)
     {
         if (!args.Player.CheckPlayer())
             return;

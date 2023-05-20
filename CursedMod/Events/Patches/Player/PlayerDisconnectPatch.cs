@@ -19,10 +19,10 @@ namespace CursedMod.Events.Patches.Player;
 [HarmonyPatch(typeof(CustomNetworkManager), nameof(CustomNetworkManager.OnServerDisconnect))]
 public class PlayerDisconnectPatch
 {
-    private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions)
+    private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
     {
         List<CodeInstruction> newInstructions = EventManager.CheckEvent<PlayerDisconnectPatch>(45, instructions);
-
+        
         newInstructions.InsertRange(0, new CodeInstruction[]
         {
             new (OpCodes.Ldarg_1),
