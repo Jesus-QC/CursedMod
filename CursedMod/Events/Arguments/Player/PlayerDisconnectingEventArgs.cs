@@ -12,10 +12,12 @@ using Mirror;
 
 namespace CursedMod.Events.Arguments.Player;
 
-public class PlayerDisconnectingEventArgs : PlayerDisconnectedEventArgs
+public class PlayerDisconnectingEventArgs : EventArgs, ICursedPlayerEvent
 {
     public PlayerDisconnectingEventArgs(NetworkConnection connection)
-        : base(connection)
     {
+        Player = CursedPlayer.Get(connection.identity);
     }
+    
+    public CursedPlayer Player { get; }
 }
