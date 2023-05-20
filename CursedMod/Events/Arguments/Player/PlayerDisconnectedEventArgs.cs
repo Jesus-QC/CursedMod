@@ -8,8 +8,6 @@
 
 using System;
 using CursedMod.Features.Wrappers.Player;
-using Mirror;
-using PluginAPI.Core;
 
 namespace CursedMod.Events.Arguments.Player;
 
