@@ -33,6 +33,7 @@ public static class CursedMapGenerationEventsHandler
         CursedServer.LocalPlayer = new CursedPlayer(ReferenceHub.HostHub);
         CursedWarhead.OutsidePanel = CursedWarhead.Controller.GetComponent<AlphaWarheadOutsitePanel>();
         
+        CursedDoor.CacheAllDoors();
         CursedRoom.CacheAllRooms();
         
         MapGenerated.InvokeEvent();
@@ -52,9 +53,9 @@ public static class CursedMapGenerationEventsHandler
         CursedDummy.Dictionary.Clear();
         CursedRagdoll.Dictionary.Clear();
         CursedDoor.Dictionary.Clear();
+        CursedRoom.Dictionary.Clear();
         CursedLocker.Dictionary.Clear();
         CursedTeslaGate.Dictionary.Clear();
         CursedEnvironmentalHazard.Dictionary.Clear();
-        CursedRoom.Dictionary.Clear();
     }
 }
