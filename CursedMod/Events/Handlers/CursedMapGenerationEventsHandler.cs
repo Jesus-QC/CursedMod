@@ -33,6 +33,7 @@ public static class CursedMapGenerationEventsHandler
         CursedServer.LocalPlayer = new CursedPlayer(ReferenceHub.HostHub);
         CursedWarhead.OutsidePanel = CursedWarhead.Controller.GetComponent<AlphaWarheadOutsitePanel>();
         
+        CursedDoor.CacheAllDoors();
         CursedRoom.CacheAllRooms();
         
         MapGenerated.InvokeEvent();
