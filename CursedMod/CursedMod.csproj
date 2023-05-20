@@ -106,6 +106,7 @@
         <Compile Include="Events\Arguments\Items\PlayerUsingItemEventArgs.cs" />
         <Compile Include="Events\Arguments\MapGeneration\GeneratingSeedEventArgs.cs" />
         <Compile Include="Events\Arguments\Player\PlayerChangingRoleEventArgs.cs" />
+        <Compile Include="Events\Arguments\Player\PlayerDisconnectingEventArgs.cs" />
         <Compile Include="Events\Arguments\Player\PlayerDyingEventArgs.cs" />
         <Compile Include="Events\Arguments\Player\PlayerDisconnectedEventArgs.cs" />
         <Compile Include="Events\Arguments\Player\PlayerEscapingEventArgs.cs" />
@@ -157,6 +158,7 @@
         <Compile Include="Events\Patches\Items\Usables\UsingCompletedPatch.cs" />
         <Compile Include="Events\Patches\MapGeneration\GeneratingSeedPatch.cs" />
         <Compile Include="Events\Patches\Player\EscapeSystem\PlayerEscapePatch.cs" />
+        <Compile Include="Events\Patches\Player\PlayerDisconnectedPatch.cs" />
         <Compile Include="Events\Patches\Player\PlayerDisconnectPatch.cs" />
         <Compile Include="Events\Patches\Player\CompleteVerificationPatch.cs" />
         <Compile Include="Events\Patches\Player\PlayerStats\DealDamagePatch.cs" />

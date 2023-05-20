@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="PlayerDisconnectPatch.cs" company="CursedMod">
+// <copyright file="PlayerDisconnectedPatch.cs" company="CursedMod">
 // Copyright (c) CursedMod. All rights reserved.
 // Licensed under the GPLv3 license.
 // See LICENSE file in the project root for full license information.
@@ -15,19 +15,18 @@ using NorthwoodLib.Pools;
 
 namespace CursedMod.Events.Patches.Player;
 
-[DynamicEventPatch(typeof(CursedPlayerEventsHandler), nameof(CursedPlayerEventsHandler.Disconnecting))]
-[HarmonyPatch(typeof(CustomNetworkManager), nameof(CustomNetworkManager.OnServerDisconnect))]
-public class PlayerDisconnectPatch
+[HarmonyPatch(typeof(ReferenceHub), nameof(ReferenceHub.OnDestroy))]
+public class PlayerDisconnectedPatch
 {
     private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions)
     {
-        List<CodeInstruction> newInstructions = EventManager.CheckEvent<PlayerDisconnectPatch>(45, instructions);
+        List<CodeInstruction> newInstructions = EventManager.CheckEvent<PlayerDisconnectedPatch>(50, instructions);
 
         newInstructions.InsertRange(0, new CodeInstruction[]
         {
-            new (OpCodes.Ldarg_1),
-            new (OpCodes.Newobj, AccessTools.GetDeclaredConstructors(typeof(PlayerDisconnectingEventArgs))[0]),
-            new (OpCodes.Call, AccessTools.Method(typeof(CursedPlayerEventsHandler), nameof(CursedPlayerEventsHandler.OnPlayerDisconnecting))),
+            new (OpCodes.Ldarg_0),
+            new (OpCodes.Newobj, AccessTools.GetDeclaredConstructors(typeof(PlayerDisconnectedEventArgs))[0]),
+            new (OpCodes.Call, AccessTools.Method(typeof(CursedPlayerEventsHandler), nameof(CursedPlayerEventsHandler.OnPlayerDisconnected))),
         });
 
         foreach (CodeInstruction instruction in newInstructions)
