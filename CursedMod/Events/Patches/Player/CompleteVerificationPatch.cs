@@ -33,8 +33,8 @@ public class CompleteVerificationPatch
             new (OpCodes.Brtrue_S, ret),
             
             new (OpCodes.Ldarg_0),
-            new (OpCodes.Newobj, AccessTools.GetDeclaredConstructors(typeof(PlayerJoinedEventArgs))[0]),
-            new (OpCodes.Call, AccessTools.Method(typeof(CursedPlayerEventsHandler), nameof(CursedPlayerEventsHandler.OnPlayerJoined))),
+            new (OpCodes.Newobj, AccessTools.GetDeclaredConstructors(typeof(PlayerConnectedEventArgs))[0]),
+            new (OpCodes.Call, AccessTools.Method(typeof(CursedPlayerEventsHandler), nameof(CursedPlayerEventsHandler.OnPlayerConnected))),
         });
 
         foreach (CodeInstruction instruction in newInstructions)
