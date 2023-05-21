@@ -27,7 +27,7 @@ public class CursedScp330Item : CursedUsableItem
         set => Scp330Base.SelectedCandyId = value;
     }
     
-    public bool IsCandySelected => SelectedCandyId >= 0 && SelectedCandyId < Candies.Count;
+    public bool IsCandySelected => Scp330Base.IsCandySelected;
     
     public IReadOnlyCollection<CandyKindID> Candies => Scp330Base.Candies.AsReadOnly();
 
@@ -66,4 +66,6 @@ public class CursedScp330Item : CursedUsableItem
 
         return true;
     }
+
+    public void UseSelectedCandy() => Scp330Base.ServerOnUsingCompleted();
 }

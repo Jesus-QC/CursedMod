@@ -22,10 +22,6 @@ public class CursedScp1576Item : CursedUsableItem
     public Scp1576Item Scp1576Base { get; }
     
     public Scp1576Playback PlaybackTemplate => Scp1576Base.PlaybackTemplate;
-
-    public void RevalidateReceivers() => Scp1576Item.RevalidateReceivers();
-
-    public void PlayWarningSound(AudioClip clip) => Scp1576Item.PlayWarningSound(clip);
-
+    
     public void StopTransmission() => Scp1576Base.ServerStopTransmitting();
 }
