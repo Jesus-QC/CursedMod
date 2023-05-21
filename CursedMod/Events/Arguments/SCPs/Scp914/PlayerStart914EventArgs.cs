@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="PlayerInteractingScp330EventArgs.cs" company="CursedMod">
+// <copyright file="PlayerStart914EventArgs.cs" company="CursedMod">
 // Copyright (c) CursedMod. All rights reserved.
 // Licensed under the GPLv3 license.
 // See LICENSE file in the project root for full license information.
@@ -8,18 +8,22 @@
 
 using System;
 using CursedMod.Features.Wrappers.Player;
+using Scp914;
 
-namespace CursedMod.Events.Arguments.SCPs.Scp330;
+namespace CursedMod.Events.Arguments.SCPs.Scp914;
 
-public class PlayerInteractingScp330EventArgs : EventArgs, ICursedCancellableEvent, ICursedPlayerEvent
+public class PlayerStart914EventArgs : EventArgs, ICursedCancellableEvent, ICursedPlayerEvent
 {
-    public PlayerInteractingScp330EventArgs(ReferenceHub hub)
+    public PlayerStart914EventArgs(Scp914Controller controller, ReferenceHub player)
     {
         IsAllowed = true;
-        Player = CursedPlayer.Get(hub);
+        Scp914Controller = controller;
+        Player = CursedPlayer.Get(player);
     }
     
     public bool IsAllowed { get; set; }
-    
+
     public CursedPlayer Player { get; }
+
+    public Scp914Controller Scp914Controller { get; }
 }
