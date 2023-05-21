@@ -18,6 +18,7 @@ using NorthwoodLib.Pools;
 using PlayerRoles;
 using PlayerRoles.FirstPersonControl;
 using PlayerRoles.PlayableScps.Scp079;
+using PlayerRoles.Spectating;
 
 namespace CursedMod.Features.Patches.PlayerRoles;
 
@@ -58,6 +59,7 @@ public class InitRolePatch
         {
             FpcStandardRoleBase fpcRole => new CursedVoiceChat(fpcRole.VoiceModule),
             Scp079Role scp079Role => new CursedVoiceChat(scp079Role.VoiceModule),
+            SpectatorRole spectatorRole => new CursedVoiceChat(spectatorRole.VoiceModule),
             NoneRole noneRole => new CursedVoiceChat(noneRole.VoiceModule),
             _ => null
         };
