@@ -14,7 +14,7 @@ namespace CursedMod.Events.Handlers;
 
 public static class CursedPlayerEventsHandler
 {
-    public static event EventManager.CursedEventHandler<PlayerJoinedEventArgs> Joined;
+    public static event EventManager.CursedEventHandler<PlayerConnectedEventArgs> Connected;
     
     public static event EventManager.CursedEventHandler<PlayerDisconnectingEventArgs> Disconnecting;
     
@@ -34,12 +34,12 @@ public static class CursedPlayerEventsHandler
     
     public static event EventManager.CursedEventHandler<PlayerTogglingNoClipEventArgs> TogglingNoClip;
 
-    internal static void OnPlayerJoined(PlayerJoinedEventArgs args)
+    internal static void OnPlayerConnected(PlayerConnectedEventArgs args)
     {
         if (!args.Player.CheckPlayer())
             return;
         
-        Joined.InvokeEvent(args);
+        Connected.InvokeEvent(args);
     }
 
     internal static void OnPlayerDisconnecting(PlayerDisconnectingEventArgs args)

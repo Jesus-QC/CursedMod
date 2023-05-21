@@ -110,7 +110,7 @@
         <Compile Include="Events\Arguments\Player\PlayerDyingEventArgs.cs" />
         <Compile Include="Events\Arguments\Player\PlayerDisconnectedEventArgs.cs" />
         <Compile Include="Events\Arguments\Player\PlayerEscapingEventArgs.cs" />
-        <Compile Include="Events\Arguments\Player\PlayerJoinedEventArgs.cs" />
+        <Compile Include="Events\Arguments\Player\PlayerConnectedEventArgs.cs" />
         <Compile Include="Events\Arguments\Player\PlayerReceivingDamageEventArgs.cs" />
         <Compile Include="Events\Arguments\Player\PlayerTogglingNoClipEventArgs.cs" />
         <Compile Include="Events\Arguments\Player\PlayerUsingVoiceChatEventArgs.cs" />
