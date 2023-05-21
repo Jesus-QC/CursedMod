@@ -19,7 +19,7 @@ namespace CursedMod.Features.Wrappers.Facility.Rooms;
 public class CursedRoom
 {
     public static readonly Dictionary<RoomIdentifier, CursedRoom> Dictionary = new ();
-    
+
     private CursedRoom(RoomIdentifier room)
     {
         Room = room;
@@ -33,6 +33,10 @@ public class CursedRoom
         
         LightningController = new CursedLightningController(lightController);
     }
+    
+    public static IEnumerable<CursedRoom> Collection => Dictionary.Values;
+    
+    public static IEnumerable<CursedRoom> List => Dictionary.Values.ToList();
     
     public RoomIdentifier Room { get; }
 
@@ -49,14 +53,12 @@ public class CursedRoom
     public RoomName Name => Room.Name;
     
     public FacilityZone Zone => Room.Zone;
-    
-    public static IEnumerable<CursedRoom> GetAllRooms() => Dictionary.Values;
 
     public static CursedRoom Get(RoomIdentifier roomIdentifier) => Dictionary.ContainsKey(roomIdentifier) ? Dictionary[roomIdentifier] : new CursedRoom(roomIdentifier);
 
     public static bool TryGet(RoomName roomName, out CursedRoom room)
     {
-        foreach (CursedRoom r in GetAllRooms())
+        foreach (CursedRoom r in Collection)
         {
             if (r.Name != roomName)
                 continue;
