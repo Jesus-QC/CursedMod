@@ -354,6 +354,7 @@
         <Compile Include="Features\Wrappers\Player\Roles\CursedNoneRole.cs" />
         <Compile Include="Features\Wrappers\Player\Roles\CursedRole.cs" />
         <Compile Include="Features\Wrappers\Player\Roles\CursedRoleManager.cs" />
+        <Compile Include="Features\Wrappers\Player\Roles\CursedSpectatorRole.cs" />
         <Compile Include="Features\Wrappers\Player\Roles\SCPs\CursedScp049Role.cs" />
         <Compile Include="Features\Wrappers\Player\Roles\SCPs\CursedScp079Role.cs" />
         <Compile Include="Features\Wrappers\Player\Roles\SCPs\CursedScp096Role.cs" />

@@ -460,8 +460,10 @@ public class CursedPlayer
     public CursedScp939Role Scp939Role => CurrentRole as CursedScp939Role;
     
     public CursedScp0492Role Scp0492Role => CurrentRole as CursedScp0492Role;
-    
+
     public CursedHumanRole HumanRole => CurrentRole as CursedHumanRole; 
+    
+    public CursedSpectatorRole SpectatorRole => CurrentRole as CursedSpectatorRole; 
 
     public bool IsInOverWatch
     {
