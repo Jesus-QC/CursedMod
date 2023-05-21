@@ -447,21 +447,21 @@ public class CursedPlayer
         set => RoleManager.CurrentRole = value;
     }
 
-    public CursedScp049Role CursedScp049Role => CurrentRole as CursedScp049Role;
+    public CursedScp049Role Scp049Role => CurrentRole as CursedScp049Role;
     
-    public CursedScp079Role CursedScp079Role => CurrentRole as CursedScp079Role;
+    public CursedScp079Role Scp079Role => CurrentRole as CursedScp079Role;
     
-    public CursedScp096Role CursedScp096Role => CurrentRole as CursedScp096Role;
+    public CursedScp096Role Scp096Role => CurrentRole as CursedScp096Role;
     
-    public CursedScp106Role CursedScp106Role => CurrentRole as CursedScp106Role;
+    public CursedScp106Role Scp106Role => CurrentRole as CursedScp106Role;
     
-    public CursedScp173Role CursedScp173Role => CurrentRole as CursedScp173Role;
+    public CursedScp173Role Scp173Role => CurrentRole as CursedScp173Role;
     
-    public CursedScp939Role CursedScp939Role => CurrentRole as CursedScp939Role;
+    public CursedScp939Role Scp939Role => CurrentRole as CursedScp939Role;
     
-    public CursedScp0492Role CursedScp0492Role => CurrentRole as CursedScp0492Role;
+    public CursedScp0492Role Scp0492Role => CurrentRole as CursedScp0492Role;
     
-    public CursedHumanRole CursedHumanRole => CurrentRole as CursedHumanRole; 
+    public CursedHumanRole HumanRole => CurrentRole as CursedHumanRole; 
 
     public bool IsInOverWatch
     {
