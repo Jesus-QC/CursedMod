@@ -16,7 +16,7 @@ using PlayerRoles.PlayableScps.Scp049;
 
 namespace CursedMod.Events.Patches.SCPs.Scp049;
 
-[DynamicEventPatch(typeof(CursedScp049EventsHandler), nameof(CursedScp049EventsHandler.PlayerSensing))]
+[DynamicEventPatch(typeof(CursedScp049EventsHandler), nameof(CursedScp049EventsHandler.UsingSenseAbility))]
 [HarmonyPatch(typeof(Scp049SenseAbility), nameof(Scp049SenseAbility.ServerProcessCmd))]
 public class SensePlayerPatch
 {
@@ -32,10 +32,10 @@ public class SensePlayerPatch
         newInstructions.InsertRange(index, new CodeInstruction[]
         {
             new CodeInstruction(OpCodes.Ldarg_0).MoveLabelsFrom(newInstructions[index]),
-            new (OpCodes.Newobj, AccessTools.GetDeclaredConstructors(typeof(PlayerSensingEventArgs))[0]),
+            new (OpCodes.Newobj, AccessTools.GetDeclaredConstructors(typeof(Scp049UsingSenseAbilityEventArgs))[0]),
             new (OpCodes.Dup),
-            new (OpCodes.Call, AccessTools.Method(typeof(CursedScp049EventsHandler), nameof(CursedScp049EventsHandler.OnPlayerSensing))),
-            new (OpCodes.Callvirt, AccessTools.PropertyGetter(typeof(PlayerSensingEventArgs), nameof(PlayerSensingEventArgs.IsAllowed))),
+            new (OpCodes.Call, AccessTools.Method(typeof(CursedScp049EventsHandler), nameof(CursedScp049EventsHandler.OnUsingSenseAbility))),
+            new (OpCodes.Callvirt, AccessTools.PropertyGetter(typeof(Scp049UsingSenseAbilityEventArgs), nameof(Scp049UsingSenseAbilityEventArgs.IsAllowed))),
             new (OpCodes.Brfalse_S, returnLabel),
         });
         

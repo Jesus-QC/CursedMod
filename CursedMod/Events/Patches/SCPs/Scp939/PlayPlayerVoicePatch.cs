@@ -17,7 +17,7 @@ using Utils.Networking;
 
 namespace CursedMod.Events.Patches.SCPs.Scp939;
 
-[DynamicEventPatch(typeof(CursedScp939EventsHandler), nameof(CursedScp939EventsHandler.PlayerPlayVoice))]
+[DynamicEventPatch(typeof(CursedScp939EventsHandler), nameof(CursedScp939EventsHandler.PlayingVoice))]
 [HarmonyPatch(typeof(MimicryRecorder), nameof(MimicryRecorder.ServerProcessCmd))]
 public class PlayPlayerVoicePatch
 {
@@ -41,10 +41,10 @@ public class PlayPlayerVoicePatch
         {
             new CodeInstruction(OpCodes.Ldarg_0).MoveLabelsFrom(newInstructions[index]),
             new (OpCodes.Ldloc_S, voiceOwner.LocalIndex),
-            new (OpCodes.Newobj, AccessTools.GetDeclaredConstructors(typeof(PlayerPlayVoiceEventArgs))[0]),
+            new (OpCodes.Newobj, AccessTools.GetDeclaredConstructors(typeof(Scp939PlayingVoiceEventArgs))[0]),
             new (OpCodes.Dup),
-            new (OpCodes.Call, AccessTools.Method(typeof(CursedScp939EventsHandler), nameof(CursedScp939EventsHandler.OnPlayerPlayVoice))),
-            new (OpCodes.Callvirt, AccessTools.PropertyGetter(typeof(PlayerPlayVoiceEventArgs), nameof(PlayerPlayVoiceEventArgs.IsAllowed))),
+            new (OpCodes.Call, AccessTools.Method(typeof(CursedScp939EventsHandler), nameof(CursedScp939EventsHandler.OnPlayingVoice))),
+            new (OpCodes.Callvirt, AccessTools.PropertyGetter(typeof(Scp939PlayingVoiceEventArgs), nameof(Scp939PlayingVoiceEventArgs.IsAllowed))),
             new (OpCodes.Brfalse_S, returnLabel),
         });
         

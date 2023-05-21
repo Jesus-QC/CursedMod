@@ -17,7 +17,7 @@ using PlayerRoles.PlayableScps.Scp939;
 
 namespace CursedMod.Events.Patches.SCPs.Scp939;
 
-[DynamicEventPatch(typeof(CursedScp939EventsHandler), nameof(CursedScp939EventsHandler.PlayerUseFocus))]
+[DynamicEventPatch(typeof(CursedScp939EventsHandler), nameof(CursedScp939EventsHandler.UsingFocusAbility))]
 [HarmonyPatch(typeof(Scp939FocusKeySync), nameof(Scp939FocusKeySync.ServerProcessCmd))]
 public class UseFocusPatch
 {
@@ -47,8 +47,8 @@ public class UseFocusPatch
     {
         var focusState = reader.ReadBool();
 
-        PlayerUseFocusEventArgs args = new (focusKeySync, focusState);
-        CursedScp939EventsHandler.OnPlayerUseFocus(args);
+        Scp939UsingFocusAbilityEventArgs args = new (focusKeySync, focusState);
+        CursedScp939EventsHandler.OnUsingFocusAbility(args);
 
         if (!args.IsAllowed)
             return;

@@ -16,7 +16,7 @@ using PlayerRoles.PlayableScps.Scp079;
 
 namespace CursedMod.Events.Patches.SCPs.Scp079;
 
-[DynamicEventPatch(typeof(CursedScp079EventsHandler), nameof(CursedScp079EventsHandler.PlayerBlackoutRoom))]
+[DynamicEventPatch(typeof(CursedScp079EventsHandler), nameof(CursedScp079EventsHandler.UsingBlackoutRoomAbility))]
 [HarmonyPatch(typeof(Scp079BlackoutRoomAbility), nameof(Scp079BlackoutRoomAbility.ServerProcessCmd))]
 public class BlackoutRoomAbilityPatch
 {
@@ -31,10 +31,10 @@ public class BlackoutRoomAbilityPatch
         newInstructions.InsertRange(index, new CodeInstruction[]
         {
             new CodeInstruction(OpCodes.Ldarg_0).MoveLabelsFrom(newInstructions[index]),
-            new (OpCodes.Newobj, AccessTools.GetDeclaredConstructors(typeof(PlayerBlackoutRoomEventArgs))[0]),
+            new (OpCodes.Newobj, AccessTools.GetDeclaredConstructors(typeof(Scp079UsingBlackoutRoomAbilityEventArgs))[0]),
             new (OpCodes.Dup),
-            new (OpCodes.Call, AccessTools.Method(typeof(CursedScp079EventsHandler), nameof(CursedScp079EventsHandler.OnPlayerBlackoutRoom))),
-            new (OpCodes.Callvirt, AccessTools.PropertyGetter(typeof(PlayerBlackoutRoomEventArgs), nameof(PlayerBlackoutRoomEventArgs.IsAllowed))),
+            new (OpCodes.Call, AccessTools.Method(typeof(CursedScp079EventsHandler), nameof(CursedScp079EventsHandler.OnUsingBlackoutRoomAbility))),
+            new (OpCodes.Callvirt, AccessTools.PropertyGetter(typeof(Scp079UsingBlackoutRoomAbilityEventArgs), nameof(Scp079UsingBlackoutRoomAbilityEventArgs.IsAllowed))),
             new (OpCodes.Brfalse_S, returnLabel),
         });
         

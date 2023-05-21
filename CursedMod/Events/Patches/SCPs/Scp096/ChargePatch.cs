@@ -16,7 +16,7 @@ using PlayerRoles.PlayableScps.Scp096;
 
 namespace CursedMod.Events.Patches.SCPs.Scp096;
 
-[DynamicEventPatch(typeof(CursedScp096EventsHandler), nameof(CursedScp096EventsHandler.PlayerCharging))]
+[DynamicEventPatch(typeof(CursedScp096EventsHandler), nameof(CursedScp096EventsHandler.Charging))]
 [HarmonyPatch(typeof(Scp096ChargeAbility), nameof(Scp096ChargeAbility.ServerProcessCmd))]
 public class ChargePatch
 {
@@ -31,10 +31,10 @@ public class ChargePatch
         newInstructions.InsertRange(index, new CodeInstruction[]
         {
             new CodeInstruction(OpCodes.Ldarg_0).MoveLabelsFrom(newInstructions[index]),
-            new (OpCodes.Newobj, AccessTools.GetDeclaredConstructors(typeof(PlayerChargingEventArgs))[0]),
+            new (OpCodes.Newobj, AccessTools.GetDeclaredConstructors(typeof(Scp096ChargingEventArgs))[0]),
             new (OpCodes.Dup),
-            new (OpCodes.Call, AccessTools.Method(typeof(CursedScp096EventsHandler), nameof(CursedScp096EventsHandler.OnPlayerCharging))),
-            new (OpCodes.Callvirt, AccessTools.PropertyGetter(typeof(PlayerChargingEventArgs), nameof(PlayerChargingEventArgs.IsAllowed))),
+            new (OpCodes.Call, AccessTools.Method(typeof(CursedScp096EventsHandler), nameof(CursedScp096EventsHandler.OnCharging))),
+            new (OpCodes.Callvirt, AccessTools.PropertyGetter(typeof(Scp096ChargingEventArgs), nameof(Scp096ChargingEventArgs.IsAllowed))),
             new (OpCodes.Brfalse_S, returnLabel),
         });
         

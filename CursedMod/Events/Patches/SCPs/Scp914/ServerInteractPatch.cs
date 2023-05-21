@@ -16,8 +16,8 @@ using Scp914;
 
 namespace CursedMod.Events.Patches.SCPs.Scp914;
 
-[DynamicEventPatch(typeof(CursedScp914EventsHandler), nameof(CursedScp914EventsHandler.PlayerChangeKnobSetting))]
-[DynamicEventPatch(typeof(CursedScp914EventsHandler), nameof(CursedScp914EventsHandler.PlayerStart))]
+[DynamicEventPatch(typeof(CursedScp914EventsHandler), nameof(CursedScp914EventsHandler.PlayerChangingScp939KnobSetting))]
+[DynamicEventPatch(typeof(CursedScp914EventsHandler), nameof(CursedScp914EventsHandler.PlayerEnablingScp914))]
 [HarmonyPatch(typeof(Scp914Controller), nameof(Scp914Controller.ServerInteract))]
 public class ServerInteractPatch
 {
@@ -36,10 +36,10 @@ public class ServerInteractPatch
             new (OpCodes.Ldarg_0),
             new (OpCodes.Ldarg_1),
             new (OpCodes.Ldloc_1),
-            new (OpCodes.Newobj, AccessTools.GetDeclaredConstructors(typeof(PlayerChangeKnobSettingEventArgs))[0]),
+            new (OpCodes.Newobj, AccessTools.GetDeclaredConstructors(typeof(PlayerChangingScp939KnobSettingEventArgs))[0]),
             new (OpCodes.Dup),
-            new (OpCodes.Call, AccessTools.Method(typeof(CursedScp914EventsHandler), nameof(CursedScp914EventsHandler.OnPlayerChangeKnobSetting))),
-            new (OpCodes.Callvirt, AccessTools.PropertyGetter(typeof(PlayerChangeKnobSettingEventArgs), nameof(PlayerChangeKnobSettingEventArgs.IsAllowed))),
+            new (OpCodes.Call, AccessTools.Method(typeof(CursedScp914EventsHandler), nameof(CursedScp914EventsHandler.OnPlayerChangingScp939KnobSetting))),
+            new (OpCodes.Callvirt, AccessTools.PropertyGetter(typeof(PlayerChangingScp939KnobSettingEventArgs), nameof(PlayerChangingScp939KnobSettingEventArgs.IsAllowed))),
             new (OpCodes.Brfalse_S, returnLabel),
         });
 
@@ -50,10 +50,10 @@ public class ServerInteractPatch
         {
             new CodeInstruction(OpCodes.Ldarg_0).MoveLabelsFrom(newInstructions[index]),
             new (OpCodes.Ldarg_1),
-            new (OpCodes.Newobj, AccessTools.GetDeclaredConstructors(typeof(PlayerStart914EventArgs))[0]),
+            new (OpCodes.Newobj, AccessTools.GetDeclaredConstructors(typeof(PlayerEnablingScp914EventArgs))[0]),
             new (OpCodes.Dup),
-            new (OpCodes.Call, AccessTools.Method(typeof(CursedScp914EventsHandler), nameof(CursedScp914EventsHandler.OnPlayerStart914))),
-            new (OpCodes.Callvirt, AccessTools.PropertyGetter(typeof(PlayerStart914EventArgs), nameof(PlayerStart914EventArgs.IsAllowed))),
+            new (OpCodes.Call, AccessTools.Method(typeof(CursedScp914EventsHandler), nameof(CursedScp914EventsHandler.OnPlayerEnablingScp914))),
+            new (OpCodes.Callvirt, AccessTools.PropertyGetter(typeof(PlayerEnablingScp914EventArgs), nameof(PlayerEnablingScp914EventArgs.IsAllowed))),
             new (OpCodes.Brfalse_S, returnLabel),
         });
 

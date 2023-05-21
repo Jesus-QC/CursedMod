@@ -17,7 +17,7 @@ using PlayerRoles.PlayableScps.Scp079;
 
 namespace CursedMod.Events.Patches.SCPs.Scp079;
 
-[DynamicEventPatch(typeof(CursedScp079EventsHandler), nameof(CursedScp079EventsHandler.PlayerUseTesla))]
+[DynamicEventPatch(typeof(CursedScp079EventsHandler), nameof(CursedScp079EventsHandler.UsingTesla))]
 [HarmonyPatch(typeof(Scp079TeslaAbility), nameof(Scp079TeslaAbility.ServerProcessCmd))]
 public class UseTeslaPatch
 {
@@ -34,10 +34,10 @@ public class UseTeslaPatch
         {
             new CodeInstruction(OpCodes.Ldarg_0).MoveLabelsFrom(newInstructions[index]),
             new (OpCodes.Ldloc_1),
-            new (OpCodes.Newobj, AccessTools.GetDeclaredConstructors(typeof(PlayerUseTeslaEventArgs))[0]),
+            new (OpCodes.Newobj, AccessTools.GetDeclaredConstructors(typeof(Scp079UsingTeslaEventArgs))[0]),
             new (OpCodes.Dup),
-            new (OpCodes.Call, AccessTools.Method(typeof(CursedScp079EventsHandler), nameof(CursedScp079EventsHandler.OnPlayerUseTesla))),
-            new (OpCodes.Callvirt, AccessTools.PropertyGetter(typeof(PlayerUseTeslaEventArgs), nameof(PlayerUseTeslaEventArgs.IsAllowed))),
+            new (OpCodes.Call, AccessTools.Method(typeof(CursedScp079EventsHandler), nameof(CursedScp079EventsHandler.OnUsingTesla))),
+            new (OpCodes.Callvirt, AccessTools.PropertyGetter(typeof(Scp079UsingTeslaEventArgs), nameof(Scp079UsingTeslaEventArgs.IsAllowed))),
             new (OpCodes.Brfalse_S, returnLabel),
         });
         

@@ -17,7 +17,7 @@ using PlayerRoles.PlayableScps.Scp096;
 
 namespace CursedMod.Events.Patches.SCPs.Scp096;
 
-[DynamicEventPatch(typeof(CursedScp096EventsHandler), nameof(CursedScp096EventsHandler.PlayerRemoveTarget))]
+[DynamicEventPatch(typeof(CursedScp096EventsHandler), nameof(CursedScp096EventsHandler.RemovingTarget))]
 [HarmonyPatch(typeof(Scp096TargetsTracker), nameof(Scp096TargetsTracker.RemoveTarget))]
 public class RemoveTargetPatch
 {
@@ -33,10 +33,10 @@ public class RemoveTargetPatch
         {
             new CodeInstruction(OpCodes.Ldarg_0).MoveLabelsFrom(newInstructions[index]),
             new (OpCodes.Ldarg_1),
-            new (OpCodes.Newobj, AccessTools.GetDeclaredConstructors(typeof(PlayerRemoveTargetEventArgs))[0]),
+            new (OpCodes.Newobj, AccessTools.GetDeclaredConstructors(typeof(Scp096RemovingTargetEventArgs))[0]),
             new (OpCodes.Dup),
-            new (OpCodes.Call, AccessTools.Method(typeof(CursedScp096EventsHandler), nameof(CursedScp096EventsHandler.OnPlayerRemoveTarget))),
-            new (OpCodes.Callvirt, AccessTools.PropertyGetter(typeof(PlayerRemoveTargetEventArgs), nameof(PlayerRemoveTargetEventArgs.IsAllowed))),
+            new (OpCodes.Call, AccessTools.Method(typeof(CursedScp096EventsHandler), nameof(CursedScp096EventsHandler.OnRemovingTarget))),
+            new (OpCodes.Callvirt, AccessTools.PropertyGetter(typeof(Scp096RemovingTargetEventArgs), nameof(Scp096RemovingTargetEventArgs.IsAllowed))),
             new (OpCodes.Brfalse_S, retLabel),
         });
         

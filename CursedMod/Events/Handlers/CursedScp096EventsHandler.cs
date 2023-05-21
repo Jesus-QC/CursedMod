@@ -12,52 +12,52 @@ namespace CursedMod.Events.Handlers;
 
 public static class CursedScp096EventsHandler
 {
-    public static event EventManager.CursedEventHandler<PlayerPryGateEventArgs> PlayerPryGate;
+    public static event EventManager.CursedEventHandler<Scp096PryingGateEventArgs> PryingGate;
     
-    public static event EventManager.CursedEventHandler<PlayerTryNotToCryEventArgs> PlayerTryNotToCry;
+    public static event EventManager.CursedEventHandler<Scp096TryingNotToCryEventArgs> TryingNotToCry;
     
-    public static event EventManager.CursedEventHandler<PlayerChargingEventArgs> PlayerCharging;
+    public static event EventManager.CursedEventHandler<Scp096ChargingEventArgs> Charging;
     
-    public static event EventManager.CursedEventHandler<PlayerEnragingEventArgs> PlayerEnraging;
+    public static event EventManager.CursedEventHandler<Scp096EnragingEventArgs> Enraging;
     
-    public static event EventManager.CursedEventHandler<PlayerEndEnrageEventArgs> PlayerEndEnrage; 
+    public static event EventManager.CursedEventHandler<Scp096CalmingEventArgs> Calming; 
     
-    public static event EventManager.CursedEventHandler<PlayerAddTargetEventArgs> PlayerAddTarget;
+    public static event EventManager.CursedEventHandler<Scp096AddingTargetEventArgs> AddingTarget;
     
-    public static event EventManager.CursedEventHandler<PlayerRemoveTargetEventArgs> PlayerRemoveTarget;
+    public static event EventManager.CursedEventHandler<Scp096RemovingTargetEventArgs> RemovingTarget;
 
-    internal static void OnPlayerPryGate(PlayerPryGateEventArgs ev)
+    internal static void OnPryingGate(Scp096PryingGateEventArgs ev)
     {
-        PlayerPryGate.InvokeEvent(ev);
+        PryingGate.InvokeEvent(ev);
     }
     
-    internal static void OnPlayerTryNotToCry(PlayerTryNotToCryEventArgs args)
+    internal static void OnTryingNotToCry(Scp096TryingNotToCryEventArgs args)
     {
-        PlayerTryNotToCry.InvokeEvent(args);
+        TryingNotToCry.InvokeEvent(args);
     }
     
-    internal static void OnPlayerCharging(PlayerChargingEventArgs args)
+    internal static void OnCharging(Scp096ChargingEventArgs args)
     {
-        PlayerCharging.InvokeEvent(args);
+        Charging.InvokeEvent(args);
     }
     
-    internal static void OnPlayerEnraging(PlayerEnragingEventArgs args)
+    internal static void OnEnraging(Scp096EnragingEventArgs args)
     {
-        PlayerEnraging.InvokeEvent(args);
+        Enraging.InvokeEvent(args);
     }
     
-    internal static void OnPlayerEndEnrage(PlayerEndEnrageEventArgs args)
+    internal static void OnCalming(Scp096CalmingEventArgs args)
     {
-        PlayerEndEnrage.InvokeEvent(args);
+        Calming.InvokeEvent(args);
     }
     
-    internal static void OnPlayerAddTarget(PlayerAddTargetEventArgs args)
+    internal static void OnAddingTarget(Scp096AddingTargetEventArgs args)
     {
-        PlayerAddTarget.InvokeEvent(args);
+        AddingTarget.InvokeEvent(args);
     }
     
-    internal static void OnPlayerRemoveTarget(PlayerRemoveTargetEventArgs args)
+    internal static void OnRemovingTarget(Scp096RemovingTargetEventArgs args)
     {
-        PlayerRemoveTarget.InvokeEvent(args);
+        RemovingTarget.InvokeEvent(args);
     }
 }

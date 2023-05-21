@@ -16,7 +16,7 @@ using PlayerRoles.PlayableScps.Scp939;
 
 namespace CursedMod.Events.Patches.SCPs.Scp939;
 
-[DynamicEventPatch(typeof(CursedScp939EventsHandler), nameof(CursedScp939EventsHandler.PlayerCancelCloudPlacement))]
+[DynamicEventPatch(typeof(CursedScp939EventsHandler), nameof(CursedScp939EventsHandler.CancellingCloudPlacement))]
 [HarmonyPatch(typeof(Scp939AmnesticCloudAbility), nameof(Scp939AmnesticCloudAbility.OnStateDisabled))]
 public class CancelCloudPlacementPatch
 {
@@ -29,10 +29,10 @@ public class CancelCloudPlacementPatch
         newInstructions.InsertRange(0, new CodeInstruction[]
         {
             new (OpCodes.Ldarg_0),
-            new (OpCodes.Newobj, AccessTools.GetDeclaredConstructors(typeof(PlayerCancelCloudPlacementEventArgs))[0]),
+            new (OpCodes.Newobj, AccessTools.GetDeclaredConstructors(typeof(Scp939CancellingCloudPlacementEventArgs))[0]),
             new (OpCodes.Dup),
-            new (OpCodes.Call, AccessTools.Method(typeof(CursedScp939EventsHandler), nameof(CursedScp939EventsHandler.OnPlayerCancelCloudPlacement))),
-            new (OpCodes.Callvirt, AccessTools.PropertyGetter(typeof(PlayerCancelCloudPlacementEventArgs), nameof(PlayerCancelCloudPlacementEventArgs.IsAllowed))),
+            new (OpCodes.Call, AccessTools.Method(typeof(CursedScp939EventsHandler), nameof(CursedScp939EventsHandler.OnCancellingCloudPlacement))),
+            new (OpCodes.Callvirt, AccessTools.PropertyGetter(typeof(Scp939CancellingCloudPlacementEventArgs), nameof(Scp939CancellingCloudPlacementEventArgs.IsAllowed))),
             new (OpCodes.Brfalse_S, returnLabel),
         });
         

@@ -16,7 +16,7 @@ using PlayerRoles.PlayableScps.Scp049;
 
 namespace CursedMod.Events.Patches.SCPs.Scp049;
 
-[DynamicEventPatch(typeof(CursedScp049EventsHandler), nameof(CursedScp049EventsHandler.PlayerStartRevive))]
+[DynamicEventPatch(typeof(CursedScp049EventsHandler), nameof(CursedScp049EventsHandler.StartingResurrection))]
 [HarmonyPatch(typeof(Scp049ResurrectAbility), nameof(Scp049ResurrectAbility.ServerValidateBegin))]
 public class RevivingPatch
 {
@@ -29,10 +29,10 @@ public class RevivingPatch
         newInstructions.InsertRange(0, new CodeInstruction[]
         {
             new (OpCodes.Ldarg_0),
-            new (OpCodes.Newobj, AccessTools.GetDeclaredConstructors(typeof(PlayerStartReviveEventArgs))[0]),
+            new (OpCodes.Newobj, AccessTools.GetDeclaredConstructors(typeof(Scp049StartingResurrectionEventArgs))[0]),
             new (OpCodes.Dup),
-            new (OpCodes.Call, AccessTools.Method(typeof(CursedScp049EventsHandler), nameof(CursedScp049EventsHandler.OnPlayerReviving))),
-            new (OpCodes.Callvirt, AccessTools.PropertyGetter(typeof(PlayerStartReviveEventArgs), nameof(PlayerStartReviveEventArgs.IsAllowed))),
+            new (OpCodes.Call, AccessTools.Method(typeof(CursedScp049EventsHandler), nameof(CursedScp049EventsHandler.OnStartingResurrection))),
+            new (OpCodes.Callvirt, AccessTools.PropertyGetter(typeof(Scp049StartingResurrectionEventArgs), nameof(Scp049StartingResurrectionEventArgs.IsAllowed))),
             new (OpCodes.Brfalse_S, returnLabel),
         });
         

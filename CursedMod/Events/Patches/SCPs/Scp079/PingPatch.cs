@@ -17,7 +17,7 @@ using RelativePositioning;
 
 namespace CursedMod.Events.Patches.SCPs.Scp079;
 
-[DynamicEventPatch(typeof(CursedScp079EventsHandler), nameof(CursedScp079EventsHandler.PlayerPing))]
+[DynamicEventPatch(typeof(CursedScp079EventsHandler), nameof(CursedScp079EventsHandler.UsingPingAbility))]
 [HarmonyPatch(typeof(Scp079PingAbility), nameof(Scp079PingAbility.ServerProcessCmd))]
 public class PingPatch
 {
@@ -33,10 +33,10 @@ public class PingPatch
         newInstructions.InsertRange(index, new CodeInstruction[]
         {
             new CodeInstruction(OpCodes.Ldarg_0).MoveLabelsFrom(newInstructions[index]),
-            new (OpCodes.Newobj, AccessTools.GetDeclaredConstructors(typeof(PlayerPingEventArgs))[0]),
+            new (OpCodes.Newobj, AccessTools.GetDeclaredConstructors(typeof(Scp079UsingPingAbilityEventArgs))[0]),
             new (OpCodes.Dup),
-            new (OpCodes.Call, AccessTools.Method(typeof(CursedScp079EventsHandler), nameof(CursedScp079EventsHandler.OnPlayerPing))),
-            new (OpCodes.Callvirt, AccessTools.PropertyGetter(typeof(PlayerPingEventArgs), nameof(PlayerPingEventArgs.IsAllowed))),
+            new (OpCodes.Call, AccessTools.Method(typeof(CursedScp079EventsHandler), nameof(CursedScp079EventsHandler.OnUsingPingAbility))),
+            new (OpCodes.Callvirt, AccessTools.PropertyGetter(typeof(Scp079UsingPingAbilityEventArgs), nameof(Scp079UsingPingAbilityEventArgs.IsAllowed))),
             new (OpCodes.Brfalse_S, returnLabel),
         });
         

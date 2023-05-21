@@ -16,7 +16,7 @@ using PlayerRoles.PlayableScps.Scp079;
 
 namespace CursedMod.Events.Patches.SCPs.Scp079;
 
-[DynamicEventPatch(typeof(CursedScp079EventsHandler), nameof(CursedScp079EventsHandler.PlayerLevelUp))]
+[DynamicEventPatch(typeof(CursedScp079EventsHandler), nameof(CursedScp079EventsHandler.LevelingUp))]
 [HarmonyPatch(typeof(Scp079TierManager), nameof(Scp079TierManager.AccessTierIndex), MethodType.Setter)]
 public class GainLevelPatch
 {
@@ -28,7 +28,7 @@ public class GainLevelPatch
         int index = newInstructions.FindIndex(instruction => instruction.opcode == OpCodes.Ret) + offset;
 
         Label returnLabel = generator.DefineLabel();
-        LocalBuilder args = generator.DeclareLocal(typeof(PlayerLevelUpEventArgs));
+        LocalBuilder args = generator.DeclareLocal(typeof(Scp079LevelingUpEventArgs));
 
         newInstructions.InsertRange(index, new CodeInstruction[]
         {
@@ -36,15 +36,15 @@ public class GainLevelPatch
             new (OpCodes.Ldarg_1),
             new (OpCodes.Ldc_I4_1),
             new (OpCodes.Add),
-            new (OpCodes.Newobj, AccessTools.GetDeclaredConstructors(typeof(PlayerLevelUpEventArgs))[0]),
+            new (OpCodes.Newobj, AccessTools.GetDeclaredConstructors(typeof(Scp079LevelingUpEventArgs))[0]),
             new (OpCodes.Dup),
             new (OpCodes.Dup),
             new (OpCodes.Stloc_S, args.LocalIndex),
-            new (OpCodes.Call, AccessTools.Method(typeof(CursedScp079EventsHandler), nameof(CursedScp079EventsHandler.OnPlayerLevelUp))),
-            new (OpCodes.Callvirt, AccessTools.PropertyGetter(typeof(PlayerLevelUpEventArgs), nameof(PlayerLevelUpEventArgs.IsAllowed))),
+            new (OpCodes.Call, AccessTools.Method(typeof(CursedScp079EventsHandler), nameof(CursedScp079EventsHandler.OnLevelingUp))),
+            new (OpCodes.Callvirt, AccessTools.PropertyGetter(typeof(Scp079LevelingUpEventArgs), nameof(Scp079LevelingUpEventArgs.IsAllowed))),
             new (OpCodes.Brfalse_S, returnLabel),
             new (OpCodes.Ldloc_S, args.LocalIndex),
-            new (OpCodes.Callvirt, AccessTools.PropertyGetter(typeof(PlayerLevelUpEventArgs), nameof(PlayerLevelUpEventArgs.Level))),
+            new (OpCodes.Callvirt, AccessTools.PropertyGetter(typeof(Scp079LevelingUpEventArgs), nameof(Scp079LevelingUpEventArgs.Level))),
             new (OpCodes.Ldc_I4_1),
             new (OpCodes.Sub),
             new (OpCodes.Starg_S, 1),

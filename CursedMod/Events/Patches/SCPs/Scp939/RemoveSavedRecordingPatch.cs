@@ -16,7 +16,7 @@ using PlayerRoles.PlayableScps.Scp939.Mimicry;
 
 namespace CursedMod.Events.Patches.SCPs.Scp939;
 
-[DynamicEventPatch(typeof(CursedScp939EventsHandler), nameof(CursedScp939EventsHandler.PlayerRemoveSavedVoice))]
+[DynamicEventPatch(typeof(CursedScp939EventsHandler), nameof(CursedScp939EventsHandler.RemovingSavedVoice))]
 [HarmonyPatch(typeof(MimicryRecorder), nameof(MimicryRecorder.RemoveRecordingsOfPlayer))]
 public class RemoveSavedRecordingPatch
 {
@@ -30,10 +30,10 @@ public class RemoveSavedRecordingPatch
         {
             new (OpCodes.Ldarg_0),
             new (OpCodes.Ldarg_1),
-            new (OpCodes.Newobj, AccessTools.GetDeclaredConstructors(typeof(PlayerRemoveSavedVoiceEventArgs))[0]),
+            new (OpCodes.Newobj, AccessTools.GetDeclaredConstructors(typeof(Scp939RemovingSavedVoiceEventArgs))[0]),
             new (OpCodes.Dup),
-            new (OpCodes.Call, AccessTools.Method(typeof(CursedScp939EventsHandler), nameof(CursedScp939EventsHandler.OnPlayerRemoveSavedVoice))),
-            new (OpCodes.Callvirt, AccessTools.PropertyGetter(typeof(PlayerRemoveSavedVoiceEventArgs), nameof(PlayerRemoveSavedVoiceEventArgs.IsAllowed))),
+            new (OpCodes.Call, AccessTools.Method(typeof(CursedScp939EventsHandler), nameof(CursedScp939EventsHandler.OnRemovingSavedVoice))),
+            new (OpCodes.Callvirt, AccessTools.PropertyGetter(typeof(Scp939RemovingSavedVoiceEventArgs), nameof(Scp939RemovingSavedVoiceEventArgs.IsAllowed))),
             new (OpCodes.Brfalse_S, returnLabel),
         });
         

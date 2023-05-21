@@ -17,7 +17,7 @@ using PlayerRoles.PlayableScps.Scp079.Cameras;
 
 namespace CursedMod.Events.Patches.SCPs.Scp079;
 
-[DynamicEventPatch(typeof(CursedScp079EventsHandler), nameof(CursedScp079EventsHandler.PlayerUseLockdown))]
+[DynamicEventPatch(typeof(CursedScp079EventsHandler), nameof(CursedScp079EventsHandler.UsingLockdownAbility))]
 [HarmonyPatch(typeof(Scp079LockdownRoomAbility), nameof(Scp079LockdownRoomAbility.ServerProcessCmd))]
 public class LockdownActivatePatch
 {
@@ -35,10 +35,10 @@ public class LockdownActivatePatch
             new (OpCodes.Call, AccessTools.PropertyGetter(typeof(Scp079AbilityBase), nameof(Scp079AbilityBase.CurrentCamSync))),
             new (OpCodes.Callvirt, AccessTools.PropertyGetter(typeof(Scp079CurrentCameraSync), nameof(Scp079CurrentCameraSync.CurrentCamera))),
             new (OpCodes.Callvirt, AccessTools.PropertyGetter(typeof(Scp079Camera), nameof(Scp079Camera.Room))),
-            new (OpCodes.Newobj, AccessTools.GetDeclaredConstructors(typeof(PlayerUseLockdownEventArgs))[0]),
+            new (OpCodes.Newobj, AccessTools.GetDeclaredConstructors(typeof(Scp079UsingLockdownAbilityEventArgs))[0]),
             new (OpCodes.Dup),
-            new (OpCodes.Call, AccessTools.Method(typeof(CursedScp079EventsHandler), nameof(CursedScp079EventsHandler.OnPlayerUseLockdown))),
-            new (OpCodes.Callvirt, AccessTools.PropertyGetter(typeof(PlayerUseLockdownEventArgs), nameof(PlayerUseLockdownEventArgs.IsAllowed))),
+            new (OpCodes.Call, AccessTools.Method(typeof(CursedScp079EventsHandler), nameof(CursedScp079EventsHandler.OnUsingLockdownAbility))),
+            new (OpCodes.Callvirt, AccessTools.PropertyGetter(typeof(Scp079UsingLockdownAbilityEventArgs), nameof(Scp079UsingLockdownAbilityEventArgs.IsAllowed))),
             new (OpCodes.Brfalse_S, returnLabel),
         });
         

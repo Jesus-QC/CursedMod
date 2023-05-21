@@ -16,7 +16,7 @@ using PlayerRoles.PlayableScps.Scp049;
 
 namespace CursedMod.Events.Patches.SCPs.Scp049;
 
-[DynamicEventPatch(typeof(CursedScp049EventsHandler), nameof(CursedScp049EventsHandler.PlayerCalling))]
+[DynamicEventPatch(typeof(CursedScp049EventsHandler), nameof(CursedScp049EventsHandler.UsingCallAbility))]
 [HarmonyPatch(typeof(Scp049CallAbility), nameof(Scp049CallAbility.ServerProcessCmd))]
 public class CallingZombiesPatch
 {
@@ -32,10 +32,10 @@ public class CallingZombiesPatch
         newInstructions.InsertRange(index, new CodeInstruction[]
         {
             new CodeInstruction(OpCodes.Ldarg_0).MoveLabelsFrom(newInstructions[index]),
-            new (OpCodes.Newobj, AccessTools.GetDeclaredConstructors(typeof(PlayerCallingEventArgs))[0]),
+            new (OpCodes.Newobj, AccessTools.GetDeclaredConstructors(typeof(Scp049UsingCallAbilityEventArgs))[0]),
             new (OpCodes.Dup),
-            new (OpCodes.Call, AccessTools.Method(typeof(CursedScp049EventsHandler), nameof(CursedScp049EventsHandler.OnPlayerCalling))),
-            new (OpCodes.Callvirt, AccessTools.PropertyGetter(typeof(PlayerCallingEventArgs), nameof(PlayerCallingEventArgs.IsAllowed))),
+            new (OpCodes.Call, AccessTools.Method(typeof(CursedScp049EventsHandler), nameof(CursedScp049EventsHandler.OnUsingCallAbility))),
+            new (OpCodes.Callvirt, AccessTools.PropertyGetter(typeof(Scp049UsingCallAbilityEventArgs), nameof(Scp049UsingCallAbilityEventArgs.IsAllowed))),
             new (OpCodes.Brfalse_S, returnLabel),
         });
         

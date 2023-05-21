@@ -16,7 +16,7 @@ using PlayerRoles.PlayableScps.Scp106;
 
 namespace CursedMod.Events.Patches.SCPs.Scp106;
 
-[DynamicEventPatch(typeof(CursedScp106EventsHandler), nameof(CursedScp106EventsHandler.PlayerStalking))]
+[DynamicEventPatch(typeof(CursedScp106EventsHandler), nameof(CursedScp106EventsHandler.UsingStalkAbility))]
 [HarmonyPatch(typeof(Scp106StalkAbility), nameof(Scp106StalkAbility.ServerProcessCmd))]
 public class StalkAbilityPatch
 {
@@ -29,10 +29,10 @@ public class StalkAbilityPatch
         newInstructions.InsertRange(45, new CodeInstruction[]
         {
             new (OpCodes.Ldarg_0),
-            new (OpCodes.Newobj, AccessTools.GetDeclaredConstructors(typeof(PlayerStalkingEventArgs))[0]),
+            new (OpCodes.Newobj, AccessTools.GetDeclaredConstructors(typeof(Scp106UsingStalkAbilityEventArgs))[0]),
             new (OpCodes.Dup),
-            new (OpCodes.Call, AccessTools.Method(typeof(CursedScp106EventsHandler), nameof(CursedScp106EventsHandler.OnPlayerStalking))),
-            new (OpCodes.Callvirt, AccessTools.PropertyGetter(typeof(PlayerStalkingEventArgs), nameof(PlayerStalkingEventArgs.IsAllowed))),
+            new (OpCodes.Call, AccessTools.Method(typeof(CursedScp106EventsHandler), nameof(CursedScp106EventsHandler.OnUsingStalkAbility))),
+            new (OpCodes.Callvirt, AccessTools.PropertyGetter(typeof(Scp106UsingStalkAbilityEventArgs), nameof(Scp106UsingStalkAbilityEventArgs.IsAllowed))),
             new (OpCodes.Brfalse_S, returnLabel),
         });
         

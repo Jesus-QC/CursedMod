@@ -16,7 +16,7 @@ using PlayerRoles.PlayableScps.Scp049.Zombies;
 
 namespace CursedMod.Events.Patches.SCPs.Scp0492;
 
-[DynamicEventPatch(typeof(CursedZombieEventsHandler), nameof(CursedZombieEventsHandler.PlayerCorpseConsumed))]
+[DynamicEventPatch(typeof(CursedScp0492EventsHandler), nameof(CursedScp0492EventsHandler.ConsumedCorpse))]
 [HarmonyPatch(typeof(ZombieConsumeAbility), nameof(ZombieConsumeAbility.ServerComplete))]
 public class CorpseConsumedPatch
 {
@@ -30,8 +30,8 @@ public class CorpseConsumedPatch
         newInstructions.InsertRange(index, new CodeInstruction[]
         {
             new CodeInstruction(OpCodes.Ldarg_0).MoveLabelsFrom(newInstructions[index]),
-            new (OpCodes.Newobj, AccessTools.GetDeclaredConstructors(typeof(PlayerCorpseConsumedEventArgs))[0]),
-            new (OpCodes.Call, AccessTools.Method(typeof(CursedZombieEventsHandler), nameof(CursedZombieEventsHandler.OnPlayerCorpseConsumed))),
+            new (OpCodes.Newobj, AccessTools.GetDeclaredConstructors(typeof(Scp0492ConsumedCorpseEventArgs))[0]),
+            new (OpCodes.Call, AccessTools.Method(typeof(CursedScp0492EventsHandler), nameof(CursedScp0492EventsHandler.OnConsumedCorpse))),
         });
         
         foreach (var instruction in newInstructions)

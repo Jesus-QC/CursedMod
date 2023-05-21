@@ -16,7 +16,7 @@ using PlayerRoles.PlayableScps.Scp096;
 
 namespace CursedMod.Events.Patches.SCPs.Scp096;
 
-[DynamicEventPatch(typeof(CursedScp096EventsHandler), nameof(CursedScp096EventsHandler.PlayerEndEnrage))]
+[DynamicEventPatch(typeof(CursedScp096EventsHandler), nameof(CursedScp096EventsHandler.Calming))]
 [HarmonyPatch(typeof(Scp096RageManager), nameof(Scp096RageManager.ServerEndEnrage))]
 public class EndEnragePatch
 {
@@ -25,22 +25,22 @@ public class EndEnragePatch
         List<CodeInstruction> newInstructions = EventManager.CheckEvent<EndEnragePatch>(17, instructions);
 
         Label retLabel = generator.DefineLabel();
-        LocalBuilder localBuilder = generator.DeclareLocal(typeof(PlayerEndEnrageEventArgs));
+        LocalBuilder localBuilder = generator.DeclareLocal(typeof(Scp096CalmingEventArgs));
         int index = newInstructions.FindIndex(i => i.IsLdarg(1));
         
         newInstructions.InsertRange(index, new CodeInstruction[]
         {
             new CodeInstruction(OpCodes.Ldarg_0).MoveLabelsFrom(newInstructions[index]),
             new (OpCodes.Ldarg_1),
-            new (OpCodes.Newobj, AccessTools.GetDeclaredConstructors(typeof(PlayerEndEnrageEventArgs))[0]),
+            new (OpCodes.Newobj, AccessTools.GetDeclaredConstructors(typeof(Scp096CalmingEventArgs))[0]),
             new (OpCodes.Dup),
             new (OpCodes.Dup),
             new (OpCodes.Stloc_S, localBuilder.LocalIndex),
-            new (OpCodes.Call, AccessTools.Method(typeof(CursedScp096EventsHandler), nameof(CursedScp096EventsHandler.OnPlayerEndEnrage))),
-            new (OpCodes.Callvirt, AccessTools.PropertyGetter(typeof(PlayerEndEnrageEventArgs), nameof(PlayerEndEnrageEventArgs.IsAllowed))),
+            new (OpCodes.Call, AccessTools.Method(typeof(CursedScp096EventsHandler), nameof(CursedScp096EventsHandler.OnCalming))),
+            new (OpCodes.Callvirt, AccessTools.PropertyGetter(typeof(Scp096CalmingEventArgs), nameof(Scp096CalmingEventArgs.IsAllowed))),
             new (OpCodes.Brfalse_S, retLabel),
             new (OpCodes.Ldloc_S, localBuilder.LocalIndex),
-            new (OpCodes.Callvirt, AccessTools.PropertyGetter(typeof(PlayerEndEnrageEventArgs), nameof(PlayerEndEnrageEventArgs.ClearTime))),
+            new (OpCodes.Callvirt, AccessTools.PropertyGetter(typeof(Scp096CalmingEventArgs), nameof(Scp096CalmingEventArgs.ClearTime))),
             new (OpCodes.Starg_S, 1),
         });
         

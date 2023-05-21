@@ -16,7 +16,7 @@ using Scp914;
 
 namespace CursedMod.Events.Patches.SCPs.Scp914;
 
-[DynamicEventPatch(typeof(CursedScp914EventsHandler), nameof(CursedScp914EventsHandler.PlayerUpgradeItem))]
+[DynamicEventPatch(typeof(CursedScp914EventsHandler), nameof(CursedScp914EventsHandler.UpgradingItem))]
 [HarmonyPatch(typeof(Scp914Upgrader), nameof(Scp914Upgrader.ProcessPickup))]
 public class UpgradeItemPatch
 {
@@ -24,7 +24,7 @@ public class UpgradeItemPatch
     {
         List<CodeInstruction> newInstructions = EventManager.CheckEvent<UpgradeItemPatch>(78, instructions);
 
-        LocalBuilder localBuilder = generator.DeclareLocal(typeof(PlayerUpgradeItemEventArgs));
+        LocalBuilder localBuilder = generator.DeclareLocal(typeof(Scp914UpgradingItemEventArgs));
         Label returnLabel = generator.DefineLabel();
         
         const int offset = 1;
@@ -35,18 +35,18 @@ public class UpgradeItemPatch
             new (OpCodes.Ldarg_0),
             new (OpCodes.Ldloc_1),
             new (OpCodes.Ldarg_3),
-            new (OpCodes.Newobj, AccessTools.GetDeclaredConstructors(typeof(PlayerUpgradeItemEventArgs))[0]),
+            new (OpCodes.Newobj, AccessTools.GetDeclaredConstructors(typeof(Scp914UpgradingItemEventArgs))[0]),
             new (OpCodes.Dup),
             new (OpCodes.Dup),
             new (OpCodes.Stloc_S, localBuilder.LocalIndex),
-            new (OpCodes.Call, AccessTools.Method(typeof(CursedScp914EventsHandler), nameof(CursedScp914EventsHandler.OnPlayerUpgradeItem))),
-            new (OpCodes.Callvirt, AccessTools.PropertyGetter(typeof(PlayerUpgradeItemEventArgs), nameof(PlayerUpgradeItemEventArgs.IsAllowed))),
+            new (OpCodes.Call, AccessTools.Method(typeof(CursedScp914EventsHandler), nameof(CursedScp914EventsHandler.OnUpgradingItem))),
+            new (OpCodes.Callvirt, AccessTools.PropertyGetter(typeof(Scp914UpgradingItemEventArgs), nameof(Scp914UpgradingItemEventArgs.IsAllowed))),
             new (OpCodes.Brfalse_S, returnLabel),
             new (OpCodes.Ldloc_S, localBuilder.LocalIndex),
             new (OpCodes.Dup),
-            new (OpCodes.Callvirt, AccessTools.PropertyGetter(typeof(PlayerUpgradeItemEventArgs), nameof(PlayerUpgradeItemEventArgs.OutputPosition))),
+            new (OpCodes.Callvirt, AccessTools.PropertyGetter(typeof(Scp914UpgradingItemEventArgs), nameof(Scp914UpgradingItemEventArgs.OutputPosition))),
             new (OpCodes.Stloc_1),
-            new (OpCodes.Callvirt, AccessTools.PropertyGetter(typeof(PlayerUpgradeItemEventArgs), nameof(PlayerUpgradeItemEventArgs.KnobSetting))),
+            new (OpCodes.Callvirt, AccessTools.PropertyGetter(typeof(Scp914UpgradingItemEventArgs), nameof(Scp914UpgradingItemEventArgs.KnobSetting))),
             new (OpCodes.Starg_S, 3),
         });
         

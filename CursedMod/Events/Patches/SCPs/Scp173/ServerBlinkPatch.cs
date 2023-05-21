@@ -16,7 +16,7 @@ using PlayerRoles.PlayableScps.Scp173;
 
 namespace CursedMod.Events.Patches.SCPs.Scp173;
 
-[DynamicEventPatch(typeof(CursedScp173EventsHandler), nameof(CursedScp173EventsHandler.PlayerBlinking))]
+[DynamicEventPatch(typeof(CursedScp173EventsHandler), nameof(CursedScp173EventsHandler.Blinking))]
 [HarmonyPatch(typeof(Scp173BlinkTimer), nameof(Scp173BlinkTimer.ServerBlink))]
 public class ServerBlinkPatch
 {
@@ -29,10 +29,10 @@ public class ServerBlinkPatch
         newInstructions.InsertRange(0, new CodeInstruction[]
         {
             new (OpCodes.Ldarg_0),
-            new (OpCodes.Newobj, AccessTools.GetDeclaredConstructors(typeof(PlayerBlinkingEventArgs))[0]),
+            new (OpCodes.Newobj, AccessTools.GetDeclaredConstructors(typeof(Scp173BlinkingEventArgs))[0]),
             new (OpCodes.Dup),
-            new (OpCodes.Call, AccessTools.Method(typeof(CursedScp173EventsHandler), nameof(CursedScp173EventsHandler.OnPlayerBlinking))),
-            new (OpCodes.Callvirt, AccessTools.PropertyGetter(typeof(PlayerBlinkingEventArgs), nameof(PlayerBlinkingEventArgs.IsAllowed))),
+            new (OpCodes.Call, AccessTools.Method(typeof(CursedScp173EventsHandler), nameof(CursedScp173EventsHandler.OnBlinking))),
+            new (OpCodes.Callvirt, AccessTools.PropertyGetter(typeof(Scp173BlinkingEventArgs), nameof(Scp173BlinkingEventArgs.IsAllowed))),
             new (OpCodes.Brfalse_S, retLabel),
         });
         

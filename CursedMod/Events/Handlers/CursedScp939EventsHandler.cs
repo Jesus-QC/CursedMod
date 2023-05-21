@@ -12,73 +12,73 @@ namespace CursedMod.Events.Handlers;
 
 public static class CursedScp939EventsHandler
 {
-    public static event EventManager.CursedEventHandler<PlayerSaveVoiceEventArgs> PlayerSaveVoice;
+    public static event EventManager.CursedEventHandler<Scp939SavingVoiceEventArgs> SavingVoice;
     
-    public static event EventManager.CursedEventHandler<PlayerPlaceAmnesticCloudEventArgs> PlayerPlaceAmnesticCloud; 
+    public static event EventManager.CursedEventHandler<Scp939PlacingAmnesticCloudEventArgs> PlacingAmnesticCloud; 
     
-    public static event EventManager.CursedEventHandler<PlayerCancelCloudPlacementEventArgs> PlayerCancelCloudPlacement;
+    public static event EventManager.CursedEventHandler<Scp939CancellingCloudPlacementEventArgs> CancellingCloudPlacement;
     
-    public static event EventManager.CursedEventHandler<PlayerPlaySoundEventArgs> PlayerPlaySound;
+    public static event EventManager.CursedEventHandler<Scp939PlayingSoundEventArgs> PlayingSound;
     
-    public static event EventManager.CursedEventHandler<PlayerPlayVoiceEventArgs> PlayerPlayVoice;
+    public static event EventManager.CursedEventHandler<Scp939PlayingVoiceEventArgs> PlayingVoice;
     
-    public static event EventManager.CursedEventHandler<PlayerLungeEventArgs> PlayerLunge;
+    public static event EventManager.CursedEventHandler<Scp939UsingLungeAbilityEventArgs> UsingLungeAbility;
     
-    public static event EventManager.CursedEventHandler<PlayerPlaceMimicPointEventArgs> PlayerPlaceMimicPoint;
+    public static event EventManager.CursedEventHandler<Scp939PlacingMimicPointEventArgs> PlacingMimicPoint;
     
-    public static event EventManager.CursedEventHandler<PlayerRemoveMimicPointEventArgs> PlayerRemoveMimicPoint;
+    public static event EventManager.CursedEventHandler<Scp939RemovingMimicPointEventArgs> RemovingMimic;
     
-    public static event EventManager.CursedEventHandler<PlayerRemoveSavedVoiceEventArgs> PlayerRemoveSavedVoice;
+    public static event EventManager.CursedEventHandler<Scp939RemovingSavedVoiceEventArgs> RemovingSavedVoice;
     
-    public static event EventManager.CursedEventHandler<PlayerUseFocusEventArgs> PlayerUseFocus; 
+    public static event EventManager.CursedEventHandler<Scp939UsingFocusAbilityEventArgs> UsingFocusAbility; 
 
-    internal static void OnPlayerSaveVoice(PlayerSaveVoiceEventArgs args)
+    internal static void OnSavingVoice(Scp939SavingVoiceEventArgs args)
     {
-        PlayerSaveVoice.InvokeEvent(args);
+        SavingVoice.InvokeEvent(args);
     }
     
-    internal static void OnPlayerPlaceAmnesticCloud(PlayerPlaceAmnesticCloudEventArgs args)
+    internal static void OnPlacingAmnesticCloud(Scp939PlacingAmnesticCloudEventArgs args)
     {
-        PlayerPlaceAmnesticCloud.InvokeEvent(args);
+        PlacingAmnesticCloud.InvokeEvent(args);
     }
     
-    internal static void OnPlayerCancelCloudPlacement(PlayerCancelCloudPlacementEventArgs args)
+    internal static void OnCancellingCloudPlacement(Scp939CancellingCloudPlacementEventArgs args)
     {
-        PlayerCancelCloudPlacement.InvokeEvent(args);
+        CancellingCloudPlacement.InvokeEvent(args);
     }
     
-    internal static void OnPlayerPlaySound(PlayerPlaySoundEventArgs args)
+    internal static void OnPlayingSound(Scp939PlayingSoundEventArgs args)
     {
-        PlayerPlaySound.InvokeEvent(args);
+        PlayingSound.InvokeEvent(args);
     }
     
-    internal static void OnPlayerPlayVoice(PlayerPlayVoiceEventArgs args)
+    internal static void OnPlayingVoice(Scp939PlayingVoiceEventArgs args)
     {
-        PlayerPlayVoice.InvokeEvent(args);
+        PlayingVoice.InvokeEvent(args);
     }
     
-    internal static void OnPlayerLunge(PlayerLungeEventArgs args)
+    internal static void OnUsingLungeAbility(Scp939UsingLungeAbilityEventArgs args)
     {
-        PlayerLunge.InvokeEvent(args);
+        UsingLungeAbility.InvokeEvent(args);
     }
     
-    internal static void OnPlayerPlaceMimicPoint(PlayerPlaceMimicPointEventArgs args)
+    internal static void OnPlacingMimicPoint(Scp939PlacingMimicPointEventArgs args)
     {
-        PlayerPlaceMimicPoint.InvokeEvent(args);
+        PlacingMimicPoint.InvokeEvent(args);
     }
     
-    internal static void OnPlayerRemoveMimicPoint(PlayerRemoveMimicPointEventArgs args)
+    internal static void OnRemovingMimic(Scp939RemovingMimicPointEventArgs args)
     {
-        PlayerRemoveMimicPoint.InvokeEvent(args);
+        RemovingMimic.InvokeEvent(args);
     }
     
-    internal static void OnPlayerRemoveSavedVoice(PlayerRemoveSavedVoiceEventArgs args)
+    internal static void OnRemovingSavedVoice(Scp939RemovingSavedVoiceEventArgs args)
     {
-        PlayerRemoveSavedVoice.InvokeEvent(args);
+        RemovingSavedVoice.InvokeEvent(args);
     }
     
-    internal static void OnPlayerUseFocus(PlayerUseFocusEventArgs args)
+    internal static void OnUsingFocusAbility(Scp939UsingFocusAbilityEventArgs args)
     {
-        PlayerUseFocus.InvokeEvent(args);
+        UsingFocusAbility.InvokeEvent(args);
     }
 }

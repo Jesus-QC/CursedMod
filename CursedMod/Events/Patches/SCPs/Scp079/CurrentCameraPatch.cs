@@ -16,7 +16,7 @@ using PlayerRoles.PlayableScps.Scp079.Cameras;
 
 namespace CursedMod.Events.Patches.SCPs.Scp079;
 
-[DynamicEventPatch(typeof(CursedScp079EventsHandler), nameof(CursedScp079EventsHandler.PlayerChangeCamera))]
+[DynamicEventPatch(typeof(CursedScp079EventsHandler), nameof(CursedScp079EventsHandler.ChangingCamera))]
 [HarmonyPatch(typeof(Scp079CurrentCameraSync), nameof(Scp079CurrentCameraSync.ServerProcessCmd))]
 public class CurrentCameraPatch
 {
@@ -47,8 +47,8 @@ public class CurrentCameraPatch
     
     private static bool ProcessChangeCameraEvent(Scp079CurrentCameraSync currentCameraSync, ref float switchCost)
     {
-        PlayerChangeCameraEventArgs args = new (currentCameraSync, (int)switchCost);
-        CursedScp079EventsHandler.OnPlayerChangeCamera(args);
+        Scp079ChangingCameraEventArgs args = new (currentCameraSync, (int)switchCost);
+        CursedScp079EventsHandler.OnChangingCamera(args);
         
         currentCameraSync.ServerSendRpc(true);
         

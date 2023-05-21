@@ -16,7 +16,7 @@ using PlayerRoles.PlayableScps.Scp939.Mimicry;
 
 namespace CursedMod.Events.Patches.SCPs.Scp939;
 
-[DynamicEventPatch(typeof(CursedScp939EventsHandler), nameof(CursedScp939EventsHandler.PlayerPlaySound))]
+[DynamicEventPatch(typeof(CursedScp939EventsHandler), nameof(CursedScp939EventsHandler.PlayingSound))]
 [HarmonyPatch(typeof(EnvironmentalMimicry), nameof(EnvironmentalMimicry.ServerProcessCmd))]
 public class PlayMimicrySoundPatch
 {
@@ -33,10 +33,10 @@ public class PlayMimicrySoundPatch
         newInstructions.InsertRange(index, new CodeInstruction[]
         {
             new (OpCodes.Ldarg_0),
-            new (OpCodes.Newobj, AccessTools.GetDeclaredConstructors(typeof(PlayerPlaySoundEventArgs))[0]),
+            new (OpCodes.Newobj, AccessTools.GetDeclaredConstructors(typeof(Scp939PlayingSoundEventArgs))[0]),
             new (OpCodes.Dup),
-            new (OpCodes.Call, AccessTools.Method(typeof(CursedScp939EventsHandler), nameof(CursedScp939EventsHandler.OnPlayerPlaySound))),
-            new (OpCodes.Callvirt, AccessTools.PropertyGetter(typeof(PlayerPlaySoundEventArgs), nameof(PlayerPlaySoundEventArgs.IsAllowed))),
+            new (OpCodes.Call, AccessTools.Method(typeof(CursedScp939EventsHandler), nameof(CursedScp939EventsHandler.OnPlayingSound))),
+            new (OpCodes.Callvirt, AccessTools.PropertyGetter(typeof(Scp939PlayingSoundEventArgs), nameof(Scp939PlayingSoundEventArgs.IsAllowed))),
             new (OpCodes.Brfalse, returnLabel),
         });
         

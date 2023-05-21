@@ -12,24 +12,24 @@ namespace CursedMod.Events.Handlers;
 
 public static class CursedScp106EventsHandler
 {
-    public static event EventManager.CursedEventHandler<PlayerSubmergingEventArgs> PlayerSubmerging;
+    public static event EventManager.CursedEventHandler<Scp106SubmergingEventArgs> Submerging;
     
-    public static event EventManager.CursedEventHandler<PlayerExitingSubmergeEventArgs> PlayerExitingSubmerge; 
+    public static event EventManager.CursedEventHandler<Scp106ExitingSubmergenceEventArgs> ExitingSubmergence; 
 
-    public static event EventManager.CursedEventHandler<PlayerStalkingEventArgs> PlayerStalking;
+    public static event EventManager.CursedEventHandler<Scp106UsingStalkAbilityEventArgs> UsingStalkAbility;
 
-    internal static void OnPlayerStartSubmerging(PlayerSubmergingEventArgs args)
+    internal static void OnSubmerging(Scp106SubmergingEventArgs args)
     {
-        PlayerSubmerging.InvokeEvent(args);
+        Submerging.InvokeEvent(args);
     }
     
-    internal static void OnPlayerExitingSubmerge(PlayerExitingSubmergeEventArgs args)
+    internal static void OnExitingSubmergence(Scp106ExitingSubmergenceEventArgs args)
     {
-        PlayerExitingSubmerge.InvokeEvent(args);
+        ExitingSubmergence.InvokeEvent(args);
     }
     
-    internal static void OnPlayerStalking(PlayerStalkingEventArgs args)
+    internal static void OnUsingStalkAbility(Scp106UsingStalkAbilityEventArgs args)
     {
-        PlayerStalking.InvokeEvent(args);
+        UsingStalkAbility.InvokeEvent(args);
     }
 }

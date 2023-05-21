@@ -16,7 +16,7 @@ using PlayerRoles.PlayableScps.Scp096;
 
 namespace CursedMod.Events.Patches.SCPs.Scp096;
 
-[DynamicEventPatch(typeof(CursedScp096EventsHandler), nameof(CursedScp096EventsHandler.PlayerPryGate))]
+[DynamicEventPatch(typeof(CursedScp096EventsHandler), nameof(CursedScp096EventsHandler.PryingGate))]
 [HarmonyPatch(typeof(Scp096PrygateAbility), nameof(Scp096PrygateAbility.ServerProcessCmd))]
 public class PryGatePatch
 {
@@ -31,10 +31,10 @@ public class PryGatePatch
         newInstructions.InsertRange(index, new CodeInstruction[]
         {
             new (OpCodes.Ldarg_0),
-            new (OpCodes.Newobj, AccessTools.GetDeclaredConstructors(typeof(PlayerPryGateEventArgs))[0]),
+            new (OpCodes.Newobj, AccessTools.GetDeclaredConstructors(typeof(Scp096PryingGateEventArgs))[0]),
             new (OpCodes.Dup),
-            new (OpCodes.Call, AccessTools.Method(typeof(CursedScp096EventsHandler), nameof(CursedScp096EventsHandler.OnPlayerPryGate))),
-            new (OpCodes.Callvirt, AccessTools.PropertyGetter(typeof(PlayerPryGateEventArgs), nameof(PlayerPryGateEventArgs.IsAllowed))),
+            new (OpCodes.Call, AccessTools.Method(typeof(CursedScp096EventsHandler), nameof(CursedScp096EventsHandler.OnPryingGate))),
+            new (OpCodes.Callvirt, AccessTools.PropertyGetter(typeof(Scp096PryingGateEventArgs), nameof(Scp096PryingGateEventArgs.IsAllowed))),
             new (OpCodes.Brfalse_S, returnLabel),
         });
         

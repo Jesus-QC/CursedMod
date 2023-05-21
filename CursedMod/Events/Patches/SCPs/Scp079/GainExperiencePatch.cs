@@ -16,7 +16,7 @@ using PlayerRoles.PlayableScps.Scp079;
 
 namespace CursedMod.Events.Patches.SCPs.Scp079;
 
-[DynamicEventPatch(typeof(CursedScp079EventsHandler), nameof(CursedScp079EventsHandler.PlayerGainExperience))]
+[DynamicEventPatch(typeof(CursedScp079EventsHandler), nameof(CursedScp079EventsHandler.GainingExperience))]
 [HarmonyPatch(typeof(Scp079TierManager), nameof(Scp079TierManager.ServerGrantExperience))]
 public class GainExperiencePatch
 {
@@ -24,7 +24,7 @@ public class GainExperiencePatch
     {
         List<CodeInstruction> newInstructions = EventManager.CheckEvent<GainExperiencePatch>(22, instructions);
 
-        LocalBuilder args = generator.DeclareLocal(typeof(PlayerGainExperienceEventArgs));
+        LocalBuilder args = generator.DeclareLocal(typeof(Scp079GainingExperienceEventArgs));
         Label returnLabel = generator.DefineLabel();
         
         newInstructions.InsertRange(0, new CodeInstruction[]
@@ -32,18 +32,18 @@ public class GainExperiencePatch
             new (OpCodes.Ldarg_0),
             new (OpCodes.Ldarg_1),
             new (OpCodes.Ldarg_2),
-            new (OpCodes.Newobj, AccessTools.GetDeclaredConstructors(typeof(PlayerGainExperienceEventArgs))[0]),
+            new (OpCodes.Newobj, AccessTools.GetDeclaredConstructors(typeof(Scp079GainingExperienceEventArgs))[0]),
             new (OpCodes.Dup),
             new (OpCodes.Dup),
             new (OpCodes.Stloc_S, args.LocalIndex),
-            new (OpCodes.Call, AccessTools.Method(typeof(CursedScp079EventsHandler), nameof(CursedScp079EventsHandler.OnPlayerGainExperience))),
-            new (OpCodes.Callvirt, AccessTools.PropertyGetter(typeof(PlayerGainExperienceEventArgs), nameof(PlayerGainExperienceEventArgs.IsAllowed))),
+            new (OpCodes.Call, AccessTools.Method(typeof(CursedScp079EventsHandler), nameof(CursedScp079EventsHandler.OnGainingExperience))),
+            new (OpCodes.Callvirt, AccessTools.PropertyGetter(typeof(Scp079GainingExperienceEventArgs), nameof(Scp079GainingExperienceEventArgs.IsAllowed))),
             new (OpCodes.Brfalse_S, returnLabel),
             new (OpCodes.Ldloc_S, args.LocalIndex),
-            new (OpCodes.Callvirt, AccessTools.PropertyGetter(typeof(PlayerGainExperienceEventArgs), nameof(PlayerGainExperienceEventArgs.Experience))),
+            new (OpCodes.Callvirt, AccessTools.PropertyGetter(typeof(Scp079GainingExperienceEventArgs), nameof(Scp079GainingExperienceEventArgs.Experience))),
             new (OpCodes.Starg_S, 1),
             new (OpCodes.Ldloc_S, args.LocalIndex),
-            new (OpCodes.Callvirt, AccessTools.PropertyGetter(typeof(PlayerGainExperienceEventArgs), nameof(PlayerGainExperienceEventArgs.HudTranslation))),
+            new (OpCodes.Callvirt, AccessTools.PropertyGetter(typeof(Scp079GainingExperienceEventArgs), nameof(Scp079GainingExperienceEventArgs.HudTranslation))),
             new (OpCodes.Starg_S, 2),
         });
         

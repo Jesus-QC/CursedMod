@@ -12,24 +12,24 @@ namespace CursedMod.Events.Handlers;
 
 public static class CursedScp173EventsHandler
 {
-    public static event EventManager.CursedEventHandler<PlayerBlinkingEventArgs> PlayerBlinking;
+    public static event EventManager.CursedEventHandler<Scp173BlinkingEventArgs> Blinking;
     
-    public static event EventManager.CursedEventHandler<PlayerUseBreakneckSpeedEventArgs> PlayerUseBreakneckSpeed;
+    public static event EventManager.CursedEventHandler<Scp173UsingBreakneckSpeedAbilityEventArgs> UsingBreakneckSpeedAbility;
     
-    public static event EventManager.CursedEventHandler<PlayerPlaceTantrumEventArgs> PlayerPlaceTantrum;
+    public static event EventManager.CursedEventHandler<Scp173PlacingTantrumEventArgs> PlacingTantrum;
 
-    internal static void OnPlayerBlinking(PlayerBlinkingEventArgs args)
+    internal static void OnBlinking(Scp173BlinkingEventArgs args)
     {
-        PlayerBlinking.InvokeEvent(args);
+        Blinking.InvokeEvent(args);
     }
     
-    internal static void OnPlayerUseBreakneckSpeed(PlayerUseBreakneckSpeedEventArgs args)
+    internal static void OnUsingBreakneckSpeedAbility(Scp173UsingBreakneckSpeedAbilityEventArgs args)
     {
-        PlayerUseBreakneckSpeed.InvokeEvent(args);
+        UsingBreakneckSpeedAbility.InvokeEvent(args);
     }
     
-    internal static void OnPlayerPlaceTantrum(PlayerPlaceTantrumEventArgs args)
+    internal static void OnPlacingTantrum(Scp173PlacingTantrumEventArgs args)
     {
-        PlayerPlaceTantrum.InvokeEvent(args);
+        PlacingTantrum.InvokeEvent(args);
     }
 }

@@ -16,7 +16,7 @@ using PlayerRoles.PlayableScps.Scp079;
 
 namespace CursedMod.Events.Patches.SCPs.Scp079;
 
-[DynamicEventPatch(typeof(CursedScp079EventsHandler), nameof(CursedScp079EventsHandler.PlayerChangeDoorLock))]
+[DynamicEventPatch(typeof(CursedScp079EventsHandler), nameof(CursedScp079EventsHandler.ChangingDoorLock))]
 [HarmonyPatch(typeof(Scp079DoorLockChanger), nameof(Scp079DoorLockChanger.SetDoorLock))]
 public class LockDoorPatch
 {
@@ -32,10 +32,10 @@ public class LockDoorPatch
             new (OpCodes.Ldarg_1),
             new (OpCodes.Ldarg_2),
             new (OpCodes.Ldarg_3),
-            new (OpCodes.Newobj, AccessTools.GetDeclaredConstructors(typeof(PlayerChangeDoorLockEventArgs))[0]),
+            new (OpCodes.Newobj, AccessTools.GetDeclaredConstructors(typeof(Scp079ChangingDoorLockEventArgs))[0]),
             new (OpCodes.Dup),
-            new (OpCodes.Call, AccessTools.Method(typeof(CursedScp079EventsHandler), nameof(CursedScp079EventsHandler.OnPlayerChangeDoorLock))),
-            new (OpCodes.Callvirt, AccessTools.PropertyGetter(typeof(PlayerChangeDoorLockEventArgs), nameof(PlayerChangeDoorLockEventArgs.IsAllowed))),
+            new (OpCodes.Call, AccessTools.Method(typeof(CursedScp079EventsHandler), nameof(CursedScp079EventsHandler.OnChangingDoorLock))),
+            new (OpCodes.Callvirt, AccessTools.PropertyGetter(typeof(Scp079ChangingDoorLockEventArgs), nameof(Scp079ChangingDoorLockEventArgs.IsAllowed))),
             new (OpCodes.Brfalse, returnLabel),
         });
         

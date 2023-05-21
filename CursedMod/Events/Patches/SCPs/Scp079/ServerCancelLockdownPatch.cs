@@ -16,7 +16,7 @@ using PlayerRoles.PlayableScps.Scp079;
 
 namespace CursedMod.Events.Patches.SCPs.Scp079;
 
-[DynamicEventPatch(typeof(CursedScp079EventsHandler), nameof(CursedScp079EventsHandler.PlayerCancelLockdown))]
+[DynamicEventPatch(typeof(CursedScp079EventsHandler), nameof(CursedScp079EventsHandler.CancellingLockdown))]
 [HarmonyPatch(typeof(Scp079LockdownRoomAbility), nameof(Scp079LockdownRoomAbility.ServerCancelLockdown))]
 public class ServerCancelLockdownPatch
 {
@@ -31,10 +31,10 @@ public class ServerCancelLockdownPatch
         newInstructions.InsertRange(index, new CodeInstruction[]
         {
             new CodeInstruction(OpCodes.Ldarg_0).MoveLabelsFrom(newInstructions[index]),
-            new (OpCodes.Newobj, AccessTools.GetDeclaredConstructors(typeof(PlayerCancelLockdownEventArgs))[0]),
+            new (OpCodes.Newobj, AccessTools.GetDeclaredConstructors(typeof(Scp079CancellingLockdownEventArgs))[0]),
             new (OpCodes.Dup),
-            new (OpCodes.Call, AccessTools.Method(typeof(CursedScp079EventsHandler), nameof(CursedScp079EventsHandler.OnPlayerCancelLockdown))),
-            new (OpCodes.Callvirt, AccessTools.PropertyGetter(typeof(PlayerCancelLockdownEventArgs), nameof(PlayerCancelLockdownEventArgs.IsAllowed))),
+            new (OpCodes.Call, AccessTools.Method(typeof(CursedScp079EventsHandler), nameof(CursedScp079EventsHandler.OnCancellingLockdown))),
+            new (OpCodes.Callvirt, AccessTools.PropertyGetter(typeof(Scp079CancellingLockdownEventArgs), nameof(Scp079CancellingLockdownEventArgs.IsAllowed))),
             new (OpCodes.Brfalse_S, returnLabel),
         });
         

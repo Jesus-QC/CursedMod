@@ -17,7 +17,7 @@ using PlayerRoles.PlayableScps.Scp079;
 
 namespace CursedMod.Events.Patches.SCPs.Scp079;
 
-[DynamicEventPatch(typeof(CursedScp079EventsHandler), nameof(CursedScp079EventsHandler.PlayerChangeDoorState))]
+[DynamicEventPatch(typeof(CursedScp079EventsHandler), nameof(CursedScp079EventsHandler.ChangingDoorState))]
 [HarmonyPatch(typeof(Scp079DoorStateChanger), nameof(Scp079DoorStateChanger.ServerProcessCmd))]
 public class ChangeDoorStatePatch
 {
@@ -36,10 +36,10 @@ public class ChangeDoorStatePatch
             new CodeInstruction(OpCodes.Ldarg_0).MoveLabelsFrom(newInstructions[index]),
             new (OpCodes.Ldarg_0),
             new (OpCodes.Ldfld, AccessTools.Field(typeof(Scp079DoorStateChanger), nameof(Scp079DoorStateChanger.LastDoor))),
-            new (OpCodes.Newobj, AccessTools.GetDeclaredConstructors(typeof(PlayerChangeDoorStateEventArgs))[0]),
+            new (OpCodes.Newobj, AccessTools.GetDeclaredConstructors(typeof(Scp079ChangingDoorStateEventArgs))[0]),
             new (OpCodes.Dup),
-            new (OpCodes.Call, AccessTools.Method(typeof(CursedScp079EventsHandler), nameof(CursedScp079EventsHandler.OnPlayerChangeDoorState))),
-            new (OpCodes.Callvirt, AccessTools.PropertyGetter(typeof(PlayerChangeDoorStateEventArgs), nameof(PlayerChangeDoorStateEventArgs.IsAllowed))),
+            new (OpCodes.Call, AccessTools.Method(typeof(CursedScp079EventsHandler), nameof(CursedScp079EventsHandler.OnChangingDoorState))),
+            new (OpCodes.Callvirt, AccessTools.PropertyGetter(typeof(Scp079ChangingDoorStateEventArgs), nameof(Scp079ChangingDoorStateEventArgs.IsAllowed))),
             new (OpCodes.Brfalse_S, returnLabel),
         });
         

@@ -16,7 +16,7 @@ using PlayerRoles.PlayableScps.Scp173;
 
 namespace CursedMod.Events.Patches.SCPs.Scp173;
 
-[DynamicEventPatch(typeof(CursedScp173EventsHandler), nameof(CursedScp173EventsHandler.PlayerUseBreakneckSpeed))]
+[DynamicEventPatch(typeof(CursedScp173EventsHandler), nameof(CursedScp173EventsHandler.UsingBreakneckSpeedAbility))]
 [HarmonyPatch(typeof(Scp173BreakneckSpeedsAbility), nameof(Scp173BreakneckSpeedsAbility.ServerProcessCmd))]
 public class TriggerBreakNeckSpeedPatch
 {
@@ -29,10 +29,10 @@ public class TriggerBreakNeckSpeedPatch
         newInstructions.InsertRange(0, new CodeInstruction[]
         {
             new (OpCodes.Ldarg_0),
-            new (OpCodes.Newobj, AccessTools.GetDeclaredConstructors(typeof(PlayerUseBreakneckSpeedEventArgs))[0]),
+            new (OpCodes.Newobj, AccessTools.GetDeclaredConstructors(typeof(Scp173UsingBreakneckSpeedAbilityEventArgs))[0]),
             new (OpCodes.Dup),
-            new (OpCodes.Call, AccessTools.Method(typeof(CursedScp173EventsHandler), nameof(CursedScp173EventsHandler.OnPlayerUseBreakneckSpeed))),
-            new (OpCodes.Callvirt, AccessTools.PropertyGetter(typeof(PlayerUseBreakneckSpeedEventArgs), nameof(PlayerUseBreakneckSpeedEventArgs.IsAllowed))),
+            new (OpCodes.Call, AccessTools.Method(typeof(CursedScp173EventsHandler), nameof(CursedScp173EventsHandler.OnUsingBreakneckSpeedAbility))),
+            new (OpCodes.Callvirt, AccessTools.PropertyGetter(typeof(Scp173UsingBreakneckSpeedAbilityEventArgs), nameof(Scp173UsingBreakneckSpeedAbilityEventArgs.IsAllowed))),
             new (OpCodes.Brfalse_S, retLabel),
         });
         

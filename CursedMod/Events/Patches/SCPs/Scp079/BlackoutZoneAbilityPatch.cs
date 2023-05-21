@@ -16,7 +16,7 @@ using PlayerRoles.PlayableScps.Scp079;
 
 namespace CursedMod.Events.Patches.SCPs.Scp079;
 
-[DynamicEventPatch(typeof(CursedScp079EventsHandler), nameof(CursedScp079EventsHandler.PlayerBlackoutZone))]
+[DynamicEventPatch(typeof(CursedScp079EventsHandler), nameof(CursedScp079EventsHandler.UsingBlackoutZoneAbility))]
 [HarmonyPatch(typeof(Scp079BlackoutZoneAbility), nameof(Scp079BlackoutZoneAbility.ServerProcessCmd))]
 public class BlackoutZoneAbilityPatch
 {
@@ -43,8 +43,8 @@ public class BlackoutZoneAbilityPatch
 
     private static bool ProcessBlackoutZoneEvent(Scp079BlackoutZoneAbility blackoutZoneAbility)
     {
-        PlayerBlackoutZoneEventArgs args = new (blackoutZoneAbility, blackoutZoneAbility._cost, blackoutZoneAbility._duration);
-        CursedScp079EventsHandler.OnPlayerBlackoutZone(args);
+        Scp079UsingBlackoutZoneAbilityEventArgs args = new (blackoutZoneAbility, blackoutZoneAbility._cost, blackoutZoneAbility._duration);
+        CursedScp079EventsHandler.OnUsingBlackoutZoneAbility(args);
         
         if (args.IsAllowed)
         {

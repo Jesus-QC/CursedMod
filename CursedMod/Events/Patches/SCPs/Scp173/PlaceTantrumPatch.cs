@@ -18,7 +18,7 @@ using UnityEngine;
 
 namespace CursedMod.Events.Patches.SCPs.Scp173;
 
-[DynamicEventPatch(typeof(CursedScp173EventsHandler), nameof(CursedScp173EventsHandler.PlayerPlaceTantrum))]
+[DynamicEventPatch(typeof(CursedScp173EventsHandler), nameof(CursedScp173EventsHandler.PlacingTantrum))]
 [HarmonyPatch(typeof(Scp173TantrumAbility), nameof(Scp173TantrumAbility.ServerProcessCmd))]
 public class PlaceTantrumPatch
 {
@@ -34,10 +34,10 @@ public class PlaceTantrumPatch
         newInstructions.InsertRange(index, new CodeInstruction[]
         {
             new (OpCodes.Ldarg_0),
-            new (OpCodes.Newobj, AccessTools.GetDeclaredConstructors(typeof(PlayerPlaceTantrumEventArgs))[0]),
+            new (OpCodes.Newobj, AccessTools.GetDeclaredConstructors(typeof(Scp173PlacingTantrumEventArgs))[0]),
             new (OpCodes.Dup),
-            new (OpCodes.Call, AccessTools.Method(typeof(CursedScp173EventsHandler), nameof(CursedScp173EventsHandler.OnPlayerPlaceTantrum))),
-            new (OpCodes.Callvirt, AccessTools.PropertyGetter(typeof(PlayerPlaceTantrumEventArgs), nameof(PlayerPlaceTantrumEventArgs.IsAllowed))),
+            new (OpCodes.Call, AccessTools.Method(typeof(CursedScp173EventsHandler), nameof(CursedScp173EventsHandler.OnPlacingTantrum))),
+            new (OpCodes.Callvirt, AccessTools.PropertyGetter(typeof(Scp173PlacingTantrumEventArgs), nameof(Scp173PlacingTantrumEventArgs.IsAllowed))),
             new (OpCodes.Brfalse_S, retLabel),
         });
         

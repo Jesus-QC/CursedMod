@@ -12,87 +12,87 @@ namespace CursedMod.Events.Handlers;
 
 public static class CursedScp079EventsHandler
 {
-    public static event EventManager.CursedEventHandler<PlayerBlackoutRoomEventArgs> PlayerBlackoutRoom;
+    public static event EventManager.CursedEventHandler<Scp079UsingBlackoutRoomAbilityEventArgs> UsingBlackoutRoomAbility;
     
-    public static event EventManager.CursedEventHandler<PlayerBlackoutZoneEventArgs> PlayerBlackoutZone;
+    public static event EventManager.CursedEventHandler<Scp079UsingBlackoutZoneAbilityEventArgs> UsingBlackoutZoneAbility;
     
-    public static event EventManager.CursedEventHandler<PlayerChangeCameraEventArgs> PlayerChangeCamera;
+    public static event EventManager.CursedEventHandler<Scp079ChangingCameraEventArgs> ChangingCamera;
     
-    public static event EventManager.CursedEventHandler<PlayerMoveElevatorEventArgs> PlayerMoveElevator;
+    public static event EventManager.CursedEventHandler<Scp079MovingElevatorEventArgs> MovingElevator;
     
-    public static event EventManager.CursedEventHandler<PlayerUseLockdownEventArgs> PlayerUseLockdown;
+    public static event EventManager.CursedEventHandler<Scp079UsingLockdownAbilityEventArgs> UsingLockdownAbility;
 
-    public static event EventManager.CursedEventHandler<PlayerCancelLockdownEventArgs> PlayerCancelLockdown; 
+    public static event EventManager.CursedEventHandler<Scp079CancellingLockdownEventArgs> CancellingLockdown; 
     
-    public static event EventManager.CursedEventHandler<PlayerLevelUpEventArgs> PlayerLevelUp;
+    public static event EventManager.CursedEventHandler<Scp079LevelingUpEventArgs> LevelingUp;
     
-    public static event EventManager.CursedEventHandler<PlayerGainExperienceEventArgs> PlayerGainExperience;
+    public static event EventManager.CursedEventHandler<Scp079GainingExperienceEventArgs> GainingExperience;
     
-    public static event EventManager.CursedEventHandler<PlayerUseTeslaEventArgs> PlayerUseTesla;
+    public static event EventManager.CursedEventHandler<Scp079UsingTeslaEventArgs> UsingTesla;
     
-    public static event EventManager.CursedEventHandler<PlayerPingEventArgs> PlayerPing; 
+    public static event EventManager.CursedEventHandler<Scp079UsingPingAbilityEventArgs> UsingPingAbility; 
     
-    public static event EventManager.CursedEventHandler<PlayerChangeDoorLockEventArgs> PlayerChangeDoorLock;
+    public static event EventManager.CursedEventHandler<Scp079ChangingDoorLockEventArgs> ChangingDoorLock;
     
-    public static event EventManager.CursedEventHandler<PlayerChangeDoorStateEventArgs> PlayerChangeDoorState;
+    public static event EventManager.CursedEventHandler<Scp079ChangingDoorStateEventArgs> ChangingDoorState;
 
-    internal static void OnPlayerBlackoutRoom(PlayerBlackoutRoomEventArgs args)
+    internal static void OnUsingBlackoutRoomAbility(Scp079UsingBlackoutRoomAbilityEventArgs args)
     {
-        PlayerBlackoutRoom.InvokeEvent(args);
+        UsingBlackoutRoomAbility.InvokeEvent(args);
     }
     
-    internal static void OnPlayerBlackoutZone(PlayerBlackoutZoneEventArgs args)
+    internal static void OnUsingBlackoutZoneAbility(Scp079UsingBlackoutZoneAbilityEventArgs args)
     {
-        PlayerBlackoutZone.InvokeEvent(args);
+        UsingBlackoutZoneAbility.InvokeEvent(args);
     }
     
-    internal static void OnPlayerChangeCamera(PlayerChangeCameraEventArgs args)
+    internal static void OnChangingCamera(Scp079ChangingCameraEventArgs args)
     {
-        PlayerChangeCamera.InvokeEvent(args);
+        ChangingCamera.InvokeEvent(args);
     }
     
-    internal static void OnPlayerMoveElevator(PlayerMoveElevatorEventArgs args)
+    internal static void OnMovingElevator(Scp079MovingElevatorEventArgs args)
     {
-        PlayerMoveElevator.InvokeEvent(args);
+        MovingElevator.InvokeEvent(args);
     }
     
-    internal static void OnPlayerUseLockdown(PlayerUseLockdownEventArgs args)
+    internal static void OnUsingLockdownAbility(Scp079UsingLockdownAbilityEventArgs args)
     {
-        PlayerUseLockdown.InvokeEvent(args);
+        UsingLockdownAbility.InvokeEvent(args);
     }
 
-    internal static void OnPlayerCancelLockdown(PlayerCancelLockdownEventArgs args)
+    internal static void OnCancellingLockdown(Scp079CancellingLockdownEventArgs args)
     {
-        PlayerCancelLockdown.InvokeEvent(args);
+        CancellingLockdown.InvokeEvent(args);
     }
     
-    internal static void OnPlayerLevelUp(PlayerLevelUpEventArgs args)
+    internal static void OnLevelingUp(Scp079LevelingUpEventArgs args)
     {
-        PlayerLevelUp.InvokeEvent(args);
+        LevelingUp.InvokeEvent(args);
     }
     
-    internal static void OnPlayerGainExperience(PlayerGainExperienceEventArgs args)
+    internal static void OnGainingExperience(Scp079GainingExperienceEventArgs args)
     {
-        PlayerGainExperience.InvokeEvent(args);
+        GainingExperience.InvokeEvent(args);
     }
     
-    internal static void OnPlayerUseTesla(PlayerUseTeslaEventArgs args)
+    internal static void OnUsingTesla(Scp079UsingTeslaEventArgs args)
     {
-        PlayerUseTesla.InvokeEvent(args);
+        UsingTesla.InvokeEvent(args);
     }
     
-    internal static void OnPlayerPing(PlayerPingEventArgs args)
+    internal static void OnUsingPingAbility(Scp079UsingPingAbilityEventArgs args)
     {
-        PlayerPing.InvokeEvent(args);
+        UsingPingAbility.InvokeEvent(args);
     }
     
-    internal static void OnPlayerChangeDoorLock(PlayerChangeDoorLockEventArgs args)
+    internal static void OnChangingDoorLock(Scp079ChangingDoorLockEventArgs args)
     {
-        PlayerChangeDoorLock.InvokeEvent(args);
+        ChangingDoorLock.InvokeEvent(args);
     }
     
-    internal static void OnPlayerChangeDoorState(PlayerChangeDoorStateEventArgs args)
+    internal static void OnChangingDoorState(Scp079ChangingDoorStateEventArgs args)
     {
-        PlayerChangeDoorState.InvokeEvent(args);
+        ChangingDoorState.InvokeEvent(args);
     }
 }

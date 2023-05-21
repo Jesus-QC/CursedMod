@@ -16,7 +16,7 @@ using NorthwoodLib.Pools;
 
 namespace CursedMod.Events.Patches.SCPs.Scp330;
 
-[DynamicEventPatch(typeof(CursedScp330EventsHandler), nameof(CursedScp330EventsHandler.PlayerEatScp330))]
+[DynamicEventPatch(typeof(CursedScp330EventsHandler), nameof(CursedScp330EventsHandler.PlayerEatingScp330))]
 [HarmonyPatch(typeof(Scp330Bag), nameof(Scp330Bag.ServerOnUsingCompleted))]
 public class EatScp330Patch
 {
@@ -34,10 +34,10 @@ public class EatScp330Patch
         {
             new CodeInstruction(OpCodes.Ldarg_0).MoveLabelsFrom(newInstructions[index]),
             new (OpCodes.Ldloc_0),
-            new (OpCodes.Newobj, AccessTools.GetDeclaredConstructors(typeof(PlayerEatScp330EventArgs))[0]),
+            new (OpCodes.Newobj, AccessTools.GetDeclaredConstructors(typeof(PlayerEatingScp330EventArgs))[0]),
             new (OpCodes.Dup),
-            new (OpCodes.Call, AccessTools.Method(typeof(CursedScp330EventsHandler), nameof(CursedScp330EventsHandler.OnPlayerEatScp330))),
-            new (OpCodes.Callvirt, AccessTools.PropertyGetter(typeof(PlayerEatScp330EventArgs), nameof(PlayerEatScp330EventArgs.IsAllowed))),
+            new (OpCodes.Call, AccessTools.Method(typeof(CursedScp330EventsHandler), nameof(CursedScp330EventsHandler.OnPlayerEatingScp330))),
+            new (OpCodes.Callvirt, AccessTools.PropertyGetter(typeof(PlayerEatingScp330EventArgs), nameof(PlayerEatingScp330EventArgs.IsAllowed))),
             new (OpCodes.Brfalse_S, returnLabel),
         });
         

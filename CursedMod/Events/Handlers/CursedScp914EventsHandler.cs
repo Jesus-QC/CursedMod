@@ -12,24 +12,24 @@ namespace CursedMod.Events.Handlers;
 
 public static class CursedScp914EventsHandler
 {
-    public static event EventManager.CursedEventHandler<PlayerChangeKnobSettingEventArgs> PlayerChangeKnobSetting;
+    public static event EventManager.CursedEventHandler<PlayerChangingScp939KnobSettingEventArgs> PlayerChangingScp939KnobSetting;
     
-    public static event EventManager.CursedEventHandler<PlayerStart914EventArgs> PlayerStart;
+    public static event EventManager.CursedEventHandler<PlayerEnablingScp914EventArgs> PlayerEnablingScp914;
     
-    public static event EventManager.CursedEventHandler<PlayerUpgradeItemEventArgs> PlayerUpgradeItem; 
+    public static event EventManager.CursedEventHandler<Scp914UpgradingItemEventArgs> UpgradingItem; 
 
-    internal static void OnPlayerChangeKnobSetting(PlayerChangeKnobSettingEventArgs args)
+    internal static void OnPlayerChangingScp939KnobSetting(PlayerChangingScp939KnobSettingEventArgs args)
     {
-        PlayerChangeKnobSetting.InvokeEvent(args);
+        PlayerChangingScp939KnobSetting.InvokeEvent(args);
     }
     
-    internal static void OnPlayerStart914(PlayerStart914EventArgs args)
+    internal static void OnPlayerEnablingScp914(PlayerEnablingScp914EventArgs args)
     {
-        PlayerStart.InvokeEvent(args);
+        PlayerEnablingScp914.InvokeEvent(args);
     }
     
-    internal static void OnPlayerUpgradeItem(PlayerUpgradeItemEventArgs args)
+    internal static void OnUpgradingItem(Scp914UpgradingItemEventArgs args)
     {
-        PlayerUpgradeItem.InvokeEvent(args);
+        UpgradingItem.InvokeEvent(args);
     }
 }

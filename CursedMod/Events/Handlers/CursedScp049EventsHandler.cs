@@ -12,31 +12,31 @@ namespace CursedMod.Events.Handlers;
 
 public static class CursedScp049EventsHandler
 {
-    public static event EventManager.CursedEventHandler<PlayerStartReviveEventArgs> PlayerStartRevive;
+    public static event EventManager.CursedEventHandler<Scp049StartingResurrectionEventArgs> StartingResurrection;
     
-    public static event EventManager.CursedEventHandler<PlayerFinishReviveEventArgs> PlayerFinishRevive;
+    public static event EventManager.CursedEventHandler<Scp049ResurrectingPlayerEventArgs> ResurrectingPlayer;
     
-    public static event EventManager.CursedEventHandler<PlayerSensingEventArgs> PlayerSensing;
+    public static event EventManager.CursedEventHandler<Scp049UsingSenseAbilityEventArgs> UsingSenseAbility;
     
-    public static event EventManager.CursedEventHandler<PlayerCallingEventArgs> PlayerCalling; 
+    public static event EventManager.CursedEventHandler<Scp049UsingCallAbilityEventArgs> UsingCallAbility; 
 
-    internal static void OnPlayerReviving(PlayerStartReviveEventArgs args)
+    internal static void OnStartingResurrection(Scp049StartingResurrectionEventArgs args)
     {
-        PlayerStartRevive.InvokeEvent(args);
+        StartingResurrection.InvokeEvent(args);
     }
     
-    internal static void OnPlayerRevived(PlayerFinishReviveEventArgs args)
+    internal static void OnResurrectingPlayer(Scp049ResurrectingPlayerEventArgs args)
     {
-        PlayerFinishRevive.InvokeEvent(args);
+        ResurrectingPlayer.InvokeEvent(args);
     }
     
-    internal static void OnPlayerSensing(PlayerSensingEventArgs args)
+    internal static void OnUsingSenseAbility(Scp049UsingSenseAbilityEventArgs args)
     {
-        PlayerSensing.InvokeEvent(args);
+        UsingSenseAbility.InvokeEvent(args);
     }
     
-    internal static void OnPlayerCalling(PlayerCallingEventArgs args)
+    internal static void OnUsingCallAbility(Scp049UsingCallAbilityEventArgs args)
     {
-        PlayerCalling.InvokeEvent(args);
+        UsingCallAbility.InvokeEvent(args);
     }
 }

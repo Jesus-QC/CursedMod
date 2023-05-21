@@ -17,7 +17,7 @@ using PlayerRoles.PlayableScps.Scp079.Cameras;
 
 namespace CursedMod.Events.Patches.SCPs.Scp079;
 
-[DynamicEventPatch(typeof(CursedScp079EventsHandler), nameof(CursedScp079EventsHandler.PlayerMoveElevator))]
+[DynamicEventPatch(typeof(CursedScp079EventsHandler), nameof(CursedScp079EventsHandler.MovingElevator))]
 [HarmonyPatch(typeof(Scp079ElevatorStateChanger), nameof(Scp079ElevatorStateChanger.ServerProcessCmd))]
 public class ElevatorStateChangerPatch
 {
@@ -38,10 +38,10 @@ public class ElevatorStateChangerPatch
             new (OpCodes.Call, AccessTools.PropertyGetter(typeof(Scp079AbilityBase), nameof(Scp079AbilityBase.CurrentCamSync))),
             new (OpCodes.Callvirt, AccessTools.PropertyGetter(typeof(Scp079CurrentCameraSync), nameof(Scp079CurrentCameraSync.CurrentCamera))),
             new (OpCodes.Callvirt, AccessTools.PropertyGetter(typeof(Scp079Camera), nameof(Scp079Camera.Room))),
-            new (OpCodes.Newobj, AccessTools.GetDeclaredConstructors(typeof(PlayerMoveElevatorEventArgs))[0]),
+            new (OpCodes.Newobj, AccessTools.GetDeclaredConstructors(typeof(Scp079MovingElevatorEventArgs))[0]),
             new (OpCodes.Dup),
-            new (OpCodes.Call, AccessTools.Method(typeof(CursedScp079EventsHandler), nameof(CursedScp079EventsHandler.OnPlayerMoveElevator))),
-            new (OpCodes.Callvirt, AccessTools.PropertyGetter(typeof(PlayerMoveElevatorEventArgs), nameof(PlayerMoveElevatorEventArgs.IsAllowed))),
+            new (OpCodes.Call, AccessTools.Method(typeof(CursedScp079EventsHandler), nameof(CursedScp079EventsHandler.OnMovingElevator))),
+            new (OpCodes.Callvirt, AccessTools.PropertyGetter(typeof(Scp079MovingElevatorEventArgs), nameof(Scp079MovingElevatorEventArgs.IsAllowed))),
             new (OpCodes.Brfalse_S, returnLabel),
         });
         

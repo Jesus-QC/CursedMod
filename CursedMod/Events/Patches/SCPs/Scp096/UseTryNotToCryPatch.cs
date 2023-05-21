@@ -16,7 +16,7 @@ using PlayerRoles.PlayableScps.Scp096;
 
 namespace CursedMod.Events.Patches.SCPs.Scp096;
 
-[DynamicEventPatch(typeof(CursedScp096EventsHandler), nameof(CursedScp096EventsHandler.PlayerTryNotToCry))]
+[DynamicEventPatch(typeof(CursedScp096EventsHandler), nameof(CursedScp096EventsHandler.TryingNotToCry))]
 [HarmonyPatch(typeof(Scp096TryNotToCryAbility), nameof(Scp096TryNotToCryAbility.ServerProcessCmd))]
 public class UseTryNotToCryPatch
 {
@@ -31,10 +31,10 @@ public class UseTryNotToCryPatch
         newInstructions.InsertRange(index, new CodeInstruction[]
         {
             new CodeInstruction(OpCodes.Ldarg_0).MoveLabelsFrom(newInstructions[index]),
-            new (OpCodes.Newobj, AccessTools.GetDeclaredConstructors(typeof(PlayerTryNotToCryEventArgs))[0]),
+            new (OpCodes.Newobj, AccessTools.GetDeclaredConstructors(typeof(Scp096TryingNotToCryEventArgs))[0]),
             new (OpCodes.Dup),
-            new (OpCodes.Call, AccessTools.Method(typeof(CursedScp096EventsHandler), nameof(CursedScp096EventsHandler.OnPlayerTryNotToCry))),
-            new (OpCodes.Callvirt, AccessTools.PropertyGetter(typeof(PlayerTryNotToCryEventArgs), nameof(PlayerTryNotToCryEventArgs.IsAllowed))),
+            new (OpCodes.Call, AccessTools.Method(typeof(CursedScp096EventsHandler), nameof(CursedScp096EventsHandler.OnTryingNotToCry))),
+            new (OpCodes.Callvirt, AccessTools.PropertyGetter(typeof(Scp096TryingNotToCryEventArgs), nameof(Scp096TryingNotToCryEventArgs.IsAllowed))),
             new (OpCodes.Brfalse_S, retLabel),
         });
         

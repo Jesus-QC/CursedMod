@@ -458,7 +458,7 @@ public class CursedPlayer
     
     public CursedScp939Role CursedScp939Role => CurrentRole as CursedScp939Role;
     
-    public CursedZombieRole CursedZombieRole => CurrentRole as CursedZombieRole;
+    public CursedScp0492Role CursedScp0492Role => CurrentRole as CursedScp0492Role;
     
     public CursedHumanRole CursedHumanRole => CurrentRole as CursedHumanRole; 
 
