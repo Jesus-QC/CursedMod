@@ -22,6 +22,7 @@ namespace CursedMod.Events.Patches.SCPs.Scp939;
 [HarmonyPatch(typeof(MimicPointController), nameof(MimicPointController.ServerProcessCmd))]
 public class PlaceMimicPointPatch
 {
+    // TODO: REVIEW
     private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
     {
         List<CodeInstruction> newInstructions = EventManager.CheckEvent<PlaceMimicPointPatch>(30, instructions);
@@ -37,7 +38,7 @@ public class PlaceMimicPointPatch
         
         newInstructions[newInstructions.Count - 1].labels.Add(returnLabel);
         
-        foreach (var instruction in newInstructions)
+        foreach (CodeInstruction instruction in newInstructions)
             yield return instruction;
         
         ListPool<CodeInstruction>.Shared.Return(newInstructions);

@@ -20,6 +20,7 @@ namespace CursedMod.Events.Patches.SCPs.Scp939;
 [HarmonyPatch(typeof(EnvironmentalMimicry), nameof(EnvironmentalMimicry.ServerProcessCmd))]
 public class PlayMimicrySoundPatch
 {
+    // TODO: REVIEW
     private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
     {
         List<CodeInstruction> newInstructions = EventManager.CheckEvent<PlayMimicrySoundPatch>(21, instructions);
@@ -42,7 +43,7 @@ public class PlayMimicrySoundPatch
         
         newInstructions[newInstructions.Count - 1].labels.Add(returnLabel);
         
-        foreach (var instruction in newInstructions)
+        foreach (CodeInstruction instruction in newInstructions)
             yield return instruction;
         
         ListPool<CodeInstruction>.Shared.Return(newInstructions);

@@ -20,6 +20,7 @@ namespace CursedMod.Events.Patches.SCPs.Scp939;
 [HarmonyPatch(typeof(MimicryRecorder), nameof(MimicryRecorder.RemoveRecordingsOfPlayer))]
 public class RemoveSavedRecordingPatch
 {
+    // TODO: REVIEW
     private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
     {
         List<CodeInstruction> newInstructions = EventManager.CheckEvent<RemoveSavedRecordingPatch>(34, instructions);
@@ -39,7 +40,7 @@ public class RemoveSavedRecordingPatch
         
         newInstructions[newInstructions.Count - 1].labels.Add(returnLabel);
         
-        foreach (var instruction in newInstructions)
+        foreach (CodeInstruction instruction in newInstructions)
             yield return instruction;
         
         ListPool<CodeInstruction>.Shared.Return(newInstructions);

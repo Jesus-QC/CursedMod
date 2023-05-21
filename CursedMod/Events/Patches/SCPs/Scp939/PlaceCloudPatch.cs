@@ -20,6 +20,7 @@ namespace CursedMod.Events.Patches.SCPs.Scp939;
 [HarmonyPatch(typeof(Scp939AmnesticCloudAbility), nameof(Scp939AmnesticCloudAbility.OnStateEnabled))]
 public class PlaceCloudPatch
 {
+    // TODO: REVIEW
     private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
     {
         List<CodeInstruction> newInstructions = EventManager.CheckEvent<PlaceCloudPatch>(34, instructions);
@@ -41,7 +42,7 @@ public class PlaceCloudPatch
         
         newInstructions[newInstructions.Count - 1].labels.Add(returnLabel);
         
-        foreach (var instruction in newInstructions)
+        foreach (CodeInstruction instruction in newInstructions)
             yield return instruction;
         
         ListPool<CodeInstruction>.Shared.Return(newInstructions);

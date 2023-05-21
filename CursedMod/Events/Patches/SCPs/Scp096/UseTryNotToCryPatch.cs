@@ -20,6 +20,7 @@ namespace CursedMod.Events.Patches.SCPs.Scp096;
 [HarmonyPatch(typeof(Scp096TryNotToCryAbility), nameof(Scp096TryNotToCryAbility.ServerProcessCmd))]
 public class UseTryNotToCryPatch
 {
+    // TODO: REVIEW
     private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
     {
         List<CodeInstruction> newInstructions = EventManager.CheckEvent<UseTryNotToCryPatch>(25, instructions);
@@ -40,7 +41,7 @@ public class UseTryNotToCryPatch
         
         newInstructions[newInstructions.Count - 1].labels.Add(retLabel);
         
-        foreach (var instruction in newInstructions)
+        foreach (CodeInstruction instruction in newInstructions)
             yield return instruction;
         
         ListPool<CodeInstruction>.Shared.Return(newInstructions);

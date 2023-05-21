@@ -20,6 +20,7 @@ namespace CursedMod.Events.Patches.SCPs.Scp096;
 [HarmonyPatch(typeof(Scp096ChargeAbility), nameof(Scp096ChargeAbility.ServerProcessCmd))]
 public class ChargePatch
 {
+    // TODO: REVIEW
     private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
     {
         List<CodeInstruction> newInstructions = EventManager.CheckEvent<ChargePatch>(38, instructions);
@@ -40,7 +41,7 @@ public class ChargePatch
         
         newInstructions[newInstructions.Count - 1].labels.Add(returnLabel);
         
-        foreach (var instruction in newInstructions)
+        foreach (CodeInstruction instruction in newInstructions)
             yield return instruction;
         
         ListPool<CodeInstruction>.Shared.Return(newInstructions);

@@ -20,13 +20,13 @@ namespace CursedMod.Events.Patches.SCPs.Scp079;
 [HarmonyPatch(typeof(Scp079BlackoutZoneAbility), nameof(Scp079BlackoutZoneAbility.ServerProcessCmd))]
 public class BlackoutZoneAbilityPatch
 {
+    // TODO: REVIEW
     private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
     {
         List<CodeInstruction> newInstructions = EventManager.CheckEvent<BlackoutZoneAbilityPatch>(71, instructions);
         
         const int offset = 4;
-        int index = newInstructions.FindIndex(
-            i => i.LoadsField(AccessTools.Field(typeof(Scp079BlackoutZoneAbility), nameof(Scp079BlackoutZoneAbility._syncZone)))) + offset;
+        int index = newInstructions.FindIndex(i => i.LoadsField(AccessTools.Field(typeof(Scp079BlackoutZoneAbility), nameof(Scp079BlackoutZoneAbility._syncZone)))) + offset;
         
         newInstructions.InsertRange(index, new CodeInstruction[]
         {
@@ -35,7 +35,7 @@ public class BlackoutZoneAbilityPatch
             new (OpCodes.Call, AccessTools.Method(typeof(BlackoutZoneAbilityPatch), nameof(ProcessBlackoutZoneEvent))),
         });
 
-        foreach (var instruction in newInstructions)
+        foreach (CodeInstruction instruction in newInstructions)
             yield return instruction;
         
         ListPool<CodeInstruction>.Shared.Return(newInstructions);
@@ -45,14 +45,13 @@ public class BlackoutZoneAbilityPatch
     {
         Scp079UsingBlackoutZoneAbilityEventArgs args = new (blackoutZoneAbility, blackoutZoneAbility._cost, blackoutZoneAbility._duration);
         CursedScp079EventsHandler.OnUsingBlackoutZoneAbility(args);
+
+        if (!args.IsAllowed)
+            return false;
         
-        if (args.IsAllowed)
-        {
-            blackoutZoneAbility._duration = args.Duration;
-            blackoutZoneAbility._cooldownTimer.Trigger(blackoutZoneAbility._cooldown);
-            blackoutZoneAbility._cost = args.PowerCost;
-        }
-        
-        return args.IsAllowed;
+        blackoutZoneAbility._duration = args.Duration;
+        blackoutZoneAbility._cooldownTimer.Trigger(blackoutZoneAbility._cooldown);
+        blackoutZoneAbility._cost = args.PowerCost;
+        return true;
     }
 }

@@ -22,6 +22,7 @@ namespace CursedMod.Events.Patches.SCPs.Scp173;
 [HarmonyPatch(typeof(Scp173TantrumAbility), nameof(Scp173TantrumAbility.ServerProcessCmd))]
 public class PlaceTantrumPatch
 {
+    // TODO: REVIEW
     private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
     {
         List<CodeInstruction> newInstructions = EventManager.CheckEvent<PlaceTantrumPatch>(85, instructions);
@@ -43,7 +44,7 @@ public class PlaceTantrumPatch
         
         newInstructions[newInstructions.Count - 1].labels.Add(retLabel);
         
-        foreach (var instruction in newInstructions)
+        foreach (CodeInstruction instruction in newInstructions)
             yield return instruction;
         
         ListPool<CodeInstruction>.Shared.Return(newInstructions);

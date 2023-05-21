@@ -21,6 +21,7 @@ namespace CursedMod.Events.Patches.SCPs.Scp0492;
 [HarmonyPatch(typeof(ZombieBloodlustAbility), nameof(ZombieBloodlustAbility.AnyTargets))]
 public class BloodlustingPatch
 {
+    // TODO: REVIEW
     private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
     {
         List<CodeInstruction> newInstructions = EventManager.CheckEvent<BloodlustingPatch>(56, instructions);
@@ -43,7 +44,7 @@ public class BloodlustingPatch
         
         newInstructions[newInstructions.Count - 1].labels.Add(retLabel);
         
-        foreach (var instruction in newInstructions)
+        foreach (CodeInstruction instruction in newInstructions)
             yield return instruction;
         
         ListPool<CodeInstruction>.Shared.Return(newInstructions);

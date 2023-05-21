@@ -33,6 +33,7 @@ using InventorySystem.Searching;
 using Mirror;
 using PlayerRoles;
 using PlayerRoles.FirstPersonControl;
+using PlayerRoles.PlayableScps.HumeShield;
 using PlayerStatsSystem;
 using PluginAPI.Core;
 using RemoteAdmin;
@@ -358,7 +359,7 @@ public class CursedPlayer
     {
         get
         {
-            if (HumeShieldStat.TryGetHsModule(out var hsModuleBase))
+            if (HumeShieldStat.TryGetHsModule(out HumeShieldModuleBase hsModuleBase))
                 return hsModuleBase.HsRegeneration;
 
             return 0;

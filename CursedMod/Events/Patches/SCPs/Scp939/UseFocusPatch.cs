@@ -21,6 +21,7 @@ namespace CursedMod.Events.Patches.SCPs.Scp939;
 [HarmonyPatch(typeof(Scp939FocusKeySync), nameof(Scp939FocusKeySync.ServerProcessCmd))]
 public class UseFocusPatch
 {
+    // TODO: REVIEW
     private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
     {
         List<CodeInstruction> newInstructions = EventManager.CheckEvent<UseFocusPatch>(8, instructions);
@@ -37,7 +38,7 @@ public class UseFocusPatch
         
         newInstructions[newInstructions.Count - 1].labels.Add(returnLabel);
         
-        foreach (var instruction in newInstructions)
+        foreach (CodeInstruction instruction in newInstructions)
             yield return instruction;
         
         ListPool<CodeInstruction>.Shared.Return(newInstructions);
@@ -45,7 +46,7 @@ public class UseFocusPatch
 
     private static void ProcessFocusEvent(Scp939FocusKeySync focusKeySync, NetworkReader reader)
     {
-        var focusState = reader.ReadBool();
+        bool focusState = reader.ReadBool();
 
         Scp939UsingFocusAbilityEventArgs args = new (focusKeySync, focusState);
         CursedScp939EventsHandler.OnUsingFocusAbility(args);

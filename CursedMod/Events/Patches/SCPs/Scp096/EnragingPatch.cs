@@ -20,6 +20,7 @@ namespace CursedMod.Events.Patches.SCPs.Scp096;
 [HarmonyPatch(typeof(Scp096RageManager), nameof(Scp096RageManager.ServerEnrage))]
 public class EnragingPatch
 {
+    // TODO: REVIEW
     private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
     {
         List<CodeInstruction> newInstructions = EventManager.CheckEvent<EnragingPatch>(46, instructions);
@@ -47,7 +48,7 @@ public class EnragingPatch
         
         newInstructions[newInstructions.Count - 1].labels.Add(retLabel);
         
-        foreach (var instruction in newInstructions)
+        foreach (CodeInstruction instruction in newInstructions)
             yield return instruction;
         
         ListPool<CodeInstruction>.Shared.Return(newInstructions);

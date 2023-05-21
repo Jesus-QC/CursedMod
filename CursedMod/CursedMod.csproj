@@ -230,10 +230,10 @@
         <Compile Include="Events\Patches\SCPs\Scp0492\BloodlustingPatch.cs" />
         <Compile Include="Events\Patches\SCPs\Scp0492\ConsumingCorpsePatch.cs" />
         <Compile Include="Events\Patches\SCPs\Scp0492\CorpseConsumedPatch.cs" />
-        <Compile Include="Events\Patches\SCPs\Scp049\CallingZombiesPatch.cs" />
-        <Compile Include="Events\Patches\SCPs\Scp049\RevivedPatch.cs" />
-        <Compile Include="Events\Patches\SCPs\Scp049\RevivingPatch.cs" />
-        <Compile Include="Events\Patches\SCPs\Scp049\SensePlayerPatch.cs" />
+        <Compile Include="Events\Patches\SCPs\Scp049\ProcessCallAbilityPatch.cs" />
+        <Compile Include="Events\Patches\SCPs\Scp049\CompleteResurrectionPatch.cs" />
+        <Compile Include="Events\Patches\SCPs\Scp049\ResurrectPatch.cs" />
+        <Compile Include="Events\Patches\SCPs\Scp049\ProcessSenseAbilityPatch.cs" />
         <Compile Include="Events\Patches\SCPs\Scp079\BlackoutRoomAbilityPatch.cs" />
         <Compile Include="Events\Patches\SCPs\Scp079\BlackoutZoneAbilityPatch.cs" />
         <Compile Include="Events\Patches\SCPs\Scp079\ChangeDoorStatePatch.cs" />
