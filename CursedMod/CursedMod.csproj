@@ -152,7 +152,7 @@
         <Compile Include="Events\Arguments\SCPs\Scp173\Scp173UsingBreakneckSpeedAbilityEventArgs.cs" />
         <Compile Include="Events\Arguments\SCPs\Scp330\PlayerEatingScp330EventArgs.cs" />
         <Compile Include="Events\Arguments\SCPs\Scp330\PlayerInteractingScp330EventArgs.cs" />
-        <Compile Include="Events\Arguments\SCPs\Scp914\PlayerChangingScp939KnobSettingEventArgs.cs" />
+        <Compile Include="Events\Arguments\SCPs\Scp914\PlayerChangingScp914KnobSettingEventArgs.cs" />
         <Compile Include="Events\Arguments\SCPs\Scp914\PlayerEnablingScp914EventArgs.cs" />
         <Compile Include="Events\Arguments\SCPs\Scp914\Scp914UpgradingItemEventArgs.cs" />
         <Compile Include="Events\Arguments\SCPs\Scp939\Scp939CancellingCloudPlacementEventArgs.cs" />
