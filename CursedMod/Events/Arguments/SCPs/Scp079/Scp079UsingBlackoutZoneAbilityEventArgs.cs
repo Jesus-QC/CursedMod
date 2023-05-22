@@ -15,22 +15,19 @@ namespace CursedMod.Events.Arguments.SCPs.Scp079;
 
 public class Scp079UsingBlackoutZoneAbilityEventArgs : EventArgs, ICursedCancellableEvent, ICursedPlayerEvent
 {
-    public Scp079UsingBlackoutZoneAbilityEventArgs(Scp079BlackoutZoneAbility blackoutZoneAbility, int powerCost, float duration)
+    public Scp079UsingBlackoutZoneAbilityEventArgs(Scp079BlackoutZoneAbility blackoutZoneAbility)
     {
         IsAllowed = true;
         Player = CursedPlayer.Get(blackoutZoneAbility.Owner);
         Zone = blackoutZoneAbility._syncZone;
-        PowerCost = powerCost;
-        Duration = duration;
+        Duration = blackoutZoneAbility._duration;
     }
     
     public bool IsAllowed { get; set; }
 
     public CursedPlayer Player { get; }
     
-    public FacilityZone Zone { get; }
-    
-    public int PowerCost { get; set; }
-    
+    public FacilityZone Zone { get; set; }
+
     public float Duration { get; set; }
 }

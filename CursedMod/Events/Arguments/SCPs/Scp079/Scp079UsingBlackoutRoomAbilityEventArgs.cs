@@ -20,7 +20,6 @@ public class Scp079UsingBlackoutRoomAbilityEventArgs : EventArgs, ICursedCancell
         IsAllowed = true;
         Player = CursedPlayer.Get(blackoutRoomAbility.Owner);
         Room = CursedRoom.Get(blackoutRoomAbility._roomController.Room);
-        PowerCost = blackoutRoomAbility._cost;
         Duration = blackoutRoomAbility._blackoutDuration;
     }
     
@@ -28,9 +27,7 @@ public class Scp079UsingBlackoutRoomAbilityEventArgs : EventArgs, ICursedCancell
 
     public CursedPlayer Player { get; }
     
-    public CursedRoom Room { get; }
-    
-    public int PowerCost { get; set; }
+    public CursedRoom Room { get; set; }
     
     public float Duration { get; set; }
 }

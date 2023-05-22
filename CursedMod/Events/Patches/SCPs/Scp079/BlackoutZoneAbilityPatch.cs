@@ -20,19 +20,20 @@ namespace CursedMod.Events.Patches.SCPs.Scp079;
 [HarmonyPatch(typeof(Scp079BlackoutZoneAbility), nameof(Scp079BlackoutZoneAbility.ServerProcessCmd))]
 public class BlackoutZoneAbilityPatch
 {
-    // TODO: REVIEW
     private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
     {
         List<CodeInstruction> newInstructions = EventManager.CheckEvent<BlackoutZoneAbilityPatch>(71, instructions);
+
+        Label ret = generator.DefineLabel();
+        int index = newInstructions.FindIndex(x => x.opcode == OpCodes.Ret) + 1;
         
-        const int offset = 4;
-        int index = newInstructions.FindIndex(i => i.LoadsField(AccessTools.Field(typeof(Scp079BlackoutZoneAbility), nameof(Scp079BlackoutZoneAbility._syncZone)))) + offset;
+        newInstructions[newInstructions.Count - 1].labels.Add(ret);
         
         newInstructions.InsertRange(index, new CodeInstruction[]
         {
-            new (OpCodes.Pop),
-            new (OpCodes.Ldarg_0),
+            new CodeInstruction(OpCodes.Ldarg_0).MoveLabelsFrom(newInstructions[index]),
             new (OpCodes.Call, AccessTools.Method(typeof(BlackoutZoneAbilityPatch), nameof(ProcessBlackoutZoneEvent))),
+            new (OpCodes.Brfalse_S, ret),
         });
 
         foreach (CodeInstruction instruction in newInstructions)
@@ -43,15 +44,14 @@ public class BlackoutZoneAbilityPatch
 
     private static bool ProcessBlackoutZoneEvent(Scp079BlackoutZoneAbility blackoutZoneAbility)
     {
-        Scp079UsingBlackoutZoneAbilityEventArgs args = new (blackoutZoneAbility, blackoutZoneAbility._cost, blackoutZoneAbility._duration);
+        Scp079UsingBlackoutZoneAbilityEventArgs args = new (blackoutZoneAbility);
         CursedScp079EventsHandler.OnUsingBlackoutZoneAbility(args);
 
         if (!args.IsAllowed)
             return false;
         
         blackoutZoneAbility._duration = args.Duration;
-        blackoutZoneAbility._cooldownTimer.Trigger(blackoutZoneAbility._cooldown);
-        blackoutZoneAbility._cost = args.PowerCost;
+        blackoutZoneAbility._syncZone = args.Zone;
         return true;
     }
 }

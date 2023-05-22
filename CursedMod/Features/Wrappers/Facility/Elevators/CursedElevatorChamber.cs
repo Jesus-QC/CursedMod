@@ -6,6 +6,8 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
+using System.Collections.Generic;
+using System.Linq;
 using Interactables.Interobjects;
 using Interactables.Interobjects.DoorUtils;
 using UnityEngine;
@@ -14,10 +16,18 @@ namespace CursedMod.Features.Wrappers.Facility.Elevators;
 
 public class CursedElevatorChamber
 {
+    public static readonly Dictionary<ElevatorChamber, CursedElevatorChamber> Dictionary = new ();
+    
     internal CursedElevatorChamber(ElevatorChamber chamber)
     {
         Base = chamber;
+        
+        Dictionary.Add(chamber, this);
     }
+    
+    public static IEnumerable<CursedElevatorChamber> Collection => Dictionary.Values;
+    
+    public static IEnumerable<CursedElevatorChamber> List => Dictionary.Values.ToList();
     
     public ElevatorChamber Base { get; }
     
@@ -49,6 +59,8 @@ public class CursedElevatorChamber
 
     public Bounds WorldSpaceBounds => Base.WorldspaceBounds;
 
+    public static CursedElevatorChamber Get(ElevatorChamber chamber) => Dictionary.ContainsKey(chamber) ? Dictionary[chamber] : new CursedElevatorChamber(chamber);
+    
     public bool TrySetDestination(int targetLevel, bool force = false) => Base.TrySetDestination(targetLevel, force);
 
     public void SetInnerDoor(bool state) => Base.SetInnerDoor(state);

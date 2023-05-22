@@ -21,22 +21,17 @@ namespace CursedMod.Events.Patches.SCPs.Scp079;
 [HarmonyPatch(typeof(Scp079DoorStateChanger), nameof(Scp079DoorStateChanger.ServerProcessCmd))]
 public class ChangeDoorStatePatch
 {
-    // TODO: REVIEW
     private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
     {
         List<CodeInstruction> newInstructions = EventManager.CheckEvent<ChangeDoorStatePatch>(75, instructions);
         
         Label returnLabel = generator.DefineLabel();
         
-        const int offset = -2;
-        int index = newInstructions.FindIndex(
-            i => i.LoadsField(AccessTools.Field(typeof(DoorVariant), nameof(DoorVariant.TargetState)))) + offset;
+        int index = newInstructions.FindIndex(i => i.LoadsField(AccessTools.Field(typeof(DoorVariant), nameof(DoorVariant.TargetState)))) - 2;
         
         newInstructions.InsertRange(index, new CodeInstruction[]
         {
             new CodeInstruction(OpCodes.Ldarg_0).MoveLabelsFrom(newInstructions[index]),
-            new (OpCodes.Ldarg_0),
-            new (OpCodes.Ldfld, AccessTools.Field(typeof(Scp079DoorStateChanger), nameof(Scp079DoorStateChanger.LastDoor))),
             new (OpCodes.Newobj, AccessTools.GetDeclaredConstructors(typeof(Scp079ChangingDoorStateEventArgs))[0]),
             new (OpCodes.Dup),
             new (OpCodes.Call, AccessTools.Method(typeof(CursedScp079EventsHandler), nameof(CursedScp079EventsHandler.OnChangingDoorState))),

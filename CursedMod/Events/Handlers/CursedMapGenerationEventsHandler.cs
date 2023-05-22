@@ -10,6 +10,7 @@ using CursedMod.Events.Arguments.MapGeneration;
 using CursedMod.Features.Logger;
 using CursedMod.Features.Wrappers.Facility;
 using CursedMod.Features.Wrappers.Facility.Doors;
+using CursedMod.Features.Wrappers.Facility.Elevators;
 using CursedMod.Features.Wrappers.Facility.Hazards;
 using CursedMod.Features.Wrappers.Facility.Props;
 using CursedMod.Features.Wrappers.Facility.Rooms;
@@ -57,5 +58,7 @@ public static class CursedMapGenerationEventsHandler
         CursedLocker.Dictionary.Clear();
         CursedTeslaGate.Dictionary.Clear();
         CursedEnvironmentalHazard.Dictionary.Clear();
+        Cursed079Camera.Dictionary.Clear();
+        CursedElevatorChamber.Dictionary.Clear();
     }
 }

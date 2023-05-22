@@ -81,9 +81,9 @@ public class CursedPlayer
 
     public ReferenceHub ReferenceHub { get; }
     
-    public GameObject GameObject { get; private set; }
+    public GameObject GameObject { get; }
     
-    public Transform Transform { get; internal set; }
+    public Transform Transform { get; }
 
     public DataStorage DataStorage { get; } = new ();
 

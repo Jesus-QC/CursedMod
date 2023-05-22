@@ -29,7 +29,7 @@ public class Scp079ChangingDoorLockEventArgs : EventArgs, ICursedCancellableEven
 
     public CursedPlayer Player { get; }
     
-    public CursedDoor Door { get; }
+    public CursedDoor Door { get; set; }
     
     public bool NewLockState { get; set; }
     

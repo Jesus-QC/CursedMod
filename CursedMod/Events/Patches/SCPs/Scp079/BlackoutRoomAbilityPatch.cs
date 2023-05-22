@@ -20,22 +20,18 @@ namespace CursedMod.Events.Patches.SCPs.Scp079;
 [HarmonyPatch(typeof(Scp079BlackoutRoomAbility), nameof(Scp079BlackoutRoomAbility.ServerProcessCmd))]
 public class BlackoutRoomAbilityPatch
 {
-    // TODO: REVIEW
     private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
     {
         List<CodeInstruction> newInstructions = EventManager.CheckEvent<BlackoutRoomAbilityPatch>(73, instructions);
         
         Label returnLabel = generator.DefineLabel();
-        const int offset = 2;
-        int index = newInstructions.FindIndex(i => i.opcode == OpCodes.Brtrue_S) + offset;
+        
+        int index = newInstructions.FindIndex(i => i.opcode == OpCodes.Brtrue_S) + 2;
         
         newInstructions.InsertRange(index, new CodeInstruction[]
         {
             new CodeInstruction(OpCodes.Ldarg_0).MoveLabelsFrom(newInstructions[index]),
-            new (OpCodes.Newobj, AccessTools.GetDeclaredConstructors(typeof(Scp079UsingBlackoutRoomAbilityEventArgs))[0]),
-            new (OpCodes.Dup),
-            new (OpCodes.Call, AccessTools.Method(typeof(CursedScp079EventsHandler), nameof(CursedScp079EventsHandler.OnUsingBlackoutRoomAbility))),
-            new (OpCodes.Callvirt, AccessTools.PropertyGetter(typeof(Scp079UsingBlackoutRoomAbilityEventArgs), nameof(Scp079UsingBlackoutRoomAbilityEventArgs.IsAllowed))),
+            new (OpCodes.Call, AccessTools.Method(typeof(BlackoutRoomAbilityPatch), nameof(HandleEvent))),
             new (OpCodes.Brfalse_S, returnLabel),
         });
         
@@ -45,5 +41,18 @@ public class BlackoutRoomAbilityPatch
             yield return instruction;
         
         ListPool<CodeInstruction>.Shared.Return(newInstructions);
+    }
+    
+    private static bool HandleEvent(Scp079BlackoutRoomAbility roomAbility)
+    {
+        Scp079UsingBlackoutRoomAbilityEventArgs args = new (roomAbility);
+        CursedScp079EventsHandler.OnUsingBlackoutRoomAbility(args);
+
+        if (!args.IsAllowed)
+            return false;
+
+        roomAbility._roomController = args.Room.LightningController.Base;
+        roomAbility._blackoutDuration = args.Duration;
+        return true;
     }
 }

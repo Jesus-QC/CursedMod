@@ -16,11 +16,11 @@ namespace CursedMod.Events.Arguments.SCPs.Scp079;
 
 public class Scp079ChangingDoorStateEventArgs : EventArgs, ICursedCancellableEvent, ICursedPlayerEvent
 {
-    public Scp079ChangingDoorStateEventArgs(Scp079DoorStateChanger doorStateChanger, DoorVariant variant)
+    public Scp079ChangingDoorStateEventArgs(Scp079DoorStateChanger doorStateChanger)
     {
         IsAllowed = true;
         Player = CursedPlayer.Get(doorStateChanger.Owner);
-        Door = CursedDoor.Get(variant);
+        Door = CursedDoor.Get(doorStateChanger.LastDoor);
     }
     
     public bool IsAllowed { get; set; }

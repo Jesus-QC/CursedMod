@@ -20,7 +20,6 @@ namespace CursedMod.Events.Patches.SCPs.Scp079;
 [HarmonyPatch(typeof(Scp079TierManager), nameof(Scp079TierManager.ServerGrantExperience))]
 public class GainExperiencePatch
 {
-    // TODO: REVIEW
     private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
     {
         List<CodeInstruction> newInstructions = EventManager.CheckEvent<GainExperiencePatch>(22, instructions);

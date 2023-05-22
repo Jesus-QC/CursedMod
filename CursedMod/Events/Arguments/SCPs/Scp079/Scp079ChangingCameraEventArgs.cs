@@ -7,6 +7,7 @@
 // -----------------------------------------------------------------------
 
 using System;
+using CursedMod.Features.Wrappers.Facility.Rooms;
 using CursedMod.Features.Wrappers.Player;
 using PlayerRoles.PlayableScps.Scp079.Cameras;
 
@@ -14,19 +15,16 @@ namespace CursedMod.Events.Arguments.SCPs.Scp079;
 
 public class Scp079ChangingCameraEventArgs : EventArgs, ICursedCancellableEvent, ICursedPlayerEvent
 {
-    public Scp079ChangingCameraEventArgs(Scp079CurrentCameraSync currentCameraSync, int powerCost)
+    public Scp079ChangingCameraEventArgs(Scp079CurrentCameraSync currentCameraSync)
     {
         IsAllowed = true;
         Player = CursedPlayer.Get(currentCameraSync.Owner);
-        Camera = currentCameraSync.CurrentCamera;
-        PowerCost = powerCost;
+        Camera = Cursed079Camera.Get(currentCameraSync.CurrentCamera);
     }
     
     public bool IsAllowed { get; set; }
 
     public CursedPlayer Player { get; }
     
-    public Scp079Camera Camera { get; }
-    
-    public int PowerCost { get; set; }
+    public Cursed079Camera Camera { get; }
 }

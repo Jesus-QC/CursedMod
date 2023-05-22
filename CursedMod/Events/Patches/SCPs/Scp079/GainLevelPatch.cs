@@ -20,13 +20,11 @@ namespace CursedMod.Events.Patches.SCPs.Scp079;
 [HarmonyPatch(typeof(Scp079TierManager), nameof(Scp079TierManager.AccessTierIndex), MethodType.Setter)]
 public class GainLevelPatch
 {
-    // TODO: REVIEW
     private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
     {
         List<CodeInstruction> newInstructions = EventManager.CheckEvent<GainLevelPatch>(62, instructions);
-
-        const int offset = 1;
-        int index = newInstructions.FindIndex(instruction => instruction.opcode == OpCodes.Ret) + offset;
+        
+        int index = newInstructions.FindIndex(instruction => instruction.opcode == OpCodes.Ret) + 1;
 
         Label returnLabel = generator.DefineLabel();
         LocalBuilder args = generator.DeclareLocal(typeof(Scp079LevelingUpEventArgs));
@@ -45,7 +43,7 @@ public class GainLevelPatch
             new (OpCodes.Callvirt, AccessTools.PropertyGetter(typeof(Scp079LevelingUpEventArgs), nameof(Scp079LevelingUpEventArgs.IsAllowed))),
             new (OpCodes.Brfalse_S, returnLabel),
             new (OpCodes.Ldloc_S, args.LocalIndex),
-            new (OpCodes.Callvirt, AccessTools.PropertyGetter(typeof(Scp079LevelingUpEventArgs), nameof(Scp079LevelingUpEventArgs.Level))),
+            new (OpCodes.Callvirt, AccessTools.PropertyGetter(typeof(Scp079LevelingUpEventArgs), nameof(Scp079LevelingUpEventArgs.NewLevel))),
             new (OpCodes.Ldc_I4_1),
             new (OpCodes.Sub),
             new (OpCodes.Starg_S, 1),

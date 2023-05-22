@@ -20,20 +20,17 @@ namespace CursedMod.Events.Patches.SCPs.Scp079;
 [HarmonyPatch(typeof(Scp079CurrentCameraSync), nameof(Scp079CurrentCameraSync.ServerProcessCmd))]
 public class CurrentCameraPatch
 {
-    // TODO: REVIEW
     private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
     {
         List<CodeInstruction> newInstructions = EventManager.CheckEvent<CurrentCameraPatch>(125, instructions);
         
         Label returnLabel = generator.DefineLabel();
         
-        const int offset = 2;
-        int index = newInstructions.FindIndex(instruction => instruction.opcode == OpCodes.Conv_R4) + offset;
+        int index = newInstructions.FindIndex(instruction => instruction.opcode == OpCodes.Conv_R4) + 2;
 
         newInstructions.InsertRange(index, new CodeInstruction[]
         {
             new (OpCodes.Ldarg_0),
-            new (OpCodes.Ldloca_S, 0),
             new (OpCodes.Call, AccessTools.Method(typeof(CurrentCameraPatch), nameof(ProcessChangeCameraEvent))),
             new (OpCodes.Brfalse_S, returnLabel),
         });
@@ -46,16 +43,10 @@ public class CurrentCameraPatch
         ListPool<CodeInstruction>.Shared.Return(newInstructions);
     }
     
-    private static bool ProcessChangeCameraEvent(Scp079CurrentCameraSync currentCameraSync, ref float switchCost)
+    private static bool ProcessChangeCameraEvent(Scp079CurrentCameraSync currentCameraSync)
     {
-        Scp079ChangingCameraEventArgs args = new (currentCameraSync, (int)switchCost);
+        Scp079ChangingCameraEventArgs args = new (currentCameraSync);
         CursedScp079EventsHandler.OnChangingCamera(args);
-        
-        currentCameraSync.ServerSendRpc(true);
-        
-        if (args.IsAllowed)
-            switchCost = args.PowerCost;
-
         return args.IsAllowed;
     }
 }

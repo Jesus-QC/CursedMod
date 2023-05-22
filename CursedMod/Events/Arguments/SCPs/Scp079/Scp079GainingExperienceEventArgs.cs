@@ -28,5 +28,5 @@ public class Scp079GainingExperienceEventArgs : EventArgs, ICursedCancellableEve
     
     public int Experience { get; set; }
     
-    public Scp079HudTranslation HudTranslation { get; }
+    public Scp079HudTranslation HudTranslation { get; set; }
 }

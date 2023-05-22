@@ -14,16 +14,16 @@ namespace CursedMod.Events.Arguments.SCPs.Scp079;
 
 public class Scp079LevelingUpEventArgs : EventArgs, ICursedCancellableEvent, ICursedPlayerEvent
 {
-    public Scp079LevelingUpEventArgs(Scp079TierManager tierManager, int levelIndex)
+    public Scp079LevelingUpEventArgs(Scp079TierManager tierManager, int newLevelIndex)
     {
         IsAllowed = true;
         Player = CursedPlayer.Get(tierManager.Owner);
-        Level = levelIndex;
+        NewLevel = newLevelIndex;
     }
     
     public bool IsAllowed { get; set; }
 
     public CursedPlayer Player { get; }
     
-    public int Level { get; set; }
+    public int NewLevel { get; set; }
 }

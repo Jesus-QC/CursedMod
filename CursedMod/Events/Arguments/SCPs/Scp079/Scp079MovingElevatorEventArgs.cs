@@ -7,6 +7,7 @@
 // -----------------------------------------------------------------------
 
 using System;
+using CursedMod.Features.Wrappers.Facility.Elevators;
 using CursedMod.Features.Wrappers.Facility.Rooms;
 using CursedMod.Features.Wrappers.Player;
 using Interactables.Interobjects;
@@ -17,22 +18,19 @@ namespace CursedMod.Events.Arguments.SCPs.Scp079;
 
 public class Scp079MovingElevatorEventArgs : EventArgs, ICursedCancellableEvent, ICursedPlayerEvent
 {
-    public Scp079MovingElevatorEventArgs(Scp079ElevatorStateChanger elevatorStateChanger, ElevatorDoor elevatorDoor, RoomIdentifier roomIdentifier)
+    public Scp079MovingElevatorEventArgs(Scp079ElevatorStateChanger elevatorStateChanger, ElevatorDoor elevatorDoor)
     {
         IsAllowed = true;
         Player = CursedPlayer.Get(elevatorStateChanger.Owner);
-        PowerCost = elevatorStateChanger._cost;
-        ElevatorChamber = elevatorDoor.TargetPanel.AssignedChamber;
-        Room = CursedRoom.Get(roomIdentifier);
+        ElevatorChamber = CursedElevatorChamber.Get(elevatorDoor.TargetPanel.AssignedChamber);
+        Room = CursedRoom.Get(elevatorStateChanger.CurrentCamSync.CurrentCamera.Room);
     }
     
     public bool IsAllowed { get; set; }
 
     public CursedPlayer Player { get; }
-    
-    public int PowerCost { get; set; }
 
-    public ElevatorChamber ElevatorChamber { get; }
+    public CursedElevatorChamber ElevatorChamber { get; }
     
     public CursedRoom Room { get; }
 }

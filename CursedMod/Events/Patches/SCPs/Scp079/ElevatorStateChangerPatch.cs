@@ -21,27 +21,24 @@ namespace CursedMod.Events.Patches.SCPs.Scp079;
 [HarmonyPatch(typeof(Scp079ElevatorStateChanger), nameof(Scp079ElevatorStateChanger.ServerProcessCmd))]
 public class ElevatorStateChangerPatch
 {
-    // TODO: REVIEW
     private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
     {
         List<CodeInstruction> newInstructions = EventManager.CheckEvent<ElevatorStateChangerPatch>(104, instructions);
         
         Label returnLabel = generator.DefineLabel();
-
-        const int offset = -2;
-        int index = newInstructions.FindIndex(i => i.opcode == OpCodes.Stloc_S) + offset;
+        LocalBuilder args = generator.DeclareLocal(typeof(Scp079MovingElevatorEventArgs));
+        
+        int index = newInstructions.FindIndex(i => i.opcode == OpCodes.Stloc_S) - 2;
         
         newInstructions.InsertRange(index, new CodeInstruction[]
         {
             new CodeInstruction(OpCodes.Ldarg_0).MoveLabelsFrom(newInstructions[index]),
             new (OpCodes.Ldloc_3),
-            new (OpCodes.Ldarg_0),
-            new (OpCodes.Call, AccessTools.PropertyGetter(typeof(Scp079AbilityBase), nameof(Scp079AbilityBase.CurrentCamSync))),
-            new (OpCodes.Callvirt, AccessTools.PropertyGetter(typeof(Scp079CurrentCameraSync), nameof(Scp079CurrentCameraSync.CurrentCamera))),
-            new (OpCodes.Callvirt, AccessTools.PropertyGetter(typeof(Scp079Camera), nameof(Scp079Camera.Room))),
             new (OpCodes.Newobj, AccessTools.GetDeclaredConstructors(typeof(Scp079MovingElevatorEventArgs))[0]),
             new (OpCodes.Dup),
             new (OpCodes.Call, AccessTools.Method(typeof(CursedScp079EventsHandler), nameof(CursedScp079EventsHandler.OnMovingElevator))),
+            new (OpCodes.Stloc_S, args.LocalIndex),
+            new (OpCodes.Ldloc_S, args.LocalIndex),
             new (OpCodes.Callvirt, AccessTools.PropertyGetter(typeof(Scp079MovingElevatorEventArgs), nameof(Scp079MovingElevatorEventArgs.IsAllowed))),
             new (OpCodes.Brfalse_S, returnLabel),
         });
