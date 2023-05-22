@@ -12,15 +12,15 @@ namespace CursedMod.Events.Handlers;
 
 public static class CursedScp914EventsHandler
 {
-    public static event EventManager.CursedEventHandler<PlayerChangingScp939KnobSettingEventArgs> PlayerChangingScp939KnobSetting;
+    public static event EventManager.CursedEventHandler<PlayerChangingScp914KnobSettingEventArgs> PlayerChangingScp914KnobSetting;
     
     public static event EventManager.CursedEventHandler<PlayerEnablingScp914EventArgs> PlayerEnablingScp914;
     
     public static event EventManager.CursedEventHandler<Scp914UpgradingItemEventArgs> UpgradingItem; 
 
-    internal static void OnPlayerChangingScp939KnobSetting(PlayerChangingScp939KnobSettingEventArgs args)
+    internal static void OnPlayerChangingScp914KnobSetting(PlayerChangingScp914KnobSettingEventArgs args)
     {
-        PlayerChangingScp939KnobSetting.InvokeEvent(args);
+        PlayerChangingScp914KnobSetting.InvokeEvent(args);
     }
     
     internal static void OnPlayerEnablingScp914(PlayerEnablingScp914EventArgs args)

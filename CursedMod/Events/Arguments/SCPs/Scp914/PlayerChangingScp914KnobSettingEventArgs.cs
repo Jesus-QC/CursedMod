@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="PlayerChangingScp939KnobSettingEventArgs.cs" company="CursedMod">
+// <copyright file="PlayerChangingScp914KnobSettingEventArgs.cs" company="CursedMod">
 // Copyright (c) CursedMod. All rights reserved.
 // Licensed under the GPLv3 license.
 // See LICENSE file in the project root for full license information.
@@ -12,9 +12,9 @@ using Scp914;
 
 namespace CursedMod.Events.Arguments.SCPs.Scp914;
 
-public class PlayerChangingScp939KnobSettingEventArgs : EventArgs, ICursedCancellableEvent, ICursedPlayerEvent
+public class PlayerChangingScp914KnobSettingEventArgs : EventArgs, ICursedCancellableEvent, ICursedPlayerEvent
 {
-    public PlayerChangingScp939KnobSettingEventArgs(Scp914Controller controller, ReferenceHub player, Scp914KnobSetting knobSetting)
+    public PlayerChangingScp914KnobSettingEventArgs(Scp914Controller controller, ReferenceHub player, Scp914KnobSetting knobSetting)
     {
         IsAllowed = true;
         Scp914Controller = controller;
