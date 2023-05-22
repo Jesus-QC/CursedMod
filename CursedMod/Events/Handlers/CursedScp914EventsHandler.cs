@@ -12,7 +12,7 @@ namespace CursedMod.Events.Handlers;
 
 public static class CursedScp914EventsHandler
 {
-    public static event EventManager.CursedEventHandler<PlayerChangingScp939KnobSettingEventArgs> PlayerChangingScp914KnobSetting;
+    public static event EventManager.CursedEventHandler<PlayerChangingScp914KnobSettingEventArgs> PlayerChangingScp914KnobSetting;
     
     public static event EventManager.CursedEventHandler<PlayerEnablingScp914EventArgs> PlayerEnablingScp914;
     
