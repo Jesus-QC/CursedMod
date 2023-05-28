@@ -11,7 +11,6 @@ using CursedMod.Features.Wrappers.Facility.Elevators;
 using CursedMod.Features.Wrappers.Facility.Rooms;
 using CursedMod.Features.Wrappers.Player;
 using Interactables.Interobjects;
-using MapGeneration;
 using PlayerRoles.PlayableScps.Scp079;
 
 namespace CursedMod.Events.Arguments.SCPs.Scp079;

@@ -26,7 +26,7 @@ public class Scp096AddingTargetEventArgs : EventArgs, ICursedCancellableEvent, I
 
     public CursedPlayer Player { get; }
     
-    public bool IsForLooking { get; set; }
+    public bool IsForLooking { get; }
     
     public CursedPlayer Target { get; }
 }

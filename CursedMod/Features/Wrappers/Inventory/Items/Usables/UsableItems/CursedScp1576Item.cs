@@ -7,7 +7,6 @@
 // -----------------------------------------------------------------------
 
 using InventorySystem.Items.Usables.Scp1576;
-using UnityEngine;
 
 namespace CursedMod.Features.Wrappers.Inventory.Items.Usables.UsableItems;
 

@@ -9,7 +9,6 @@
 using System;
 using CursedMod.Features.Wrappers.Facility.Doors;
 using CursedMod.Features.Wrappers.Player;
-using Interactables.Interobjects.DoorUtils;
 using PlayerRoles.PlayableScps.Scp079;
 
 namespace CursedMod.Events.Arguments.SCPs.Scp079;

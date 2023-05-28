@@ -10,7 +10,6 @@ using System.Collections.Generic;
 using System.Reflection.Emit;
 using CursedMod.Events.Arguments.SCPs.Scp079;
 using CursedMod.Events.Handlers;
-using CursedMod.Features.Wrappers.Facility.Props;
 using HarmonyLib;
 using NorthwoodLib.Pools;
 using PlayerRoles.PlayableScps.Scp079;

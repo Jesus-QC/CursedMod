@@ -14,7 +14,6 @@ using HarmonyLib;
 using Mirror;
 using NorthwoodLib.Pools;
 using PlayerRoles.PlayableScps.Scp079.Pinging;
-using RelativePositioning;
 
 namespace CursedMod.Events.Patches.SCPs.Scp079;
 

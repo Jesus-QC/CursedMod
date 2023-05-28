@@ -20,7 +20,6 @@ namespace CursedMod.Events.Patches.SCPs.Scp096;
 [HarmonyPatch(typeof(Scp096RageManager), nameof(Scp096RageManager.ServerEnrage))]
 public class EnragingPatch
 {
-    // TODO: REVIEW
     private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
     {
         List<CodeInstruction> newInstructions = EventManager.CheckEvent<EnragingPatch>(46, instructions);
@@ -28,17 +27,17 @@ public class EnragingPatch
         Label retLabel = generator.DefineLabel();
         LocalBuilder args = generator.DeclareLocal(typeof(Scp096EnragingEventArgs));
 
-        int index = newInstructions.FindIndex(i => i.IsLdarg(0));
+        int index = newInstructions.FindIndex(i => i.opcode == OpCodes.Pop) + 1;
         
         newInstructions.InsertRange(index, new CodeInstruction[]
         {
-            new CodeInstruction(OpCodes.Ldarg_0).MoveLabelsFrom(newInstructions[index]),
+            new (OpCodes.Ldarg_0),
             new (OpCodes.Ldarg_1),
             new (OpCodes.Newobj, AccessTools.GetDeclaredConstructors(typeof(Scp096EnragingEventArgs))[0]),
             new (OpCodes.Dup),
             new (OpCodes.Dup),
-            new (OpCodes.Stloc_S, args.LocalIndex),
             new (OpCodes.Call, AccessTools.Method(typeof(CursedScp096EventsHandler), nameof(CursedScp096EventsHandler.OnEnraging))),
+            new (OpCodes.Stloc_S, args.LocalIndex),
             new (OpCodes.Callvirt, AccessTools.PropertyGetter(typeof(Scp096EnragingEventArgs), nameof(Scp096EnragingEventArgs.IsAllowed))),
             new (OpCodes.Brfalse_S, retLabel),
             new (OpCodes.Ldloc_S, args.LocalIndex),

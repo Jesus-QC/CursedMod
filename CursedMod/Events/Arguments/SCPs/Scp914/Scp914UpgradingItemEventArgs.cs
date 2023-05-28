@@ -7,7 +7,6 @@
 // -----------------------------------------------------------------------
 
 using System;
-using System.Collections.Generic;
 using CursedMod.Features.Wrappers.Inventory.Pickups;
 using InventorySystem.Items.Pickups;
 using Scp914;

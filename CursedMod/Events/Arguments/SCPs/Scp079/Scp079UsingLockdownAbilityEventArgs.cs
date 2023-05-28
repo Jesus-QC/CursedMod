@@ -9,7 +9,6 @@
 using System;
 using CursedMod.Features.Wrappers.Facility.Rooms;
 using CursedMod.Features.Wrappers.Player;
-using MapGeneration;
 using PlayerRoles.PlayableScps.Scp079;
 
 namespace CursedMod.Events.Arguments.SCPs.Scp079;

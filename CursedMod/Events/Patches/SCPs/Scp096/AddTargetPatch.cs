@@ -10,7 +10,6 @@ using System.Collections.Generic;
 using System.Reflection.Emit;
 using CursedMod.Events.Arguments.SCPs.Scp096;
 using CursedMod.Events.Handlers;
-using CursedMod.Features.Wrappers.Player;
 using HarmonyLib;
 using NorthwoodLib.Pools;
 using PlayerRoles.PlayableScps.Scp096;
@@ -21,18 +20,17 @@ namespace CursedMod.Events.Patches.SCPs.Scp096;
 [HarmonyPatch(typeof(Scp096TargetsTracker), nameof(Scp096TargetsTracker.AddTarget))]
 public class AddTargetPatch
 {
-    // TODO: REVIEW
     private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
     {
         List<CodeInstruction> newInstructions = EventManager.CheckEvent<AddTargetPatch>(70, instructions);
 
         Label retLabel = generator.DefineLabel();
         const int offset = 1;
-        int index = newInstructions.FindIndex(i => i.opcode == OpCodes.Ret) + offset;
+        int index = newInstructions.FindIndex(i => i.opcode == OpCodes.Pop) + 1;
         
         newInstructions.InsertRange(index, new CodeInstruction[]
         {
-            new CodeInstruction(OpCodes.Ldarg_0).MoveLabelsFrom(newInstructions[index]),
+            new (OpCodes.Ldarg_0),
             new (OpCodes.Ldarg_1),
             new (OpCodes.Ldarg_2),
             new (OpCodes.Newobj, AccessTools.GetDeclaredConstructors(typeof(Scp096AddingTargetEventArgs))[0]),
