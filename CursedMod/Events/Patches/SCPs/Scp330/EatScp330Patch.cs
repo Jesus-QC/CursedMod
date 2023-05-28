@@ -20,16 +20,13 @@ namespace CursedMod.Events.Patches.SCPs.Scp330;
 [HarmonyPatch(typeof(Scp330Bag), nameof(Scp330Bag.ServerOnUsingCompleted))]
 public class EatScp330Patch
 {
-    // TODO: REVIEW
     private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
     {
         List<CodeInstruction> newInstructions = EventManager.CheckEvent<EatScp330Patch>(33, instructions);
         
         Label returnLabel = generator.DefineLabel();
         
-        const int offset = -3;
-        int index = newInstructions.FindIndex(i => 
-            i.Calls(AccessTools.Method(typeof(ICandy), nameof(ICandy.ServerApplyEffects)))) + offset;
+        int index = newInstructions.FindIndex(i => i.Calls(AccessTools.Method(typeof(ICandy), nameof(ICandy.ServerApplyEffects)))) - 3;
         
         newInstructions.InsertRange(index, new CodeInstruction[]
         {
