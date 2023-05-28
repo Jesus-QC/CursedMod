@@ -20,18 +20,15 @@ namespace CursedMod.Events.Patches.SCPs.Scp079;
 [HarmonyPatch(typeof(Scp079LockdownRoomAbility), nameof(Scp079LockdownRoomAbility.ServerCancelLockdown))]
 public class ServerCancelLockdownPatch
 {
-    // TODO: REVIEW
     private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
     {
         List<CodeInstruction> newInstructions = EventManager.CheckEvent<ServerCancelLockdownPatch>(60, instructions);
 
         Label returnLabel = generator.DefineLabel();
-        const int offset = 1;
-        int index = newInstructions.FindIndex(i => i.opcode == OpCodes.Ret) + offset;
-        
-        newInstructions.InsertRange(index, new CodeInstruction[]
+
+        newInstructions.InsertRange(0, new CodeInstruction[]
         {
-            new CodeInstruction(OpCodes.Ldarg_0).MoveLabelsFrom(newInstructions[index]),
+            new (OpCodes.Ldarg_0),
             new (OpCodes.Newobj, AccessTools.GetDeclaredConstructors(typeof(Scp079CancellingLockdownEventArgs))[0]),
             new (OpCodes.Dup),
             new (OpCodes.Call, AccessTools.Method(typeof(CursedScp079EventsHandler), nameof(CursedScp079EventsHandler.OnCancellingLockdown))),

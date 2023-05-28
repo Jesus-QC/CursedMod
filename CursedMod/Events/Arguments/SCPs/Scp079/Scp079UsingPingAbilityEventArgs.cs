@@ -9,6 +9,7 @@
 using System;
 using CursedMod.Features.Wrappers.Player;
 using PlayerRoles.PlayableScps.Scp079.Pinging;
+using RelativePositioning;
 using UnityEngine;
 
 namespace CursedMod.Events.Arguments.SCPs.Scp079;
@@ -20,8 +21,8 @@ public class Scp079UsingPingAbilityEventArgs : EventArgs, ICursedCancellableEven
         IsAllowed = true;
         Player = CursedPlayer.Get(pingAbility.Owner);
         Index = pingAbility._syncProcessorIndex;
-        PowerCost = pingAbility._cost;
-        Position = pingAbility._syncPos.Position;
+        Position = pingAbility._syncPos;
+        Normal = pingAbility._syncNormal;
     }
     
     public bool IsAllowed { get; set; }
@@ -30,7 +31,7 @@ public class Scp079UsingPingAbilityEventArgs : EventArgs, ICursedCancellableEven
     
     public int Index { get; }
     
-    public int PowerCost { get; set; }
+    public RelativePosition Position { get; set; }
     
-    public Vector3 Position { get; }
+    public Vector3 Normal { get; set; }
 }

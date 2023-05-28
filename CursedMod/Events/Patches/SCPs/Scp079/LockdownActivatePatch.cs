@@ -21,26 +21,29 @@ namespace CursedMod.Events.Patches.SCPs.Scp079;
 [HarmonyPatch(typeof(Scp079LockdownRoomAbility), nameof(Scp079LockdownRoomAbility.ServerProcessCmd))]
 public class LockdownActivatePatch
 {
-    // TODO: REVIEW
     private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
     {
         List<CodeInstruction> newInstructions = EventManager.CheckEvent<LockdownActivatePatch>(50, instructions);
         
         Label returnLabel = generator.DefineLabel();
-        int index = newInstructions.FindIndex(i => i.opcode == OpCodes.Ldc_I4_S);
+        LocalBuilder localBuilder = generator.DeclareLocal(typeof(Scp079UsingLockdownAbilityEventArgs));
         
+        int index = newInstructions.FindIndex(i => i.opcode == OpCodes.Ldc_I4_S);
+
         newInstructions.InsertRange(index, new CodeInstruction[]
         {
             new CodeInstruction(OpCodes.Ldarg_0).MoveLabelsFrom(newInstructions[index]),
-            new (OpCodes.Ldarg_0),
-            new (OpCodes.Call, AccessTools.PropertyGetter(typeof(Scp079AbilityBase), nameof(Scp079AbilityBase.CurrentCamSync))),
-            new (OpCodes.Callvirt, AccessTools.PropertyGetter(typeof(Scp079CurrentCameraSync), nameof(Scp079CurrentCameraSync.CurrentCamera))),
-            new (OpCodes.Callvirt, AccessTools.PropertyGetter(typeof(Scp079Camera), nameof(Scp079Camera.Room))),
             new (OpCodes.Newobj, AccessTools.GetDeclaredConstructors(typeof(Scp079UsingLockdownAbilityEventArgs))[0]),
             new (OpCodes.Dup),
             new (OpCodes.Call, AccessTools.Method(typeof(CursedScp079EventsHandler), nameof(CursedScp079EventsHandler.OnUsingLockdownAbility))),
+            new (OpCodes.Stloc_S, localBuilder.LocalIndex),
+            new (OpCodes.Ldloc_S, localBuilder.LocalIndex),
             new (OpCodes.Callvirt, AccessTools.PropertyGetter(typeof(Scp079UsingLockdownAbilityEventArgs), nameof(Scp079UsingLockdownAbilityEventArgs.IsAllowed))),
             new (OpCodes.Brfalse_S, returnLabel),
+            new (OpCodes.Ldarg_0),
+            new (OpCodes.Stloc_S, localBuilder.LocalIndex),
+            new (OpCodes.Callvirt, AccessTools.PropertyGetter(typeof(Scp079UsingLockdownAbilityEventArgs), nameof(Scp079UsingLockdownAbilityEventArgs.Duration))),
+            new (OpCodes.Stfld, AccessTools.Field(typeof(Scp079LockdownRoomAbility), nameof(Scp079LockdownRoomAbility._lockdownDuration))),
         });
         
         newInstructions[newInstructions.Count - 1].labels.Add(returnLabel);

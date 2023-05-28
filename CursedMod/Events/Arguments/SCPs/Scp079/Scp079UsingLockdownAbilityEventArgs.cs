@@ -16,20 +16,17 @@ namespace CursedMod.Events.Arguments.SCPs.Scp079;
 
 public class Scp079UsingLockdownAbilityEventArgs : EventArgs, ICursedCancellableEvent, ICursedPlayerEvent
 {
-    public Scp079UsingLockdownAbilityEventArgs(Scp079LockdownRoomAbility lockdownRoomAbility, RoomIdentifier roomIdentifier)
+    public Scp079UsingLockdownAbilityEventArgs(Scp079LockdownRoomAbility lockdownRoomAbility)
     {
         IsAllowed = true;
         Player = CursedPlayer.Get(lockdownRoomAbility.Owner);
-        PowerCost = lockdownRoomAbility._cost;
-        Room = CursedRoom.Get(roomIdentifier);
+        Room = CursedRoom.Get(lockdownRoomAbility.CurrentCamSync.CurrentCamera.Room);
         Duration = lockdownRoomAbility._lockdownDuration;
     }
     
     public bool IsAllowed { get; set; }
 
     public CursedPlayer Player { get; }
-    
-    public int PowerCost { get; set; }
     
     public CursedRoom Room { get; }
     

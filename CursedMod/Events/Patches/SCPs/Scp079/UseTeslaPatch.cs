@@ -21,15 +21,13 @@ namespace CursedMod.Events.Patches.SCPs.Scp079;
 [HarmonyPatch(typeof(Scp079TeslaAbility), nameof(Scp079TeslaAbility.ServerProcessCmd))]
 public class UseTeslaPatch
 {
-    // TODO: REVIEW
     private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
     {
         List<CodeInstruction> newInstructions = EventManager.CheckEvent<UseTeslaPatch>(66, instructions);
         
         Label returnLabel = generator.DefineLabel();
-
-        const int offset = 2;
-        int index = newInstructions.FindLastIndex(i => i.opcode == OpCodes.Brtrue_S) + offset;
+        
+        int index = newInstructions.FindLastIndex(i => i.opcode == OpCodes.Ldloca_S) + 4;
         
         newInstructions.InsertRange(index, new CodeInstruction[]
         {

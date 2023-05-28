@@ -19,7 +19,6 @@ public class Scp079UsingTeslaEventArgs : EventArgs, ICursedCancellableEvent, ICu
     {
         IsAllowed = true;
         Player = CursedPlayer.Get(teslaAbility.Owner);
-        PowerCost = teslaAbility._cost;
         TeslaGate = CursedTeslaGate.Get(teslaGate);
     }
     
@@ -28,6 +27,4 @@ public class Scp079UsingTeslaEventArgs : EventArgs, ICursedCancellableEvent, ICu
     public CursedPlayer Player { get; }
     
     public CursedTeslaGate TeslaGate { get; }
-    
-    public int PowerCost { get; set; }
 }
