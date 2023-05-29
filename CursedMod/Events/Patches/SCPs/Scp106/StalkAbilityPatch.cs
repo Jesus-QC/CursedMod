@@ -20,24 +20,24 @@ namespace CursedMod.Events.Patches.SCPs.Scp106;
 [HarmonyPatch(typeof(Scp106StalkAbility), nameof(Scp106StalkAbility.ServerProcessCmd))]
 public class StalkAbilityPatch
 {
-    // TODO: REVIEW
     private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
     {
         List<CodeInstruction> newInstructions = EventManager.CheckEvent<StalkAbilityPatch>(46, instructions);
         
-        Label returnLabel = generator.DefineLabel();
+        Label ret = generator.DefineLabel();
+        newInstructions[newInstructions.Count - 1].labels.Add(ret);
 
-        newInstructions.InsertRange(45, new CodeInstruction[]
+        int index = newInstructions.FindLastIndex(x => x.opcode == OpCodes.Ldarg_0);
+        
+        newInstructions.InsertRange(index, new CodeInstruction[]
         {
-            new (OpCodes.Ldarg_0),
+            new CodeInstruction(OpCodes.Ldarg_0).MoveLabelsFrom(newInstructions[index]),
             new (OpCodes.Newobj, AccessTools.GetDeclaredConstructors(typeof(Scp106UsingStalkAbilityEventArgs))[0]),
             new (OpCodes.Dup),
             new (OpCodes.Call, AccessTools.Method(typeof(CursedScp106EventsHandler), nameof(CursedScp106EventsHandler.OnUsingStalkAbility))),
             new (OpCodes.Callvirt, AccessTools.PropertyGetter(typeof(Scp106UsingStalkAbilityEventArgs), nameof(Scp106UsingStalkAbilityEventArgs.IsAllowed))),
-            new (OpCodes.Brfalse_S, returnLabel),
+            new (OpCodes.Brfalse_S, ret),
         });
-        
-        newInstructions[newInstructions.Count - 1].labels.Add(returnLabel);
         
         foreach (CodeInstruction instruction in newInstructions)
             yield return instruction;

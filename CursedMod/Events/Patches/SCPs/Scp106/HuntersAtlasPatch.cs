@@ -21,15 +21,13 @@ namespace CursedMod.Events.Patches.SCPs.Scp106;
 [HarmonyPatch(typeof(Scp106HuntersAtlasAbility), nameof(Scp106HuntersAtlasAbility.SetSubmerged), typeof(bool))]
 public class HuntersAtlasPatch
 {
-    // TODO: REVIEW
     private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
     {
         List<CodeInstruction> newInstructions = EventManager.CheckEvent<HuntersAtlasPatch>(25, instructions);
         
         Label returnLabel = generator.DefineLabel();
-
-        const int offset = -2;
-        int index = newInstructions.FindIndex(i => i.opcode == OpCodes.Stfld) + offset;
+        
+        int index = newInstructions.FindIndex(i => i.opcode == OpCodes.Ret) + 1;
 
         newInstructions.InsertRange(index, new CodeInstruction[]
         {
@@ -47,19 +45,17 @@ public class HuntersAtlasPatch
         ListPool<CodeInstruction>.Shared.Return(newInstructions);
     }
 
-    private static bool ProcessSubmergingEvents(Scp106HuntersAtlasAbility atlasAbility, bool val)
+    private static bool ProcessSubmergingEvents(Scp106HuntersAtlasAbility atlasAbility, bool submerging)
     {
-        if (val)
+        if (submerging)
         {
-            Scp106SubmergingEventArgs eventArgs = new (atlasAbility);
-            CursedScp106EventsHandler.OnSubmerging(eventArgs);
-            return eventArgs.IsAllowed;
+            Scp106SubmergingEventArgs submergingArgs = new (atlasAbility);
+            CursedScp106EventsHandler.OnSubmerging(submergingArgs);
+            return submergingArgs.IsAllowed;
         }
-        else
-        {
-            Scp106ExitingSubmergenceEventArgs eventArgs = new (atlasAbility);
-            CursedScp106EventsHandler.OnExitingSubmergence(eventArgs);
-            return eventArgs.IsAllowed;
-        }
+        
+        Scp106ExitingSubmergenceEventArgs exitingArgs = new (atlasAbility);
+        CursedScp106EventsHandler.OnExitingSubmergence(exitingArgs);
+        return exitingArgs.IsAllowed;
     }
 }
