@@ -20,14 +20,12 @@ namespace CursedMod.Events.Patches.SCPs.Scp096;
 [HarmonyPatch(typeof(Scp096PrygateAbility), nameof(Scp096PrygateAbility.ServerProcessCmd))]
 public class PryGatePatch
 {
-    // TODO: REVIEW
     private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
     {
         List<CodeInstruction> newInstructions = EventManager.CheckEvent<PryGatePatch>(70, instructions);
         
         Label returnLabel = generator.DefineLabel();
-        const int offset = 1;
-        int index = newInstructions.FindIndex(i => i.opcode == OpCodes.Stfld) + offset;
+        int index = newInstructions.FindLastIndex(i => i.opcode == OpCodes.Pop) + 1;
         
         newInstructions.InsertRange(index, new CodeInstruction[]
         {

@@ -19,14 +19,9 @@ public class Scp096TryingNotToCryEventArgs : EventArgs, ICursedCancellableEvent,
     {
         IsAllowed = true;
         Player = CursedPlayer.Get(tryNotToCryAbility.Owner);
-        Object = Physics.Raycast(Player.PlayerCameraReference.position, Player.PlayerCameraReference.forward, out RaycastHit hit, 1f)
-            ? hit.collider.gameObject
-            : null;
     }
     
     public bool IsAllowed { get; set; }
 
     public CursedPlayer Player { get; }
-
-    public GameObject Object { get; }
 }

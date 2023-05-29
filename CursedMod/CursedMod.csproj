@@ -252,7 +252,7 @@
         <Compile Include="Events\Patches\SCPs\Scp096\PryGatePatch.cs" />
         <Compile Include="Events\Patches\SCPs\Scp096\EnragingPatch.cs" />
         <Compile Include="Events\Patches\SCPs\Scp096\RemoveTargetPatch.cs" />
-        <Compile Include="Events\Patches\SCPs\Scp096\UseTryNotToCryPatch.cs" />
+        <Compile Include="Events\Patches\SCPs\Scp096\TryNotToCryPatch.cs" />
         <Compile Include="Events\Patches\SCPs\Scp106\HuntersAtlasPatch.cs" />
         <Compile Include="Events\Patches\SCPs\Scp106\StalkAbilityPatch.cs" />
         <Compile Include="Events\Patches\SCPs\Scp173\PlaceTantrumPatch.cs" />

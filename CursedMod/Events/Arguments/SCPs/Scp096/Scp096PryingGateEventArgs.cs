@@ -19,12 +19,12 @@ public class Scp096PryingGateEventArgs : EventArgs, ICursedCancellableEvent, ICu
     {
         IsAllowed = true;
         Player = CursedPlayer.Get(pryGateAbility.Owner);
-        Gate = CursedDoor.Get(pryGateAbility._syncDoor);
+        Gate = CursedDoor.Get(pryGateAbility._syncDoor) as CursedPryableDoor;
     }
     
     public bool IsAllowed { get; set; }
 
     public CursedPlayer Player { get; }
     
-    public CursedDoor Gate { get; }
+    public CursedPryableDoor Gate { get; }
 }

@@ -20,28 +20,26 @@ namespace CursedMod.Events.Patches.SCPs.Scp096;
 [HarmonyPatch(typeof(Scp096TargetsTracker), nameof(Scp096TargetsTracker.RemoveTarget))]
 public class RemoveTargetPatch
 {
-    // TODO: REVIEW
     private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
     {
         List<CodeInstruction> newInstructions = EventManager.CheckEvent<RemoveTargetPatch>(37, instructions);
 
-        Label retLabel = generator.DefineLabel();
-        const int offset = 1;
-        int index = newInstructions.FindIndex(i => i.opcode == OpCodes.Ret) + offset;
+        Label ret = generator.DefineLabel();
+        newInstructions[newInstructions.FindIndex(x => x.opcode == OpCodes.Ldc_I4_1)].labels.Add(ret);
+        
+        int index = newInstructions.FindIndex(i => i.opcode == OpCodes.Ldarg_0);
         
         newInstructions.InsertRange(index, new CodeInstruction[]
         {
-            new CodeInstruction(OpCodes.Ldarg_0).MoveLabelsFrom(newInstructions[index]),
+            new (OpCodes.Ldarg_0),
             new (OpCodes.Ldarg_1),
             new (OpCodes.Newobj, AccessTools.GetDeclaredConstructors(typeof(Scp096RemovingTargetEventArgs))[0]),
             new (OpCodes.Dup),
             new (OpCodes.Call, AccessTools.Method(typeof(CursedScp096EventsHandler), nameof(CursedScp096EventsHandler.OnRemovingTarget))),
             new (OpCodes.Callvirt, AccessTools.PropertyGetter(typeof(Scp096RemovingTargetEventArgs), nameof(Scp096RemovingTargetEventArgs.IsAllowed))),
-            new (OpCodes.Brfalse_S, retLabel),
+            new (OpCodes.Brfalse_S, ret),
         });
-        
-        newInstructions[newInstructions.Count - 1].labels.Add(retLabel);
-        
+
         foreach (CodeInstruction instruction in newInstructions)
             yield return instruction;
         
