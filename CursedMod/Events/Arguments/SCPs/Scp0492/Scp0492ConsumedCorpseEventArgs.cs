@@ -19,9 +19,12 @@ public class Scp0492ConsumedCorpseEventArgs : EventArgs, ICursedPlayerEvent, ICu
     {
         Player = CursedPlayer.Get(consumeAbility.Owner);
         Ragdoll = CursedRagdoll.Get(consumeAbility.CurRagdoll);
+        Health = 100f;
     }
     
     public CursedPlayer Player { get; }
 
     public CursedRagdoll Ragdoll { get; }
+    
+    public float Health { get; set; }
 }

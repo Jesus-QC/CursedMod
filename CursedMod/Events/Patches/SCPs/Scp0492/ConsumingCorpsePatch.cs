@@ -21,19 +21,16 @@ namespace CursedMod.Events.Patches.SCPs.Scp0492;
 [HarmonyPatch(typeof(RagdollAbilityBase<ZombieRole>), nameof(RagdollAbilityBase<ZombieRole>.ServerProcessCmd))]
 public class ConsumingCorpsePatch
 {
-    // TODO: REVIEW
     private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
     {
         List<CodeInstruction> newInstructions = EventManager.CheckEvent<ConsumingCorpsePatch>(94, instructions);
         
         Label retLabel = generator.DefineLabel();
-        const int offset = -1;
-        int index = newInstructions.FindLastIndex(i =>
-            i.LoadsField(AccessTools.Field(typeof(RagdollAbilityBase<ZombieRole>), nameof(RagdollAbilityBase<ZombieRole>._errorCode)))) + offset;
+        int index = newInstructions.FindLastIndex(x => x.opcode == OpCodes.Ldarg_0);
         
         newInstructions.InsertRange(index, new CodeInstruction[]
         {
-            new (OpCodes.Ldarg_0),
+            new CodeInstruction(OpCodes.Ldarg_0).MoveLabelsFrom(newInstructions[index]),
             new (OpCodes.Newobj, AccessTools.GetDeclaredConstructors(typeof(Scp0492ConsumingCorpseEventArgs))[0]),
             new (OpCodes.Dup),
             new (OpCodes.Call, AccessTools.Method(typeof(CursedScp0492EventsHandler), nameof(CursedScp0492EventsHandler.OnConsumingCorpse))),

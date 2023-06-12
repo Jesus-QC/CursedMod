@@ -149,7 +149,7 @@
         <Compile Include="Events\Arguments\SCPs\Scp106\Scp106SubmergingEventArgs.cs" />
         <Compile Include="Events\Arguments\SCPs\Scp173\Scp173BlinkingEventArgs.cs" />
         <Compile Include="Events\Arguments\SCPs\Scp173\Scp173PlacingTantrumEventArgs.cs" />
-        <Compile Include="Events\Arguments\SCPs\Scp173\Scp173UsingBreakneckSpeedAbilityEventArgs.cs" />
+        <Compile Include="Events\Arguments\SCPs\Scp173\Scp173TogglingBreakneckSpeedAbilityEventArgs.cs" />
         <Compile Include="Events\Arguments\SCPs\Scp330\PlayerEatingScp330EventArgs.cs" />
         <Compile Include="Events\Arguments\SCPs\Scp330\PlayerInteractingScp330EventArgs.cs" />
         <Compile Include="Events\Arguments\SCPs\Scp914\PlayerChangingScp914KnobSettingEventArgs.cs" />
@@ -227,7 +227,6 @@
         <Compile Include="Events\Patches\Round\RoundStartPatch.cs" />
         <Compile Include="Events\Patches\Round\RoundSummaryPatch.cs" />
         <Compile Include="Events\Patches\Round\WaitingForPlayersPatch.cs" />
-        <Compile Include="Events\Patches\SCPs\Scp0492\BloodlustingPatch.cs" />
         <Compile Include="Events\Patches\SCPs\Scp0492\ConsumingCorpsePatch.cs" />
         <Compile Include="Events\Patches\SCPs\Scp0492\CorpseConsumedPatch.cs" />
         <Compile Include="Events\Patches\SCPs\Scp049\ProcessCallAbilityPatch.cs" />
@@ -257,7 +256,7 @@
         <Compile Include="Events\Patches\SCPs\Scp106\StalkAbilityPatch.cs" />
         <Compile Include="Events\Patches\SCPs\Scp173\PlaceTantrumPatch.cs" />
         <Compile Include="Events\Patches\SCPs\Scp173\ServerBlinkPatch.cs" />
-        <Compile Include="Events\Patches\SCPs\Scp173\TriggerBreakNeckSpeedPatch.cs" />
+        <Compile Include="Events\Patches\SCPs\Scp173\TogglingBreakNeckSpeedPatch.cs" />
         <Compile Include="Events\Patches\SCPs\Scp330\EatScp330Patch.cs" />
         <Compile Include="Events\Patches\SCPs\Scp330\ServerInteractScp330Patch.cs" />
         <Compile Include="Events\Patches\SCPs\Scp914\ServerInteractPatch.cs" />

@@ -20,19 +20,26 @@ namespace CursedMod.Events.Patches.SCPs.Scp0492;
 [HarmonyPatch(typeof(ZombieConsumeAbility), nameof(ZombieConsumeAbility.ServerComplete))]
 public class CorpseConsumedPatch
 {
-    // TODO: REVIEW
     private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
     {
         List<CodeInstruction> newInstructions = EventManager.CheckEvent<CorpseConsumedPatch>(18, instructions);
 
-        const int offset = 1;
-        int index = newInstructions.FindIndex(i => i.opcode == OpCodes.Ret) + offset;
+        LocalBuilder health = generator.DeclareLocal(typeof(float));
         
-        newInstructions.InsertRange(index, new CodeInstruction[]
+        int index = newInstructions.FindIndex(i => i.opcode == OpCodes.Ret) + 1;
+
+        CodeInstruction i = newInstructions.Find(x => x.opcode == OpCodes.Ldc_R4);
+        i.opcode = OpCodes.Ldloc_S;
+        i.operand = health.LocalIndex;
+        
+        newInstructions.InsertRange(index, new[]
         {
             new CodeInstruction(OpCodes.Ldarg_0).MoveLabelsFrom(newInstructions[index]),
             new (OpCodes.Newobj, AccessTools.GetDeclaredConstructors(typeof(Scp0492ConsumedCorpseEventArgs))[0]),
+            new (OpCodes.Dup),
             new (OpCodes.Call, AccessTools.Method(typeof(CursedScp0492EventsHandler), nameof(CursedScp0492EventsHandler.OnConsumedCorpse))),
+            new (OpCodes.Callvirt, AccessTools.PropertyGetter(typeof(Scp0492ConsumedCorpseEventArgs), nameof(Scp0492ConsumedCorpseEventArgs.Health))),
+            new (OpCodes.Stloc_S, health.LocalIndex),
         });
         
         foreach (CodeInstruction instruction in newInstructions)

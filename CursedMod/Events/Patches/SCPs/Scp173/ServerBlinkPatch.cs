@@ -20,21 +20,27 @@ namespace CursedMod.Events.Patches.SCPs.Scp173;
 [HarmonyPatch(typeof(Scp173BlinkTimer), nameof(Scp173BlinkTimer.ServerBlink))]
 public class ServerBlinkPatch
 {
-    // TODO: REVIEW
     private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
     {
         List<CodeInstruction> newInstructions = EventManager.CheckEvent<ServerBlinkPatch>(21, instructions);
         
+        LocalBuilder args = generator.DeclareLocal(typeof(Scp173BlinkingEventArgs));
         Label retLabel = generator.DefineLabel();
         
         newInstructions.InsertRange(0, new CodeInstruction[]
         {
             new (OpCodes.Ldarg_0),
+            new (OpCodes.Ldarg_1),
             new (OpCodes.Newobj, AccessTools.GetDeclaredConstructors(typeof(Scp173BlinkingEventArgs))[0]),
             new (OpCodes.Dup),
+            new (OpCodes.Dup),
             new (OpCodes.Call, AccessTools.Method(typeof(CursedScp173EventsHandler), nameof(CursedScp173EventsHandler.OnBlinking))),
+            new (OpCodes.Stloc_S, args.LocalIndex),
             new (OpCodes.Callvirt, AccessTools.PropertyGetter(typeof(Scp173BlinkingEventArgs), nameof(Scp173BlinkingEventArgs.IsAllowed))),
             new (OpCodes.Brfalse_S, retLabel),
+            new (OpCodes.Ldloc_S, args.LocalIndex),
+            new (OpCodes.Callvirt, AccessTools.PropertyGetter(typeof(Scp173BlinkingEventArgs), nameof(Scp173BlinkingEventArgs.TeleportPosition))),
+            new (OpCodes.Starg_S, 1),
         });
         
         newInstructions[newInstructions.Count - 1].labels.Add(retLabel);

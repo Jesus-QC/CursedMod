@@ -14,7 +14,7 @@ public static class CursedScp173EventsHandler
 {
     public static event EventManager.CursedEventHandler<Scp173BlinkingEventArgs> Blinking;
     
-    public static event EventManager.CursedEventHandler<Scp173UsingBreakneckSpeedAbilityEventArgs> UsingBreakneckSpeedAbility;
+    public static event EventManager.CursedEventHandler<Scp173TogglingBreakneckSpeedAbilityEventArgs> TogglingBreakneckSpeedAbility;
     
     public static event EventManager.CursedEventHandler<Scp173PlacingTantrumEventArgs> PlacingTantrum;
 
@@ -23,9 +23,9 @@ public static class CursedScp173EventsHandler
         Blinking.InvokeEvent(args);
     }
     
-    internal static void OnUsingBreakneckSpeedAbility(Scp173UsingBreakneckSpeedAbilityEventArgs args)
+    internal static void OnTogglingBreakneckSpeedAbility(Scp173TogglingBreakneckSpeedAbilityEventArgs args)
     {
-        UsingBreakneckSpeedAbility.InvokeEvent(args);
+        TogglingBreakneckSpeedAbility.InvokeEvent(args);
     }
     
     internal static void OnPlacingTantrum(Scp173PlacingTantrumEventArgs args)

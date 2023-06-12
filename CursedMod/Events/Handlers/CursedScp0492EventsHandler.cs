@@ -15,8 +15,6 @@ public static class CursedScp0492EventsHandler
     public static event EventManager.CursedEventHandler<Scp0492ConsumingCorpseEventArgs> ConsumingCorpse;
     
     public static event EventManager.CursedEventHandler<Scp0492ConsumedCorpseEventArgs> ConsumedCorpse;
-    
-    public static event EventManager.CursedEventHandler<Scp0492UsingBloodLustAbilityEventArgs> UsingBloodLustAbility; 
 
     internal static void OnConsumingCorpse(Scp0492ConsumingCorpseEventArgs args)
     {
@@ -26,10 +24,5 @@ public static class CursedScp0492EventsHandler
     internal static void OnConsumedCorpse(Scp0492ConsumedCorpseEventArgs args)
     {
         ConsumedCorpse.InvokeEvent(args);
-    }
-    
-    internal static void OnUsingBloodLustAbility(Scp0492UsingBloodLustAbilityEventArgs args)
-    {
-        UsingBloodLustAbility.InvokeEvent(args);
     }
 }

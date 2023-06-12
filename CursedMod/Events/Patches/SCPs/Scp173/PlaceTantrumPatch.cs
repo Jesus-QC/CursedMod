@@ -22,19 +22,16 @@ namespace CursedMod.Events.Patches.SCPs.Scp173;
 [HarmonyPatch(typeof(Scp173TantrumAbility), nameof(Scp173TantrumAbility.ServerProcessCmd))]
 public class PlaceTantrumPatch
 {
-    // TODO: REVIEW
     private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
     {
         List<CodeInstruction> newInstructions = EventManager.CheckEvent<PlaceTantrumPatch>(85, instructions);
 
         Label retLabel = generator.DefineLabel();
-        const int offset = -3;
-        int index = newInstructions.FindIndex(i =>
-            i.Calls(AccessTools.Method(typeof(NetworkServer), nameof(NetworkServer.Spawn), new[] { typeof(GameObject), typeof(NetworkConnection) }))) + offset;
+        int index = newInstructions.FindIndex(x => x.opcode == OpCodes.Brtrue_S) + 2;
         
         newInstructions.InsertRange(index, new CodeInstruction[]
         {
-            new (OpCodes.Ldarg_0),
+            new CodeInstruction(OpCodes.Ldarg_0).MoveLabelsFrom(newInstructions[index]),
             new (OpCodes.Newobj, AccessTools.GetDeclaredConstructors(typeof(Scp173PlacingTantrumEventArgs))[0]),
             new (OpCodes.Dup),
             new (OpCodes.Call, AccessTools.Method(typeof(CursedScp173EventsHandler), nameof(CursedScp173EventsHandler.OnPlacingTantrum))),
