@@ -15,7 +15,7 @@ namespace CursedMod.Loader.Configurations;
 
 public static class CursedModConfigurationManager
 {
-    public static CursedModConfiguration LoadedConfiguration;
+    public static CursedModConfiguration LoadedConfiguration { get; internal set; }
     
     internal static void LoadConfigurations()
     {

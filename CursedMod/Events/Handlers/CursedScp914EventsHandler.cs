@@ -17,6 +17,8 @@ public static class CursedScp914EventsHandler
     public static event EventManager.CursedEventHandler<PlayerEnablingScp914EventArgs> PlayerEnablingScp914;
     
     public static event EventManager.CursedEventHandler<Scp914UpgradingItemEventArgs> UpgradingItem; 
+    
+    public static event EventManager.CursedEventHandler<Scp914UpgradedItemEventArgs> UpgradedItem; 
 
     internal static void OnPlayerChangingScp914KnobSetting(PlayerChangingScp914KnobSettingEventArgs args)
     {
@@ -31,5 +33,10 @@ public static class CursedScp914EventsHandler
     internal static void OnUpgradingItem(Scp914UpgradingItemEventArgs args)
     {
         UpgradingItem.InvokeEvent(args);
+    }
+    
+    internal static void OnUpgradedItem(Scp914UpgradedItemEventArgs args)
+    {
+        UpgradedItem.InvokeEvent(args);
     }
 }

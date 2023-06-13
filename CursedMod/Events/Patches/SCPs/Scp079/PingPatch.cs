@@ -43,7 +43,6 @@ public class PingPatch
             new (OpCodes.Ldarg_0),
             new (OpCodes.Ldloc_S, args.LocalIndex),
             new (OpCodes.Call, AccessTools.Method(typeof(PingPatch), nameof(SaveChanges))),
-            
         });
         
         newInstructions[newInstructions.Count - 1].labels.Add(returnLabel);
@@ -54,7 +53,7 @@ public class PingPatch
         ListPool<CodeInstruction>.Shared.Return(newInstructions);
     }
 
-    private static void SaveChanges(Scp079PingAbility ability ,Scp079UsingPingAbilityEventArgs args)
+    private static void SaveChanges(Scp079PingAbility ability, Scp079UsingPingAbilityEventArgs args)
     {
         ability._syncPos = args.Position;
         ability._syncNormal = args.Normal;

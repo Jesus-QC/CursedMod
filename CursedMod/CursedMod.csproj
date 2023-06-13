@@ -154,6 +154,7 @@
         <Compile Include="Events\Arguments\SCPs\Scp330\PlayerInteractingScp330EventArgs.cs" />
         <Compile Include="Events\Arguments\SCPs\Scp914\PlayerChangingScp914KnobSettingEventArgs.cs" />
         <Compile Include="Events\Arguments\SCPs\Scp914\PlayerEnablingScp914EventArgs.cs" />
+        <Compile Include="Events\Arguments\SCPs\Scp914\Scp914UpgradedItemEventArgs.cs" />
         <Compile Include="Events\Arguments\SCPs\Scp914\Scp914UpgradingItemEventArgs.cs" />
         <Compile Include="Events\Arguments\SCPs\Scp939\Scp939CancellingCloudPlacementEventArgs.cs" />
         <Compile Include="Events\Arguments\SCPs\Scp939\Scp939UsingLungeAbilityEventArgs.cs" />

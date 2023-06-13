@@ -21,36 +21,36 @@ namespace CursedMod.Events.Patches.SCPs.Scp914;
 [HarmonyPatch(typeof(Scp914Controller), nameof(Scp914Controller.ServerInteract))]
 public class ServerInteractPatch
 {
-    // TODO: REVIEW
     private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
     {
         List<CodeInstruction> newInstructions = EventManager.CheckEvent<ServerInteractPatch>(89, instructions);
         
         Label returnLabel = generator.DefineLabel();
-
-        const int offset = -2;
-        int index = newInstructions.FindIndex(i =>
-            i.Calls(AccessTools.PropertySetter(typeof(Scp914Controller), nameof(Scp914Controller.Network_knobSetting)))) + offset;
+        LocalBuilder changingKnobArgs = generator.DeclareLocal(typeof(PlayerChangingScp914KnobSettingEventArgs));
+        
+        int index = newInstructions.FindIndex(i => i.Calls(AccessTools.PropertySetter(typeof(Scp914Controller), nameof(Scp914Controller.Network_knobSetting)))) - 2;
 
         newInstructions.InsertRange(index, new CodeInstruction[]
         {
-            new (OpCodes.Ldarg_0),
             new (OpCodes.Ldarg_1),
             new (OpCodes.Ldloc_1),
             new (OpCodes.Newobj, AccessTools.GetDeclaredConstructors(typeof(PlayerChangingScp914KnobSettingEventArgs))[0]),
             new (OpCodes.Dup),
+            new (OpCodes.Dup),
             new (OpCodes.Call, AccessTools.Method(typeof(CursedScp914EventsHandler), nameof(CursedScp914EventsHandler.OnPlayerChangingScp914KnobSetting))),
+            new (OpCodes.Stloc_S, changingKnobArgs.LocalIndex),
             new (OpCodes.Callvirt, AccessTools.PropertyGetter(typeof(PlayerChangingScp914KnobSettingEventArgs), nameof(PlayerChangingScp914KnobSettingEventArgs.IsAllowed))),
             new (OpCodes.Brfalse_S, returnLabel),
+            new (OpCodes.Ldloc_S, changingKnobArgs.LocalIndex),
+            new (OpCodes.Callvirt, AccessTools.PropertyGetter(typeof(PlayerChangingScp914KnobSettingEventArgs), nameof(PlayerChangingScp914KnobSettingEventArgs.KnobSetting))),
+            new (OpCodes.Stloc_1),
         });
 
-        index = newInstructions.FindIndex(i =>
-            i.LoadsField(AccessTools.Field(typeof(Scp914Controller), nameof(Scp914Controller._totalSequenceTime)))) - 2;
+        index = newInstructions.FindIndex(x => x.opcode == OpCodes.Beq_S) + 2;
         
         newInstructions.InsertRange(index, new CodeInstruction[]
         {
-            new CodeInstruction(OpCodes.Ldarg_0).MoveLabelsFrom(newInstructions[index]),
-            new (OpCodes.Ldarg_1),
+            new CodeInstruction(OpCodes.Ldarg_1).MoveLabelsFrom(newInstructions[index]),
             new (OpCodes.Newobj, AccessTools.GetDeclaredConstructors(typeof(PlayerEnablingScp914EventArgs))[0]),
             new (OpCodes.Dup),
             new (OpCodes.Call, AccessTools.Method(typeof(CursedScp914EventsHandler), nameof(CursedScp914EventsHandler.OnPlayerEnablingScp914))),

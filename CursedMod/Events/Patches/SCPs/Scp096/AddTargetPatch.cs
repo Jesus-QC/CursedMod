@@ -25,7 +25,6 @@ public class AddTargetPatch
         List<CodeInstruction> newInstructions = EventManager.CheckEvent<AddTargetPatch>(70, instructions);
 
         Label retLabel = generator.DefineLabel();
-        const int offset = 1;
         int index = newInstructions.FindIndex(i => i.opcode == OpCodes.Pop) + 1;
         
         newInstructions.InsertRange(index, new CodeInstruction[]

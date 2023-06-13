@@ -7,6 +7,7 @@
 // -----------------------------------------------------------------------
 
 using System;
+using CursedMod.Features.Wrappers.Facility;
 using CursedMod.Features.Wrappers.Player;
 using Scp914;
 
@@ -14,10 +15,9 @@ namespace CursedMod.Events.Arguments.SCPs.Scp914;
 
 public class PlayerEnablingScp914EventArgs : EventArgs, ICursedCancellableEvent, ICursedPlayerEvent
 {
-    public PlayerEnablingScp914EventArgs(Scp914Controller controller, ReferenceHub player)
+    public PlayerEnablingScp914EventArgs(ReferenceHub player)
     {
         IsAllowed = true;
-        Scp914Controller = controller;
         Player = CursedPlayer.Get(player);
     }
     
@@ -25,5 +25,9 @@ public class PlayerEnablingScp914EventArgs : EventArgs, ICursedCancellableEvent,
 
     public CursedPlayer Player { get; }
 
-    public Scp914Controller Scp914Controller { get; }
+    public Scp914KnobSetting KnobSetting
+    {
+        get => CursedScp914.KnobSetting;
+        set => CursedScp914.KnobSetting = value;
+    }
 }
