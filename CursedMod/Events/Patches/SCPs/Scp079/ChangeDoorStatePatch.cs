@@ -23,7 +23,7 @@ public class ChangeDoorStatePatch
 {
     private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
     {
-        List<CodeInstruction> newInstructions = EventManager.CheckEvent<ChangeDoorStatePatch>(75, instructions);
+        List<CodeInstruction> newInstructions = CursedEventManager.CheckEvent<ChangeDoorStatePatch>(75, instructions);
         
         Label returnLabel = generator.DefineLabel();
         

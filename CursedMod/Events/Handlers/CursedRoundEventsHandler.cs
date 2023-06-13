@@ -10,13 +10,13 @@ namespace CursedMod.Events.Handlers;
 
 public static class CursedRoundEventsHandler
 {
-    public static event EventManager.CursedEventHandler RoundStarted;
+    public static event CursedEventManager.CursedEventHandler RoundStarted;
     
-    public static event EventManager.CursedEventHandler WaitingForPlayers;
+    public static event CursedEventManager.CursedEventHandler WaitingForPlayers;
     
-    public static event EventManager.CursedEventHandler RestartingRound;
+    public static event CursedEventManager.CursedEventHandler RestartingRound;
     
-    public static event EventManager.CursedEventHandler RoundEnded;
+    public static event CursedEventManager.CursedEventHandler RoundEnded;
 
     internal static void OnRoundStarted()
     {

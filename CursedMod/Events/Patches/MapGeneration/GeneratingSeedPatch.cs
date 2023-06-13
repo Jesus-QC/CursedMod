@@ -22,7 +22,7 @@ public class GeneratingSeedPatch
 {
     private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions)
     {
-        List<CodeInstruction> newInstructions = EventManager.CheckEvent<GeneratingSeedPatch>(37, instructions);
+        List<CodeInstruction> newInstructions = CursedEventManager.CheckEvent<GeneratingSeedPatch>(37, instructions);
 
         int offset = newInstructions.FindLastIndex(x => x.opcode == OpCodes.Call);
         

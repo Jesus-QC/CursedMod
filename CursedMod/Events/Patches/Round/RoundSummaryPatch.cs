@@ -32,7 +32,7 @@ public class RoundSummaryPatch
 {
     private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
     {
-        List<CodeInstruction> newInstructions = EventManager.CheckEvent<RoundSummaryPatch>(41, instructions);
+        List<CodeInstruction> newInstructions = CursedEventManager.CheckEvent<RoundSummaryPatch>(41, instructions);
 
         newInstructions.Clear();
         

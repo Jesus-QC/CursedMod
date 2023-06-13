@@ -22,7 +22,7 @@ public class ReloadServerNamePatch
 {
     private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
     {
-        List<CodeInstruction> newInstructions = EventManager.CheckEvent<ReloadServerNamePatch>(6, instructions);
+        List<CodeInstruction> newInstructions = CursedEventManager.CheckEvent<ReloadServerNamePatch>(6, instructions);
         Label ret = generator.DefineLabel();
 
         newInstructions[newInstructions.Count - 1].labels.Add(ret);

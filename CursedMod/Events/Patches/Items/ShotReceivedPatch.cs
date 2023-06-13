@@ -22,7 +22,7 @@ public class ShotReceivedPatch
 {
     private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
     {
-        List<CodeInstruction> newInstructions = EventManager.CheckEvent<ShotReceivedPatch>(44, instructions);
+        List<CodeInstruction> newInstructions = CursedEventManager.CheckEvent<ShotReceivedPatch>(44, instructions);
 
         Label ret = generator.DefineLabel();
 

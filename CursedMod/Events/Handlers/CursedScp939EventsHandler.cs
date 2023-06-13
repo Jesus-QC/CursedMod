@@ -12,25 +12,25 @@ namespace CursedMod.Events.Handlers;
 
 public static class CursedScp939EventsHandler
 {
-    public static event EventManager.CursedEventHandler<Scp939SavingVoiceEventArgs> SavingVoice;
+    public static event CursedEventManager.CursedEventHandler<Scp939SavingVoiceEventArgs> SavingVoice;
     
-    public static event EventManager.CursedEventHandler<Scp939PlacingAmnesticCloudEventArgs> PlacingAmnesticCloud; 
+    public static event CursedEventManager.CursedEventHandler<Scp939PlacingAmnesticCloudEventArgs> PlacingAmnesticCloud; 
     
-    public static event EventManager.CursedEventHandler<Scp939CancellingCloudPlacementEventArgs> CancellingCloudPlacement;
+    public static event CursedEventManager.CursedEventHandler<Scp939CancellingCloudPlacementEventArgs> CancellingCloudPlacement;
     
-    public static event EventManager.CursedEventHandler<Scp939PlayingSoundEventArgs> PlayingSound;
+    public static event CursedEventManager.CursedEventHandler<Scp939PlayingSoundEventArgs> PlayingSound;
     
-    public static event EventManager.CursedEventHandler<Scp939PlayingVoiceEventArgs> PlayingVoice;
+    public static event CursedEventManager.CursedEventHandler<Scp939PlayingVoiceEventArgs> PlayingVoice;
     
-    public static event EventManager.CursedEventHandler<Scp939UsingLungeAbilityEventArgs> UsingLungeAbility;
+    public static event CursedEventManager.CursedEventHandler<Scp939UsingLungeAbilityEventArgs> UsingLungeAbility;
     
-    public static event EventManager.CursedEventHandler<Scp939PlacingMimicPointEventArgs> PlacingMimicPoint;
+    public static event CursedEventManager.CursedEventHandler<Scp939PlacingMimicPointEventArgs> PlacingMimicPoint;
     
-    public static event EventManager.CursedEventHandler<Scp939RemovingMimicPointEventArgs> RemovingMimic;
+    public static event CursedEventManager.CursedEventHandler<Scp939RemovingMimicPointEventArgs> RemovingMimic;
     
-    public static event EventManager.CursedEventHandler<Scp939RemovingSavedVoiceEventArgs> RemovingSavedVoice;
+    public static event CursedEventManager.CursedEventHandler<Scp939RemovingSavedVoiceEventArgs> RemovingSavedVoice;
     
-    public static event EventManager.CursedEventHandler<Scp939UsingFocusAbilityEventArgs> UsingFocusAbility; 
+    public static event CursedEventManager.CursedEventHandler<Scp939UsingFocusAbilityEventArgs> UsingFocusAbility; 
 
     internal static void OnSavingVoice(Scp939SavingVoiceEventArgs args)
     {

@@ -22,7 +22,7 @@ public class Scp079RecontainerStartPatch
 {
     private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions)
     {
-        List<CodeInstruction> newInstructions = EventManager.CheckEvent<ServerAchievePatch>(9, instructions);
+        List<CodeInstruction> newInstructions = CursedEventManager.CheckEvent<ServerAchievePatch>(9, instructions);
 
         newInstructions.InsertRange(0, new CodeInstruction[]
         {

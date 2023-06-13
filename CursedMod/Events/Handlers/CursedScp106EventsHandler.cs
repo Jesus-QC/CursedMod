@@ -12,11 +12,11 @@ namespace CursedMod.Events.Handlers;
 
 public static class CursedScp106EventsHandler
 {
-    public static event EventManager.CursedEventHandler<Scp106SubmergingEventArgs> Submerging;
+    public static event CursedEventManager.CursedEventHandler<Scp106SubmergingEventArgs> Submerging;
     
-    public static event EventManager.CursedEventHandler<Scp106ExitingSubmergenceEventArgs> ExitingSubmergence; 
+    public static event CursedEventManager.CursedEventHandler<Scp106ExitingSubmergenceEventArgs> ExitingSubmergence; 
 
-    public static event EventManager.CursedEventHandler<Scp106UsingStalkAbilityEventArgs> UsingStalkAbility;
+    public static event CursedEventManager.CursedEventHandler<Scp106UsingStalkAbilityEventArgs> UsingStalkAbility;
 
     internal static void OnSubmerging(Scp106SubmergingEventArgs args)
     {

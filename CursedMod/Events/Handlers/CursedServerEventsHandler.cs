@@ -12,7 +12,7 @@ namespace CursedMod.Events.Handlers;
 
 public static class CursedServerEventsHandler
 {
-    public static event EventManager.CursedEventHandler LoadedConfigs;
+    public static event CursedEventManager.CursedEventHandler LoadedConfigs;
 
     internal static void OnLoadedConfigs()
     {

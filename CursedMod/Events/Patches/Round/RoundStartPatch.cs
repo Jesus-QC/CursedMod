@@ -20,7 +20,7 @@ public class RoundStartPatch
 {
     private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions)
     {
-        List<CodeInstruction> newInstructions = EventManager.CheckEvent<RoundStartPatch>(12, instructions);
+        List<CodeInstruction> newInstructions = CursedEventManager.CheckEvent<RoundStartPatch>(12, instructions);
 
         newInstructions.InsertRange(0, new CodeInstruction[]
         {

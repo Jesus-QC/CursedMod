@@ -12,7 +12,7 @@ namespace CursedMod.Events.Handlers;
 
 public static class CursedAchievementsEventsHandler
 {
-    public static event EventManager.CursedEventHandler<PlayerAchievingEventArgs> PlayerAchieving;
+    public static event CursedEventManager.CursedEventHandler<PlayerAchievingEventArgs> PlayerAchieving;
 
     internal static void OnPlayerAchieving(PlayerAchievingEventArgs args)
     {

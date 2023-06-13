@@ -22,7 +22,7 @@ public class TryNotToCryPatch
 {
     private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
     {
-        List<CodeInstruction> newInstructions = EventManager.CheckEvent<TryNotToCryPatch>(25, instructions);
+        List<CodeInstruction> newInstructions = CursedEventManager.CheckEvent<TryNotToCryPatch>(25, instructions);
         
         Label retLabel = generator.DefineLabel();
         

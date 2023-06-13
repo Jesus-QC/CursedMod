@@ -23,7 +23,7 @@ public class CancelCloudPlacementPatch
     // TODO: REVIEW
     private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
     {
-        List<CodeInstruction> newInstructions = EventManager.CheckEvent<CancelCloudPlacementPatch>(4, instructions);
+        List<CodeInstruction> newInstructions = CursedEventManager.CheckEvent<CancelCloudPlacementPatch>(4, instructions);
         
         Label returnLabel = generator.DefineLabel();
         

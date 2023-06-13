@@ -21,7 +21,7 @@ public class DetonatePatch
 {
     private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
     {
-        List<CodeInstruction> newInstructions = EventManager.CheckEvent<DetonatePatch>(185, instructions);
+        List<CodeInstruction> newInstructions = CursedEventManager.CheckEvent<DetonatePatch>(185, instructions);
 
         Label ret = generator.DefineLabel();
         

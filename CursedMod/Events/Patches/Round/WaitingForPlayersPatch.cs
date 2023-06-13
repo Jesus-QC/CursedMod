@@ -20,7 +20,7 @@ public class WaitingForPlayersPatch
 {
     private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
     {
-        List<CodeInstruction> newInstructions = EventManager.CheckEvent<WaitingForPlayersPatch>(6, instructions);
+        List<CodeInstruction> newInstructions = CursedEventManager.CheckEvent<WaitingForPlayersPatch>(6, instructions);
 
         Label skip = generator.DefineLabel();
         

@@ -12,9 +12,9 @@ namespace CursedMod.Events.Handlers;
 
 public static class CursedScp0492EventsHandler
 {
-    public static event EventManager.CursedEventHandler<Scp0492ConsumingCorpseEventArgs> ConsumingCorpse;
+    public static event CursedEventManager.CursedEventHandler<Scp0492ConsumingCorpseEventArgs> ConsumingCorpse;
     
-    public static event EventManager.CursedEventHandler<Scp0492ConsumedCorpseEventArgs> ConsumedCorpse;
+    public static event CursedEventManager.CursedEventHandler<Scp0492ConsumedCorpseEventArgs> ConsumedCorpse;
 
     internal static void OnConsumingCorpse(Scp0492ConsumingCorpseEventArgs args)
     {

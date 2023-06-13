@@ -23,7 +23,7 @@ public class ConsumingCorpsePatch
 {
     private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
     {
-        List<CodeInstruction> newInstructions = EventManager.CheckEvent<ConsumingCorpsePatch>(94, instructions);
+        List<CodeInstruction> newInstructions = CursedEventManager.CheckEvent<ConsumingCorpsePatch>(94, instructions);
         
         Label retLabel = generator.DefineLabel();
         int index = newInstructions.FindLastIndex(x => x.opcode == OpCodes.Ldarg_0);

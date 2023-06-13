@@ -22,7 +22,7 @@ public class ServerInteractScp330Patch
 {
     private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
     {
-        List<CodeInstruction> newInstructions = EventManager.CheckEvent<ServerInteractScp330Patch>(92, instructions);
+        List<CodeInstruction> newInstructions = CursedEventManager.CheckEvent<ServerInteractScp330Patch>(92, instructions);
 
         int offset = newInstructions.FindIndex(x => x.opcode == OpCodes.Newarr) - 2;
 

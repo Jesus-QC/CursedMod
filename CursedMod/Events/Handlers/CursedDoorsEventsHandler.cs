@@ -12,7 +12,7 @@ namespace CursedMod.Events.Handlers;
 
 public static class CursedDoorsEventsHandler
 {
-    public static event EventManager.CursedEventHandler<PlayerInteractingDoorEventArgs> PlayerInteractingDoor;
+    public static event CursedEventManager.CursedEventHandler<PlayerInteractingDoorEventArgs> PlayerInteractingDoor;
 
     internal static void OnPlayerInteractingDoor(PlayerInteractingDoorEventArgs args)
     {

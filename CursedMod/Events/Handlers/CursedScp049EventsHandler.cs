@@ -12,13 +12,13 @@ namespace CursedMod.Events.Handlers;
 
 public static class CursedScp049EventsHandler
 {
-    public static event EventManager.CursedEventHandler<Scp049StartingResurrectionEventArgs> StartingResurrection;
+    public static event CursedEventManager.CursedEventHandler<Scp049StartingResurrectionEventArgs> StartingResurrection;
     
-    public static event EventManager.CursedEventHandler<Scp049ResurrectingPlayerEventArgs> ResurrectingPlayer;
+    public static event CursedEventManager.CursedEventHandler<Scp049ResurrectingPlayerEventArgs> ResurrectingPlayer;
     
-    public static event EventManager.CursedEventHandler<Scp049UsingSenseAbilityEventArgs> UsingSenseAbility;
+    public static event CursedEventManager.CursedEventHandler<Scp049UsingSenseAbilityEventArgs> UsingSenseAbility;
     
-    public static event EventManager.CursedEventHandler<Scp049UsingCallAbilityEventArgs> UsingCallAbility; 
+    public static event CursedEventManager.CursedEventHandler<Scp049UsingCallAbilityEventArgs> UsingCallAbility; 
 
     internal static void OnStartingResurrection(Scp049StartingResurrectionEventArgs args)
     {

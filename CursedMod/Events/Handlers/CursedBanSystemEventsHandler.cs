@@ -12,13 +12,13 @@ namespace CursedMod.Events.Handlers;
 
 public static class CursedBanSystemEventsHandler
 {
-    public static event EventManager.CursedEventHandler<BanningOfflinePlayerEventArgs> BanningOfflinePlayer;
+    public static event CursedEventManager.CursedEventHandler<BanningOfflinePlayerEventArgs> BanningOfflinePlayer;
     
-    public static event EventManager.CursedEventHandler<BanningPlayerEventArgs> BanningPlayer;
+    public static event CursedEventManager.CursedEventHandler<BanningPlayerEventArgs> BanningPlayer;
     
-    public static event EventManager.CursedEventHandler<KickingPlayerEventArgs> KickingPlayer;
+    public static event CursedEventManager.CursedEventHandler<KickingPlayerEventArgs> KickingPlayer;
     
-    public static event EventManager.CursedEventHandler<IssuingBanEventArgs> IssuingBan;
+    public static event CursedEventManager.CursedEventHandler<IssuingBanEventArgs> IssuingBan;
 
     internal static void OnBanningPlayer(BanningPlayerEventArgs args)
     {

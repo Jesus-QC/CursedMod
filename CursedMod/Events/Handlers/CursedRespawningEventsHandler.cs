@@ -12,7 +12,7 @@ namespace CursedMod.Events.Handlers;
 
 public static class CursedRespawningEventsHandler
 {
-    public static event EventManager.CursedEventHandler<RespawningTeamEventArgs> RespawningTeam;
+    public static event CursedEventManager.CursedEventHandler<RespawningTeamEventArgs> RespawningTeam;
 
     internal static void OnRespawningTeam(RespawningTeamEventArgs args)
     {

@@ -12,23 +12,23 @@ namespace CursedMod.Events.Handlers;
 
 public static class CursedItemsEventsHandler
 {
-    public static event EventManager.CursedEventHandler<PlayerPickingUpItemEventArgs> PlayerPickingUpItem;
+    public static event CursedEventManager.CursedEventHandler<PlayerPickingUpItemEventArgs> PlayerPickingUpItem;
     
-    public static event EventManager.CursedEventHandler<PlayerPickedUpItemEventArgs> PlayerPickedUpItem;
+    public static event CursedEventManager.CursedEventHandler<PlayerPickedUpItemEventArgs> PlayerPickedUpItem;
     
-    public static event EventManager.CursedEventHandler<PlayerDroppingItemEventArgs> PlayerDroppingItem;
+    public static event CursedEventManager.CursedEventHandler<PlayerDroppingItemEventArgs> PlayerDroppingItem;
 
-    public static event EventManager.CursedEventHandler<PlayerCancellingThrowEventArgs> PlayerCancellingThrow;
+    public static event CursedEventManager.CursedEventHandler<PlayerCancellingThrowEventArgs> PlayerCancellingThrow;
     
-    public static event EventManager.CursedEventHandler<PlayerCancellingUsableEventArgs> PlayerCancellingUsable;
+    public static event CursedEventManager.CursedEventHandler<PlayerCancellingUsableEventArgs> PlayerCancellingUsable;
     
-    public static event EventManager.CursedEventHandler<PlayerUsingItemEventArgs> PlayerUsingItem;
+    public static event CursedEventManager.CursedEventHandler<PlayerUsingItemEventArgs> PlayerUsingItem;
 
-    public static event EventManager.CursedEventHandler<PlayerUsedItemEventArgs> PlayerUsedItem;
+    public static event CursedEventManager.CursedEventHandler<PlayerUsedItemEventArgs> PlayerUsedItem;
     
-    public static event EventManager.CursedEventHandler<PlayerThrowingItemEventArgs> PlayerThrowingItem;
+    public static event CursedEventManager.CursedEventHandler<PlayerThrowingItemEventArgs> PlayerThrowingItem;
     
-    public static event EventManager.CursedEventHandler<PlayerShootingEventArgs> PlayerShooting;
+    public static event CursedEventManager.CursedEventHandler<PlayerShootingEventArgs> PlayerShooting;
     
     internal static void OnPlayerPickingUpItem(PlayerPickingUpItemEventArgs args)
     {

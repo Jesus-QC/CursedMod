@@ -12,7 +12,7 @@ namespace CursedMod.Events.Handlers;
 
 public static class CursedCommandSystemEventsHandler
 {
-    public static event EventManager.CursedEventHandler<ExecutingRemoteAdminCommandEventArgs> ExecutingRemoteAdminCommand;
+    public static event CursedEventManager.CursedEventHandler<ExecutingRemoteAdminCommandEventArgs> ExecutingRemoteAdminCommand;
 
     internal static void OnExecutingRemoteAdminCommand(ExecutingRemoteAdminCommandEventArgs args)
     {

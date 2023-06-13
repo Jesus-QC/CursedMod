@@ -21,7 +21,7 @@ public class StartDetonationPatch
 {
     private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
     {
-        List<CodeInstruction> newInstructions = EventManager.CheckEvent<StartDetonationPatch>(119, instructions);
+        List<CodeInstruction> newInstructions = CursedEventManager.CheckEvent<StartDetonationPatch>(119, instructions);
 
         Label ret = generator.DefineLabel();
         LocalBuilder args = generator.DeclareLocal(typeof(PlayerStartingDetonationEventArgs));

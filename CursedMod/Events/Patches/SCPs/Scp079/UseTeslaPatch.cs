@@ -22,7 +22,7 @@ public class UseTeslaPatch
 {
     private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
     {
-        List<CodeInstruction> newInstructions = EventManager.CheckEvent<UseTeslaPatch>(66, instructions);
+        List<CodeInstruction> newInstructions = CursedEventManager.CheckEvent<UseTeslaPatch>(66, instructions);
         
         Label returnLabel = generator.DefineLabel();
         

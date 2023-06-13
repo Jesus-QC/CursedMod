@@ -12,19 +12,19 @@ namespace CursedMod.Events.Handlers;
 
 public static class CursedScp096EventsHandler
 {
-    public static event EventManager.CursedEventHandler<Scp096PryingGateEventArgs> PryingGate;
+    public static event CursedEventManager.CursedEventHandler<Scp096PryingGateEventArgs> PryingGate;
     
-    public static event EventManager.CursedEventHandler<Scp096TryingNotToCryEventArgs> TryingNotToCry;
+    public static event CursedEventManager.CursedEventHandler<Scp096TryingNotToCryEventArgs> TryingNotToCry;
     
-    public static event EventManager.CursedEventHandler<Scp096ChargingEventArgs> Charging;
+    public static event CursedEventManager.CursedEventHandler<Scp096ChargingEventArgs> Charging;
     
-    public static event EventManager.CursedEventHandler<Scp096EnragingEventArgs> Enraging;
+    public static event CursedEventManager.CursedEventHandler<Scp096EnragingEventArgs> Enraging;
     
-    public static event EventManager.CursedEventHandler<Scp096CalmingEventArgs> Calming; 
+    public static event CursedEventManager.CursedEventHandler<Scp096CalmingEventArgs> Calming; 
     
-    public static event EventManager.CursedEventHandler<Scp096AddingTargetEventArgs> AddingTarget;
+    public static event CursedEventManager.CursedEventHandler<Scp096AddingTargetEventArgs> AddingTarget;
     
-    public static event EventManager.CursedEventHandler<Scp096RemovingTargetEventArgs> RemovingTarget;
+    public static event CursedEventManager.CursedEventHandler<Scp096RemovingTargetEventArgs> RemovingTarget;
 
     internal static void OnPryingGate(Scp096PryingGateEventArgs ev)
     {

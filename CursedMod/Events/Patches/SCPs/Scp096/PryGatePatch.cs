@@ -22,7 +22,7 @@ public class PryGatePatch
 {
     private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
     {
-        List<CodeInstruction> newInstructions = EventManager.CheckEvent<PryGatePatch>(70, instructions);
+        List<CodeInstruction> newInstructions = CursedEventManager.CheckEvent<PryGatePatch>(70, instructions);
         
         Label returnLabel = generator.DefineLabel();
         int index = newInstructions.FindLastIndex(i => i.opcode == OpCodes.Pop) + 1;

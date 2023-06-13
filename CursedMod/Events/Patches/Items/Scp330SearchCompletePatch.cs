@@ -22,7 +22,7 @@ public class Scp330SearchCompletePatch
 {
     private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
     {
-        List<CodeInstruction> newInstructions = EventManager.CheckEvent<Scp244SearchCompletePatch>(47, instructions);
+        List<CodeInstruction> newInstructions = CursedEventManager.CheckEvent<Scp244SearchCompletePatch>(47, instructions);
 
         Label ret = generator.DefineLabel();
         int offset = newInstructions.FindIndex(x => x.opcode == OpCodes.Ret) + 1;

@@ -21,7 +21,7 @@ public class ElevatorChamberAwakePatch
 {
     private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions)
     {
-        List<CodeInstruction> newInstructions = EventManager.CheckEvent<ElevatorChamberAwakePatch>(8, instructions);
+        List<CodeInstruction> newInstructions = CursedEventManager.CheckEvent<ElevatorChamberAwakePatch>(8, instructions);
 
         newInstructions.InsertRange(0, new CodeInstruction[]
         {

@@ -12,11 +12,11 @@ namespace CursedMod.Events.Handlers;
 
 public static class CursedScp173EventsHandler
 {
-    public static event EventManager.CursedEventHandler<Scp173BlinkingEventArgs> Blinking;
+    public static event CursedEventManager.CursedEventHandler<Scp173BlinkingEventArgs> Blinking;
     
-    public static event EventManager.CursedEventHandler<Scp173TogglingBreakneckSpeedAbilityEventArgs> TogglingBreakneckSpeedAbility;
+    public static event CursedEventManager.CursedEventHandler<Scp173TogglingBreakneckSpeedAbilityEventArgs> TogglingBreakneckSpeedAbility;
     
-    public static event EventManager.CursedEventHandler<Scp173PlacingTantrumEventArgs> PlacingTantrum;
+    public static event CursedEventManager.CursedEventHandler<Scp173PlacingTantrumEventArgs> PlacingTantrum;
 
     internal static void OnBlinking(Scp173BlinkingEventArgs args)
     {

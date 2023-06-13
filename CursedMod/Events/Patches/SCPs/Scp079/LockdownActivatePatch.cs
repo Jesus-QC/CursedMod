@@ -22,7 +22,7 @@ public class LockdownActivatePatch
 {
     private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
     {
-        List<CodeInstruction> newInstructions = EventManager.CheckEvent<LockdownActivatePatch>(50, instructions);
+        List<CodeInstruction> newInstructions = CursedEventManager.CheckEvent<LockdownActivatePatch>(50, instructions);
         
         Label returnLabel = generator.DefineLabel();
         LocalBuilder localBuilder = generator.DeclareLocal(typeof(Scp079UsingLockdownAbilityEventArgs));

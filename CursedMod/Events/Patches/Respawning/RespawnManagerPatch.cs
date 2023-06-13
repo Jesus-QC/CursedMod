@@ -22,7 +22,7 @@ public class RespawnManagerPatch
 {
     private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
     {
-        List<CodeInstruction> newInstructions = EventManager.CheckEvent<RespawnManagerPatch>(244, instructions);
+        List<CodeInstruction> newInstructions = CursedEventManager.CheckEvent<RespawnManagerPatch>(244, instructions);
 
         Label ret = generator.DefineLabel();
         

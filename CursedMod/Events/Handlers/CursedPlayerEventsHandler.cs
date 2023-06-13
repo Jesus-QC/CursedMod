@@ -14,25 +14,25 @@ namespace CursedMod.Events.Handlers;
 
 public static class CursedPlayerEventsHandler
 {
-    public static event EventManager.CursedEventHandler<PlayerConnectedEventArgs> Connected;
+    public static event CursedEventManager.CursedEventHandler<PlayerConnectedEventArgs> Connected;
     
-    public static event EventManager.CursedEventHandler<PlayerDisconnectingEventArgs> Disconnecting;
+    public static event CursedEventManager.CursedEventHandler<PlayerDisconnectingEventArgs> Disconnecting;
     
-    public static event EventManager.CursedEventHandler<PlayerDisconnectedEventArgs> Disconnected;
+    public static event CursedEventManager.CursedEventHandler<PlayerDisconnectedEventArgs> Disconnected;
     
-    public static event EventManager.CursedEventHandler<PlayerChangingRoleEventArgs> ChangingRole;
+    public static event CursedEventManager.CursedEventHandler<PlayerChangingRoleEventArgs> ChangingRole;
     
-    public static event EventManager.CursedEventHandler<PlayerSpawningEventArgs> Spawning;
+    public static event CursedEventManager.CursedEventHandler<PlayerSpawningEventArgs> Spawning;
     
-    public static event EventManager.CursedEventHandler<PlayerReceivingDamageEventArgs> ReceivingDamage;
+    public static event CursedEventManager.CursedEventHandler<PlayerReceivingDamageEventArgs> ReceivingDamage;
     
-    public static event EventManager.CursedEventHandler<PlayerDyingEventArgs> Dying;
+    public static event CursedEventManager.CursedEventHandler<PlayerDyingEventArgs> Dying;
     
-    public static event EventManager.CursedEventHandler<PlayerEscapingEventArgs> Escaping;
+    public static event CursedEventManager.CursedEventHandler<PlayerEscapingEventArgs> Escaping;
 
-    public static event EventManager.CursedEventHandler<PlayerUsingVoiceChatEventArgs> UsingVoiceChat;
+    public static event CursedEventManager.CursedEventHandler<PlayerUsingVoiceChatEventArgs> UsingVoiceChat;
     
-    public static event EventManager.CursedEventHandler<PlayerTogglingNoClipEventArgs> TogglingNoClip;
+    public static event CursedEventManager.CursedEventHandler<PlayerTogglingNoClipEventArgs> TogglingNoClip;
 
     internal static void OnPlayerConnected(PlayerConnectedEventArgs args)
     {

@@ -21,7 +21,7 @@ public class PlayerEscapePatch
 {
     private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
     {
-        List<CodeInstruction> newInstructions = EventManager.CheckEvent<PlayerEscapePatch>(70, instructions);
+        List<CodeInstruction> newInstructions = CursedEventManager.CheckEvent<PlayerEscapePatch>(70, instructions);
 
         Label ret = generator.DefineLabel();
         LocalBuilder args = generator.DeclareLocal(typeof(PlayerEscapingEventArgs));

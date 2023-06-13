@@ -12,11 +12,11 @@ namespace CursedMod.Events.Handlers;
 
 public static class CursedWarheadEventsHandler
 {
-    public static event EventManager.CursedEventHandler<PlayerStartingDetonationEventArgs> PlayerStartingDetonation;
+    public static event CursedEventManager.CursedEventHandler<PlayerStartingDetonationEventArgs> PlayerStartingDetonation;
     
-    public static event EventManager.CursedEventHandler<PlayerCancelingDetonationEventArgs> PlayerCancelingDetonation;
+    public static event CursedEventManager.CursedEventHandler<PlayerCancelingDetonationEventArgs> PlayerCancelingDetonation;
     
-    public static event EventManager.CursedEventHandler<WarheadDetonatingEventArgs> WarheadDetonating;
+    public static event CursedEventManager.CursedEventHandler<WarheadDetonatingEventArgs> WarheadDetonating;
 
     internal static void OnPlayerStartingDetonation(PlayerStartingDetonationEventArgs args)
     {

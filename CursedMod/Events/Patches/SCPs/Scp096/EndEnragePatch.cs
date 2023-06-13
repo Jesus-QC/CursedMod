@@ -22,7 +22,7 @@ public class EndEnragePatch
 {
     private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
     {
-        List<CodeInstruction> newInstructions = EventManager.CheckEvent<EndEnragePatch>(17, instructions);
+        List<CodeInstruction> newInstructions = CursedEventManager.CheckEvent<EndEnragePatch>(17, instructions);
 
         Label retLabel = generator.DefineLabel();
         LocalBuilder localBuilder = generator.DeclareLocal(typeof(Scp096CalmingEventArgs));

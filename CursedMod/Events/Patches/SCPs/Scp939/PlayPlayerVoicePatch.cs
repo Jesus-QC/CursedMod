@@ -24,7 +24,7 @@ public class PlayPlayerVoicePatch
     // TODO: REVIEW
     private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
     {
-        List<CodeInstruction> newInstructions = EventManager.CheckEvent<PlayPlayerVoicePatch>(29, instructions);
+        List<CodeInstruction> newInstructions = CursedEventManager.CheckEvent<PlayPlayerVoicePatch>(29, instructions);
         
         Label returnLabel = generator.DefineLabel();
         LocalBuilder voiceOwner = generator.DeclareLocal(typeof(ReferenceHub));

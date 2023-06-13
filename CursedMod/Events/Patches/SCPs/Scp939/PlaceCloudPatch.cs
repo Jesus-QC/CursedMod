@@ -23,7 +23,7 @@ public class PlaceCloudPatch
     // TODO: REVIEW
     private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
     {
-        List<CodeInstruction> newInstructions = EventManager.CheckEvent<PlaceCloudPatch>(34, instructions);
+        List<CodeInstruction> newInstructions = CursedEventManager.CheckEvent<PlaceCloudPatch>(34, instructions);
         
         Label returnLabel = generator.DefineLabel();
 

@@ -22,7 +22,7 @@ public class GainExperiencePatch
 {
     private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
     {
-        List<CodeInstruction> newInstructions = EventManager.CheckEvent<GainExperiencePatch>(22, instructions);
+        List<CodeInstruction> newInstructions = CursedEventManager.CheckEvent<GainExperiencePatch>(22, instructions);
 
         LocalBuilder args = generator.DeclareLocal(typeof(Scp079GainingExperienceEventArgs));
         Label returnLabel = generator.DefineLabel();

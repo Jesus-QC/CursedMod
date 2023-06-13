@@ -25,7 +25,7 @@ public class PlaceMimicPointPatch
     // TODO: REVIEW
     private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
     {
-        List<CodeInstruction> newInstructions = EventManager.CheckEvent<PlaceMimicPointPatch>(30, instructions);
+        List<CodeInstruction> newInstructions = CursedEventManager.CheckEvent<PlaceMimicPointPatch>(30, instructions);
         
         Label returnLabel = generator.DefineLabel();
         

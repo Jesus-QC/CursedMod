@@ -22,7 +22,7 @@ public class ServerAddItemPatch
 {
     private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions)
     {
-        List<CodeInstruction> newInstructions = EventManager.CheckEvent<ServerAddItemPatch>(77, instructions);
+        List<CodeInstruction> newInstructions = CursedEventManager.CheckEvent<ServerAddItemPatch>(77, instructions);
 
         newInstructions.InsertRange(newInstructions.Count - 2, new CodeInstruction[]
         {

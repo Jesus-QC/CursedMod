@@ -21,7 +21,7 @@ public class KillPlayerPatch
 {
     private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
     {
-        List<CodeInstruction> newInstructions = EventManager.CheckEvent<KillPlayerPatch>(37, instructions);
+        List<CodeInstruction> newInstructions = CursedEventManager.CheckEvent<KillPlayerPatch>(37, instructions);
 
         Label ret = generator.DefineLabel();
         

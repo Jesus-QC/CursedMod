@@ -21,7 +21,7 @@ public class DealDamagePatch
 {
     private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
     {
-        List<CodeInstruction> newInstructions = EventManager.CheckEvent<DealDamagePatch>(196, instructions);
+        List<CodeInstruction> newInstructions = CursedEventManager.CheckEvent<DealDamagePatch>(196, instructions);
 
         Label ret = generator.DefineLabel();
         

@@ -12,9 +12,9 @@ namespace CursedMod.Events.Handlers;
 
 public static class CursedScp330EventsHandler
 {
-    public static event EventManager.CursedEventHandler<PlayerInteractingScp330EventArgs> PlayerInteractingScp330;
+    public static event CursedEventManager.CursedEventHandler<PlayerInteractingScp330EventArgs> PlayerInteractingScp330;
     
-    public static event EventManager.CursedEventHandler<PlayerEatingScp330EventArgs> PlayerEatingScp330; 
+    public static event CursedEventManager.CursedEventHandler<PlayerEatingScp330EventArgs> PlayerEatingScp330; 
 
     internal static void OnPlayerInteractingScp330(PlayerInteractingScp330EventArgs args)
     {

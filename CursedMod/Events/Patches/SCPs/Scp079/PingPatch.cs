@@ -23,7 +23,7 @@ public class PingPatch
 {
     private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
     {
-        List<CodeInstruction> newInstructions = EventManager.CheckEvent<PingPatch>(53, instructions);
+        List<CodeInstruction> newInstructions = CursedEventManager.CheckEvent<PingPatch>(53, instructions);
         
         Label returnLabel = generator.DefineLabel();
         LocalBuilder args = generator.DeclareLocal(typeof(Scp079UsingPingAbilityEventArgs));

@@ -22,7 +22,7 @@ public class BlackoutRoomAbilityPatch
 {
     private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
     {
-        List<CodeInstruction> newInstructions = EventManager.CheckEvent<BlackoutRoomAbilityPatch>(73, instructions);
+        List<CodeInstruction> newInstructions = CursedEventManager.CheckEvent<BlackoutRoomAbilityPatch>(73, instructions);
         
         Label returnLabel = generator.DefineLabel();
         

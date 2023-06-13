@@ -22,7 +22,7 @@ public class EatScp330Patch
 {
     private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
     {
-        List<CodeInstruction> newInstructions = EventManager.CheckEvent<EatScp330Patch>(33, instructions);
+        List<CodeInstruction> newInstructions = CursedEventManager.CheckEvent<EatScp330Patch>(33, instructions);
         
         Label returnLabel = generator.DefineLabel();
         

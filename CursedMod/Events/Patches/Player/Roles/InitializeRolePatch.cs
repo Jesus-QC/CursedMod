@@ -22,7 +22,7 @@ public class InitializeRolePatch
 {
     private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
     {
-        List<CodeInstruction> newInstructions = EventManager.CheckEvent<InitializeRolePatch>(117, instructions);
+        List<CodeInstruction> newInstructions = CursedEventManager.CheckEvent<InitializeRolePatch>(117, instructions);
 
         Label ret = generator.DefineLabel();
         LocalBuilder args = generator.DeclareLocal(typeof(PlayerChangingRoleEventArgs));

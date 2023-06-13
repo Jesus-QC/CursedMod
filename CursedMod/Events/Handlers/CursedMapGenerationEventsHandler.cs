@@ -24,9 +24,9 @@ namespace CursedMod.Events.Handlers;
 
 public static class CursedMapGenerationEventsHandler
 {
-    public static event EventManager.CursedEventHandler MapGenerated;
+    public static event CursedEventManager.CursedEventHandler MapGenerated;
     
-    public static event EventManager.CursedEventHandler<GeneratingSeedEventArgs> GeneratingSeed;
+    public static event CursedEventManager.CursedEventHandler<GeneratingSeedEventArgs> GeneratingSeed;
     
     internal static void CacheAPI()
     {

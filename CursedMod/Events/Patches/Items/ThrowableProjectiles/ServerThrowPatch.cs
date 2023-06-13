@@ -22,7 +22,7 @@ public class ServerThrowPatch
 {
     private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
     {
-        List<CodeInstruction> newInstructions = EventManager.CheckEvent<ServerThrowPatch>(96, instructions);
+        List<CodeInstruction> newInstructions = CursedEventManager.CheckEvent<ServerThrowPatch>(96, instructions);
 
         LocalBuilder args = generator.DeclareLocal(typeof(PlayerThrowingItemEventArgs));
         Label ret = generator.DefineLabel();

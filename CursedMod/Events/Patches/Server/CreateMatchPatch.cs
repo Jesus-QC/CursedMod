@@ -19,7 +19,7 @@ public class CreateMatchPatch
 {
     private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions)
     {
-        List<CodeInstruction> newInstructions = EventManager.CheckEvent<CreateMatchPatch>(175, instructions);
+        List<CodeInstruction> newInstructions = CursedEventManager.CheckEvent<CreateMatchPatch>(175, instructions);
 
         newInstructions.InsertRange(newInstructions.Count - 1, new CodeInstruction[]
         {

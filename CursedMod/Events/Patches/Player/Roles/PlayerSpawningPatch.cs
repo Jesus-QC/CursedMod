@@ -25,7 +25,7 @@ public class SpawningPlayerPatch
     
     private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
     {
-        List<CodeInstruction> newInstructions = EventManager.CheckEvent<SpawningPlayerPatch>(38, instructions);
+        List<CodeInstruction> newInstructions = CursedEventManager.CheckEvent<SpawningPlayerPatch>(38, instructions);
 
         LocalBuilder args = generator.DeclareLocal(typeof(PlayerSpawningEventArgs));
         Label ret = generator.DefineLabel();

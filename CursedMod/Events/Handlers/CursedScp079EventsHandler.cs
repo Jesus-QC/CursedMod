@@ -12,29 +12,29 @@ namespace CursedMod.Events.Handlers;
 
 public static class CursedScp079EventsHandler
 {
-    public static event EventManager.CursedEventHandler<Scp079UsingBlackoutRoomAbilityEventArgs> UsingBlackoutRoomAbility;
+    public static event CursedEventManager.CursedEventHandler<Scp079UsingBlackoutRoomAbilityEventArgs> UsingBlackoutRoomAbility;
     
-    public static event EventManager.CursedEventHandler<Scp079UsingBlackoutZoneAbilityEventArgs> UsingBlackoutZoneAbility;
+    public static event CursedEventManager.CursedEventHandler<Scp079UsingBlackoutZoneAbilityEventArgs> UsingBlackoutZoneAbility;
     
-    public static event EventManager.CursedEventHandler<Scp079ChangingCameraEventArgs> ChangingCamera;
+    public static event CursedEventManager.CursedEventHandler<Scp079ChangingCameraEventArgs> ChangingCamera;
     
-    public static event EventManager.CursedEventHandler<Scp079MovingElevatorEventArgs> MovingElevator;
+    public static event CursedEventManager.CursedEventHandler<Scp079MovingElevatorEventArgs> MovingElevator;
     
-    public static event EventManager.CursedEventHandler<Scp079UsingLockdownAbilityEventArgs> UsingLockdownAbility;
+    public static event CursedEventManager.CursedEventHandler<Scp079UsingLockdownAbilityEventArgs> UsingLockdownAbility;
 
-    public static event EventManager.CursedEventHandler<Scp079CancellingLockdownEventArgs> CancellingLockdown; 
+    public static event CursedEventManager.CursedEventHandler<Scp079CancellingLockdownEventArgs> CancellingLockdown; 
     
-    public static event EventManager.CursedEventHandler<Scp079LevelingUpEventArgs> LevelingUp;
+    public static event CursedEventManager.CursedEventHandler<Scp079LevelingUpEventArgs> LevelingUp;
     
-    public static event EventManager.CursedEventHandler<Scp079GainingExperienceEventArgs> GainingExperience;
+    public static event CursedEventManager.CursedEventHandler<Scp079GainingExperienceEventArgs> GainingExperience;
     
-    public static event EventManager.CursedEventHandler<Scp079UsingTeslaEventArgs> UsingTesla;
+    public static event CursedEventManager.CursedEventHandler<Scp079UsingTeslaEventArgs> UsingTesla;
     
-    public static event EventManager.CursedEventHandler<Scp079UsingPingAbilityEventArgs> UsingPingAbility; 
+    public static event CursedEventManager.CursedEventHandler<Scp079UsingPingAbilityEventArgs> UsingPingAbility; 
     
-    public static event EventManager.CursedEventHandler<Scp079ChangingDoorLockEventArgs> ChangingDoorLock;
+    public static event CursedEventManager.CursedEventHandler<Scp079ChangingDoorLockEventArgs> ChangingDoorLock;
     
-    public static event EventManager.CursedEventHandler<Scp079ChangingDoorStateEventArgs> ChangingDoorState;
+    public static event CursedEventManager.CursedEventHandler<Scp079ChangingDoorStateEventArgs> ChangingDoorState;
 
     internal static void OnUsingBlackoutRoomAbility(Scp079UsingBlackoutRoomAbilityEventArgs args)
     {

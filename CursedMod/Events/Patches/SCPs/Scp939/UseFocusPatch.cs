@@ -24,7 +24,7 @@ public class UseFocusPatch
     // TODO: REVIEW
     private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
     {
-        List<CodeInstruction> newInstructions = EventManager.CheckEvent<UseFocusPatch>(8, instructions);
+        List<CodeInstruction> newInstructions = CursedEventManager.CheckEvent<UseFocusPatch>(8, instructions);
 
         Label returnLabel = generator.DefineLabel();
         

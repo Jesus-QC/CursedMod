@@ -24,7 +24,7 @@ public class PlaceTantrumPatch
 {
     private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
     {
-        List<CodeInstruction> newInstructions = EventManager.CheckEvent<PlaceTantrumPatch>(85, instructions);
+        List<CodeInstruction> newInstructions = CursedEventManager.CheckEvent<PlaceTantrumPatch>(85, instructions);
 
         Label retLabel = generator.DefineLabel();
         int index = newInstructions.FindIndex(x => x.opcode == OpCodes.Brtrue_S) + 2;

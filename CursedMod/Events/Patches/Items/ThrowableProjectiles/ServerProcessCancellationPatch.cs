@@ -22,7 +22,7 @@ public class ServerProcessCancellationPatch
 {
     private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
     {
-        List<CodeInstruction> newInstructions = EventManager.CheckEvent<ServerProcessCancellationPatch>(30, instructions);
+        List<CodeInstruction> newInstructions = CursedEventManager.CheckEvent<ServerProcessCancellationPatch>(30, instructions);
 
         Label ret = generator.DefineLabel();
         int index = newInstructions.FindIndex(x => x.opcode == OpCodes.Bgt_Un_S) + 2;

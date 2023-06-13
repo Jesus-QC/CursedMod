@@ -23,7 +23,7 @@ public class UseLungePatch
     // TODO: REVIEW
     private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
     {
-        List<CodeInstruction> newInstructions = EventManager.CheckEvent<UseLungePatch>(8, instructions);
+        List<CodeInstruction> newInstructions = CursedEventManager.CheckEvent<UseLungePatch>(8, instructions);
 
         newInstructions.InsertRange(0, new CodeInstruction[]
         {

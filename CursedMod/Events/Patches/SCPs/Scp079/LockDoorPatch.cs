@@ -23,7 +23,7 @@ public class LockDoorPatch
 {
     private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
     {
-        List<CodeInstruction> newInstructions = EventManager.CheckEvent<LockDoorPatch>(35, instructions);
+        List<CodeInstruction> newInstructions = CursedEventManager.CheckEvent<LockDoorPatch>(35, instructions);
         
         Label returnLabel = generator.DefineLabel();
         LocalBuilder args = generator.DeclareLocal(typeof(Scp079ChangingDoorLockEventArgs));

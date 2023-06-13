@@ -22,7 +22,7 @@ public class EnragingPatch
 {
     private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
     {
-        List<CodeInstruction> newInstructions = EventManager.CheckEvent<EnragingPatch>(46, instructions);
+        List<CodeInstruction> newInstructions = CursedEventManager.CheckEvent<EnragingPatch>(46, instructions);
         
         Label retLabel = generator.DefineLabel();
         LocalBuilder args = generator.DeclareLocal(typeof(Scp096EnragingEventArgs));

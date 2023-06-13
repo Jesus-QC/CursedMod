@@ -22,7 +22,7 @@ public class ProcessCallAbilityPatch
 {
     private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
     {
-        List<CodeInstruction> newInstructions = EventManager.CheckEvent<ProcessCallAbilityPatch>(19, instructions);
+        List<CodeInstruction> newInstructions = CursedEventManager.CheckEvent<ProcessCallAbilityPatch>(19, instructions);
         
         Label returnLabel = generator.DefineLabel();
         

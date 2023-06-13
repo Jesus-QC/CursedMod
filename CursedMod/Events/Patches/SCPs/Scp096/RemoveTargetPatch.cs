@@ -22,7 +22,7 @@ public class RemoveTargetPatch
 {
     private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
     {
-        List<CodeInstruction> newInstructions = EventManager.CheckEvent<RemoveTargetPatch>(37, instructions);
+        List<CodeInstruction> newInstructions = CursedEventManager.CheckEvent<RemoveTargetPatch>(37, instructions);
 
         Label ret = generator.DefineLabel();
         newInstructions[newInstructions.FindIndex(x => x.opcode == OpCodes.Ldc_I4_1)].labels.Add(ret);

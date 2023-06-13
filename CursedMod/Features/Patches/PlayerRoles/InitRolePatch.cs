@@ -27,7 +27,7 @@ public class InitRolePatch
 {
     private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
     {
-        List<CodeInstruction> newInstructions = EventManager.CheckEvent<InitRolePatch>(13, instructions);
+        List<CodeInstruction> newInstructions = CursedEventManager.CheckEvent<InitRolePatch>(13, instructions);
 
         newInstructions.InsertRange(newInstructions.Count - 1, new CodeInstruction[]
         {

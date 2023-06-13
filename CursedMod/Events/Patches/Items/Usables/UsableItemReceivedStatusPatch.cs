@@ -23,7 +23,7 @@ public class UsableItemReceivedStatusPatch
 {
     private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
     {
-        List<CodeInstruction> newInstructions = EventManager.CheckEvent<UsableItemReceivedStatusPatch>(161, instructions);
+        List<CodeInstruction> newInstructions = CursedEventManager.CheckEvent<UsableItemReceivedStatusPatch>(161, instructions);
 
         Label ret = generator.DefineLabel();
         int offset = newInstructions.FindLastIndex(x => x.opcode == OpCodes.Newarr) - 2;

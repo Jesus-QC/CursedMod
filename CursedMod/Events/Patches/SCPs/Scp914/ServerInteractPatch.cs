@@ -23,7 +23,7 @@ public class ServerInteractPatch
 {
     private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
     {
-        List<CodeInstruction> newInstructions = EventManager.CheckEvent<ServerInteractPatch>(89, instructions);
+        List<CodeInstruction> newInstructions = CursedEventManager.CheckEvent<ServerInteractPatch>(89, instructions);
         
         Label returnLabel = generator.DefineLabel();
         LocalBuilder changingKnobArgs = generator.DeclareLocal(typeof(PlayerChangingScp914KnobSettingEventArgs));

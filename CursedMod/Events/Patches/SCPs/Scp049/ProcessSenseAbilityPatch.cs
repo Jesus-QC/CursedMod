@@ -22,7 +22,7 @@ public class ProcessSenseAbilityPatch
 {
     private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
     {
-        List<CodeInstruction> newInstructions = EventManager.CheckEvent<ProcessSenseAbilityPatch>(75, instructions);
+        List<CodeInstruction> newInstructions = CursedEventManager.CheckEvent<ProcessSenseAbilityPatch>(75, instructions);
 
         Label returnLabel = generator.DefineLabel();
         LocalBuilder args = generator.DeclareLocal(typeof(Scp049UsingSenseAbilityEventArgs));

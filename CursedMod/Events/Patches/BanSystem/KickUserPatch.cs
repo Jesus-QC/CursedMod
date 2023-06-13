@@ -22,7 +22,7 @@ public class KickUserPatch
 {
     private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
     {
-        List<CodeInstruction> newInstructions = EventManager.CheckEvent<KickUserPatch>(27, instructions);
+        List<CodeInstruction> newInstructions = CursedEventManager.CheckEvent<KickUserPatch>(27, instructions);
 
         Label ret = generator.DefineLabel();
         LocalBuilder args = generator.DeclareLocal(typeof(KickingPlayerEventArgs));

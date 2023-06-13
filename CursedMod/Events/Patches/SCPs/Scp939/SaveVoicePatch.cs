@@ -23,7 +23,7 @@ public class SaveVoicePatch
     // TODO: REVIEW
     private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
     {
-        List<CodeInstruction> newInstructions = EventManager.CheckEvent<SaveVoicePatch>(52, instructions);
+        List<CodeInstruction> newInstructions = CursedEventManager.CheckEvent<SaveVoicePatch>(52, instructions);
 
         Label retLabel = generator.DefineLabel();
 

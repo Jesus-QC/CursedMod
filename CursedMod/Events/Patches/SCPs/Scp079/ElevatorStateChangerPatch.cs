@@ -22,7 +22,7 @@ public class ElevatorStateChangerPatch
 {
     private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
     {
-        List<CodeInstruction> newInstructions = EventManager.CheckEvent<ElevatorStateChangerPatch>(104, instructions);
+        List<CodeInstruction> newInstructions = CursedEventManager.CheckEvent<ElevatorStateChangerPatch>(104, instructions);
         
         Label returnLabel = generator.DefineLabel();
         LocalBuilder args = generator.DeclareLocal(typeof(Scp079MovingElevatorEventArgs));

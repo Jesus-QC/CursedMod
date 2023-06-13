@@ -22,7 +22,7 @@ public class ToggleNoClipPatch
 {
     private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
     {
-        List<CodeInstruction> newInstructions = EventManager.CheckEvent<ToggleNoClipPatch>(28, instructions);
+        List<CodeInstruction> newInstructions = CursedEventManager.CheckEvent<ToggleNoClipPatch>(28, instructions);
 
         Label ret = generator.DefineLabel();
         

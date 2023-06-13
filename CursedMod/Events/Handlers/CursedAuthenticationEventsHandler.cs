@@ -12,7 +12,7 @@ namespace CursedMod.Events.Handlers;
 
 public static class CursedAuthenticationEventsHandler
 {
-    public static event EventManager.CursedEventHandler<CheckingReservedSlotEventArgs> CheckingReservedSlot;
+    public static event CursedEventManager.CursedEventHandler<CheckingReservedSlotEventArgs> CheckingReservedSlot;
 
     internal static void OnCheckingReservedSlot(CheckingReservedSlotEventArgs args)
     {

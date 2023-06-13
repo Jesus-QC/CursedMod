@@ -22,7 +22,7 @@ public class AddTargetPatch
 {
     private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
     {
-        List<CodeInstruction> newInstructions = EventManager.CheckEvent<AddTargetPatch>(70, instructions);
+        List<CodeInstruction> newInstructions = CursedEventManager.CheckEvent<AddTargetPatch>(70, instructions);
 
         Label retLabel = generator.DefineLabel();
         int index = newInstructions.FindIndex(i => i.opcode == OpCodes.Pop) + 1;

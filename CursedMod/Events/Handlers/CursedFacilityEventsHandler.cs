@@ -12,7 +12,7 @@ namespace CursedMod.Events.Handlers;
 
 public static class CursedFacilityEventsHandler
 {
-    public static event EventManager.CursedEventHandler<RagdollSpawnedEventArgs> RagdollSpawned;
+    public static event CursedEventManager.CursedEventHandler<RagdollSpawnedEventArgs> RagdollSpawned;
     
     internal static void OnRagdollSpawned(BasicRagdoll ragdoll)
     {

@@ -32,6 +32,6 @@ internal class EntryPoint
         
         CursedLoader.LoadAll();
         
-        EventManager.PatchEvents();
+        CursedEventManager.PatchEvents();
     }
 }

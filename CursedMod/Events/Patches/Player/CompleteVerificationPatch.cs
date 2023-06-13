@@ -20,7 +20,7 @@ public class CompleteVerificationPatch
 {
     private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
     {
-        List<CodeInstruction> newInstructions = EventManager.CheckEvent<CompleteVerificationPatch>(707, instructions);
+        List<CodeInstruction> newInstructions = CursedEventManager.CheckEvent<CompleteVerificationPatch>(707, instructions);
 
         Label ret = generator.DefineLabel();
         

@@ -22,7 +22,7 @@ public class TogglingBreakNeckSpeedPatch
 {
     private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
     {
-        List<CodeInstruction> newInstructions = EventManager.CheckEvent<TogglingBreakNeckSpeedPatch>(21, instructions);
+        List<CodeInstruction> newInstructions = CursedEventManager.CheckEvent<TogglingBreakNeckSpeedPatch>(21, instructions);
         
         Label retLabel = generator.DefineLabel();
 
