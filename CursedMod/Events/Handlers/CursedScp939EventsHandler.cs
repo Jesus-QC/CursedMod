@@ -67,7 +67,7 @@ public static class CursedScp939EventsHandler
         PlacingMimicPoint.InvokeEvent(args);
     }
     
-    internal static void OnRemovingMimic(Scp939RemovingMimicPointEventArgs args)
+    internal static void OnRemovingMimicPoint(Scp939RemovingMimicPointEventArgs args)
     {
         RemovingMimic.InvokeEvent(args);
     }

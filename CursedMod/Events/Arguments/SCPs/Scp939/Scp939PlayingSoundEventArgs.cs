@@ -18,12 +18,15 @@ public class Scp939PlayingSoundEventArgs : EventArgs, ICursedCancellableEvent, I
     {
         IsAllowed = true;
         Player = CursedPlayer.Get(environmentalMimicry.Owner);
-        Option = environmentalMimicry._syncOption;
+        SelectedOption = environmentalMimicry._syncOption;
+        EnvironmentalMimicry = environmentalMimicry;
     }
     
     public bool IsAllowed { get; set; }
 
     public CursedPlayer Player { get; }
     
-    public byte Option { get; }
+    public EnvironmentalMimicry EnvironmentalMimicry { get; }
+    
+    public byte SelectedOption { get; set; }
 }

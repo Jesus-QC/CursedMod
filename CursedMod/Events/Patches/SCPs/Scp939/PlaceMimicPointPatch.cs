@@ -22,21 +22,20 @@ namespace CursedMod.Events.Patches.SCPs.Scp939;
 [HarmonyPatch(typeof(MimicPointController), nameof(MimicPointController.ServerProcessCmd))]
 public class PlaceMimicPointPatch
 {
-    // TODO: REVIEW
     private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
     {
         List<CodeInstruction> newInstructions = CursedEventManager.CheckEvent<PlaceMimicPointPatch>(30, instructions);
         
         Label returnLabel = generator.DefineLabel();
+
+        newInstructions[newInstructions.Count - 1].labels.Add(returnLabel);
         
-        newInstructions.InsertRange(0, new CodeInstruction[]
+        newInstructions.InsertRange(3, new CodeInstruction[]
         {
             new (OpCodes.Ldarg_0),
             new (OpCodes.Call, AccessTools.Method(typeof(PlaceMimicPointPatch), nameof(ProcessMimicPointEvents))),
-            new (OpCodes.Br, returnLabel),
+            new (OpCodes.Brfalse_S, returnLabel),
         });
-        
-        newInstructions[newInstructions.Count - 1].labels.Add(returnLabel);
         
         foreach (CodeInstruction instruction in newInstructions)
             yield return instruction;
@@ -44,32 +43,19 @@ public class PlaceMimicPointPatch
         ListPool<CodeInstruction>.Shared.Return(newInstructions);
     }
 
-    private static void ProcessMimicPointEvents(MimicPointController controller)
+    private static bool ProcessMimicPointEvents(MimicPointController controller)
     {
         if (controller.Active)
         {
             Scp939RemovingMimicPointEventArgs args = new (controller);
-            CursedScp939EventsHandler.OnRemovingMimic(args);
-            
-            if (!args.IsAllowed)
-                return;
-            
-            controller._syncMessage = MimicPointController.RpcStateMsg.RemovedByUser;
-            controller.Active = false;
+            CursedScp939EventsHandler.OnRemovingMimicPoint(args);
+            return args.IsAllowed;
         }
         else
         {
             Scp939PlacingMimicPointEventArgs args = new (controller);
             CursedScp939EventsHandler.OnPlacingMimicPoint(args);
-
-            if (!args.IsAllowed)
-                return;
-            
-            controller._syncMessage = MimicPointController.RpcStateMsg.PlacedByUser;
-            controller._syncPos = new RelativePosition(controller.ScpRole.FpcModule.Position);
-            controller.Active = true;
+            return args.IsAllowed;
         }
-        
-        controller.ServerSendRpc(true);
     }
 }

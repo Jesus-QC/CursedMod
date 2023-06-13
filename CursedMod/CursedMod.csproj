@@ -262,8 +262,7 @@
         <Compile Include="Events\Patches\SCPs\Scp330\ServerInteractScp330Patch.cs" />
         <Compile Include="Events\Patches\SCPs\Scp914\ServerInteractPatch.cs" />
         <Compile Include="Events\Patches\SCPs\Scp914\UpgradeItemPatch.cs" />
-        <Compile Include="Events\Patches\SCPs\Scp939\CancelCloudPlacementPatch.cs" />
-        <Compile Include="Events\Patches\SCPs\Scp939\PlaceCloudPatch.cs" />
+        <Compile Include="Events\Patches\SCPs\Scp939\AmnesticCloudPatch.cs" />
         <Compile Include="Events\Patches\SCPs\Scp939\PlaceMimicPointPatch.cs" />
         <Compile Include="Events\Patches\SCPs\Scp939\PlayMimicrySoundPatch.cs" />
         <Compile Include="Events\Patches\SCPs\Scp939\PlayPlayerVoicePatch.cs" />
