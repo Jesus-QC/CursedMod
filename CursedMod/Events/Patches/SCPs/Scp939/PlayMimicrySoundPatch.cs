@@ -20,7 +20,6 @@ namespace CursedMod.Events.Patches.SCPs.Scp939;
 [HarmonyPatch(typeof(EnvironmentalMimicry), nameof(EnvironmentalMimicry.ServerProcessCmd))]
 public class PlayMimicrySoundPatch
 {
-    // TODO: REVIEW
     private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
     {
         List<CodeInstruction> newInstructions = CursedEventManager.CheckEvent<PlayMimicrySoundPatch>(21, instructions);
@@ -28,7 +27,7 @@ public class PlayMimicrySoundPatch
         Label returnLabel = generator.DefineLabel();
         LocalBuilder args = generator.DeclareLocal(typeof(Scp939PlayingSoundEventArgs));
         
-        int index = newInstructions.FindIndex(i => i.StoresField(AccessTools.Field(typeof(EnvironmentalMimicry), nameof(EnvironmentalMimicry._syncOption))));
+        int index = newInstructions.FindIndex(x => x.StoresField(AccessTools.Field(typeof(EnvironmentalMimicry), nameof(EnvironmentalMimicry._syncOption))));
         
         newInstructions.InsertRange(index, new CodeInstruction[]
         {
