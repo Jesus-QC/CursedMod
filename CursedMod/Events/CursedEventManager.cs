@@ -36,7 +36,7 @@ public static class CursedEventManager
         try
         {
             Stopwatch watch = Stopwatch.StartNew();
-#if !DEBUG
+
             if (CursedModConfigurationManager.LoadedConfiguration.UseDynamicPatching)
             {
                 CursedLogger.InternalPrint("CursedMod is using dynamic patching.");
@@ -55,7 +55,7 @@ public static class CursedEventManager
             {
                 Harmony.PatchAll();
             }
-#else
+#if DEBUG
             foreach (MethodBase patch in Harmony.GetPatchedMethods())
             {
                 CursedLogger.InternalDebug(patch.DeclaringType + "::" + patch.Name);
