@@ -14,16 +14,19 @@ namespace CursedMod.Events.Arguments.SCPs.Scp939;
 
 public class Scp939RemovingSavedVoiceEventArgs : EventArgs, ICursedCancellableEvent, ICursedPlayerEvent
 {
-    public Scp939RemovingSavedVoiceEventArgs(MimicryRecorder recorder, CursedPlayer target)
+    public Scp939RemovingSavedVoiceEventArgs(MimicryRecorder recorder, int savedVoice)
     {
         IsAllowed = true;
         Player = CursedPlayer.Get(recorder.Owner);
-        Target = target;
+        SavedVoice = recorder.SavedVoices[savedVoice];
+        VoiceOwner = CursedPlayer.Get(SavedVoice.Owner.Hub);
     }
     
     public bool IsAllowed { get; set; }
 
     public CursedPlayer Player { get; }
+
+    public CursedPlayer VoiceOwner { get; }
     
-    public CursedPlayer Target { get; }
+    public MimicryRecorder.MimicryRecording SavedVoice { get; }
 }

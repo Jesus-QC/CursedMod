@@ -157,6 +157,7 @@
         <Compile Include="Events\Arguments\SCPs\Scp914\Scp914UpgradedItemEventArgs.cs" />
         <Compile Include="Events\Arguments\SCPs\Scp914\Scp914UpgradingItemEventArgs.cs" />
         <Compile Include="Events\Arguments\SCPs\Scp939\Scp939CancellingCloudPlacementEventArgs.cs" />
+        <Compile Include="Events\Arguments\SCPs\Scp939\Scp939SavedVoiceEventArgs.cs" />
         <Compile Include="Events\Arguments\SCPs\Scp939\Scp939UsingLungeAbilityEventArgs.cs" />
         <Compile Include="Events\Arguments\SCPs\Scp939\Scp939PlacingAmnesticCloudEventArgs.cs" />
         <Compile Include="Events\Arguments\SCPs\Scp939\Scp939PlacingMimicPointEventArgs.cs" />

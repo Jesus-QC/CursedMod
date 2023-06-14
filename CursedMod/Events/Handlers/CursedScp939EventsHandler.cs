@@ -14,6 +14,8 @@ public static class CursedScp939EventsHandler
 {
     public static event CursedEventManager.CursedEventHandler<Scp939SavingVoiceEventArgs> SavingVoice;
     
+    public static event CursedEventManager.CursedEventHandler<Scp939SavedVoiceEventArgs> SavedVoice;
+    
     public static event CursedEventManager.CursedEventHandler<Scp939PlacingAmnesticCloudEventArgs> PlacingAmnesticCloud; 
     
     public static event CursedEventManager.CursedEventHandler<Scp939CancellingCloudPlacementEventArgs> CancellingCloudPlacement;
@@ -35,6 +37,11 @@ public static class CursedScp939EventsHandler
     internal static void OnSavingVoice(Scp939SavingVoiceEventArgs args)
     {
         SavingVoice.InvokeEvent(args);
+    }
+
+    internal static void OnSavedVoice(Scp939SavedVoiceEventArgs args)
+    {
+        SavedVoice.InvokeEvent(args);
     }
     
     internal static void OnPlacingAmnesticCloud(Scp939PlacingAmnesticCloudEventArgs args)

@@ -21,23 +21,21 @@ namespace CursedMod.Events.Patches.SCPs.Scp939;
 [HarmonyPatch(typeof(MimicryRecorder), nameof(MimicryRecorder.ServerProcessCmd))]
 public class PlayPlayerVoicePatch
 {
-    // TODO: REVIEW
     private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
     {
         List<CodeInstruction> newInstructions = CursedEventManager.CheckEvent<PlayPlayerVoicePatch>(29, instructions);
         
-        Label returnLabel = generator.DefineLabel();
         LocalBuilder voiceOwner = generator.DeclareLocal(typeof(ReferenceHub));
+        Label returnLabel = generator.DefineLabel();
         
-        const int offset = 1;
-        int index = newInstructions.FindLastIndex(i => i.Calls(AccessTools.Method(typeof(ReferenceHubReaderWriter), nameof(ReferenceHubReaderWriter.ReadReferenceHub)))) + offset;
+        int index = newInstructions.FindIndex(x => x.Calls(AccessTools.Method(typeof(ReferenceHubReaderWriter), nameof(ReferenceHubReaderWriter.ReadReferenceHub)))) + 1;
         newInstructions.InsertRange(index, new CodeInstruction[]
         {
             new (OpCodes.Dup),
             new (OpCodes.Stloc_S, voiceOwner.LocalIndex),
         });
         
-        index = newInstructions.FindLastIndex(i => i.IsLdarg(0)) + 0;
+        index = newInstructions.FindLastIndex(x => x.IsLdarg(0));
         newInstructions.InsertRange(index, new CodeInstruction[]
         {
             new CodeInstruction(OpCodes.Ldarg_0).MoveLabelsFrom(newInstructions[index]),

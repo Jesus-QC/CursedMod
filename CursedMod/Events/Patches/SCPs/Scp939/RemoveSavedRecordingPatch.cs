@@ -17,10 +17,9 @@ using PlayerRoles.PlayableScps.Scp939.Mimicry;
 namespace CursedMod.Events.Patches.SCPs.Scp939;
 
 [DynamicEventPatch(typeof(CursedScp939EventsHandler), nameof(CursedScp939EventsHandler.RemovingSavedVoice))]
-[HarmonyPatch(typeof(MimicryRecorder), nameof(MimicryRecorder.RemoveRecordingsOfPlayer))]
+[HarmonyPatch(typeof(MimicryRecorder), nameof(MimicryRecorder.RemoveIndex))]
 public class RemoveSavedRecordingPatch
 {
-    // TODO: REVIEW
     private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
     {
         List<CodeInstruction> newInstructions = CursedEventManager.CheckEvent<RemoveSavedRecordingPatch>(34, instructions);
