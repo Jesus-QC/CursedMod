@@ -166,7 +166,7 @@
         <Compile Include="Events\Arguments\SCPs\Scp939\Scp939RemovingMimicPointEventArgs.cs" />
         <Compile Include="Events\Arguments\SCPs\Scp939\Scp939RemovingSavedVoiceEventArgs.cs" />
         <Compile Include="Events\Arguments\SCPs\Scp939\Scp939SavingVoiceEventArgs.cs" />
-        <Compile Include="Events\Arguments\SCPs\Scp939\Scp939UsingFocusAbilityEventArgs.cs" />
+        <Compile Include="Events\Arguments\SCPs\Scp939\Scp939TogglingFocusAbilityEventArgs.cs" />
         <Compile Include="Events\DynamicEventPatchAttribute.cs" />
         <Compile Include="Events\CursedEventManager.cs" />
         <Compile Include="Events\Handlers\CursedAchievementsEventsHandler.cs" />
@@ -269,7 +269,7 @@
         <Compile Include="Events\Patches\SCPs\Scp939\PlayPlayerVoicePatch.cs" />
         <Compile Include="Events\Patches\SCPs\Scp939\RemoveSavedRecordingPatch.cs" />
         <Compile Include="Events\Patches\SCPs\Scp939\SaveVoicePatch.cs" />
-        <Compile Include="Events\Patches\SCPs\Scp939\UseFocusPatch.cs" />
+        <Compile Include="Events\Patches\SCPs\Scp939\ToggleFocusPatch.cs" />
         <Compile Include="Events\Patches\SCPs\Scp939\UseLungePatch.cs" />
         <Compile Include="Events\Patches\Server\CreateMatchPatch.cs" />
         <Compile Include="Features\Enums\AuthenticationType.cs" />

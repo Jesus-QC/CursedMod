@@ -32,7 +32,7 @@ public static class CursedScp939EventsHandler
     
     public static event CursedEventManager.CursedEventHandler<Scp939RemovingSavedVoiceEventArgs> RemovingSavedVoice;
     
-    public static event CursedEventManager.CursedEventHandler<Scp939UsingFocusAbilityEventArgs> UsingFocusAbility; 
+    public static event CursedEventManager.CursedEventHandler<Scp939TogglingFocusAbilityEventArgs> TogglingFocusAbility; 
 
     internal static void OnSavingVoice(Scp939SavingVoiceEventArgs args)
     {
@@ -84,8 +84,8 @@ public static class CursedScp939EventsHandler
         RemovingSavedVoice.InvokeEvent(args);
     }
     
-    internal static void OnUsingFocusAbility(Scp939UsingFocusAbilityEventArgs args)
+    internal static void OnTogglingFocusAbility(Scp939TogglingFocusAbilityEventArgs args)
     {
-        UsingFocusAbility.InvokeEvent(args);
+        TogglingFocusAbility.InvokeEvent(args);
     }
 }
