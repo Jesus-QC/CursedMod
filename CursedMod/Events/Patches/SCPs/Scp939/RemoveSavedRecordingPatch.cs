@@ -22,7 +22,7 @@ public class RemoveSavedRecordingPatch
 {
     private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
     {
-        List<CodeInstruction> newInstructions = CursedEventManager.CheckEvent<RemoveSavedRecordingPatch>(34, instructions);
+        List<CodeInstruction> newInstructions = CursedEventManager.CheckEvent<RemoveSavedRecordingPatch>(12, instructions);
         
         Label returnLabel = generator.DefineLabel();
 

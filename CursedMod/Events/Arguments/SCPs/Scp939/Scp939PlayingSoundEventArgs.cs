@@ -14,11 +14,11 @@ namespace CursedMod.Events.Arguments.SCPs.Scp939;
 
 public class Scp939PlayingSoundEventArgs : EventArgs, ICursedCancellableEvent, ICursedPlayerEvent
 {
-    public Scp939PlayingSoundEventArgs(EnvironmentalMimicry environmentalMimicry)
+    public Scp939PlayingSoundEventArgs(byte option, EnvironmentalMimicry environmentalMimicry)
     {
         IsAllowed = true;
         Player = CursedPlayer.Get(environmentalMimicry.Owner);
-        SelectedOption = environmentalMimicry._syncOption;
+        SelectedOption = option;
         EnvironmentalMimicry = environmentalMimicry;
     }
     

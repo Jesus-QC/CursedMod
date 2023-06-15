@@ -13,6 +13,7 @@ using CursedMod.Events.Handlers;
 using HarmonyLib;
 using NorthwoodLib.Pools;
 using PlayerRoles.PlayableScps.Scp939.Mimicry;
+using PluginAPI.Core;
 
 namespace CursedMod.Events.Patches.SCPs.Scp939;
 
@@ -24,26 +25,32 @@ public class PlayMimicrySoundPatch
     {
         List<CodeInstruction> newInstructions = CursedEventManager.CheckEvent<PlayMimicrySoundPatch>(21, instructions);
         
-        Label returnLabel = generator.DefineLabel();
+        Label ret = generator.DefineLabel();
         LocalBuilder args = generator.DeclareLocal(typeof(Scp939PlayingSoundEventArgs));
         
-        int index = newInstructions.FindIndex(x => x.StoresField(AccessTools.Field(typeof(EnvironmentalMimicry), nameof(EnvironmentalMimicry._syncOption))));
+        int index = newInstructions.FindIndex(x => x.opcode == OpCodes.Stfld);
         
         newInstructions.InsertRange(index, new CodeInstruction[]
         {
             new (OpCodes.Ldarg_0),
             new (OpCodes.Newobj, AccessTools.GetDeclaredConstructors(typeof(Scp939PlayingSoundEventArgs))[0]),
             new (OpCodes.Dup),
-            new (OpCodes.Dup),
-            new (OpCodes.Call, AccessTools.Method(typeof(CursedScp939EventsHandler), nameof(CursedScp939EventsHandler.OnPlayingSound))),
             new (OpCodes.Stloc_S, args.LocalIndex),
-            new (OpCodes.Callvirt, AccessTools.PropertyGetter(typeof(Scp939PlayingSoundEventArgs), nameof(Scp939PlayingSoundEventArgs.IsAllowed))),
-            new (OpCodes.Brfalse, returnLabel),
+            new (OpCodes.Call, AccessTools.Method(typeof(CursedScp939EventsHandler), nameof(CursedScp939EventsHandler.OnPlayingSound))),
             new (OpCodes.Ldloc_S, args.LocalIndex),
             new (OpCodes.Callvirt, AccessTools.PropertyGetter(typeof(Scp939PlayingSoundEventArgs), nameof(Scp939PlayingSoundEventArgs.SelectedOption))),
         });
+
+        index = newInstructions.FindIndex(x => x.opcode == OpCodes.Stfld) + 1;
         
-        newInstructions[newInstructions.Count - 1].labels.Add(returnLabel);
+        newInstructions.InsertRange(index, new CodeInstruction[]
+        {
+            new (OpCodes.Ldloc_S, args.LocalIndex),
+            new (OpCodes.Callvirt, AccessTools.PropertyGetter(typeof(Scp939PlayingSoundEventArgs), nameof(Scp939PlayingSoundEventArgs.IsAllowed))),
+            new (OpCodes.Brfalse_S, ret),
+        });
+
+        newInstructions[newInstructions.Count - 1].labels.Add(ret);
         
         foreach (CodeInstruction instruction in newInstructions)
             yield return instruction;

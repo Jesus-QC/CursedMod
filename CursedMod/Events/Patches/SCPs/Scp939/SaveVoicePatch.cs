@@ -22,7 +22,7 @@ public class SaveVoicePatch
 {
     private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
     {
-        List<CodeInstruction> newInstructions = CursedEventManager.CheckEvent<SaveVoicePatch>(52, instructions);
+        List<CodeInstruction> newInstructions = CursedEventManager.CheckEvent<SaveVoicePatch>(37, instructions);
 
         Label retLabel = generator.DefineLabel();
         newInstructions.InsertRange(0, new CodeInstruction[]
@@ -40,7 +40,6 @@ public class SaveVoicePatch
         {
             new (OpCodes.Ldarg_0),
             new (OpCodes.Newobj, AccessTools.GetDeclaredConstructors(typeof(Scp939SavedVoiceEventArgs))[0]),
-            new (OpCodes.Dup),
             new (OpCodes.Call, AccessTools.Method(typeof(CursedScp939EventsHandler), nameof(CursedScp939EventsHandler.OnSavedVoice))),
         });
         

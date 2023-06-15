@@ -11,19 +11,18 @@ using System.Reflection.Emit;
 using CursedMod.Events.Arguments.SCPs.Scp939;
 using CursedMod.Events.Handlers;
 using HarmonyLib;
-using Mirror;
 using NorthwoodLib.Pools;
 using PlayerRoles.PlayableScps.Scp939;
 
 namespace CursedMod.Events.Patches.SCPs.Scp939;
 
 [DynamicEventPatch(typeof(CursedScp939EventsHandler), nameof(CursedScp939EventsHandler.TogglingFocusAbility))]
-[HarmonyPatch(typeof(Scp939FocusKeySync), nameof(Scp939FocusAbility.TargetState))]
+[HarmonyPatch(typeof(Scp939FocusAbility), nameof(Scp939FocusAbility.TargetState), MethodType.Setter)]
 public class ToggleFocusPatch
 {
     private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
     {
-        List<CodeInstruction> newInstructions = CursedEventManager.CheckEvent<ToggleFocusPatch>(8, instructions);
+        List<CodeInstruction> newInstructions = CursedEventManager.CheckEvent<ToggleFocusPatch>(37, instructions);
 
         Label returnLabel = generator.DefineLabel();
         LocalBuilder args = generator.DeclareLocal(typeof(Scp939TogglingFocusAbilityEventArgs));

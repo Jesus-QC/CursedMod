@@ -23,7 +23,7 @@ public class AmnesticCloudPatch
 {
     private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
     {
-        List<CodeInstruction> newInstructions = CursedEventManager.CheckEvent<AmnesticCloudPatch>(4, instructions);
+        List<CodeInstruction> newInstructions = CursedEventManager.CheckEvent<AmnesticCloudPatch>(16, instructions);
         
         Label returnLabel = generator.DefineLabel();
         

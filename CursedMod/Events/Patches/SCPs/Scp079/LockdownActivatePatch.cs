@@ -40,7 +40,7 @@ public class LockdownActivatePatch
             new (OpCodes.Callvirt, AccessTools.PropertyGetter(typeof(Scp079UsingLockdownAbilityEventArgs), nameof(Scp079UsingLockdownAbilityEventArgs.IsAllowed))),
             new (OpCodes.Brfalse_S, returnLabel),
             new (OpCodes.Ldarg_0),
-            new (OpCodes.Stloc_S, localBuilder.LocalIndex),
+            new (OpCodes.Ldloc_S, localBuilder.LocalIndex),
             new (OpCodes.Callvirt, AccessTools.PropertyGetter(typeof(Scp079UsingLockdownAbilityEventArgs), nameof(Scp079UsingLockdownAbilityEventArgs.Duration))),
             new (OpCodes.Stfld, AccessTools.Field(typeof(Scp079LockdownRoomAbility), nameof(Scp079LockdownRoomAbility._lockdownDuration))),
         });

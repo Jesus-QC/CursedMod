@@ -55,7 +55,7 @@ public class UpgradeItemPatch
         {
             new (OpCodes.Ldarg_0),
             new (OpCodes.Ldloc_1),
-            new (OpCodes.Ldloc_2),
+            new (OpCodes.Ldarg_3),
             new (OpCodes.Newobj, AccessTools.GetDeclaredConstructors(typeof(Scp914UpgradedItemEventArgs))[0]),
             new (OpCodes.Call, AccessTools.Method(typeof(CursedScp914EventsHandler), nameof(CursedScp914EventsHandler.OnUpgradedItem))),
         });

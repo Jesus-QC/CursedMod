@@ -18,6 +18,7 @@ using HarmonyLib;
 using MapGeneration;
 using NorthwoodLib.Pools;
 using PlayerRoles.Ragdolls;
+using PluginAPI.Core;
 using UnityEngine.SceneManagement;
 
 namespace CursedMod.Events;
@@ -33,44 +34,58 @@ public static class CursedEventManager
     
     public static void PatchEvents()
     {
-        try
-        {
-            Stopwatch watch = Stopwatch.StartNew();
+        Stopwatch watch = Stopwatch.StartNew();
 
-            if (CursedModConfigurationManager.LoadedConfiguration.UseDynamicPatching)
+        if (CursedModConfigurationManager.LoadedConfiguration.UseDynamicPatching)
+        {
+            CursedLogger.InternalPrint("CursedMod is using dynamic patching.");
+            foreach (Type type in Assembly.GetExecutingAssembly().GetTypes())
             {
-                CursedLogger.InternalPrint("CursedMod is using dynamic patching.");
-                foreach (Type type in Assembly.GetExecutingAssembly().GetTypes())
+                if (!type.IsClass)
+                    continue;
+
+                try
                 {
-                    if (!type.IsClass)
-                        continue;
-                    
                     if (TryDynamicPatching(type))
                         continue;
-                
+
                     Harmony.CreateClassProcessor(type).Patch();
                 }
+                catch (HarmonyException e)
+                {
+                    CursedLogger.LogError("There was an error while patching the class " + type.FullName);
+                    CursedLogger.LogError(e.ToString());
+                }
             }
-            else
+        }
+        else
+        {
+            foreach (Type type in Assembly.GetExecutingAssembly().GetTypes())
             {
-                Harmony.PatchAll();
+                if (!type.IsClass)
+                    continue;
+
+                try
+                {
+                    Harmony.CreateClassProcessor(type).Patch();
+                }
+                catch (HarmonyException e)
+                {
+                    CursedLogger.LogError("There was an error while patching the class " + type.FullName);
+                    CursedLogger.LogError(e.ToString());
+                }
             }
+        }
 #if DEBUG
             foreach (MethodBase patch in Harmony.GetPatchedMethods())
             {
                 CursedLogger.InternalDebug(patch.DeclaringType + "::" + patch.Name);
             }
 #endif
-            watch.Stop();
-            CursedLogger.InternalPrint("Events patched in " + watch.Elapsed.ToString("c"));
+        watch.Stop();
+        CursedLogger.InternalPrint("Events patched in " + watch.Elapsed.ToString("c"));
 
-            RegisterHookedEvents();
-        }
-        catch (Exception e)
-        {
-            CursedLogger.LogError("An exception occurred when patching the events.");
-            CursedLogger.LogError(e.ToString());
-        }
+        RegisterHookedEvents();
     }
 
     public static void InvokeEvent<T>(this CursedEventHandler<T> eventHandler, T args)
