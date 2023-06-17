@@ -53,7 +53,7 @@ public class UpgradeItemPatch
         
         newInstructions.InsertRange(index, new CodeInstruction[]
         {
-            new (OpCodes.Ldarg_0),
+            new (OpCodes.Ldloc_2),
             new (OpCodes.Ldloc_1),
             new (OpCodes.Ldarg_3),
             new (OpCodes.Newobj, AccessTools.GetDeclaredConstructors(typeof(Scp914UpgradedItemEventArgs))[0]),
