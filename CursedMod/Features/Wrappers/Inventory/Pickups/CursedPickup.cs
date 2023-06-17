@@ -129,7 +129,8 @@ public class CursedPickup
 
     public static CursedPickup Create(ItemType type, Vector3? position = null, Vector3? rotation = null, bool spawn = true)
     {
-        ItemBase itemBase = CursedServer.LocalPlayer.AddItemBase(type);
+        if (!InventoryItemLoader.AvailableItems.TryGetValue(type, out ItemBase itemBase))
+            return null;
 
         PickupSyncInfo pickupSyncInfo = new ()
         {
