@@ -13,7 +13,6 @@ using CursedMod.Events.Handlers;
 using HarmonyLib;
 using NorthwoodLib.Pools;
 using PlayerRoles.PlayableScps.Scp939.Mimicry;
-using PluginAPI.Core;
 
 namespace CursedMod.Events.Patches.SCPs.Scp939;
 

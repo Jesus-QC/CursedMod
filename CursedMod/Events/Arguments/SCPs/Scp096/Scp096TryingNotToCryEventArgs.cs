@@ -9,7 +9,6 @@
 using System;
 using CursedMod.Features.Wrappers.Player;
 using PlayerRoles.PlayableScps.Scp096;
-using UnityEngine;
 
 namespace CursedMod.Events.Arguments.SCPs.Scp096;
 

@@ -11,10 +11,8 @@ using System.Reflection.Emit;
 using CursedMod.Events.Arguments.SCPs.Scp173;
 using CursedMod.Events.Handlers;
 using HarmonyLib;
-using Mirror;
 using NorthwoodLib.Pools;
 using PlayerRoles.PlayableScps.Scp173;
-using UnityEngine;
 
 namespace CursedMod.Events.Patches.SCPs.Scp173;
 
