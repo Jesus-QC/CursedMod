@@ -9,7 +9,6 @@
 using System;
 using CursedMod.Features.Logger;
 using Mirror;
-using PluginAPI.Core;
 
 namespace CursedMod.Features.Wrappers.Player.Dummies;
 
