@@ -55,8 +55,6 @@ CursedLogger.LogCritical("Test message", "CursedMod")
 {% endtab %}
 {% endtabs %}
 
-<figure><img src="../../.gitbook/assets/image (4).png" alt=""><figcaption><p>The different types of logs.</p></figcaption></figure>
-
 ## Where to use
 
 Logs are a useful way of showing information inside the console to the end user. You can use them to debug the plugin.
@@ -67,7 +65,7 @@ Logs are a useful way of showing information inside the console to the end user.
 {
     public override void OnLoaded()
     {
-<strong>        CursedLogger.LogDebug("good implemented debug log", ModuleProperties.ShowDebug);
+<strong>        CursedLogger.LogDebug("good implemented debug log");
 </strong>        base.OnLoaded();
     }
 }
