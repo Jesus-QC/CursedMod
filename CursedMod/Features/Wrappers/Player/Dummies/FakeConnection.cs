@@ -27,12 +27,4 @@ public class FakeConnection : NetworkConnectionToClient
     {
         // ignore
     }
-
-    public override void Disconnect()
-    {
-        CursedLogger.InternalDebug("Destroying dummy.");
-        CursedDummy.Dictionary.Remove(identity.gameObject.GetComponent<ReferenceHub>());
-        NetworkServer.RemovePlayerForConnection(this, true);
-        base.Disconnect();
-    }
 }

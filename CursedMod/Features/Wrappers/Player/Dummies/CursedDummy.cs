@@ -43,4 +43,10 @@ public static class CursedDummy
     }
 
     public static bool IsDummy(this ReferenceHub hub) => Dictionary.ContainsKey(hub);
+
+    public static void DestroyDummy(this CursedPlayer dummy)
+    {
+        Dictionary.Remove(dummy.ReferenceHub);
+        NetworkServer.Destroy(dummy.GameObject);
+    }
 }
