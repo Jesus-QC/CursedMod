@@ -304,6 +304,7 @@
         <Compile Include="Features\Wrappers\Facility\Doors\CursedDoor.cs" />
         <Compile Include="Features\Wrappers\Facility\Doors\CursedPryableDoor.cs" />
         <Compile Include="Features\Wrappers\Facility\Elevators\CursedElevatorChamber.cs" />
+        <Compile Include="Features\Wrappers\Facility\Hazards\CursedAmnesticCloudHazard.cs" />
         <Compile Include="Features\Wrappers\Facility\Hazards\CursedEnvironmentalHazard.cs" />
         <Compile Include="Features\Wrappers\Facility\Hazards\CursedSinkholeHazard.cs" />
         <Compile Include="Features\Wrappers\Facility\Hazards\CursedTantrumHazard.cs" />
