@@ -13,5 +13,6 @@ public enum EnvironmentalHazardType
     Sinkhole,
     Tantrum,
     Temporary,
+    AmnesticCloud,
     Other,
 }
