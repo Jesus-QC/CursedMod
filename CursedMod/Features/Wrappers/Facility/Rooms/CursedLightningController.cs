@@ -35,12 +35,6 @@ public class CursedLightningController
         set => Base.NetworkLightsEnabled = value;
     }
 
-    public bool LightsEnabled
-    {
-        get => Base.LightsEnabled;
-        set => Base.NetworkLightsEnabled = value;
-    }
-
     public void ResetColor()
     {
         WarheadLightOverride = false;
