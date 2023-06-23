@@ -17,11 +17,11 @@ using PlayerRoles.PlayableScps.Scp079;
 
 namespace CursedMod.Events.Patches.SCPs.Scp079;
 
-[DynamicEventPatch(typeof(CursedScp079EventsHandler), nameof(CursedScp079EventsHandler.ChangingDoorLock))]
-[HarmonyPatch(typeof(Scp079DoorLockChanger), nameof(Scp079DoorLockChanger.SetDoorLock))]
+// [DynamicEventPatch(typeof(CursedScp079EventsHandler), nameof(CursedScp079EventsHandler.ChangingDoorLock))]
+// [HarmonyPatch(typeof(Scp079DoorLockChanger), nameof(Scp079DoorLockChanger.SetDoorLock))]
 public class LockDoorPatch
 {
-    private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
+    /*private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
     {
         List<CodeInstruction> newInstructions = CursedEventManager.CheckEvent<LockDoorPatch>(35, instructions);
         
@@ -59,5 +59,5 @@ public class LockDoorPatch
             yield return instruction;
         
         ListPool<CodeInstruction>.Shared.Return(newInstructions);
-    }
+    }*/
 }
