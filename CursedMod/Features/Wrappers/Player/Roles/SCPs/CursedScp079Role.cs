@@ -127,7 +127,7 @@ public class CursedScp079Role : CursedRole
         if (BlackoutZoneAbility is null)
             return;
 
-        foreach (FlickerableLightController lightController in FlickerableLightController.Instances)
+        foreach (RoomLightController lightController in RoomLightController.Instances)
         {
             if (lightController.Room.Zone == BlackoutZoneAbility._syncZone)
             {
