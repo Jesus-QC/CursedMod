@@ -16,13 +16,14 @@ using NorthwoodLib.Pools;
 
 namespace CursedMod.Events.Patches.SCPs.Scp330;
 
-[DynamicEventPatch(typeof(CursedScp330EventsHandler), nameof(CursedScp330EventsHandler.PlayerInteractingScp330))]
-[HarmonyPatch(typeof(Scp330Interobject), nameof(Scp330Interobject.ServerInteract))]
+// TODO: REWRITE
+// [DynamicEventPatch(typeof(CursedScp330EventsHandler), nameof(CursedScp330EventsHandler.PlayerInteractingScp330))]
+// [HarmonyPatch(typeof(Scp330Interobject), nameof(Scp330Interobject.ServerInteract))]
 public class ServerInteractScp330Patch
 {
-    private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
+    /*private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
     {
-        List<CodeInstruction> newInstructions = CursedEventManager.CheckEvent<ServerInteractScp330Patch>(92, instructions);
+        List<CodeInstruction> newInstructions = CursedEventManager.CheckEvent<ServerInteractScp330Patch>(93, instructions);
 
         int offset = newInstructions.FindIndex(x => x.opcode == OpCodes.Newarr) - 2;
 
@@ -44,5 +45,5 @@ public class ServerInteractScp330Patch
             yield return instruction;
 
         ListPool<CodeInstruction>.Shared.Return(newInstructions);
-    }
+    }*/
 }

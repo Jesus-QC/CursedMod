@@ -16,14 +16,15 @@ using NorthwoodLib.Pools;
 
 namespace CursedMod.Events.Patches.Items.Usables;
 
-[DynamicEventPatch(typeof(CursedItemsEventsHandler), nameof(CursedItemsEventsHandler.PlayerCancellingUsable))]
-[DynamicEventPatch(typeof(CursedItemsEventsHandler), nameof(CursedItemsEventsHandler.PlayerUsingItem))]
-[HarmonyPatch(typeof(UsableItemsController), nameof(UsableItemsController.ServerReceivedStatus))]
+// TODO: REWRITE
+// [DynamicEventPatch(typeof(CursedItemsEventsHandler), nameof(CursedItemsEventsHandler.PlayerCancellingUsable))]
+// [DynamicEventPatch(typeof(CursedItemsEventsHandler), nameof(CursedItemsEventsHandler.PlayerUsingItem))]
+// [HarmonyPatch(typeof(UsableItemsController), nameof(UsableItemsController.ServerReceivedStatus))]
 public class UsableItemReceivedStatusPatch
 {
-    private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
+    /*private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
     {
-        List<CodeInstruction> newInstructions = CursedEventManager.CheckEvent<UsableItemReceivedStatusPatch>(161, instructions);
+        List<CodeInstruction> newInstructions = CursedEventManager.CheckEvent<UsableItemReceivedStatusPatch>(145, instructions);
 
         Label ret = generator.DefineLabel();
         int offset = newInstructions.FindLastIndex(x => x.opcode == OpCodes.Newarr) - 2;
@@ -56,5 +57,5 @@ public class UsableItemReceivedStatusPatch
             yield return instruction;
 
         ListPool<CodeInstruction>.Shared.Return(newInstructions);
-    }
+    }*/
 }

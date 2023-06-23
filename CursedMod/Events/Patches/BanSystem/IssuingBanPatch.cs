@@ -21,7 +21,7 @@ public class IssuingBanPatch
 {
     private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
     {
-        List<CodeInstruction> newInstructions = CursedEventManager.CheckEvent<IssuingBanPatch>(134, instructions);
+        List<CodeInstruction> newInstructions = CursedEventManager.CheckEvent<IssuingBanPatch>(116, instructions);
 
         Label skip = generator.DefineLabel();
         LocalBuilder builder = generator.DeclareLocal(typeof(IssuingBanEventArgs));

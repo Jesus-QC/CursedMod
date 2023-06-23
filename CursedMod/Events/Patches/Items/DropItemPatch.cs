@@ -22,7 +22,7 @@ public class DropItemPatch
 {
     private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
     {
-        List<CodeInstruction> newInstructions = CursedEventManager.CheckEvent<DropItemPatch>(174, instructions);
+        List<CodeInstruction> newInstructions = CursedEventManager.CheckEvent<DropItemPatch>(155, instructions);
 
         LocalBuilder args = generator.DeclareLocal(typeof(PlayerDroppingItemEventArgs));
         Label ret = generator.DefineLabel();

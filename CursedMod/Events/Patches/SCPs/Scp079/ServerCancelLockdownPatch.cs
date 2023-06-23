@@ -22,7 +22,7 @@ public class ServerCancelLockdownPatch
 {
     private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
     {
-        List<CodeInstruction> newInstructions = CursedEventManager.CheckEvent<ServerCancelLockdownPatch>(60, instructions);
+        List<CodeInstruction> newInstructions = CursedEventManager.CheckEvent<ServerCancelLockdownPatch>(43, instructions);
 
         Label returnLabel = generator.DefineLabel();
 

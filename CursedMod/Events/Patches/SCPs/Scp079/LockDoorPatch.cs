@@ -17,6 +17,7 @@ using PlayerRoles.PlayableScps.Scp079;
 
 namespace CursedMod.Events.Patches.SCPs.Scp079;
 
+// TODO: REWRITE
 // [DynamicEventPatch(typeof(CursedScp079EventsHandler), nameof(CursedScp079EventsHandler.ChangingDoorLock))]
 // [HarmonyPatch(typeof(Scp079DoorLockChanger), nameof(Scp079DoorLockChanger.SetDoorLock))]
 public class LockDoorPatch

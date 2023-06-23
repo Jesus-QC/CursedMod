@@ -22,7 +22,7 @@ public class CurrentCameraPatch
 {
     private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
     {
-        List<CodeInstruction> newInstructions = CursedEventManager.CheckEvent<CurrentCameraPatch>(125, instructions);
+        List<CodeInstruction> newInstructions = CursedEventManager.CheckEvent<CurrentCameraPatch>(117, instructions);
         
         Label returnLabel = generator.DefineLabel();
         

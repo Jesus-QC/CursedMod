@@ -22,7 +22,7 @@ public class OBanUserPatch
 {
     private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
     {
-        List<CodeInstruction> newInstructions = CursedEventManager.CheckEvent<OBanUserPatch>(258, instructions);
+        List<CodeInstruction> newInstructions = CursedEventManager.CheckEvent<OBanUserPatch>(302, instructions);
 
         LocalBuilder args = generator.DeclareLocal(typeof(BanningOfflinePlayerEventArgs));
         

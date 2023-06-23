@@ -23,7 +23,7 @@ public class ServerInteractDoorVariantPatch
     // Todo: Review transpiler after 13.0 to check changes
     private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
     {
-        List<CodeInstruction> newInstructions = CursedEventManager.CheckEvent<ServerInteractDoorVariantPatch>(135, instructions);
+        List<CodeInstruction> newInstructions = CursedEventManager.CheckEvent<ServerInteractDoorVariantPatch>(111, instructions);
 
         LocalBuilder args = generator.DeclareLocal(typeof(PlayerInteractingDoorEventArgs));
         Label ret = generator.DefineLabel();
