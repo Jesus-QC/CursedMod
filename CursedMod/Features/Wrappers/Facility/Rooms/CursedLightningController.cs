@@ -44,6 +44,7 @@ public class CursedLightningController
     public void ResetColor()
     {
         WarheadLightOverride = false;
+        Base.OverrideColorHook(Base.NetworkOverrideColor, default);
     }
 
     public void FlickerLights(float duration)
