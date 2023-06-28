@@ -11,6 +11,7 @@ using System.Linq;
 using CursedMod.Features.Wrappers.Server;
 using Mirror;
 using PlayerRoles;
+using PlayerRoles.Ragdolls;
 using PlayerStatsSystem;
 using UnityEngine;
 
@@ -30,12 +31,6 @@ public class CursedRagdoll
 
     public BasicRagdoll Base { get; }
 
-    public bool AutoCleanUp
-    {
-        get => !Base._cleanedUp;
-        set => Base._cleanedUp = !value;
-    }
-
     public RoleTypeId Role => Base.Info.RoleType;
 
     public CursedPlayer Owner => CursedPlayer.Get(Base.Info.OwnerHub);
@@ -45,6 +40,18 @@ public class CursedRagdoll
     public Vector3 Position => Base.gameObject.transform.position;
 
     public RagdollData Data => Base.Info;
+    
+    public bool IsFrozen => Base._frozen;
+
+    public int FreezeTime
+    {
+        get => RagdollManager.FreezeTime;
+        set => RagdollManager.FreezeTime = value;
+    }
+
+    public float ExistenceTime => Base.Info.ExistenceTime;
+
+    public bool AllowCleanUp => ExistenceTime < FreezeTime;
 
     public static CursedRagdoll Create(RoleTypeId role, string reason, Vector3 position, Vector3 rotation, bool spawn = true) => Create(role, new CustomReasonDamageHandler(reason), position, rotation, spawn);
 
@@ -77,9 +84,9 @@ public class CursedRagdoll
 
     public static IEnumerable<CursedRagdoll> Get(CursedPlayer player) => Collection.Where(ragdoll => player == ragdoll.Owner);
 
-    public void CleanUp() => Base.OnCleanup();
-
     public void Spawn() => NetworkServer.Spawn(Base.gameObject);
     
     public void Destroy() => NetworkServer.Destroy(Base.gameObject);
+
+    public void FreezeRagdoll() => Base.FreezeRagdoll();
 }

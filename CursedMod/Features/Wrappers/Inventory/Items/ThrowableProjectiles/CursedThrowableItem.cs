@@ -49,14 +49,16 @@ public class CursedThrowableItem : CursedItem
         if (fuseTime > 0)
             ((TimeGrenade)thrownProjectile)._fuseTime = fuseTime;
         
-        PickupSyncInfo pickupSyncInfo = new (item.ItemTypeId, pos, Quaternion.identity, item.Weight, item.ItemSerial) { Locked = true };
+        PickupSyncInfo pickupSyncInfo = new (item.ItemTypeId, item.Weight, item.ItemSerial) { Locked = true };
         PickupSyncInfo pickupSyncInfo2 = pickupSyncInfo;
         thrownProjectile.NetworkInfo = pickupSyncInfo2;
+        thrownProjectile.Position = pos;
+        thrownProjectile.Rotation = Quaternion.identity;
         thrownProjectile.PreviousOwner = Owner?.Footprint ?? CursedServer.LocalPlayer.Footprint;
         NetworkServer.Spawn(thrownProjectile.gameObject);
         ItemPickupBase itemPickupBase = thrownProjectile;
         pickupSyncInfo = default;
-        itemPickupBase.InfoReceived(pickupSyncInfo, pickupSyncInfo2);
+        itemPickupBase.InfoReceivedHook(pickupSyncInfo, pickupSyncInfo2);
         thrownProjectile.ServerActivate();
     }
 }

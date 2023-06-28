@@ -37,7 +37,7 @@ public class CursedPickup
         Base = itemPickupBase;
         GameObject = Base.gameObject;
         Transform = Base._transform;
-        Rigidbody = Base.RigidBody;
+        Rigidbody = Base.GetComponent<Rigidbody>();
     }
     
     public ItemPickupBase Base { get; }
@@ -59,28 +59,30 @@ public class CursedPickup
     public ItemType ItemType
     {
         get => Info.ItemId;
-        set => Info = new PickupSyncInfo(value, Info.Position, Info.Rotation, Info.Weight, Info.Serial);
+        set => Info = new PickupSyncInfo(value, Info.WeightKg, Info.Serial);
     }
     
     public CursedPlayer PreviousOwner => CursedPlayer.Get(Base.PreviousOwner.Hub);
 
     public Vector3 Position
     {
-        get => Info.Position;
+        get => Base.Position;
         set
         {
             Transform.position = value;
-            Info = new PickupSyncInfo(Info.ItemId, value, Info.Rotation, Info.Weight, Info.Serial);
+            Info = new PickupSyncInfo(Info.ItemId, Info.WeightKg, Info.Serial);
+            Base.Position = value;
         }
     }
 
     public Quaternion Rotation
     {
-        get => Info.Rotation;
+        get => Base.Rotation;
         set
         {
             Transform.rotation = value;
-            Info = new PickupSyncInfo(Info.ItemId, Info.Position, value, Info.Weight, Info.Serial);
+            Info = new PickupSyncInfo(Info.ItemId, Info.WeightKg, Info.Serial);
+            Base.Rotation = value;
         }
     }
 
@@ -96,8 +98,8 @@ public class CursedPickup
 
     public float Weight
     {
-        get => Base.Info.Weight;
-        set => Info = new PickupSyncInfo(Info.ItemId, Info.Position, Info.Rotation, value, Info.Serial);
+        get => Base.Info.WeightKg;
+        set => Info = new PickupSyncInfo(Info.ItemId, value, Info.Serial);
     }
 
     public bool IsLocked
@@ -135,7 +137,7 @@ public class CursedPickup
         PickupSyncInfo pickupSyncInfo = new ()
         {
             ItemId = type,
-            Weight = itemBase.Weight,
+            WeightKg = itemBase.Weight,
             Serial = ItemSerialGenerator.GenerateNext(),
         };
 
@@ -145,8 +147,6 @@ public class CursedPickup
             pickupBase.transform.position = position.Value;
         if (rotation.HasValue)
             pickupBase.transform.eulerAngles = rotation.Value;
-        
-        pickupBase.RefreshPositionAndRotation();
 
         return Get(pickupBase);
     }

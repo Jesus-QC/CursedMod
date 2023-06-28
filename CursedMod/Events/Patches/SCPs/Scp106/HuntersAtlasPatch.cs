@@ -23,7 +23,7 @@ public class HuntersAtlasPatch
 {
     private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
     {
-        List<CodeInstruction> newInstructions = CursedEventManager.CheckEvent<HuntersAtlasPatch>(25, instructions);
+        List<CodeInstruction> newInstructions = CursedEventManager.CheckEvent<HuntersAtlasPatch>(20, instructions);
         
         Label returnLabel = generator.DefineLabel();
         

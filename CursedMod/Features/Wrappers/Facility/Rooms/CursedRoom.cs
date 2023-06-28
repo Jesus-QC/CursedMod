@@ -26,7 +26,7 @@ public class CursedRoom
 
         Dictionary.Add(room, this);
         
-        FlickerableLightController lightController = room.GetComponentInChildren<FlickerableLightController>();
+        RoomLightController lightController = room.GetComponentInChildren<RoomLightController>();
         
         if (lightController is null)
             return;

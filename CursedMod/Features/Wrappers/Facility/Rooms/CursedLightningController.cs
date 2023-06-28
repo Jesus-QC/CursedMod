@@ -12,45 +12,33 @@ namespace CursedMod.Features.Wrappers.Facility.Rooms;
 
 public class CursedLightningController
 {
-    internal CursedLightningController(FlickerableLightController controller)
+    internal CursedLightningController(RoomLightController controller)
     {
         Base = controller;
     }
     
-    public FlickerableLightController Base { get; }
+    public RoomLightController Base { get; }
 
     public Color Color
     {
-        get => Base._warheadLightColor;
+        get => Base.NetworkOverrideColor;
         set
         {
-            Base.Network_warheadLightColor = value;
+            Base.NetworkOverrideColor = value;
             WarheadLightOverride = true;
         }
     }
 
     public bool WarheadLightOverride
     {
-        get => Base._warheadLightOverride;
-        set => Base.Network_warheadLightOverride = value;
-    }
-
-    public bool LightsEnabled
-    {
-        get => Base.LightsEnabled;
+        get => Base.NetworkLightsEnabled;
         set => Base.NetworkLightsEnabled = value;
-    }
-
-    public float LightIntensityMultiplier
-    {
-        get => Base._lightIntensityMultiplier;
-        set => Base.Network_lightIntensityMultiplier = value;
     }
 
     public void ResetColor()
     {
-        Color = FlickerableLightController.DefaultWarheadColor;
         WarheadLightOverride = false;
+        Base.OverrideColorHook(Base.NetworkOverrideColor, default);
     }
 
     public void FlickerLights(float duration)

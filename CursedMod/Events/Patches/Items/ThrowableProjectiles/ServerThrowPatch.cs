@@ -16,13 +16,14 @@ using NorthwoodLib.Pools;
 
 namespace CursedMod.Events.Patches.Items.ThrowableProjectiles;
 
-[DynamicEventPatch(typeof(CursedItemsEventsHandler), nameof(CursedItemsEventsHandler.PlayerThrowingItem))]
-[HarmonyPatch(typeof(ThrowableItem), nameof(ThrowableItem.ServerProcessThrowConfirmation))]
+// TODO: REWRITE
+// [DynamicEventPatch(typeof(CursedItemsEventsHandler), nameof(CursedItemsEventsHandler.PlayerThrowingItem))]
+// [HarmonyPatch(typeof(ThrowableItem), nameof(ThrowableItem.ServerProcessThrowConfirmation))]
 public class ServerThrowPatch
 {
-    private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
+    /*private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
     {
-        List<CodeInstruction> newInstructions = CursedEventManager.CheckEvent<ServerThrowPatch>(96, instructions);
+        List<CodeInstruction> newInstructions = CursedEventManager.CheckEvent<ServerThrowPatch>(80, instructions);
 
         LocalBuilder args = generator.DeclareLocal(typeof(PlayerThrowingItemEventArgs));
         Label ret = generator.DefineLabel();
@@ -57,5 +58,5 @@ public class ServerThrowPatch
             yield return instruction;
 
         ListPool<CodeInstruction>.Shared.Return(newInstructions);
-    }
+    }*/
 }

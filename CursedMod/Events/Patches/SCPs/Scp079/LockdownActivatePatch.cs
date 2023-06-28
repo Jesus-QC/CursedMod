@@ -16,13 +16,14 @@ using PlayerRoles.PlayableScps.Scp079;
 
 namespace CursedMod.Events.Patches.SCPs.Scp079;
 
-[DynamicEventPatch(typeof(CursedScp079EventsHandler), nameof(CursedScp079EventsHandler.UsingLockdownAbility))]
-[HarmonyPatch(typeof(Scp079LockdownRoomAbility), nameof(Scp079LockdownRoomAbility.ServerProcessCmd))]
+// TODO: REWRITE
+// [DynamicEventPatch(typeof(CursedScp079EventsHandler), nameof(CursedScp079EventsHandler.UsingLockdownAbility))]
+// [HarmonyPatch(typeof(Scp079LockdownRoomAbility), nameof(Scp079LockdownRoomAbility.ServerProcessCmd))]
 public class LockdownActivatePatch
 {
     private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
     {
-        List<CodeInstruction> newInstructions = CursedEventManager.CheckEvent<LockdownActivatePatch>(50, instructions);
+        List<CodeInstruction> newInstructions = CursedEventManager.CheckEvent<LockdownActivatePatch>(42, instructions);
         
         Label returnLabel = generator.DefineLabel();
         LocalBuilder localBuilder = generator.DeclareLocal(typeof(Scp079UsingLockdownAbilityEventArgs));

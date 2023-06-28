@@ -18,7 +18,6 @@ using NorthwoodLib.Pools;
 using PlayerRoles;
 using PlayerStatsSystem;
 using PluginAPI.Core;
-using PluginAPI.Enums;
 using PluginAPI.Events;
 using RoundRestarting;
 using UnityEngine;
@@ -157,7 +156,7 @@ public class RoundSummaryPatch
             
             if (!instance._roundEnded)
             {
-                RoundEndConditionsCheckCancellationData.RoundEndConditionsCheckCancellation cancellation = PluginAPI.Events.EventManager.ExecuteEvent<RoundEndConditionsCheckCancellationData>(ServerEventType.RoundEndConditionsCheck, flag).Cancellation;
+                RoundEndConditionsCheckCancellationData.RoundEndConditionsCheckCancellation cancellation = EventManager.ExecuteEvent<RoundEndConditionsCheckCancellationData>(new RoundEndConditionsCheckEvent(flag)).Cancellation;
                 int num4 = (int)cancellation;
                 if (num4 != 1)
                 {
@@ -194,7 +193,7 @@ public class RoundSummaryPatch
                 leadingTeam = RoundSummary.EscapedClassD >= RoundSummary.EscapedScientists ? RoundSummary.LeadingTeam.ChaosInsurgency : RoundSummary.LeadingTeam.Draw;
             }
             
-            RoundEndCancellationData roundEndCancellationData = PluginAPI.Events.EventManager.ExecuteEvent<RoundEndCancellationData>(ServerEventType.RoundEnd, leadingTeam);
+            RoundEndCancellationData roundEndCancellationData = EventManager.ExecuteEvent<RoundEndCancellationData>(new RoundEndEvent(leadingTeam));
             
             while (roundEndCancellationData.IsCancelled)
             {
@@ -202,7 +201,7 @@ public class RoundSummaryPatch
                     yield break;
 
                 yield return Timing.WaitForSeconds(roundEndCancellationData.Delay);
-                roundEndCancellationData = PluginAPI.Events.EventManager.ExecuteEvent<RoundEndCancellationData>(ServerEventType.RoundEnd, leadingTeam);
+                roundEndCancellationData = EventManager.ExecuteEvent<RoundEndCancellationData>(new RoundEndEvent(leadingTeam));
             }
             
             CursedRoundEventsHandler.OnRoundEnded();

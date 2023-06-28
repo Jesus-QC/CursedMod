@@ -22,7 +22,7 @@ public class BlackoutZoneAbilityPatch
 {
     private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
     {
-        List<CodeInstruction> newInstructions = CursedEventManager.CheckEvent<BlackoutZoneAbilityPatch>(71, instructions);
+        List<CodeInstruction> newInstructions = CursedEventManager.CheckEvent<BlackoutZoneAbilityPatch>(63, instructions);
 
         Label ret = generator.DefineLabel();
         int index = newInstructions.FindIndex(x => x.opcode == OpCodes.Ret) + 1;

@@ -15,13 +15,14 @@ using NorthwoodLib.Pools;
 
 namespace CursedMod.Events.Patches.Player.EscapeSystem;
 
-[DynamicEventPatch(typeof(CursedPlayerEventsHandler), nameof(CursedPlayerEventsHandler.Escaping))]
-[HarmonyPatch(typeof(Escape), nameof(Escape.ServerHandlePlayer))]
+// TODO: REWRITE
+// [DynamicEventPatch(typeof(CursedPlayerEventsHandler), nameof(CursedPlayerEventsHandler.Escaping))]
+// [HarmonyPatch(typeof(Escape), nameof(Escape.ServerHandlePlayer))]
 public class PlayerEscapePatch
 {
-    private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
+    /*private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
     {
-        List<CodeInstruction> newInstructions = CursedEventManager.CheckEvent<PlayerEscapePatch>(70, instructions);
+        List<CodeInstruction> newInstructions = CursedEventManager.CheckEvent<PlayerEscapePatch>(61, instructions);
 
         Label ret = generator.DefineLabel();
         LocalBuilder args = generator.DeclareLocal(typeof(PlayerEscapingEventArgs));
@@ -54,5 +55,5 @@ public class PlayerEscapePatch
             yield return instruction;
 
         ListPool<CodeInstruction>.Shared.Return(newInstructions);
-    }
+    }*/
 }

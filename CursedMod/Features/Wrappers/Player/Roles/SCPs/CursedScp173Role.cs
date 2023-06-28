@@ -84,7 +84,7 @@ public class CursedScp173Role : CursedFpcRole
         
         foreach (TeslaGate teslaGate in TeslaGateController.Singleton.TeslaGates)
         {
-            if (teslaGate.PlayerInIdleRange(TantrumAbility.Owner))
+            if (teslaGate.PlayerInRange(TantrumAbility.Owner))
             {
                 teslaGate.TantrumsToBeDestroyed.Add(tantrumEnvironmentalHazard);
             }

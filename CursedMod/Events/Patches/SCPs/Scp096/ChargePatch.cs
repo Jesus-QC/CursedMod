@@ -22,7 +22,7 @@ public class ChargePatch
 {
     private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
     {
-        List<CodeInstruction> newInstructions = CursedEventManager.CheckEvent<ChargePatch>(38, instructions);
+        List<CodeInstruction> newInstructions = CursedEventManager.CheckEvent<ChargePatch>(33, instructions);
         
         Label returnLabel = generator.DefineLabel();
         int index = newInstructions.FindIndex(instruction => instruction.opcode == OpCodes.Pop) + 1;

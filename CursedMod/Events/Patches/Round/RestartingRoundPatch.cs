@@ -21,7 +21,7 @@ public class RestartingRoundPatch
 {
     private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions)
     {
-        List<CodeInstruction> newInstructions = CursedEventManager.CheckEvent<RestartingRoundPatch>(91, instructions);
+        List<CodeInstruction> newInstructions = CursedEventManager.CheckEvent<RestartingRoundPatch>(90, instructions);
 
         newInstructions.InsertRange(0, new CodeInstruction[]
         {

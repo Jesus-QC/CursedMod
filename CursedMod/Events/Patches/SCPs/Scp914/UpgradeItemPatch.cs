@@ -22,7 +22,7 @@ public class UpgradeItemPatch
 {
     private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
     {
-        List<CodeInstruction> newInstructions = CursedEventManager.CheckEvent<UpgradeItemPatch>(78, instructions);
+        List<CodeInstruction> newInstructions = CursedEventManager.CheckEvent<UpgradeItemPatch>(60, instructions);
 
         LocalBuilder args = generator.DeclareLocal(typeof(Scp914UpgradingItemEventArgs));
         Label returnLabel = generator.DefineLabel();

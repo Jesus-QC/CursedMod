@@ -55,8 +55,6 @@ public class CursedScp106Role : CursedFpcRole
 
     public Scp106SinkholeController SinkholeController => ScpRoleBase.Sinkhole;
 
-    public bool CanActivateIdle => ScpRoleBase.CanActivateIdle;
-
     public bool CanActivateShock => ScpRoleBase.CanActivateShock;
 
     public bool IsSubmerged => ScpRoleBase.IsSubmerged;

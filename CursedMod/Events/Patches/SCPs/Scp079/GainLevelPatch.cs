@@ -22,7 +22,7 @@ public class GainLevelPatch
 {
     private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
     {
-        List<CodeInstruction> newInstructions = CursedEventManager.CheckEvent<GainLevelPatch>(62, instructions);
+        List<CodeInstruction> newInstructions = CursedEventManager.CheckEvent<GainLevelPatch>(53, instructions);
         
         int index = newInstructions.FindIndex(instruction => instruction.opcode == OpCodes.Ret) + 1;
 
