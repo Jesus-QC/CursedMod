@@ -17,6 +17,7 @@ using Scp914;
 namespace CursedMod.Events.Patches.SCPs.Scp914;
 
 [DynamicEventPatch(typeof(CursedScp914EventsHandler), nameof(CursedScp914EventsHandler.UpgradingItem))]
+[DynamicEventPatch(typeof(CursedScp914EventsHandler), nameof(CursedScp914EventsHandler.UpgradedItem))]
 [HarmonyPatch(typeof(Scp914Upgrader), nameof(Scp914Upgrader.ProcessPickup))]
 public class UpgradeItemPatch
 {
@@ -53,7 +54,7 @@ public class UpgradeItemPatch
         
         newInstructions.InsertRange(index, new CodeInstruction[]
         {
-            new (OpCodes.Ldloc_2),
+            new (OpCodes.Ldloc_3),
             new (OpCodes.Ldloc_1),
             new (OpCodes.Ldarg_3),
             new (OpCodes.Newobj, AccessTools.GetDeclaredConstructors(typeof(Scp914UpgradedItemEventArgs))[0]),
