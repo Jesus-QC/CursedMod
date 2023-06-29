@@ -6,12 +6,13 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
+using System;
 using CursedMod.Features.Wrappers.Player;
 using PlayerStatsSystem;
 
 namespace CursedMod.Events.Arguments.Player;
 
-public class PlayerDiedEventArgs : ICursedPlayerEvent
+public class PlayerDiedEventArgs : EventArgs, ICursedPlayerEvent
 {
     public PlayerDiedEventArgs(PlayerStats stats, DamageHandlerBase damageHandlerBase)
     {

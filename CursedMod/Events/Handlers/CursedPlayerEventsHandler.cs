@@ -28,7 +28,7 @@ public static class CursedPlayerEventsHandler
     
     public static event CursedEventManager.CursedEventHandler<PlayerDyingEventArgs> Dying;
     
-    public static event CursedEventManager.CursedEventHandler<PlayerDyingEventArgs> Died;
+    public static event CursedEventManager.CursedEventHandler<PlayerDiedEventArgs> Died;
     
     public static event CursedEventManager.CursedEventHandler<PlayerEscapingEventArgs> Escaping;
 
@@ -94,7 +94,7 @@ public static class CursedPlayerEventsHandler
         Dying.InvokeEvent(args);
     }
     
-    internal static void OnPlayerDied(PlayerDyingEventArgs args)
+    internal static void OnPlayerDied(PlayerDiedEventArgs args)
     {
         if (!args.Player.CheckPlayer())
             return;
