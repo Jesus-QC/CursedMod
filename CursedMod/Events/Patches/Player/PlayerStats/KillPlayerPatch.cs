@@ -38,6 +38,14 @@ public class KillPlayerPatch
             new (OpCodes.Brfalse_S, ret),
         });
         
+        newInstructions.InsertRange(newInstructions.Count - 1, new CodeInstruction[]
+        {
+            new (OpCodes.Ldarg_0),
+            new (OpCodes.Ldarg_1),
+            new (OpCodes.Newobj, AccessTools.GetDeclaredConstructors(typeof(PlayerDiedEventArgs))[0]),
+            new (OpCodes.Call, AccessTools.Method(typeof(CursedPlayerEventsHandler), nameof(CursedPlayerEventsHandler.OnPlayerDied))),
+        });
+        
         foreach (CodeInstruction instruction in newInstructions)
             yield return instruction;
 

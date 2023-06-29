@@ -28,6 +28,8 @@ public static class CursedPlayerEventsHandler
     
     public static event CursedEventManager.CursedEventHandler<PlayerDyingEventArgs> Dying;
     
+    public static event CursedEventManager.CursedEventHandler<PlayerDyingEventArgs> Died;
+    
     public static event CursedEventManager.CursedEventHandler<PlayerEscapingEventArgs> Escaping;
 
     public static event CursedEventManager.CursedEventHandler<PlayerUsingVoiceChatEventArgs> UsingVoiceChat;
@@ -90,6 +92,14 @@ public static class CursedPlayerEventsHandler
             return;
         
         Dying.InvokeEvent(args);
+    }
+    
+    internal static void OnPlayerDied(PlayerDyingEventArgs args)
+    {
+        if (!args.Player.CheckPlayer())
+            return;
+        
+        Died.InvokeEvent(args);
     }
     
     internal static void OnPlayerEscaping(PlayerEscapingEventArgs args)
