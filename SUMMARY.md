@@ -2,6 +2,12 @@
 
 * [⚡ CursedMod](README.md)
 
+## HOSTING
+
+* [Installation](hosting/installation/README.md)
+  * [🐧 Linux](hosting/installation/linux.md)
+  * [💻 Windows](hosting/installation/windows.md)
+
 ## Development
 
 * [Making Plugins](development/making-plugins/README.md)
@@ -17,9 +23,3 @@
 * [Guides](development/guides/README.md)
   * [⌛ MEC](development/guides/mec.md)
   * [❗ Commands](development/guides/commands.md)
-
-## HOSTING
-
-* [Installation](hosting/installation/README.md)
-  * [🐧 Linux](hosting/installation/linux.md)
-  * [💻 Windows](hosting/installation/windows.md)
