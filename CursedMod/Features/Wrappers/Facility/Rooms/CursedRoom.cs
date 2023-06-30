@@ -31,7 +31,7 @@ public class CursedRoom
         if (lightController is null)
             return;
         
-        LightningController = new CursedLightningController(lightController);
+        RoomLightController = new CursedRoomLightController(lightController);
     }
     
     public static IEnumerable<CursedRoom> Collection => Dictionary.Values;
@@ -40,7 +40,7 @@ public class CursedRoom
     
     public RoomIdentifier Room { get; }
 
-    public CursedLightningController LightningController { get; }
+    public CursedRoomLightController RoomLightController { get; }
     
     public Vector3 Position => Room.transform.position;
     

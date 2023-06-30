@@ -51,7 +51,7 @@ public class BlackoutRoomAbilityPatch
         if (!args.IsAllowed)
             return false;
 
-        roomAbility._roomController = args.Room.LightningController.Base;
+        roomAbility._roomController = args.Room.RoomLightController.Base;
         roomAbility._blackoutDuration = args.Duration;
         return true;
     }

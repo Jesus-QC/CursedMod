@@ -318,7 +318,7 @@
         <Compile Include="Features\Wrappers\Facility\Props\CursedLockerChamber.cs" />
         <Compile Include="Features\Wrappers\Facility\Props\CursedTeslaGate.cs" />
         <Compile Include="Features\Wrappers\Facility\Rooms\Cursed079Camera.cs" />
-        <Compile Include="Features\Wrappers\Facility\Rooms\CursedLightningController.cs" />
+        <Compile Include="Features\Wrappers\Facility\Rooms\CursedRoomLightController.cs" />
         <Compile Include="Features\Wrappers\Facility\Rooms\CursedRoom.cs" />
         <Compile Include="Features\Wrappers\Inventory\Items\Armor\CursedBodyArmorItem.cs" />
         <Compile Include="Features\Wrappers\Inventory\Items\CursedItem.cs" />
