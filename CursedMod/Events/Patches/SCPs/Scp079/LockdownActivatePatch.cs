@@ -16,9 +16,8 @@ using PlayerRoles.PlayableScps.Scp079;
 
 namespace CursedMod.Events.Patches.SCPs.Scp079;
 
-// TODO: REWRITE
-// [DynamicEventPatch(typeof(CursedScp079EventsHandler), nameof(CursedScp079EventsHandler.UsingLockdownAbility))]
-// [HarmonyPatch(typeof(Scp079LockdownRoomAbility), nameof(Scp079LockdownRoomAbility.ServerProcessCmd))]
+[DynamicEventPatch(typeof(CursedScp079EventsHandler), nameof(CursedScp079EventsHandler.UsingLockdownAbility))]
+[HarmonyPatch(typeof(Scp079LockdownRoomAbility), nameof(Scp079LockdownRoomAbility.ServerProcessCmd))]
 public class LockdownActivatePatch
 {
     private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
@@ -28,7 +27,7 @@ public class LockdownActivatePatch
         Label returnLabel = generator.DefineLabel();
         LocalBuilder localBuilder = generator.DeclareLocal(typeof(Scp079UsingLockdownAbilityEventArgs));
         
-        int index = newInstructions.FindIndex(i => i.opcode == OpCodes.Ldc_I4_S);
+        int index = newInstructions.FindIndex(i => i.opcode == OpCodes.Callvirt) + 2;
 
         newInstructions.InsertRange(index, new CodeInstruction[]
         {
