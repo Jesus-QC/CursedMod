@@ -79,4 +79,4 @@ public class TestParentCommand : ParentCommand
 
 And like that you can easily create commands. Any commands in your module assembly will be registered automatically by CursedMod. If you want to prevent this you can inherit `ICursedModule::OnRegisteringCommands()` on your module.
 
-<figure><img src="../../.gitbook/assets/image (1).png" alt=""><figcaption><p>Example of a RemoteAdmin command.</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image.png" alt=""><figcaption><p>Example of a RemoteAdmin command.</p></figcaption></figure>

@@ -14,4 +14,4 @@ CursedPlayer dummy = CursedDummy.Create("MyDummyNickname")
 
 As now **dummy** is a **CursedPlayer** you can now use any property of it. Including changin its role, position even items and ammo, you could even attach a small unity component to control it and make it follow a specific behaviour like following a player.
 
-<figure><img src="../../.gitbook/assets/image.png" alt=""><figcaption><p>A simple dummy with the Tutorial role</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (1).png" alt=""><figcaption><p>A simple dummy with the Tutorial role</p></figcaption></figure>
