@@ -143,7 +143,8 @@ public static class CursedEventManager
     
     private static void RegisterHookedEvents()
     {
-        SceneManager.sceneLoaded += CursedMapGenerationEventsHandler.OnChangingScene;
+        SceneManager.sceneLoaded += CursedMapGenerationEventsHandler.OnLoadedScene;
+        SceneManager.sceneUnloaded += CursedMapGenerationEventsHandler.OnUnloadedScene;
         SeedSynchronizer.OnMapGenerated += CursedMapGenerationEventsHandler.CacheAPI;
         RagdollManager.OnRagdollSpawned += CursedFacilityEventsHandler.OnRagdollSpawned;
     }

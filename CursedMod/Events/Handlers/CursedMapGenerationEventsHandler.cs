@@ -26,6 +26,10 @@ public static class CursedMapGenerationEventsHandler
 {
     public static event CursedEventManager.CursedEventHandler MapGenerated;
     
+    public static event CursedEventManager.CursedEventHandler UnloadingFacility;
+    
+    public static event CursedEventManager.CursedEventHandler LoadingFacility;
+    
     public static event CursedEventManager.CursedEventHandler<GeneratingSeedEventArgs> GeneratingSeed;
     
     internal static void CacheAPI()
@@ -45,7 +49,15 @@ public static class CursedMapGenerationEventsHandler
         GeneratingSeed.InvokeEvent(args);
     }
 
-    internal static void OnChangingScene(Scene scene, LoadSceneMode loadMode)
+    internal static void OnLoadedScene(Scene scene, LoadSceneMode loadMode)
+    {
+        if (scene.name != "Facility")
+            return;
+        
+        LoadingFacility.InvokeEvent();
+    }
+    
+    internal static void OnUnloadedScene(Scene scene)
     {
         if (scene.name != "Facility")
             return;
@@ -60,5 +72,7 @@ public static class CursedMapGenerationEventsHandler
         CursedEnvironmentalHazard.Dictionary.Clear();
         Cursed079Camera.Dictionary.Clear();
         CursedElevatorChamber.Dictionary.Clear();
+        
+        UnloadingFacility.InvokeEvent();
     }
 }
