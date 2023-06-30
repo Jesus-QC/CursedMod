@@ -5,6 +5,7 @@
 ## HOSTING
 
 * [Installation](hosting/installation/README.md)
+  * [💼 Plugin Manager](hosting/installation/plugin-manager.md)
   * [🐧 Linux](hosting/installation/linux.md)
   * [💻 Windows](hosting/installation/windows.md)
 
