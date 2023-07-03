@@ -21,7 +21,7 @@ public class PlayerEscapePatch
 {
     private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
     {
-        List<CodeInstruction> newInstructions = CursedEventManager.CheckEvent<PlayerEscapePatch>(61, instructions);
+        List<CodeInstruction> newInstructions = CursedEventManager.CheckEvent<PlayerEscapePatch>(71, instructions);
 
         Label ret = generator.DefineLabel();
         LocalBuilder args = generator.DeclareLocal(typeof(PlayerEscapingEventArgs));
@@ -35,6 +35,8 @@ public class PlayerEscapePatch
             new CodeInstruction(OpCodes.Ldarg_0).MoveLabelsFrom(newInstructions[offset]),
             new (OpCodes.Ldloc_0),
             new (OpCodes.Ldloc_1),
+            new (OpCodes.Ldloc_2),
+            new (OpCodes.Ldloc_3),
             new (OpCodes.Newobj, AccessTools.GetDeclaredConstructors(typeof(PlayerEscapingEventArgs))[0]),
             new (OpCodes.Dup),
             new (OpCodes.Call, AccessTools.Method(typeof(CursedPlayerEventsHandler), nameof(CursedPlayerEventsHandler.OnPlayerEscaping))),
@@ -44,10 +46,16 @@ public class PlayerEscapePatch
             new (OpCodes.Brfalse_S, ret),
             new (OpCodes.Ldloc_S, args.LocalIndex),
             new (OpCodes.Callvirt, AccessTools.PropertyGetter(typeof(PlayerEscapingEventArgs), nameof(PlayerEscapingEventArgs.NewRole))),
-            new (OpCodes.Stloc_0, ret),
+            new (OpCodes.Stloc_0),
             new (OpCodes.Ldloc_S, args.LocalIndex),
             new (OpCodes.Callvirt, AccessTools.PropertyGetter(typeof(PlayerEscapingEventArgs), nameof(PlayerEscapingEventArgs.EscapeScenarioType))),
-            new (OpCodes.Stloc_1, ret),
+            new (OpCodes.Stloc_1),
+            new (OpCodes.Ldloc_S, args.LocalIndex),
+            new (OpCodes.Callvirt, AccessTools.PropertyGetter(typeof(PlayerEscapingEventArgs), nameof(PlayerEscapingEventArgs.TeamReceivingTokens))),
+            new (OpCodes.Stloc_2),
+            new (OpCodes.Ldloc_S, args.LocalIndex),
+            new (OpCodes.Callvirt, AccessTools.PropertyGetter(typeof(PlayerEscapingEventArgs), nameof(PlayerEscapingEventArgs.Tokens))),
+            new (OpCodes.Stloc_3),
         });
         
         foreach (CodeInstruction instruction in newInstructions)
