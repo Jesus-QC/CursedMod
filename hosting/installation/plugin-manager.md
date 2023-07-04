@@ -6,3 +6,6 @@ description: >-
 
 # 💼 Plugin Manager
 
+{% hint style="danger" %}
+CursedMod can't be downloaded yet. It is a work in progress.
+{% endhint %}
