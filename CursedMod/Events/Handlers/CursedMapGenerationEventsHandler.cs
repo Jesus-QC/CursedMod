@@ -62,6 +62,7 @@ public static class CursedMapGenerationEventsHandler
         if (scene.name != "Facility")
             return;
         
+        CursedDesyncModule.ClearCache();
         CursedPlayer.Dictionary.Clear();
         CursedDummy.Dictionary.Clear();
         CursedRagdoll.Dictionary.Clear();

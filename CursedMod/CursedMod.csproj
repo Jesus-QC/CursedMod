@@ -347,6 +347,7 @@
         <Compile Include="Features\Wrappers\Inventory\Pickups\Usables\CursedScp1576Pickup.cs" />
         <Compile Include="Features\Wrappers\Inventory\Pickups\Usables\CursedScp244Pickup.cs" />
         <Compile Include="Features\Wrappers\Inventory\Pickups\Usables\CursedScp330Pickup.cs" />
+        <Compile Include="Features\Wrappers\Player\CursedDesyncModule.cs" />
         <Compile Include="Features\Wrappers\Player\CursedPlayer.cs" />
         <Compile Include="Features\Wrappers\Player\CursedPlayerHitBox.cs" />
         <Compile Include="Features\Wrappers\Player\Dummies\CursedDummy.cs" />

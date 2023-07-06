@@ -42,6 +42,7 @@ public static class CursedPlayerEventsHandler
             return;
         
         Connected.InvokeEvent(args);
+        CursedDesyncModule.HandlePlayerConnected(args);
     }
 
     internal static void OnPlayerDisconnecting(PlayerDisconnectingEventArgs args)

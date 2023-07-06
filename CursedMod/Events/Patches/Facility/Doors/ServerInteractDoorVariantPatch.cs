@@ -20,7 +20,6 @@ namespace CursedMod.Events.Patches.Facility.Doors;
 [HarmonyPatch(typeof(DoorVariant), nameof(DoorVariant.ServerInteract))]
 public class ServerInteractDoorVariantPatch
 {
-    // Todo: Review transpiler after 13.0 to check changes
     private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
     {
         List<CodeInstruction> newInstructions = CursedEventManager.CheckEvent<ServerInteractDoorVariantPatch>(111, instructions);

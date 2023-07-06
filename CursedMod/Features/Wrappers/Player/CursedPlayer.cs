@@ -266,6 +266,35 @@ public class CursedPlayer
             SendSpawnMessageToAll(NetworkIdentity);
         }
     }
+
+    public Vector3 FakeScale
+    {
+        get => CursedDesyncModule.FakedScales.TryGetValue(this, out Vector3 scale) ? scale : Vector3.one;
+        set
+        {
+            foreach (CursedPlayer player in Collection)
+            {
+                if (player == this)
+                    continue;
+                
+                player.SendFakeScaleMessage(this, value);
+            }
+            
+            if (CursedDesyncModule.FakedScales.ContainsKey(this))
+            {
+                if (FakeScale == Vector3.one)
+                {
+                    CursedDesyncModule.FakedScales.Remove(this);
+                    return;
+                }
+                
+                CursedDesyncModule.FakedScales[this] = value;
+                return;
+            }
+            
+            CursedDesyncModule.FakedScales.Add(this, value);
+        }
+    }
     
     public int Id
     {
