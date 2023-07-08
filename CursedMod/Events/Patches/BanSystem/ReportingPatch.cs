@@ -28,7 +28,7 @@ public class ReportingPatch
         LocalBuilder localReportArgs = generator.DeclareLocal(typeof(LocalReportingEventArgs));
         LocalBuilder cheaterReportArgs = generator.DeclareLocal(typeof(ReportingCheaterEventArgs));
 
-        int index = newInstructions.FindIndex(instruction => instruction.opcode == OpCodes.Newarr) - 1;
+        int index = newInstructions.FindIndex(instruction => instruction.opcode == OpCodes.Ldc_I4_7);
         
         newInstructions.InsertRange(index, new CodeInstruction[]
         {
