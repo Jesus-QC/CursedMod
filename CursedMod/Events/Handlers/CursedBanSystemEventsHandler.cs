@@ -20,6 +20,10 @@ public static class CursedBanSystemEventsHandler
     
     public static event CursedEventManager.CursedEventHandler<IssuingBanEventArgs> IssuingBan;
 
+    public static event CursedEventManager.CursedEventHandler<LocalReportingEventArgs> LocalReporting;
+    
+    public static event CursedEventManager.CursedEventHandler<ReportingCheaterEventArgs> ReportingCheater; 
+
     internal static void OnBanningPlayer(BanningPlayerEventArgs args)
     {
         BanningPlayer.InvokeEvent(args);
@@ -38,5 +42,15 @@ public static class CursedBanSystemEventsHandler
     internal static void OnIssuingBan(IssuingBanEventArgs args)
     {
         IssuingBan.InvokeEvent(args);
+    }
+
+    internal static void OnLocalReporting(LocalReportingEventArgs args)
+    {
+        LocalReporting.InvokeEvent(args);
+    }
+    
+    internal static void OnReportingCheater(ReportingCheaterEventArgs args)
+    {
+        ReportingCheater.InvokeEvent(args);
     }
 }
