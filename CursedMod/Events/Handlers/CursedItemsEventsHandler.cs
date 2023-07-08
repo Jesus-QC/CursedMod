@@ -29,6 +29,18 @@ public static class CursedItemsEventsHandler
     public static event CursedEventManager.CursedEventHandler<PlayerThrowingItemEventArgs> PlayerThrowingItem;
     
     public static event CursedEventManager.CursedEventHandler<PlayerShootingEventArgs> PlayerShooting;
+
+    public static event CursedEventManager.CursedEventHandler<PlayerReloadingWeaponEventArgs> PlayerReloadingWeapon;
+    
+    public static event CursedEventManager.CursedEventHandler<PlayerUnloadingWeaponEventArgs> PlayerUnloadingWeapon;
+    
+    public static event CursedEventManager.CursedEventHandler<PlayerAimingEventArgs> PlayerAiming;
+    
+    public static event CursedEventManager.CursedEventHandler<PlayerDryfiringWeaponEventArgs> PlayerDryfiringWeapon;
+    
+    public static event CursedEventManager.CursedEventHandler<PlayerToggleWeaponFlashlightEventArgs> PlayerToggleWeaponFlashlight;
+    
+    public static event CursedEventManager.CursedEventHandler<PlayerInspectingWeaponEventArgs> PlayerInspectingWeapon; 
     
     internal static void OnPlayerPickingUpItem(PlayerPickingUpItemEventArgs args)
     {
@@ -100,5 +112,53 @@ public static class CursedItemsEventsHandler
             return;
         
         PlayerShooting.InvokeEvent(args);
+    }
+
+    internal static void OnPlayerReloadingWeapon(PlayerReloadingWeaponEventArgs args)
+    {
+        if (!args.Player.CheckPlayer())
+            return;
+        
+        PlayerReloadingWeapon.InvokeEvent(args);
+    }
+    
+    internal static void OnPlayerUnloadingWeapon(PlayerUnloadingWeaponEventArgs args)
+    {
+        if (!args.Player.CheckPlayer())
+            return;
+        
+        PlayerUnloadingWeapon.InvokeEvent(args);
+    }
+    
+    internal static void OnPlayerAiming(PlayerAimingEventArgs args)
+    {
+        if (!args.Player.CheckPlayer())
+            return;
+        
+        PlayerAiming.InvokeEvent(args);
+    }
+    
+    internal static void OnPlayerDryfiringWeapon(PlayerDryfiringWeaponEventArgs args)
+    {
+        if (!args.Player.CheckPlayer())
+            return;
+        
+        PlayerDryfiringWeapon.InvokeEvent(args);
+    }
+    
+    internal static void OnPlayerToggleWeaponFlashlight(PlayerToggleWeaponFlashlightEventArgs args)
+    {
+        if (!args.Player.CheckPlayer())
+            return;
+        
+        PlayerToggleWeaponFlashlight.InvokeEvent(args);
+    }
+    
+    internal static void OnPlayerInspectingWeapon(PlayerInspectingWeaponEventArgs args)
+    {
+        if (!args.Player.CheckPlayer())
+            return;
+        
+        PlayerInspectingWeapon.InvokeEvent(args);
     }
 }
