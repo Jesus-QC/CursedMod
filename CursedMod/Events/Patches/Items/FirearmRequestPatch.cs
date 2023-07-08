@@ -127,7 +127,7 @@ public class FirearmRequestPatch
             new (OpCodes.Stloc_S, 6),
         });
 
-        index = newInstructions.FindLastIndex(i => i.opcode == OpCodes.Ldarg_1);
+        index = newInstructions.FindLastIndex(i => i.opcode == OpCodes.Ldftn) - 3;
         
         newInstructions.InsertRange(index, new CodeInstruction[]
         {
