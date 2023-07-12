@@ -88,10 +88,14 @@
         <Compile Include="Events\Arguments\BanSystem\BanningOfflinePlayerEventArgs.cs" />
         <Compile Include="Events\Arguments\CommandSystem\ExecutingRemoteAdminCommandEventArgs.cs" />
         <Compile Include="Events\Arguments\Facility\Doors\PlayerInteractingDoorEventArgs.cs" />
+        <Compile Include="Events\Arguments\Facility\Hazards\PlayerEnteringHazardEventArgs.cs" />
+        <Compile Include="Events\Arguments\Facility\Hazards\PlayerExitingHazardEventArgs.cs" />
+        <Compile Include="Events\Arguments\Facility\Hazards\PlayerStayingOnHazardEventArgs.cs" />
         <Compile Include="Events\Arguments\Facility\Warhead\PlayerCancelingDetonationEventArgs.cs" />
         <Compile Include="Events\Arguments\Facility\Warhead\PlayerStartingDetonationEventArgs.cs" />
         <Compile Include="Events\Arguments\Facility\Warhead\WarheadDetonatingEventArgs.cs" />
         <Compile Include="Events\Arguments\ICursedCancellableEvent.cs" />
+        <Compile Include="Events\Arguments\ICursedHazardEvent.cs" />
         <Compile Include="Events\Arguments\ICursedItemEvent.cs" />
         <Compile Include="Events\Arguments\ICursedPickupEvent.cs" />
         <Compile Include="Events\Arguments\ICursedPlayerEvent.cs" />
@@ -176,6 +180,7 @@
         <Compile Include="Events\Handlers\CursedCommandSystemEventsHandler.cs" />
         <Compile Include="Events\Handlers\CursedDoorsEventsHandler.cs" />
         <Compile Include="Events\Handlers\CursedFacilityEventsHandler.cs" />
+        <Compile Include="Events\Handlers\CursedHazardsEventHandler.cs" />
         <Compile Include="Events\Handlers\CursedItemsEventsHandler.cs" />
         <Compile Include="Events\Handlers\CursedMapGenerationEventsHandler.cs" />
         <Compile Include="Events\Handlers\CursedPlayerEventsHandler.cs" />
@@ -200,6 +205,8 @@
         <Compile Include="Events\Patches\BanSystem\OBanUserPatch.cs" />
         <Compile Include="Events\Patches\CommandSystem\RaProcessQueryPatch.cs" />
         <Compile Include="Events\Patches\Facility\Doors\ServerInteractDoorVariantPatch.cs" />
+        <Compile Include="Events\Patches\Facility\Hazards\EnteringHazardPatch.cs" />
+        <Compile Include="Events\Patches\Facility\Hazards\ExitingHazardPatch.cs" />
         <Compile Include="Events\Patches\Facility\Warhead\CancelDetonationPatch.cs" />
         <Compile Include="Events\Patches\Facility\Warhead\DetonatePatch.cs" />
         <Compile Include="Events\Patches\Facility\Warhead\StartDetonationPatch.cs" />
