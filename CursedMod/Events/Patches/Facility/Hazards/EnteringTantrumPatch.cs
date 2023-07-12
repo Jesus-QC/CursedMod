@@ -17,7 +17,7 @@ using NorthwoodLib.Pools;
 namespace CursedMod.Events.Patches.Facility.Hazards;
 
 [DynamicEventPatch(typeof(CursedHazardsEventHandler), nameof(CursedHazardsEventHandler.EnteringHazard))]
-[HarmonyPatch(typeof(SinkholeEnvironmentalHazard), nameof(TantrumEnvironmentalHazard.OnEnter))]
+[HarmonyPatch(typeof(TantrumEnvironmentalHazard), nameof(TantrumEnvironmentalHazard.OnEnter))]
 public class EnteringTantrumPatch
 {
     private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
