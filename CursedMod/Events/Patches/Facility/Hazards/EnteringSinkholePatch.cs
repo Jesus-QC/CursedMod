@@ -13,6 +13,7 @@ using CursedMod.Events.Handlers;
 using HarmonyLib;
 using Hazards;
 using NorthwoodLib.Pools;
+using PlayerRoles;
 
 namespace CursedMod.Events.Patches.Facility.Hazards;
 
@@ -25,8 +26,8 @@ public class EnteringSinkholePatch
         List<CodeInstruction> newInstructions = CursedEventManager.CheckEvent<EnteringSinkholePatch>(18, instructions);
         
         Label retLabel = generator.DefineLabel();
-
-        int index = newInstructions.FindLastIndex(i => i.opcode == OpCodes.Ldarg_1);
+        
+        int index = newInstructions.FindIndex(i => i.Calls(AccessTools.Method(typeof(PlayerRolesUtils), nameof(PlayerRolesUtils.IsSCP)))) - 2;
         
         newInstructions.InsertRange(index, new CodeInstruction[]
         {
