@@ -13,18 +13,15 @@ using Hazards;
 
 namespace CursedMod.Events.Arguments.Facility.Hazards;
 
-public class PlayerStayingOnHazardEventArgs : EventArgs, ICursedCancellableEvent, ICursedPlayerEvent, ICursedHazardEvent
+public class PlayerStayingOnHazardEventArgs : EventArgs, ICursedPlayerEvent, ICursedHazardEvent
 {
     public PlayerStayingOnHazardEventArgs(ReferenceHub player, EnvironmentalHazard hazard)
     {
         Player = CursedPlayer.Get(player);
         Hazard = CursedEnvironmentalHazard.Get(hazard);
-        IsAllowed = true;
     }
     
     public CursedPlayer Player { get; }
 
     public CursedEnvironmentalHazard Hazard { get; }
-
-    public bool IsAllowed { get; set; }
 }
