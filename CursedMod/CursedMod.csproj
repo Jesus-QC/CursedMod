@@ -209,7 +209,8 @@
         <Compile Include="Events\Patches\Facility\Hazards\EnteringTantrumPatch.cs" />
         <Compile Include="Events\Patches\Facility\Hazards\ExitingSinkholePatch.cs" />
         <Compile Include="Events\Patches\Facility\Hazards\ExitingTantrumPatch.cs" />
-        <Compile Include="Events\Patches\Facility\Hazards\StayingOnHazardPatch.cs" />
+        <Compile Include="Events\Patches\Facility\Hazards\StayOnSinkholePatch.cs" />
+        <Compile Include="Events\Patches\Facility\Hazards\StayOnTantrumPatch.cs" />
         <Compile Include="Events\Patches\Facility\Warhead\CancelDetonationPatch.cs" />
         <Compile Include="Events\Patches\Facility\Warhead\DetonatePatch.cs" />
         <Compile Include="Events\Patches\Facility\Warhead\StartDetonationPatch.cs" />
