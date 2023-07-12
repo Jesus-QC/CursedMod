@@ -30,7 +30,7 @@ public class EnteringTantrumPatch
         
         newInstructions.InsertRange(index, new CodeInstruction[]
         {
-            new (OpCodes.Ldarg_1),
+            new CodeInstruction(OpCodes.Ldarg_1).MoveLabelsFrom(newInstructions[index]),
             new (OpCodes.Ldarg_0),
             new (OpCodes.Newobj, AccessTools.GetDeclaredConstructors(typeof(PlayerEnteringHazardEventArgs))[0]),
             new (OpCodes.Dup),
