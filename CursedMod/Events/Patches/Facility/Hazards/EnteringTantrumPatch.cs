@@ -26,7 +26,7 @@ public class EnteringTantrumPatch
         
         Label retLabel = generator.DefineLabel();
 
-        int index = newInstructions.FindLastIndex(i => i.opcode == OpCodes.Ldarg_1);
+        int index = newInstructions.FindIndex(i => i.Calls(AccessTools.Method(typeof(EnvironmentalHazard), nameof(EnvironmentalHazard.OnEnter)))) - 2;
         
         newInstructions.InsertRange(index, new CodeInstruction[]
         {
