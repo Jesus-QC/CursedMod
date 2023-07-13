@@ -22,6 +22,8 @@ public static class CursedItemsEventsHandler
     
     public static event CursedEventManager.CursedEventHandler<PlayerCancellingUsableEventArgs> PlayerCancellingUsable;
     
+    public static event CursedEventManager.CursedEventHandler<PlayerCancellingUsableEventArgs> PlayerCancelledUsable;
+    
     public static event CursedEventManager.CursedEventHandler<PlayerUsingItemEventArgs> PlayerUsingItem;
 
     public static event CursedEventManager.CursedEventHandler<PlayerUsedItemEventArgs> PlayerUsedItem;
