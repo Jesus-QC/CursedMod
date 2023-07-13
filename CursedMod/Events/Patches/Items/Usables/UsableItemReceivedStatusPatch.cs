@@ -16,18 +16,17 @@ using NorthwoodLib.Pools;
 
 namespace CursedMod.Events.Patches.Items.Usables;
 
-// TODO: REWRITE
-// [DynamicEventPatch(typeof(CursedItemsEventsHandler), nameof(CursedItemsEventsHandler.PlayerCancellingUsable))]
-// [DynamicEventPatch(typeof(CursedItemsEventsHandler), nameof(CursedItemsEventsHandler.PlayerUsingItem))]
-// [HarmonyPatch(typeof(UsableItemsController), nameof(UsableItemsController.ServerReceivedStatus))]
+[DynamicEventPatch(typeof(CursedItemsEventsHandler), nameof(CursedItemsEventsHandler.PlayerCancellingUsable))]
+[DynamicEventPatch(typeof(CursedItemsEventsHandler), nameof(CursedItemsEventsHandler.PlayerUsingItem))]
+[HarmonyPatch(typeof(UsableItemsController), nameof(UsableItemsController.ServerReceivedStatus))]
 public class UsableItemReceivedStatusPatch
 {
-    /*private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
+    private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
     {
         List<CodeInstruction> newInstructions = CursedEventManager.CheckEvent<UsableItemReceivedStatusPatch>(145, instructions);
 
         Label ret = generator.DefineLabel();
-        int offset = newInstructions.FindLastIndex(x => x.opcode == OpCodes.Newarr) - 2;
+        int offset = newInstructions.FindLastIndex(x => x.opcode == OpCodes.Brtrue_S) - 6;
         
         newInstructions[newInstructions.Count - 1].labels.Add(ret);
         
@@ -41,7 +40,7 @@ public class UsableItemReceivedStatusPatch
             new (OpCodes.Brfalse_S, ret),
         });
         
-        offset = newInstructions.FindIndex(x => x.opcode == OpCodes.Newarr) - 2;
+        offset = newInstructions.FindIndex(x => x.opcode == OpCodes.Ble_Un) + 1;
         
         newInstructions.InsertRange(offset, new CodeInstruction[]
         {
@@ -52,10 +51,10 @@ public class UsableItemReceivedStatusPatch
             new (OpCodes.Callvirt, AccessTools.PropertyGetter(typeof(PlayerUsingItemEventArgs), nameof(PlayerUsingItemEventArgs.IsAllowed))),
             new (OpCodes.Brfalse_S, ret),
         });
-        
+
         foreach (CodeInstruction instruction in newInstructions)
             yield return instruction;
 
         ListPool<CodeInstruction>.Shared.Return(newInstructions);
-    }*/
+    }
 }

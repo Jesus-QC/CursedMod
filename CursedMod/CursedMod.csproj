@@ -224,7 +224,7 @@
         <Compile Include="Events\Patches\Items\ThrowableProjectiles\ServerProcessCancellationPatch.cs" />
         <Compile Include="Events\Patches\Items\ThrowableProjectiles\ServerThrowPatch.cs" />
         <Compile Include="Events\Patches\Items\Usables\UsableItemReceivedStatusPatch.cs" />
-        <Compile Include="Events\Patches\Items\Usables\UsingCompletedPatch.cs" />
+        <Compile Include="Events\Patches\Items\Usables\UsableItemUpdatePatch.cs" />
         <Compile Include="Events\Patches\MapGeneration\GeneratingSeedPatch.cs" />
         <Compile Include="Events\Patches\Player\EscapeSystem\PlayerEscapePatch.cs" />
         <Compile Include="Events\Patches\Player\PlayerDisconnectedPatch.cs" />
