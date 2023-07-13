@@ -152,6 +152,7 @@ public static class CursedEventManager
     private static bool TryDynamicPatching(Type type)
     {
         bool isDynamicEvent = false;
+        
         foreach (Attribute attribute in type.GetCustomAttributes())
         {
             if (attribute is not DynamicEventPatchAttribute dynamicEventAttribute)
@@ -159,9 +160,7 @@ public static class CursedEventManager
 
             isDynamicEvent = true;
             
-            object value = dynamicEventAttribute.EventInfo.GetValue(null);
-
-            if (value is null)
+            if (dynamicEventAttribute.EventInfo.GetValue(null) is null)
                 continue;
 
             Harmony.CreateClassProcessor(type).Patch();
