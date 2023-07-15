@@ -16,7 +16,11 @@ public static class CursedGeneratorEventHandler
 
     public static event CursedEventManager.CursedEventHandler<PlayerClosingGeneratorEventArgs> ClosingGenerator;
     
-    public static event CursedEventManager.CursedEventHandler<PlayerUnlockingGeneratorEventArgs> UnlockingGenerator; 
+    public static event CursedEventManager.CursedEventHandler<PlayerUnlockingGeneratorEventArgs> UnlockingGenerator;
+
+    public static event CursedEventManager.CursedEventHandler<PlayerActivatingGeneratorEventArgs> ActivatingGenerator;
+    
+    public static event CursedEventManager.CursedEventHandler<PlayerDeactivatingGeneratorEventArgs> DeactivatingGenerator;
 
     internal static void OnOpeningGenerator(PlayerOpeningGeneratorEventArgs args)
     {
@@ -31,5 +35,15 @@ public static class CursedGeneratorEventHandler
     internal static void OnUnlockingGenerator(PlayerUnlockingGeneratorEventArgs args)
     {
         UnlockingGenerator.InvokeEvent(args);
+    }
+    
+    internal static void OnActivatingGenerator(PlayerActivatingGeneratorEventArgs args)
+    {
+        ActivatingGenerator.InvokeEvent(args);
+    }
+    
+    internal static void OnDeactivatingGenerator(PlayerDeactivatingGeneratorEventArgs args)
+    {
+        DeactivatingGenerator.InvokeEvent(args);
     }
 }
