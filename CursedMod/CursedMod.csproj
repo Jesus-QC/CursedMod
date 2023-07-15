@@ -88,7 +88,9 @@
         <Compile Include="Events\Arguments\BanSystem\BanningOfflinePlayerEventArgs.cs" />
         <Compile Include="Events\Arguments\CommandSystem\ExecutingRemoteAdminCommandEventArgs.cs" />
         <Compile Include="Events\Arguments\Facility\Doors\PlayerInteractingDoorEventArgs.cs" />
+        <Compile Include="Events\Arguments\Facility\Generators\PlayerActivatingGeneratorEventArgs.cs" />
         <Compile Include="Events\Arguments\Facility\Generators\PlayerClosingGeneratorEventArgs.cs" />
+        <Compile Include="Events\Arguments\Facility\Generators\PlayerDeactivatingGeneratorEventArgs.cs" />
         <Compile Include="Events\Arguments\Facility\Generators\PlayerOpeningGeneratorEventArgs.cs" />
         <Compile Include="Events\Arguments\Facility\Generators\PlayerUnlockingGeneratorEventArgs.cs" />
         <Compile Include="Events\Arguments\Facility\Warhead\PlayerCancelingDetonationEventArgs.cs" />
