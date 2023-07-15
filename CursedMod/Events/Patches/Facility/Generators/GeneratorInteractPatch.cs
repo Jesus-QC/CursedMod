@@ -20,6 +20,8 @@ namespace CursedMod.Events.Patches.Facility.Generators;
 [DynamicEventPatch(typeof(CursedGeneratorEventHandler), nameof(CursedGeneratorEventHandler.ClosingGenerator))]
 [DynamicEventPatch(typeof(CursedGeneratorEventHandler), nameof(CursedGeneratorEventHandler.OpeningGenerator))]
 [DynamicEventPatch(typeof(CursedGeneratorEventHandler), nameof(CursedGeneratorEventHandler.UnlockingGenerator))]
+[DynamicEventPatch(typeof(CursedGeneratorEventHandler), nameof(CursedGeneratorEventHandler.ActivatingGenerator))]
+[DynamicEventPatch(typeof(CursedGeneratorEventHandler), nameof(CursedGeneratorEventHandler.DeactivatingGenerator))]
 [HarmonyPatch(typeof(Scp079Generator), nameof(Scp079Generator.ServerInteract))]
 public class GeneratorInteractPatch
 {
@@ -71,6 +73,51 @@ public class GeneratorInteractPatch
             new (OpCodes.Dup),
             new (OpCodes.Call, AccessTools.Method(typeof(CursedGeneratorEventHandler), nameof(CursedGeneratorEventHandler.OnUnlockingGenerator))),
             new (OpCodes.Callvirt, AccessTools.PropertyGetter(typeof(PlayerUnlockingGeneratorEventArgs), nameof(PlayerUnlockingGeneratorEventArgs.IsAllowed))),
+            new (OpCodes.Brfalse_S, retLabel),
+        });
+
+        index = newInstructions.FindIndex(i =>
+            i.opcode == OpCodes.Newobj &&
+            i.OperandIs(AccessTools.GetDeclaredConstructors(typeof(PlayerActivateGeneratorEvent))[0])) - 2;
+        
+        newInstructions.InsertRange(index, new CodeInstruction[]
+        {
+            new (OpCodes.Ldarg_1),
+            new (OpCodes.Ldarg_0),
+            new (OpCodes.Newobj, AccessTools.GetDeclaredConstructors(typeof(PlayerActivatingGeneratorEventArgs))[0]),
+            new (OpCodes.Dup),
+            new (OpCodes.Call, AccessTools.Method(typeof(CursedGeneratorEventHandler), nameof(CursedGeneratorEventHandler.OnActivatingGenerator))),
+            new (OpCodes.Callvirt, AccessTools.PropertyGetter(typeof(PlayerActivatingGeneratorEventArgs), nameof(PlayerActivatingGeneratorEventArgs.IsAllowed))),
+            new (OpCodes.Brfalse_S, retLabel),
+        });
+
+        index = newInstructions.FindIndex(i =>
+            i.opcode == OpCodes.Newobj &&
+            i.OperandIs(AccessTools.GetDeclaredConstructors(typeof(PlayerDeactivatedGeneratorEvent))[0])) + 3;
+        
+        newInstructions.InsertRange(index, new[]
+        {
+            new CodeInstruction(OpCodes.Ldarg_1).MoveLabelsFrom(newInstructions[index]),
+            new (OpCodes.Ldarg_0),
+            new (OpCodes.Newobj, AccessTools.GetDeclaredConstructors(typeof(PlayerDeactivatingGeneratorEventArgs))[0]),
+            new (OpCodes.Dup),
+            new (OpCodes.Call, AccessTools.Method(typeof(CursedGeneratorEventHandler), nameof(CursedGeneratorEventHandler.OnDeactivatingGenerator))),
+            new (OpCodes.Callvirt, AccessTools.PropertyGetter(typeof(PlayerDeactivatingGeneratorEventArgs), nameof(PlayerDeactivatingGeneratorEventArgs.IsAllowed))),
+            new (OpCodes.Brfalse_S, retLabel),
+        });
+
+        index = newInstructions.FindLastIndex(i =>
+            i.opcode == OpCodes.Newobj &&
+            i.OperandIs(AccessTools.GetDeclaredConstructors(typeof(PlayerDeactivatedGeneratorEvent))[0])) + 3;
+        
+        newInstructions.InsertRange(index, new[]
+        {
+            new CodeInstruction(OpCodes.Ldarg_1).MoveLabelsFrom(newInstructions[index]),
+            new (OpCodes.Ldarg_0),
+            new (OpCodes.Newobj, AccessTools.GetDeclaredConstructors(typeof(PlayerDeactivatingGeneratorEventArgs))[0]),
+            new (OpCodes.Dup),
+            new (OpCodes.Call, AccessTools.Method(typeof(CursedGeneratorEventHandler), nameof(CursedGeneratorEventHandler.OnDeactivatingGenerator))),
+            new (OpCodes.Callvirt, AccessTools.PropertyGetter(typeof(PlayerDeactivatingGeneratorEventArgs), nameof(PlayerDeactivatingGeneratorEventArgs.IsAllowed))),
             new (OpCodes.Brfalse_S, retLabel),
         });
         
