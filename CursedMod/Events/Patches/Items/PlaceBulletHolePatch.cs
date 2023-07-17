@@ -32,9 +32,7 @@ public class PlaceBulletHolePatch
         newInstructions.InsertRange(index, new[]
         {
             new CodeInstruction(OpCodes.Ldarg_0).MoveLabelsFrom(newInstructions[index]),
-            new (OpCodes.Callvirt, AccessTools.PropertyGetter(typeof(StandardHitregBase), nameof(StandardHitregBase.Hub))),
             new (OpCodes.Ldarg_2),
-            new (OpCodes.Callvirt, AccessTools.PropertyGetter(typeof(RaycastHit), nameof(RaycastHit.point))),
             new (OpCodes.Newobj, AccessTools.GetDeclaredConstructors(typeof(PlayerPlacingBulletHoleEventArgs))[0]),
             new (OpCodes.Dup),
             new (OpCodes.Call, AccessTools.Method(typeof(CursedPlayerEventsHandler), nameof(CursedPlayerEventsHandler.OnPlayerPlacingBulletHole))),

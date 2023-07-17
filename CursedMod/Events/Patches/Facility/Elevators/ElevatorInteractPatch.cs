@@ -28,9 +28,7 @@ public class ElevatorInteractPatch
         Label retLabel = generator.DefineLabel();
         LocalBuilder elevatorInteractArgs = generator.DeclareLocal(typeof(PlayerInteractingElevatorEventArgs));
         
-        int index = newInstructions.FindLastIndex(i =>
-            i.opcode == OpCodes.Newobj &&
-            i.OperandIs(AccessTools.GetDeclaredConstructors(typeof(PlayerInteractElevatorEvent))[0])) - 2;
+        int index = newInstructions.FindLastIndex(i => i.opcode == OpCodes.Newobj) - 2;
         
         newInstructions.InsertRange(index, new CodeInstruction[]
         {
@@ -46,7 +44,7 @@ public class ElevatorInteractPatch
             new (OpCodes.Brfalse_S, retLabel),
             new (OpCodes.Ldloc_S, elevatorInteractArgs.LocalIndex),
             new (OpCodes.Callvirt, AccessTools.PropertyGetter(typeof(PlayerInteractingElevatorEventArgs), nameof(PlayerInteractingElevatorEventArgs.TargetLevel))),
-            new (OpCodes.Starg_S, 2),
+            new (OpCodes.Stloc_S, 2),
         });
         
         newInstructions[newInstructions.Count - 1].labels.Add(retLabel);

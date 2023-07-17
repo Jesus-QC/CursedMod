@@ -8,20 +8,24 @@
 
 using System;
 using CursedMod.Features.Wrappers.Player;
+using InventorySystem.Items.Firearms.Modules;
 using UnityEngine;
 
 namespace CursedMod.Events.Arguments.Player;
 
 public class PlayerPlacingBulletHoleEventArgs : EventArgs, ICursedCancellableEvent, ICursedPlayerEvent
 {
-    public PlayerPlacingBulletHoleEventArgs(ReferenceHub player, Vector3 pos)
+    public PlayerPlacingBulletHoleEventArgs(StandardHitregBase hitReg, RaycastHit raycastHit)
     {
-        Player = CursedPlayer.Get(player);
-        Position = pos;
+        Player = CursedPlayer.Get(hitReg.Hub);
+        RaycastHit = raycastHit;
+        Position = raycastHit.point;
         IsAllowed = true;
     }
     
     public CursedPlayer Player { get; }
+    
+    public RaycastHit RaycastHit { get; }
     
     public Vector3 Position { get; }
 

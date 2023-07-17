@@ -27,15 +27,13 @@ public class PlaceBloodDecalPatch
         
         Label retLabel = generator.DefineLabel();
 
-        int index = newInstructions.FindIndex(i => i.opcode == OpCodes.Newobj) + 4;
+        int index = newInstructions.FindIndex(i => i.opcode == OpCodes.Newobj) - 3;
         
         newInstructions.InsertRange(index, new[]
         {
             new CodeInstruction(OpCodes.Ldarg_0).MoveLabelsFrom(newInstructions[index]),
-            new (OpCodes.Callvirt, AccessTools.PropertyGetter(typeof(StandardHitregBase), nameof(StandardHitregBase.Hub))),
             new (OpCodes.Ldloc_0),
             new (OpCodes.Ldarg_2),
-            new (OpCodes.Callvirt, AccessTools.PropertyGetter(typeof(RaycastHit), nameof(RaycastHit.point))),
             new (OpCodes.Newobj, AccessTools.GetDeclaredConstructors(typeof(PlayerPlacingBloodDecalEventArgs))[0]),
             new (OpCodes.Dup),
             new (OpCodes.Call, AccessTools.Method(typeof(CursedPlayerEventsHandler), nameof(CursedPlayerEventsHandler.OnPlayerPlacingBloodDecal))),

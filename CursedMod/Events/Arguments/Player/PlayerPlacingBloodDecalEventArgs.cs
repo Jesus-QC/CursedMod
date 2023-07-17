@@ -8,17 +8,19 @@
 
 using System;
 using CursedMod.Features.Wrappers.Player;
+using InventorySystem.Items.Firearms.Modules;
 using UnityEngine;
 
 namespace CursedMod.Events.Arguments.Player;
 
 public class PlayerPlacingBloodDecalEventArgs : EventArgs, ICursedCancellableEvent, ICursedPlayerEvent
 {
-    public PlayerPlacingBloodDecalEventArgs(ReferenceHub player, ReferenceHub target, Vector3 pos)
+    public PlayerPlacingBloodDecalEventArgs(StandardHitregBase hitReg, ReferenceHub target, RaycastHit raycastHit)
     {
-        Player = CursedPlayer.Get(player);
+        Player = CursedPlayer.Get(hitReg.Hub);
         Target = CursedPlayer.Get(target);
-        Position = pos;
+        RaycastHit = raycastHit;
+        Position = raycastHit.point;
         IsAllowed = true;
     }
     
@@ -26,6 +28,8 @@ public class PlayerPlacingBloodDecalEventArgs : EventArgs, ICursedCancellableEve
     
     public CursedPlayer Target { get; }
     
+    public RaycastHit RaycastHit { get; }
+
     public Vector3 Position { get; }
 
     public bool IsAllowed { get; set; }
