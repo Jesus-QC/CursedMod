@@ -21,7 +21,7 @@ public class CancelDetonationPatch
 {
     private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
     {
-        List<CodeInstruction> newInstructions = CursedEventManager.CheckEvent<StartDetonationPatch>(118, instructions);
+        List<CodeInstruction> newInstructions = CursedEventManager.CheckEvent<StartDetonationPatch>(113, instructions);
 
         Label ret = generator.DefineLabel();
 
@@ -34,7 +34,7 @@ public class CancelDetonationPatch
             new CodeInstruction(OpCodes.Ldarg_1).MoveLabelsFrom(newInstructions[index]),
             new (OpCodes.Newobj, AccessTools.GetDeclaredConstructors(typeof(PlayerCancelingDetonationEventArgs))[0]),
             new (OpCodes.Dup),
-            new (OpCodes.Call, AccessTools.Method(typeof(CursedWarheadEventsHandler), nameof(CursedWarheadEventsHandler.OnPlayerStartingDetonation))),
+            new (OpCodes.Call, AccessTools.Method(typeof(CursedWarheadEventsHandler), nameof(CursedWarheadEventsHandler.OnPlayerCancelingDetonation))),
             new (OpCodes.Callvirt, AccessTools.PropertyGetter(typeof(PlayerCancelingDetonationEventArgs), nameof(PlayerCancelingDetonationEventArgs.IsAllowed))),
             new (OpCodes.Brfalse_S, ret),
         });
