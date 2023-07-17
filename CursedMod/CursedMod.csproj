@@ -101,7 +101,7 @@
         <Compile Include="Events\Arguments\ICursedPickupEvent.cs" />
         <Compile Include="Events\Arguments\ICursedPlayerEvent.cs" />
         <Compile Include="Events\Arguments\ICursedRagdollEvent.cs" />
-        <Compile Include="Events\Arguments\Items\PlayerAimingEventArgs.cs" />
+        <Compile Include="Events\Arguments\Items\PlayerTogglingAimEventArgs.cs" />
         <Compile Include="Events\Arguments\Items\PlayerCancellingThrowEventArgs.cs" />
         <Compile Include="Events\Arguments\Items\PlayerCancellingUsableEventArgs.cs" />
         <Compile Include="Events\Arguments\Items\PlayerDroppingItemEventArgs.cs" />
@@ -112,7 +112,7 @@
         <Compile Include="Events\Arguments\Items\PlayerReloadingWeaponEventArgs.cs" />
         <Compile Include="Events\Arguments\Items\PlayerShootingEventArgs.cs" />
         <Compile Include="Events\Arguments\Items\PlayerThrowingItemEventArgs.cs" />
-        <Compile Include="Events\Arguments\Items\PlayerToggleWeaponFlashlightEventArgs.cs" />
+        <Compile Include="Events\Arguments\Items\PlayerTogglingWeaponFlashlightEventArgs.cs" />
         <Compile Include="Events\Arguments\Items\PlayerUnloadingWeaponEventArgs.cs" />
         <Compile Include="Events\Arguments\Items\PlayerUsedItemEventArgs.cs" />
         <Compile Include="Events\Arguments\Items\PlayerUsingItemEventArgs.cs" />

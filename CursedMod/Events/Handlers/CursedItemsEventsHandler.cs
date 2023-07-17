@@ -36,11 +36,11 @@ public static class CursedItemsEventsHandler
     
     public static event CursedEventManager.CursedEventHandler<PlayerUnloadingWeaponEventArgs> PlayerUnloadingWeapon;
     
-    public static event CursedEventManager.CursedEventHandler<PlayerAimingEventArgs> PlayerAiming;
+    public static event CursedEventManager.CursedEventHandler<PlayerTogglingAimEventArgs> PlayerTogglingAim;
     
     public static event CursedEventManager.CursedEventHandler<PlayerDryfiringWeaponEventArgs> PlayerDryfiringWeapon;
     
-    public static event CursedEventManager.CursedEventHandler<PlayerToggleWeaponFlashlightEventArgs> PlayerToggleWeaponFlashlight;
+    public static event CursedEventManager.CursedEventHandler<PlayerTogglingWeaponFlashlightEventArgs> PlayerTogglinhWeaponFlashlight;
     
     public static event CursedEventManager.CursedEventHandler<PlayerInspectingWeaponEventArgs> PlayerInspectingWeapon; 
     
@@ -132,12 +132,12 @@ public static class CursedItemsEventsHandler
         PlayerUnloadingWeapon.InvokeEvent(args);
     }
     
-    internal static void OnPlayerAiming(PlayerAimingEventArgs args)
+    internal static void OnPlayerTogglingAim(PlayerTogglingAimEventArgs args)
     {
         if (!args.Player.CheckPlayer())
             return;
         
-        PlayerAiming.InvokeEvent(args);
+        PlayerTogglingAim.InvokeEvent(args);
     }
     
     internal static void OnPlayerDryfiringWeapon(PlayerDryfiringWeaponEventArgs args)
@@ -148,12 +148,12 @@ public static class CursedItemsEventsHandler
         PlayerDryfiringWeapon.InvokeEvent(args);
     }
     
-    internal static void OnPlayerToggleWeaponFlashlight(PlayerToggleWeaponFlashlightEventArgs args)
+    internal static void OnPlayerTogglingWeaponFlashlight(PlayerTogglingWeaponFlashlightEventArgs args)
     {
         if (!args.Player.CheckPlayer())
             return;
         
-        PlayerToggleWeaponFlashlight.InvokeEvent(args);
+        PlayerTogglinhWeaponFlashlight.InvokeEvent(args);
     }
     
     internal static void OnPlayerInspectingWeapon(PlayerInspectingWeaponEventArgs args)

@@ -48,8 +48,7 @@ public class ReportingPatch
             new (OpCodes.Starg_S, 2),
         });
 
-        index = newInstructions.FindLastIndex(i =>
-            i.StoresField(AccessTools.Field(typeof(CheaterReport), nameof(CheaterReport._lastReport)))) - 2;
+        index = newInstructions.FindLastIndex(i => i.StoresField(AccessTools.Field(typeof(CheaterReport), nameof(CheaterReport._lastReport)))) - 2;
         
         newInstructions.InsertRange(index, new CodeInstruction[]
         {

@@ -19,9 +19,9 @@ namespace CursedMod.Events.Patches.Items;
 
 [DynamicEventPatch(typeof(CursedItemsEventsHandler), nameof(CursedItemsEventsHandler.PlayerUnloadingWeapon))]
 [DynamicEventPatch(typeof(CursedItemsEventsHandler), nameof(CursedItemsEventsHandler.PlayerReloadingWeapon))]
-[DynamicEventPatch(typeof(CursedItemsEventsHandler), nameof(CursedItemsEventsHandler.PlayerAiming))]
+[DynamicEventPatch(typeof(CursedItemsEventsHandler), nameof(CursedItemsEventsHandler.PlayerTogglingAim))]
 [DynamicEventPatch(typeof(CursedItemsEventsHandler), nameof(CursedItemsEventsHandler.PlayerDryfiringWeapon))]
-[DynamicEventPatch(typeof(CursedItemsEventsHandler), nameof(CursedItemsEventsHandler.PlayerToggleWeaponFlashlight))]
+[DynamicEventPatch(typeof(CursedItemsEventsHandler), nameof(CursedItemsEventsHandler.PlayerTogglinhWeaponFlashlight))]
 [DynamicEventPatch(typeof(CursedItemsEventsHandler), nameof(CursedItemsEventsHandler.PlayerInspectingWeapon))]
 [HarmonyPatch(typeof(FirearmBasicMessagesHandler), nameof(FirearmBasicMessagesHandler.ServerRequestReceived))]
 public class FirearmRequestPatch
@@ -31,7 +31,7 @@ public class FirearmRequestPatch
         List<CodeInstruction> newInstructions = CursedEventManager.CheckEvent<FirearmRequestPatch>(211, instructions);
         
         Label retLabel = generator.DefineLabel();
-        LocalBuilder toggleWeaponFlashlightArgs = generator.DeclareLocal(typeof(PlayerToggleWeaponFlashlightEventArgs));
+        LocalBuilder toggleWeaponFlashlightArgs = generator.DeclareLocal(typeof(PlayerTogglingWeaponFlashlightEventArgs));
         
         int index = newInstructions.FindIndex(i =>
             i.opcode == OpCodes.Newobj &&
@@ -72,8 +72,8 @@ public class FirearmRequestPatch
             new CodeInstruction(OpCodes.Ldloc_0).MoveLabelsFrom(newInstructions[index]),
             new (OpCodes.Ldloc_1),
             new (OpCodes.Ldc_I4_1),
-            new (OpCodes.Newobj, AccessTools.GetDeclaredConstructors(typeof(PlayerAimingEventArgs))[0]),
-            new (OpCodes.Call, AccessTools.Method(typeof(CursedItemsEventsHandler), nameof(CursedItemsEventsHandler.OnPlayerAiming))),
+            new (OpCodes.Newobj, AccessTools.GetDeclaredConstructors(typeof(PlayerTogglingAimEventArgs))[0]),
+            new (OpCodes.Call, AccessTools.Method(typeof(CursedItemsEventsHandler), nameof(CursedItemsEventsHandler.OnPlayerTogglingAim))),
         });
 
         index = newInstructions.FindLastIndex(i =>
@@ -85,8 +85,8 @@ public class FirearmRequestPatch
             new CodeInstruction(OpCodes.Ldloc_0).MoveLabelsFrom(newInstructions[index]),
             new (OpCodes.Ldloc_1),
             new (OpCodes.Ldc_I4_0),
-            new (OpCodes.Newobj, AccessTools.GetDeclaredConstructors(typeof(PlayerAimingEventArgs))[0]),
-            new (OpCodes.Call, AccessTools.Method(typeof(CursedItemsEventsHandler), nameof(CursedItemsEventsHandler.OnPlayerAiming))),
+            new (OpCodes.Newobj, AccessTools.GetDeclaredConstructors(typeof(PlayerTogglingAimEventArgs))[0]),
+            new (OpCodes.Call, AccessTools.Method(typeof(CursedItemsEventsHandler), nameof(CursedItemsEventsHandler.OnPlayerTogglingAim))),
         });
 
         index = newInstructions.FindIndex(i =>
@@ -113,15 +113,15 @@ public class FirearmRequestPatch
             new (OpCodes.Ldloc_S, 6),
             new (OpCodes.Ldc_I4_0),
             new (OpCodes.Ceq),
-            new (OpCodes.Newobj, AccessTools.GetDeclaredConstructors(typeof(PlayerToggleWeaponFlashlightEventArgs))[0]),
+            new (OpCodes.Newobj, AccessTools.GetDeclaredConstructors(typeof(PlayerTogglingWeaponFlashlightEventArgs))[0]),
             new (OpCodes.Dup),
             new (OpCodes.Dup),
             new (OpCodes.Stloc_S, toggleWeaponFlashlightArgs.LocalIndex),
-            new (OpCodes.Call, AccessTools.Method(typeof(CursedItemsEventsHandler), nameof(CursedItemsEventsHandler.OnPlayerToggleWeaponFlashlight))),
-            new (OpCodes.Callvirt, AccessTools.PropertyGetter(typeof(PlayerToggleWeaponFlashlightEventArgs), nameof(PlayerToggleWeaponFlashlightEventArgs.IsAllowed))),
+            new (OpCodes.Call, AccessTools.Method(typeof(CursedItemsEventsHandler), nameof(CursedItemsEventsHandler.OnPlayerTogglingWeaponFlashlight))),
+            new (OpCodes.Callvirt, AccessTools.PropertyGetter(typeof(PlayerTogglingWeaponFlashlightEventArgs), nameof(PlayerTogglingWeaponFlashlightEventArgs.IsAllowed))),
             new (OpCodes.Brfalse_S, retLabel),
             new (OpCodes.Ldloc_S, toggleWeaponFlashlightArgs.LocalIndex),
-            new (OpCodes.Callvirt, AccessTools.PropertyGetter(typeof(PlayerToggleWeaponFlashlightEventArgs), nameof(PlayerToggleWeaponFlashlightEventArgs.IsEmittingLight))),
+            new (OpCodes.Callvirt, AccessTools.PropertyGetter(typeof(PlayerTogglingWeaponFlashlightEventArgs), nameof(PlayerTogglingWeaponFlashlightEventArgs.IsEmittingLight))),
             new (OpCodes.Ldc_I4_0),
             new (OpCodes.Ceq),
             new (OpCodes.Stloc_S, 6),
