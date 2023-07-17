@@ -36,6 +36,10 @@ public static class CursedPlayerEventsHandler
     
     public static event CursedEventManager.CursedEventHandler<PlayerTogglingNoClipEventArgs> TogglingNoClip;
 
+    public static event CursedEventManager.CursedEventHandler<PlayerPlacingBulletHoleEventArgs> PlacingBulletHole;
+    
+    public static event CursedEventManager.CursedEventHandler<PlayerPlacingBloodDecalEventArgs> PlacingBloodDecal;
+
     internal static void OnPlayerConnected(PlayerConnectedEventArgs args)
     {
         if (!args.Player.CheckPlayer())
@@ -125,5 +129,21 @@ public static class CursedPlayerEventsHandler
             return;
         
         TogglingNoClip.InvokeEvent(args);
+    }
+
+    internal static void OnPlayerPlacingBulletHole(PlayerPlacingBulletHoleEventArgs args)
+    {
+        if (!args.Player.CheckPlayer())
+            return;
+        
+        PlacingBulletHole.InvokeEvent(args);
+    }
+    
+    internal static void OnPlayerPlacingBloodDecal(PlayerPlacingBloodDecalEventArgs args)
+    {
+        if (!args.Player.CheckPlayer())
+            return;
+        
+        PlacingBloodDecal.InvokeEvent(args);
     }
 }
