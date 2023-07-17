@@ -16,7 +16,7 @@ using NorthwoodLib.Pools;
 
 namespace CursedMod.Events.Patches.Facility.Elevators;
 
-[DynamicEventPatch(typeof(CursedElevatorsEventHandler), nameof(CursedElevatorsEventHandler.ElevatorMoving))]
+[DynamicEventPatch(typeof(CursedElevatorEventHandler), nameof(CursedElevatorEventHandler.ElevatorMoving))]
 [HarmonyPatch(typeof(ElevatorChamber), nameof(ElevatorChamber.Update))]
 public class ElevatorChamberUpdatePatch
 {
@@ -37,7 +37,7 @@ public class ElevatorChamberUpdatePatch
             new (OpCodes.Ldloc_S, 5),
             new (OpCodes.Ldloc_S, 6),
             new (OpCodes.Newobj, AccessTools.GetDeclaredConstructors(typeof(ElevatorMovingEventArgs))[0]),
-            new (OpCodes.Call, AccessTools.Method(typeof(CursedElevatorsEventHandler), nameof(CursedElevatorsEventHandler.OnElevatorMoving))),
+            new (OpCodes.Call, AccessTools.Method(typeof(CursedElevatorEventHandler), nameof(CursedElevatorEventHandler.OnElevatorMoving))),
         });
         
         newInstructions[newInstructions.Count - 1].labels.Add(retLabel);

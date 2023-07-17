@@ -12,5 +12,5 @@ namespace CursedMod.Events.Arguments;
 
 public interface ICursedElevatorEvent
 {
-    public CursedElevatorChamber Chamber { get; }
+    public CursedElevatorChamber ElevatorChamber { get; }
 }

@@ -17,13 +17,13 @@ public class ElevatorMovingEventArgs : EventArgs, ICursedElevatorEvent
 {
     public ElevatorMovingEventArgs(ElevatorChamber elevatorChamber, Bounds worldBounds, Vector3 deltaPos, Quaternion deltaRot)
     {
-        Chamber = CursedElevatorChamber.Get(elevatorChamber);
+        ElevatorChamber = CursedElevatorChamber.Get(elevatorChamber);
         WorldSpaceBounds = worldBounds;
         DeltaPosition = deltaPos;
         DeltaRotation = deltaRot;
     }
 
-    public CursedElevatorChamber Chamber { get; }
+    public CursedElevatorChamber ElevatorChamber { get; }
     
     public Bounds WorldSpaceBounds { get; }
     

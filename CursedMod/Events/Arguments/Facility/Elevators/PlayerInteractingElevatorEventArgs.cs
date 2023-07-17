@@ -18,14 +18,14 @@ public class PlayerInteractingElevatorEventArgs : EventArgs, ICursedCancellableE
     public PlayerInteractingElevatorEventArgs(ReferenceHub player, ElevatorChamber elevatorChamber, int targetLevel)
     {
         Player = CursedPlayer.Get(player);
-        Chamber = CursedElevatorChamber.Get(elevatorChamber);
+        ElevatorChamber = CursedElevatorChamber.Get(elevatorChamber);
         TargetLevel = targetLevel;
         IsAllowed = true;
     }
     
     public CursedPlayer Player { get; }
 
-    public CursedElevatorChamber Chamber { get; }
+    public CursedElevatorChamber ElevatorChamber { get; }
     
     public int TargetLevel { get; set; }
 

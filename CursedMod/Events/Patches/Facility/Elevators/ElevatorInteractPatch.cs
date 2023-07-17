@@ -17,7 +17,7 @@ using PluginAPI.Events;
 
 namespace CursedMod.Events.Patches.Facility.Elevators;
 
-[DynamicEventPatch(typeof(CursedElevatorsEventHandler), nameof(CursedElevatorsEventHandler.PlayerInteractingElevator))]
+[DynamicEventPatch(typeof(CursedElevatorEventHandler), nameof(CursedElevatorEventHandler.PlayerInteractingElevator))]
 [HarmonyPatch(typeof(ElevatorManager), nameof(ElevatorManager.ServerReceiveMessage))]
 public class ElevatorInteractPatch
 {
@@ -28,9 +28,9 @@ public class ElevatorInteractPatch
         Label retLabel = generator.DefineLabel();
         LocalBuilder elevatorInteractArgs = generator.DeclareLocal(typeof(PlayerInteractingElevatorEventArgs));
         
-        int index = newInstructions.FindIndex(i =>
+        int index = newInstructions.FindLastIndex(i =>
             i.opcode == OpCodes.Newobj &&
-            i.OperandIs(AccessTools.GetDeclaredConstructors(typeof(PlayerInteractElevatorEvent))[0])) + 4;
+            i.OperandIs(AccessTools.GetDeclaredConstructors(typeof(PlayerInteractElevatorEvent))[0])) - 2;
         
         newInstructions.InsertRange(index, new CodeInstruction[]
         {
@@ -41,7 +41,7 @@ public class ElevatorInteractPatch
             new (OpCodes.Dup),
             new (OpCodes.Dup),
             new (OpCodes.Stloc_S, elevatorInteractArgs.LocalIndex),
-            new (OpCodes.Call, AccessTools.Method(typeof(CursedElevatorsEventHandler), nameof(CursedElevatorsEventHandler.OnPlayerInteractingElevator))),
+            new (OpCodes.Call, AccessTools.Method(typeof(CursedElevatorEventHandler), nameof(CursedElevatorEventHandler.OnPlayerInteractingElevator))),
             new (OpCodes.Callvirt, AccessTools.PropertyGetter(typeof(PlayerInteractingElevatorEventArgs), nameof(PlayerInteractingElevatorEventArgs.IsAllowed))),
             new (OpCodes.Brfalse_S, retLabel),
             new (OpCodes.Ldloc_S, elevatorInteractArgs.LocalIndex),
