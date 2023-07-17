@@ -22,7 +22,7 @@ public static class CursedItemsEventsHandler
     
     public static event CursedEventManager.CursedEventHandler<PlayerCancellingUsableEventArgs> PlayerCancellingUsable;
     
-    public static event CursedEventManager.CursedEventHandler<PlayerCancellingUsableEventArgs> PlayerCancelledUsable;
+    public static event CursedEventManager.CursedEventHandler<PlayerCancelledUsableEventArgs> PlayerCancelledUsable;
     
     public static event CursedEventManager.CursedEventHandler<PlayerUsingItemEventArgs> PlayerUsingItem;
 
@@ -82,6 +82,14 @@ public static class CursedItemsEventsHandler
             return;
         
         PlayerCancellingUsable.InvokeEvent(args);
+    }
+    
+    internal static void OnPlayerCancelledUsable(PlayerCancelledUsableEventArgs args)
+    {
+        if (!args.Player.CheckPlayer())
+            return;
+        
+        PlayerCancelledUsable.InvokeEvent(args);
     }
     
     internal static void OnPlayerUsingItem(PlayerUsingItemEventArgs args)

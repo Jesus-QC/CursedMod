@@ -22,7 +22,7 @@ public class StayOnHazardPatch
 {
     private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
     {
-        List<CodeInstruction> newInstructions = CursedEventManager.CheckEvent<StayOnHazardPatch>(7, instructions);
+        List<CodeInstruction> newInstructions = CursedEventManager.CheckEvent<StayOnHazardPatch>(1, instructions);
         
         newInstructions.InsertRange(0, new CodeInstruction[]
         {
