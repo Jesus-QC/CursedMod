@@ -90,6 +90,11 @@
         <Compile Include="Events\Arguments\BanSystem\ReportingCheaterEventArgs.cs" />
         <Compile Include="Events\Arguments\CommandSystem\ExecutingRemoteAdminCommandEventArgs.cs" />
         <Compile Include="Events\Arguments\Facility\Doors\PlayerInteractingDoorEventArgs.cs" />
+        <Compile Include="Events\Arguments\Facility\Generators\PlayerActivatingGeneratorEventArgs.cs" />
+        <Compile Include="Events\Arguments\Facility\Generators\PlayerClosingGeneratorEventArgs.cs" />
+        <Compile Include="Events\Arguments\Facility\Generators\PlayerDeactivatingGeneratorEventArgs.cs" />
+        <Compile Include="Events\Arguments\Facility\Generators\PlayerOpeningGeneratorEventArgs.cs" />
+        <Compile Include="Events\Arguments\Facility\Generators\PlayerUnlockingGeneratorEventArgs.cs" />
         <Compile Include="Events\Arguments\Facility\Hazards\PlayerEnteringHazardEventArgs.cs" />
         <Compile Include="Events\Arguments\Facility\Hazards\PlayerExitingHazardEventArgs.cs" />
         <Compile Include="Events\Arguments\Facility\Hazards\PlayerStayingOnHazardEventArgs.cs" />
@@ -99,6 +104,7 @@
         <Compile Include="Events\Arguments\Facility\Warhead\PlayerStartingDetonationEventArgs.cs" />
         <Compile Include="Events\Arguments\Facility\Warhead\WarheadDetonatingEventArgs.cs" />
         <Compile Include="Events\Arguments\ICursedCancellableEvent.cs" />
+        <Compile Include="Events\Arguments\ICursedGeneratorEvent.cs" />
         <Compile Include="Events\Arguments\ICursedHazardEvent.cs" />
         <Compile Include="Events\Arguments\ICursedElevatorEvent.cs" />
         <Compile Include="Events\Arguments\ICursedItemEvent.cs" />
@@ -194,6 +200,7 @@
         <Compile Include="Events\Handlers\CursedDoorsEventsHandler.cs" />
         <Compile Include="Events\Handlers\CursedElevatorEventHandler.cs" />
         <Compile Include="Events\Handlers\CursedFacilityEventsHandler.cs" />
+        <Compile Include="Events\Handlers\CursedGeneratorEventHandler.cs" />
         <Compile Include="Events\Handlers\CursedHazardsEventHandler.cs" />
         <Compile Include="Events\Handlers\CursedItemsEventsHandler.cs" />
         <Compile Include="Events\Handlers\CursedMapGenerationEventsHandler.cs" />
@@ -220,6 +227,7 @@
         <Compile Include="Events\Patches\BanSystem\ReportingPatch.cs" />
         <Compile Include="Events\Patches\CommandSystem\RaProcessQueryPatch.cs" />
         <Compile Include="Events\Patches\Facility\Doors\ServerInteractDoorVariantPatch.cs" />
+        <Compile Include="Events\Patches\Facility\Generators\GeneratorInteractPatch.cs" />
         <Compile Include="Events\Patches\Facility\Hazards\EnteringHazardPatch.cs" />
         <Compile Include="Events\Patches\Facility\Hazards\EnteringSinkholePatch.cs" />
         <Compile Include="Events\Patches\Facility\Hazards\EnteringTantrumPatch.cs" />
