@@ -16,12 +16,11 @@ using NorthwoodLib.Pools;
 
 namespace CursedMod.Events.Patches.Items.ThrowableProjectiles;
 
-// TODO: REWRITE
-// [DynamicEventPatch(typeof(CursedItemsEventsHandler), nameof(CursedItemsEventsHandler.PlayerThrowingItem))]
-// [HarmonyPatch(typeof(ThrowableItem), nameof(ThrowableItem.ServerProcessThrowConfirmation))]
+[DynamicEventPatch(typeof(CursedItemsEventsHandler), nameof(CursedItemsEventsHandler.PlayerThrowingItem))]
+[HarmonyPatch(typeof(ThrowableItem), nameof(ThrowableItem.ServerProcessThrowConfirmation))]
 public class ServerThrowPatch
 {
-    /*private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
+    private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
     {
         List<CodeInstruction> newInstructions = CursedEventManager.CheckEvent<ServerThrowPatch>(80, instructions);
 
@@ -30,7 +29,7 @@ public class ServerThrowPatch
         
         newInstructions[newInstructions.Count - 1].labels.Add(ret);
         
-        int offset = newInstructions.FindLastIndex(x => x.opcode == OpCodes.Newarr) - 2;
+        int offset = newInstructions.FindIndex(x => x.opcode == OpCodes.Ldloc_S) - 3;
         
         newInstructions.InsertRange(offset, new[]
         {
@@ -58,5 +57,5 @@ public class ServerThrowPatch
             yield return instruction;
 
         ListPool<CodeInstruction>.Shared.Return(newInstructions);
-    }*/
+    }
 }
