@@ -75,12 +75,14 @@ public static class CursedEventManager
                 }
             }
         }
-#if DEBUG
-            foreach (MethodBase patch in Harmony.GetPatchedMethods())
-            {
-                CursedLogger.InternalDebug(patch.DeclaringType + "::" + patch.Name);
-            }
-#endif
+
+        #if DEBUG
+        foreach (MethodBase patch in Harmony.GetPatchedMethods())
+        {
+            CursedLogger.InternalDebug(patch.DeclaringType + "::" + patch.Name);
+        }
+        #endif
+        
         watch.Stop();
         CursedLogger.InternalPrint("Events patched in " + watch.Elapsed.ToString("c"));
 
@@ -92,7 +94,22 @@ public static class CursedEventManager
     {
         if (eventHandler is null)
             return;
-        
+
+        #if DEBUG
+        CursedLogger.InternalDebug("Invoking event " + eventHandler.Method.Name);
+        foreach (PropertyInfo propertyInfo in args.GetType().GetProperties())
+        {
+            try
+            {
+                CursedLogger.InternalDebug("- " + propertyInfo.Name + " : " + propertyInfo.GetValue(args));
+            }
+            catch
+            {
+                CursedLogger.InternalDebug("- " + propertyInfo.Name + " : <error>");
+            }
+        }
+        #endif
+
         foreach (Delegate sub in eventHandler.GetInvocationList())
         {
             try
@@ -101,7 +118,7 @@ public static class CursedEventManager
             }
             catch (Exception e)
             {
-                CursedLogger.LogError("An error occurred while handling the event " + eventHandler.GetType().Name);
+                CursedLogger.LogError("An error occurred while handling the event " + eventHandler.Method.Name);
                 CursedLogger.LogError(e.ToString());
                 throw;
             }
@@ -113,6 +130,10 @@ public static class CursedEventManager
         if (eventHandler is null)
             return;
         
+        #if DEBUG
+        CursedLogger.InternalDebug("Invoking event " + eventHandler.Method.Name);
+        #endif
+        
         foreach (Delegate sub in eventHandler.GetInvocationList())
         {
             try
@@ -121,7 +142,7 @@ public static class CursedEventManager
             }
             catch (Exception e)
             {
-                CursedLogger.LogError("An error occurred while handling the event " + eventHandler.GetType().Name);
+                CursedLogger.LogError("An error occurred while handling the event " + eventHandler.Method.Name);
                 CursedLogger.LogError(e.ToString());
                 throw;
             }
