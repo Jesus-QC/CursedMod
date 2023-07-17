@@ -90,10 +90,13 @@
         <Compile Include="Events\Arguments\BanSystem\ReportingCheaterEventArgs.cs" />
         <Compile Include="Events\Arguments\CommandSystem\ExecutingRemoteAdminCommandEventArgs.cs" />
         <Compile Include="Events\Arguments\Facility\Doors\PlayerInteractingDoorEventArgs.cs" />
+        <Compile Include="Events\Arguments\Facility\Elevators\ElevatorMovingEventArgs.cs" />
+        <Compile Include="Events\Arguments\Facility\Elevators\PlayerInteractingElevatorEventArgs.cs" />
         <Compile Include="Events\Arguments\Facility\Warhead\PlayerCancelingDetonationEventArgs.cs" />
         <Compile Include="Events\Arguments\Facility\Warhead\PlayerStartingDetonationEventArgs.cs" />
         <Compile Include="Events\Arguments\Facility\Warhead\WarheadDetonatingEventArgs.cs" />
         <Compile Include="Events\Arguments\ICursedCancellableEvent.cs" />
+        <Compile Include="Events\Arguments\ICursedElevatorEvent.cs" />
         <Compile Include="Events\Arguments\ICursedItemEvent.cs" />
         <Compile Include="Events\Arguments\ICursedPickupEvent.cs" />
         <Compile Include="Events\Arguments\ICursedPlayerEvent.cs" />
@@ -115,6 +118,8 @@
         <Compile Include="Events\Arguments\Player\PlayerDisconnectedEventArgs.cs" />
         <Compile Include="Events\Arguments\Player\PlayerEscapingEventArgs.cs" />
         <Compile Include="Events\Arguments\Player\PlayerConnectedEventArgs.cs" />
+        <Compile Include="Events\Arguments\Player\PlayerPlacingBloodDecalEventArgs.cs" />
+        <Compile Include="Events\Arguments\Player\PlayerPlacingBulletHoleEventArgs.cs" />
         <Compile Include="Events\Arguments\Player\PlayerReceivingDamageEventArgs.cs" />
         <Compile Include="Events\Arguments\Player\PlayerTogglingNoClipEventArgs.cs" />
         <Compile Include="Events\Arguments\Player\PlayerUsingVoiceChatEventArgs.cs" />
@@ -177,6 +182,7 @@
         <Compile Include="Events\Handlers\CursedBanSystemEventsHandler.cs" />
         <Compile Include="Events\Handlers\CursedCommandSystemEventsHandler.cs" />
         <Compile Include="Events\Handlers\CursedDoorsEventsHandler.cs" />
+        <Compile Include="Events\Handlers\CursedElevatorsEventHandler.cs" />
         <Compile Include="Events\Handlers\CursedFacilityEventsHandler.cs" />
         <Compile Include="Events\Handlers\CursedItemsEventsHandler.cs" />
         <Compile Include="Events\Handlers\CursedMapGenerationEventsHandler.cs" />
@@ -203,12 +209,16 @@
         <Compile Include="Events\Patches\BanSystem\ReportingPatch.cs" />
         <Compile Include="Events\Patches\CommandSystem\RaProcessQueryPatch.cs" />
         <Compile Include="Events\Patches\Facility\Doors\ServerInteractDoorVariantPatch.cs" />
+        <Compile Include="Events\Patches\Facility\Elevators\ElevatorChamberUpdatePatch.cs" />
+        <Compile Include="Events\Patches\Facility\Elevators\ElevatorInteractPatch.cs" />
         <Compile Include="Events\Patches\Facility\Warhead\CancelDetonationPatch.cs" />
         <Compile Include="Events\Patches\Facility\Warhead\DetonatePatch.cs" />
         <Compile Include="Events\Patches\Facility\Warhead\StartDetonationPatch.cs" />
         <Compile Include="Events\Patches\Items\ArmorSearchCompletePatch.cs" />
         <Compile Include="Events\Patches\Items\DropItemPatch.cs" />
         <Compile Include="Events\Patches\Items\ItemSearchCompletePatch.cs" />
+        <Compile Include="Events\Patches\Items\PlaceBloodDecalPatch.cs" />
+        <Compile Include="Events\Patches\Items\PlaceBulletHolePatch.cs" />
         <Compile Include="Events\Patches\Items\Scp244SearchCompletePatch.cs" />
         <Compile Include="Events\Patches\Items\Scp330SearchCompletePatch.cs" />
         <Compile Include="Events\Patches\Items\ServerAddItemPatch.cs" />
