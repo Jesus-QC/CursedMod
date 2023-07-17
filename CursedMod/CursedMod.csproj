@@ -90,12 +90,16 @@
         <Compile Include="Events\Arguments\BanSystem\ReportingCheaterEventArgs.cs" />
         <Compile Include="Events\Arguments\CommandSystem\ExecutingRemoteAdminCommandEventArgs.cs" />
         <Compile Include="Events\Arguments\Facility\Doors\PlayerInteractingDoorEventArgs.cs" />
+        <Compile Include="Events\Arguments\Facility\Hazards\PlayerEnteringHazardEventArgs.cs" />
+        <Compile Include="Events\Arguments\Facility\Hazards\PlayerExitingHazardEventArgs.cs" />
+        <Compile Include="Events\Arguments\Facility\Hazards\PlayerStayingOnHazardEventArgs.cs" />
         <Compile Include="Events\Arguments\Facility\Elevators\ElevatorMovingEventArgs.cs" />
         <Compile Include="Events\Arguments\Facility\Elevators\PlayerInteractingElevatorEventArgs.cs" />
         <Compile Include="Events\Arguments\Facility\Warhead\PlayerCancelingDetonationEventArgs.cs" />
         <Compile Include="Events\Arguments\Facility\Warhead\PlayerStartingDetonationEventArgs.cs" />
         <Compile Include="Events\Arguments\Facility\Warhead\WarheadDetonatingEventArgs.cs" />
         <Compile Include="Events\Arguments\ICursedCancellableEvent.cs" />
+        <Compile Include="Events\Arguments\ICursedHazardEvent.cs" />
         <Compile Include="Events\Arguments\ICursedElevatorEvent.cs" />
         <Compile Include="Events\Arguments\ICursedItemEvent.cs" />
         <Compile Include="Events\Arguments\ICursedPickupEvent.cs" />
@@ -190,6 +194,7 @@
         <Compile Include="Events\Handlers\CursedDoorsEventsHandler.cs" />
         <Compile Include="Events\Handlers\CursedElevatorEventHandler.cs" />
         <Compile Include="Events\Handlers\CursedFacilityEventsHandler.cs" />
+        <Compile Include="Events\Handlers\CursedHazardsEventHandler.cs" />
         <Compile Include="Events\Handlers\CursedItemsEventsHandler.cs" />
         <Compile Include="Events\Handlers\CursedMapGenerationEventsHandler.cs" />
         <Compile Include="Events\Handlers\CursedPlayerEventsHandler.cs" />
@@ -215,6 +220,12 @@
         <Compile Include="Events\Patches\BanSystem\ReportingPatch.cs" />
         <Compile Include="Events\Patches\CommandSystem\RaProcessQueryPatch.cs" />
         <Compile Include="Events\Patches\Facility\Doors\ServerInteractDoorVariantPatch.cs" />
+        <Compile Include="Events\Patches\Facility\Hazards\EnteringSinkholePatch.cs" />
+        <Compile Include="Events\Patches\Facility\Hazards\EnteringTantrumPatch.cs" />
+        <Compile Include="Events\Patches\Facility\Hazards\ExitingSinkholePatch.cs" />
+        <Compile Include="Events\Patches\Facility\Hazards\ExitingTantrumPatch.cs" />
+        <Compile Include="Events\Patches\Facility\Hazards\StayOnSinkholePatch.cs" />
+        <Compile Include="Events\Patches\Facility\Hazards\StayOnTantrumPatch.cs" />
         <Compile Include="Events\Patches\Facility\Elevators\ElevatorChamberUpdatePatch.cs" />
         <Compile Include="Events\Patches\Facility\Elevators\ElevatorInteractPatch.cs" />
         <Compile Include="Events\Patches\Facility\Warhead\CancelDetonationPatch.cs" />
