@@ -220,10 +220,13 @@
         <Compile Include="Events\Patches\BanSystem\ReportingPatch.cs" />
         <Compile Include="Events\Patches\CommandSystem\RaProcessQueryPatch.cs" />
         <Compile Include="Events\Patches\Facility\Doors\ServerInteractDoorVariantPatch.cs" />
+        <Compile Include="Events\Patches\Facility\Hazards\EnteringHazardPatch.cs" />
         <Compile Include="Events\Patches\Facility\Hazards\EnteringSinkholePatch.cs" />
         <Compile Include="Events\Patches\Facility\Hazards\EnteringTantrumPatch.cs" />
+        <Compile Include="Events\Patches\Facility\Hazards\ExitingHazardPatch.cs" />
         <Compile Include="Events\Patches\Facility\Hazards\ExitingSinkholePatch.cs" />
         <Compile Include="Events\Patches\Facility\Hazards\ExitingTantrumPatch.cs" />
+        <Compile Include="Events\Patches\Facility\Hazards\StayOnHazardPatch.cs" />
         <Compile Include="Events\Patches\Facility\Hazards\StayOnSinkholePatch.cs" />
         <Compile Include="Events\Patches\Facility\Hazards\StayOnTantrumPatch.cs" />
         <Compile Include="Events\Patches\Facility\Elevators\ElevatorChamberUpdatePatch.cs" />
