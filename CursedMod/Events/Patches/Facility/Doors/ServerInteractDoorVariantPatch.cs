@@ -16,6 +16,7 @@ using NorthwoodLib.Pools;
 
 namespace CursedMod.Events.Patches.Facility.Doors;
 
+// todo: check this
 [DynamicEventPatch(typeof(CursedDoorsEventsHandler), nameof(CursedDoorsEventsHandler.PlayerInteractingDoor))]
 [HarmonyPatch(typeof(DoorVariant), nameof(DoorVariant.ServerInteract))]
 public class ServerInteractDoorVariantPatch
