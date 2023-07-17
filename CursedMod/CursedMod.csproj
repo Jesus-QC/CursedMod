@@ -86,6 +86,8 @@
         <Compile Include="Events\Arguments\BanSystem\IssuingBanEventArgs.cs" />
         <Compile Include="Events\Arguments\BanSystem\KickingPlayerEventArgs.cs" />
         <Compile Include="Events\Arguments\BanSystem\BanningOfflinePlayerEventArgs.cs" />
+        <Compile Include="Events\Arguments\BanSystem\LocalReportingEventArgs.cs" />
+        <Compile Include="Events\Arguments\BanSystem\ReportingCheaterEventArgs.cs" />
         <Compile Include="Events\Arguments\CommandSystem\ExecutingRemoteAdminCommandEventArgs.cs" />
         <Compile Include="Events\Arguments\Facility\Doors\PlayerInteractingDoorEventArgs.cs" />
         <Compile Include="Events\Arguments\Facility\Elevators\ElevatorMovingEventArgs.cs" />
@@ -204,6 +206,7 @@
         <Compile Include="Events\Patches\BanSystem\IssuingBanPatch.cs" />
         <Compile Include="Events\Patches\BanSystem\KickUserPatch.cs" />
         <Compile Include="Events\Patches\BanSystem\OBanUserPatch.cs" />
+        <Compile Include="Events\Patches\BanSystem\ReportingPatch.cs" />
         <Compile Include="Events\Patches\CommandSystem\RaProcessQueryPatch.cs" />
         <Compile Include="Events\Patches\Facility\Doors\ServerInteractDoorVariantPatch.cs" />
         <Compile Include="Events\Patches\Facility\Elevators\ElevatorChamberUpdatePatch.cs" />
