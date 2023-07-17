@@ -22,7 +22,7 @@ public class ArmorSearchCompletePatch
 {
     private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
     {
-        List<CodeInstruction> newInstructions = CursedEventManager.CheckEvent<ArmorSearchCompletePatch>(59, instructions);
+        List<CodeInstruction> newInstructions = CursedEventManager.CheckEvent<ArmorSearchCompletePatch>(51, instructions);
 
         Label ret = generator.DefineLabel();
 
