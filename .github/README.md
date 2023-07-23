@@ -1,5 +1,5 @@
 <h1 align="center">CursedMod</h1>
-
+<h6 align="center">Project unfinished and archived - Feel free not to respect the license, not gonna DMCA</h6>
 <div align="center">
 	<a href="https://docs.cursedsl.com">Home</a>
   <span> • </span>
