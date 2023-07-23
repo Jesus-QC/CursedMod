@@ -6,7 +6,6 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using AdminToys;
@@ -171,7 +170,7 @@ public static class CursedPrefabManager
 
     public static bool TryGetPrefabOfType<T>(out T p)
     {
-        foreach (KeyValuePair<Guid, GameObject> prefab in NetworkClient.prefabs)
+        foreach (KeyValuePair<uint, GameObject> prefab in NetworkClient.prefabs)
         {
             if (!prefab.Value.TryGetComponent(out p))
                 continue;
@@ -185,7 +184,7 @@ public static class CursedPrefabManager
     
     public static bool TryGetPrefabOfType<T>(string name, out T p)
     {
-        foreach (KeyValuePair<Guid, GameObject> prefab in NetworkClient.prefabs)
+        foreach (KeyValuePair<uint, GameObject> prefab in NetworkClient.prefabs)
         {
             if (prefab.Value.name != name || !prefab.Value.TryGetComponent(out p))
                 continue;

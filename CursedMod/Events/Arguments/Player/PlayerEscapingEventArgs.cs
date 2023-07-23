@@ -9,18 +9,21 @@
 using System;
 using CursedMod.Features.Wrappers.Player;
 using PlayerRoles;
+using Respawning;
 
 namespace CursedMod.Events.Arguments.Player;
 
 public class PlayerEscapingEventArgs : EventArgs, ICursedCancellableEvent, ICursedPlayerEvent
 {
-    public PlayerEscapingEventArgs(ReferenceHub hub, RoleTypeId newRole, Escape.EscapeScenarioType escapeScenarioType)
+    public PlayerEscapingEventArgs(ReferenceHub hub, RoleTypeId newRole, Escape.EscapeScenarioType escapeScenarioType, SpawnableTeamType team, float tokens)
     {
         IsAllowed = true;
         Player = CursedPlayer.Get(hub);
         NewRole = newRole;
         EscapeScenarioType = escapeScenarioType;
         EscapeTime = Player.CurrentRole.ActiveTime;
+        TeamReceivingTokens = team;
+        Tokens = tokens;
     }
 
     public bool IsAllowed { get; set; }
@@ -32,4 +35,8 @@ public class PlayerEscapingEventArgs : EventArgs, ICursedCancellableEvent, ICurs
     public Escape.EscapeScenarioType EscapeScenarioType { get; set; }
     
     public float EscapeTime { get; }
+    
+    public SpawnableTeamType TeamReceivingTokens { get; set; }
+    
+    public float Tokens { get; set; }
 }

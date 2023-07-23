@@ -9,18 +9,18 @@
 using System.Collections.Generic;
 using System.Reflection.Emit;
 using CursedMod.Events.Arguments.Player;
-using CursedMod.Events.Handlers.Player;
+using CursedMod.Events.Handlers;
 using HarmonyLib;
 using NorthwoodLib.Pools;
 
 namespace CursedMod.Events.Patches.Player;
 
-[HarmonyPatch(typeof(ServerRoles), nameof(ServerRoles.UserCode_CmdServerSignatureComplete))]
+[HarmonyPatch(typeof(ServerRoles), nameof(ServerRoles.UserCode_CmdServerSignatureComplete__String__String__String__Boolean))]
 public class CompleteVerificationPatch
 {
     private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
     {
-        List<CodeInstruction> newInstructions = EventManager.CheckEvent<CompleteVerificationPatch>(691, instructions);
+        List<CodeInstruction> newInstructions = CursedEventManager.CheckEvent<CompleteVerificationPatch>(702, instructions);
 
         Label ret = generator.DefineLabel();
         
@@ -33,8 +33,8 @@ public class CompleteVerificationPatch
             new (OpCodes.Brtrue_S, ret),
             
             new (OpCodes.Ldarg_0),
-            new (OpCodes.Newobj, AccessTools.GetDeclaredConstructors(typeof(PlayerJoinedEventArgs))[0]),
-            new (OpCodes.Call, AccessTools.Method(typeof(PlayerEventsHandler), nameof(PlayerEventsHandler.OnPlayerJoined))),
+            new (OpCodes.Newobj, AccessTools.GetDeclaredConstructors(typeof(PlayerConnectedEventArgs))[0]),
+            new (OpCodes.Call, AccessTools.Method(typeof(CursedPlayerEventsHandler), nameof(CursedPlayerEventsHandler.OnPlayerConnected))),
         });
 
         foreach (CodeInstruction instruction in newInstructions)

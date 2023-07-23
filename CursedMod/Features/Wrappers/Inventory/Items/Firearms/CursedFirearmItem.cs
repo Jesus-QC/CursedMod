@@ -160,7 +160,7 @@ public class CursedFirearmItem : CursedItem
         if (player is null)
             return;
 
-        if (AttachmentsServerHandler.PlayerPreferences.TryGetValue(player.ReferenceHub, out var value) && value.TryGetValue(FirearmBase.ItemTypeId, out var value2))
+        if (AttachmentsServerHandler.PlayerPreferences.TryGetValue(player.ReferenceHub, out Dictionary<ItemType, uint> value) && value.TryGetValue(FirearmBase.ItemTypeId, out uint value2))
             FirearmBase.ApplyAttachmentsCode(value2, reValidate: true);
 
         FirearmStatusFlags firearmStatusFlags = FirearmStatusFlags.MagazineInserted;

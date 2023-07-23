@@ -16,6 +16,7 @@ using CursedMod.Features.Logger;
 using CursedMod.Features.Wrappers.Facility;
 using CursedMod.Features.Wrappers.Inventory.Items;
 using CursedMod.Features.Wrappers.Inventory.Pickups;
+using CursedMod.Features.Wrappers.Player.Dummies;
 using CursedMod.Features.Wrappers.Player.Roles;
 using CursedMod.Features.Wrappers.Player.Roles.SCPs;
 using CursedMod.Features.Wrappers.Player.VoiceChat;
@@ -32,10 +33,12 @@ using InventorySystem.Searching;
 using Mirror;
 using PlayerRoles;
 using PlayerRoles.FirstPersonControl;
+using PlayerRoles.PlayableScps.HumeShield;
 using PlayerStatsSystem;
 using PluginAPI.Core;
 using RemoteAdmin;
 using Security;
+using Subtitles;
 using UnityEngine;
 using Utils.Networking;
 using VoiceChat;
@@ -51,6 +54,7 @@ public class CursedPlayer
         ReferenceHub = hub;
         GameObject = ReferenceHub.gameObject;
         Transform = ReferenceHub.transform;
+        CurrentRole = CursedRole.Get(RoleBase);
         
         if (hub == ReferenceHub.HostHub || NetworkConnection.address == "npc")
             return;
@@ -66,18 +70,28 @@ public class CursedPlayer
     public static List<CursedPlayer> List => Collection.ToList();
    
     public static int Count => Dictionary.Count;
+
+    public static IEnumerable<CursedPlayer> SpectatorList => Collection.Where(player => player.IsDead);
+
+    public static IEnumerable<CursedPlayer> ScpList => Collection.Where(player => player.IsScp);
     
+    public static IEnumerable<CursedPlayer> HumanList => Collection.Where(player => player.IsHuman);
+
+    public static CursedPlayer Random => List[UnityEngine.Random.Range(0, List.Count)];
+
     public ReferenceHub ReferenceHub { get; }
     
-    public GameObject GameObject { get; private set; }
+    public GameObject GameObject { get; }
     
-    public Transform Transform { get; internal set; }
-    
-    public PlayerSharedStorage SharedStorage { get; } = new ();
+    public Transform Transform { get; }
+
+    public DataStorage DataStorage { get; } = new ();
 
     public AuthenticationType AuthenticationType { get; private set; }
     
     public string RawUserId { get; private set; }
+
+    public CursedRole CurrentRole { get; internal set; }
     
     public Transform PlayerCameraReference => ReferenceHub.PlayerCameraReference;
 
@@ -94,8 +108,6 @@ public class CursedPlayer
     public InventorySystem.Inventory Inventory => ReferenceHub.inventory;
 
     public Dictionary<ushort, ItemBase> Items => Inventory.UserInventory.Items;
-
-    public Dictionary<ItemType, ushort> ReserveAmmo => Inventory.UserInventory.ReserveAmmo;
 
     public SearchCoordinator SearchCoordinator => ReferenceHub.searchCoordinator;
 
@@ -135,7 +147,7 @@ public class CursedPlayer
     
     public HumeShieldStat HumeShieldStat => PlayerStats.GetModule<HumeShieldStat>();
 
-    public bool IsDummy => ReferenceHub == ReferenceHub.HostHub || NetworkConnection.address == "npc";
+    public bool IsDummy => ReferenceHub == ReferenceHub.HostHub || CursedDummy.Dictionary.ContainsKey(ReferenceHub) || NetworkConnection.address == "npc";
     
     public string SaltedUserId => CharacterClassManager.SaltedUserId;
     
@@ -145,7 +157,6 @@ public class CursedPlayer
 
     public byte KickPower => ServerRoles.KickPower;
     
-    // public bool IsDummy => this is CursedDummy;
     public bool IsDead => Role is RoleTypeId.Spectator or RoleTypeId.Overwatch or RoleTypeId.None;
 
     public bool IsAlive => !IsDead;
@@ -199,13 +210,51 @@ public class CursedPlayer
     public Vector3 Position
     {
         get => Transform.position;
-        set => ReferenceHub.TryOverridePosition(value, Vector3.zero);
+        set => SetPositionAndRotation(value, Vector3.zero);
     }
 
     public Vector3 Rotation
     {
         get => Transform.eulerAngles;
-        set => ReferenceHub.TryOverridePosition(Position, value);
+        set => SetPositionAndRotation(Position, value);
+    }
+
+    public float HorizontalRotation
+    {
+        get
+        {
+            if (CurrentRole is not CursedFpcRole fpcRole)
+                return 0;
+
+            return fpcRole.FpcModule.MouseLook.CurrentHorizontal;
+        }
+        
+        set
+        {
+            if (CurrentRole is not CursedFpcRole fpcRole)
+                return;
+
+            fpcRole.FpcModule.MouseLook.CurrentHorizontal = value;
+        }
+    }
+    
+    public float VerticalRotation
+    {
+        get
+        {
+            if (CurrentRole is not CursedFpcRole fpcRole)
+                return 0;
+
+            return fpcRole.FpcModule.MouseLook.CurrentVertical;
+        }
+        
+        set
+        {
+            if (CurrentRole is not CursedFpcRole fpcRole)
+                return;
+
+            fpcRole.FpcModule.MouseLook.CurrentVertical = value;
+        }
     }
     
     public Vector3 Scale
@@ -215,6 +264,35 @@ public class CursedPlayer
         {
             Transform.localScale = value;
             SendSpawnMessageToAll(NetworkIdentity);
+        }
+    }
+
+    public Vector3 FakeScale
+    {
+        get => CursedDesyncModule.FakedScales.TryGetValue(this, out Vector3 scale) ? scale : Vector3.one;
+        set
+        {
+            foreach (CursedPlayer player in Collection)
+            {
+                if (player == this)
+                    continue;
+                
+                player.SendFakeScaleMessage(this, value);
+            }
+            
+            if (CursedDesyncModule.FakedScales.ContainsKey(this))
+            {
+                if (FakeScale == Vector3.one)
+                {
+                    CursedDesyncModule.FakedScales.Remove(this);
+                    return;
+                }
+                
+                CursedDesyncModule.FakedScales[this] = value;
+                return;
+            }
+            
+            CursedDesyncModule.FakedScales.Add(this, value);
         }
     }
     
@@ -286,9 +364,109 @@ public class CursedPlayer
         set => CharacterClassManager._centralAuthInt = value;
     }
 
+    public float Health
+    {
+        get => HealthStat.CurValue;
+        set => HealthStat.CurValue = value;
+    }
+
+    public float MaxHealth => HealthStat.MaxValue;
+
+    public float MinHealth => HealthStat.MinValue;
+
+    public float HumeShield
+    {
+        get => HumeShieldStat.CurValue;
+        set => HumeShieldStat.CurValue = value;
+    }
+    
+    public float MaxHumeShield => HumeShieldStat.MaxValue;
+
+    public float MinHumeShield => HumeShieldStat.MinValue;
+    
+    public float HumeShieldRegeneration
+    {
+        get
+        {
+            if (HumeShieldStat.TryGetHsModule(out HumeShieldModuleBase hsModuleBase))
+                return hsModuleBase.HsRegeneration;
+
+            return 0;
+        }
+    }
+
+    public AhpStat.AhpProcess ArtificialHealthProcess => AhpStat._activeProcesses.Count == 0 ? null : AhpStat._activeProcesses[0];
+
+    public float ArtificialHealth
+    {
+        get => ArtificialHealthProcess?.CurrentAmount ?? 0;
+
+        set
+        {
+            if (ArtificialHealthProcess is null)
+                return;
+
+            ArtificialHealthProcess.CurrentAmount = value;
+        }
+    }
+    
+    public float ArtificialHealthLimit
+    {
+        get => ArtificialHealthProcess?.Limit ?? 0;
+
+        set
+        {
+            if (ArtificialHealthProcess is null)
+                return;
+
+            ArtificialHealthProcess.Limit = value;
+        }
+    }
+    
+    public float ArtificialHealthDecayRate
+    {
+        get => ArtificialHealthProcess?.DecayRate ?? 0;
+
+        set
+        {
+            if (ArtificialHealthProcess is null)
+                return;
+
+            ArtificialHealthProcess.DecayRate = value;
+        }
+    }
+    
+    public float ArtificialHealthEfficacy
+    {
+        get => ArtificialHealthProcess?.Efficacy ?? 0;
+
+        set
+        {
+            if (ArtificialHealthProcess is null)
+                return;
+
+            ArtificialHealthProcess.Efficacy = value;
+        }
+    }
+    
+    public float ArtificialHealthSustainTime
+    {
+        get => ArtificialHealthProcess?.SustainTime ?? 0;
+
+        set
+        {
+            if (ArtificialHealthProcess is null)
+                return;
+
+            ArtificialHealthProcess.SustainTime = value;
+        }
+    }
+    
+    public bool IsArtificialHealthPersistant => ArtificialHealthProcess?.Persistant ?? false;
+
     public RoleTypeId Role
     {
-        get => CurrentRole.RoleTypeId;
+        get => RoleBase.RoleTypeId;
         set => SetRole(value);
     }
     
@@ -297,24 +475,24 @@ public class CursedPlayer
         get => RoleManager.CurrentRole;
         set => RoleManager.CurrentRole = value;
     }
+
+    public CursedScp049Role Scp049Role => CurrentRole as CursedScp049Role;
     
-    public CursedRole CurrentRole => CursedRole.Get(RoleBase);
+    public CursedScp079Role Scp079Role => CurrentRole as CursedScp079Role;
     
-    public CursedScp049Role CursedScp049Role => CurrentRole as CursedScp049Role;
+    public CursedScp096Role Scp096Role => CurrentRole as CursedScp096Role;
     
-    public CursedScp079Role CursedScp079Role => CurrentRole as CursedScp079Role;
+    public CursedScp106Role Scp106Role => CurrentRole as CursedScp106Role;
     
-    public CursedScp096Role CursedScp096Role => CurrentRole as CursedScp096Role;
+    public CursedScp173Role Scp173Role => CurrentRole as CursedScp173Role;
     
-    public CursedScp106Role CursedScp106Role => CurrentRole as CursedScp106Role;
+    public CursedScp939Role Scp939Role => CurrentRole as CursedScp939Role;
     
-    public CursedScp173Role CursedScp173Role => CurrentRole as CursedScp173Role;
+    public CursedScp0492Role Scp0492Role => CurrentRole as CursedScp0492Role;
+
+    public CursedHumanRole HumanRole => CurrentRole as CursedHumanRole; 
     
-    public CursedScp939Role CursedScp939Role => CurrentRole as CursedScp939Role;
-    
-    public CursedZombieRole CursedZombieRole => CurrentRole as CursedZombieRole;
-    
-    public CursedHumanRole CursedHumanRole => CurrentRole as CursedHumanRole; 
+    public CursedSpectatorRole SpectatorRole => CurrentRole as CursedSpectatorRole; 
 
     public bool IsInOverWatch
     {
@@ -356,6 +534,21 @@ public class CursedPlayer
     {
         get => CharacterClassManager.GodMode;
         set => CharacterClassManager.GodMode = value;
+    }
+
+    public bool HasNoClipPermitted
+    {
+        get => FpcNoclip.IsPermitted(ReferenceHub);
+        set
+        {
+            if (value)
+            {
+                FpcNoclip.PermitPlayer(ReferenceHub);
+                return;
+            }
+            
+            FpcNoclip.UnpermitPlayer(ReferenceHub);
+        }
     }
 
     public bool HasNoClip
@@ -446,22 +639,7 @@ public class CursedPlayer
     // difference: this also returns true if the whitelist is disabled
     public bool IsWhitelisted => WhiteList.IsWhitelisted(UserId);
 
-    public CursedVoiceChat VoiceChat
-    {
-        get
-        {
-            if (CurrentRole is CursedFpcRole fpcRole)
-                return new CursedVoiceChat(fpcRole.VoiceModule);
-
-            if (CurrentRole is CursedScp079Role scp079Role)
-                return new CursedVoiceChat(scp079Role.VoiceModule);
-
-            if (CurrentRole is CursedNoneRole noneRole)
-                return new CursedVoiceChat(noneRole.VoiceModule);
-
-            return null;
-        }
-    }
+    public CursedVoiceChat VoiceChat { get; internal set; }
 
     public bool IsHost => ReferenceHub == ReferenceHub.HostHub;
     
@@ -482,9 +660,9 @@ public class CursedPlayer
 
     public static bool TryGet(ReferenceHub hub, out CursedPlayer player)
     {
-        if (hub is not null && Dictionary.ContainsKey(hub))
+        if (hub is not null && Dictionary.TryGetValue(hub, out CursedPlayer value))
         {
-            player = Dictionary[hub];
+            player = value;
             return true;
         }
 
@@ -591,12 +769,22 @@ public class CursedPlayer
         return Items.Values.Select(CursedItem.Get);
     }
 
+    public IEnumerable<ItemType> GetItemTypes()
+    {
+        return Items.Values.Select(x => x.ItemTypeId);
+    }
+
     public void GrantRoleLoadout(RoleTypeId role, bool resetInventory) => InventoryItemProvider.ServerGrantLoadout(ReferenceHub, role, resetInventory);
 
     public void SetStableGroup(string name)
     {
         ServerRoles.SetGroup(ServerStatic.GetPermissionsHandler().GetGroup(name), true);
         ServerStatic.GetPermissionsHandler()._members.SetOrAddElement(UserId, name);
+    }
+    
+    public void SetPositionAndRotation(Vector3 position, Vector3 rotation)
+    {
+        ReferenceHub.TryOverridePosition(position, rotation);
     }
     
     public void Release()
@@ -658,7 +846,7 @@ public class CursedPlayer
 
     public void Disconnect(string message) => CharacterClassManager.DisconnectClient(NetworkConnection, message);
 
-    public void ShowTag(bool global = false) => CharacterClassManager.UserCode_CmdRequestShowTag(global);
+    public void ShowTag(bool global = false) => CharacterClassManager.UserCode_CmdRequestShowTag__Boolean(global);
     
     public void HideTag() => CharacterClassManager.UserCode_CmdRequestHideTag();
 
@@ -670,6 +858,8 @@ public class CursedPlayer
     
     public void ShowBroadcast(string message, ushort duration = 5, Broadcast.BroadcastFlags flags = Broadcast.BroadcastFlags.Normal) => CursedFacility.Broadcast.TargetAddElement(NetworkConnection, message, duration, flags);
 
+    public void ShowSubtitle(SubtitlePart[] subtitleParts) => NetworkConnection.Send(new SubtitleMessage(subtitleParts));
+    
     public void SetRole(RoleTypeId role, RoleChangeReason reason = RoleChangeReason.RemoteAdmin, RoleSpawnFlags flags = RoleSpawnFlags.All) => RoleManager.ServerSetRole(role, reason, flags);
 
     public T AddComponent<T>() 
@@ -690,6 +880,22 @@ public class CursedPlayer
     
     public CursedItem AddItem(ItemType itemType) => CursedItem.Get(AddItemBase(itemType));
 
+    public void AddItem(CursedItem item)
+    {
+        Inventory.UserInventory.Items[item.Serial] = item.Base;
+        Inventory.SendItemsNextFrame = true;
+    }
+    
+    public void SetItems(IEnumerable<CursedItem> items)
+    {
+        ClearItems();
+        
+        foreach (CursedItem item in items)
+        {
+            AddItem(item);
+        }
+    }
+
     public void DropItem(CursedItem item) => Inventory.ServerDropItem(item.Serial);
 
     public void DropItem(ItemBase itemBase) => Inventory.ServerDropItem(itemBase.ItemSerial);
@@ -705,7 +911,25 @@ public class CursedPlayer
     public void RemoveItem(ItemPickupBase pickupBase) => Inventory.ServerRemoveItem(pickupBase.Info.Serial, pickupBase);
 
     public void RemoveItem(CursedPickup pickup) => Inventory.ServerRemoveItem(pickup.Serial, pickup.Base);
+
+    public void RemoveItemWithoutDestroying(CursedItem cursedItem) => RemoveItemWithoutDestroying(cursedItem.Base);
     
+    public void RemoveItemWithoutDestroying(ItemBase itemBase)
+    {
+        if (itemBase.ItemSerial == Inventory.CurItem.SerialNumber)
+        {
+            Inventory.NetworkCurItem = ItemIdentifier.None;
+        }
+        
+        if (itemBase is IAcquisitionConfirmationTrigger acquisitionConfirmationTrigger)
+        {
+            acquisitionConfirmationTrigger.AcquisitionAlreadyReceived = false;
+        }
+        
+        Inventory.UserInventory.Items.Remove(itemBase.ItemSerial);
+        Inventory.SendItemsNextFrame = true;
+    }
+
     public ushort GetAmmo(ItemType ammoType) => Inventory.GetCurAmmo(ammoType);
     
     public void SetAmmo(ItemType itemType, ushort amount) => Inventory.ServerSetAmmo(itemType, amount);
@@ -716,6 +940,8 @@ public class CursedPlayer
 
     public void DropEverything() => Inventory.ServerDropEverything();
 
+    public void Heal(float amount) => HealthStat.ServerHeal(amount);
+    
     public void Mute(bool isTemporary = true)
     {
         if (isTemporary)
@@ -762,20 +988,83 @@ public class CursedPlayer
     
     public void ClearInventory(bool onlyItems = false)
     {
-        foreach (ItemBase item in Inventory.UserInventory.Items.Values)
-        {
-            RemoveItem(item);
-        }
+        ClearItems();
 
         if (onlyItems)
             return;
         
-        foreach (ItemType item in Inventory.UserInventory.ReserveAmmo.Keys)
+        ClearAmmo();
+    }
+
+    public void ClearItems()
+    {
+        foreach (ItemBase item in Items.Values.ToArray())
+        {
+            RemoveItem(item);
+        }
+    }
+    
+    public IEnumerable<CursedItem> ClearItemsWithoutDestroying()
+    {
+        IEnumerable<CursedItem> items = GetItems().ToArray();
+
+        foreach (CursedItem item in items)
+        {
+            if (item.Base is IAcquisitionConfirmationTrigger acquisitionConfirmationTrigger)
+            {
+                acquisitionConfirmationTrigger.AcquisitionAlreadyReceived = false;
+            }
+        }
+        
+        Inventory.NetworkCurItem = ItemIdentifier.None;
+        Inventory.UserInventory.Items.Clear(); 
+        Inventory.SendItemsNextFrame = true;
+
+        return items;
+    }
+
+    public void ClearAmmo()
+    {
+        foreach (ItemType item in Ammo.Keys.ToArray())
         {
             SetAmmo(item, 0);
         }
     }
 
+    public void AddItems(IEnumerable<ItemType> items)
+    {
+        foreach (ItemType item in items)
+        {
+            AddItemBase(item);
+        }
+    }
+    
+    public void SetItems(IEnumerable<ItemType> items)
+    {
+        ClearItems();
+        AddItems(items);
+    }
+
+    public void AddAmmo(Dictionary<ItemType, ushort> ammo)
+    {
+        foreach (KeyValuePair<ItemType, ushort> item in ammo)
+        {
+            AddAmmo(item.Key, item.Value);
+        }
+    }
+    
+    public void SetAmmo(Dictionary<ItemType, ushort> ammo)
+    {
+        ClearAmmo();
+        AddAmmo(ammo);
+    }
+
+    public void SetInventory(IEnumerable<ItemType> items, Dictionary<ItemType, ushort> ammo)
+    {
+        SetItems(items);
+        SetAmmo(ammo);
+    }
+    
     public void SendHitMarker(float size = 2.55f) => Hitmarker.SendHitmarker(ReferenceHub, size);
 
     public void SendWarheadPanelLeverSound() => PlayerInteract.RpcLeverSound();

@@ -6,7 +6,10 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
+using System.Collections.Generic;
+using System.Linq;
 using MapGeneration;
+using PlayerRoles.PlayableScps.Scp079;
 using PlayerRoles.PlayableScps.Scp079.Cameras;
 using UnityEngine;
 
@@ -14,10 +17,18 @@ namespace CursedMod.Features.Wrappers.Facility.Rooms;
 
 public class Cursed079Camera
 {
+    public static readonly Dictionary<Scp079Camera, Cursed079Camera> Dictionary = new ();
+    
     internal Cursed079Camera(Scp079Camera baseCamera)
     {
         BaseCamera = baseCamera;
+        
+        Dictionary.Add(baseCamera, this);
     }
+    
+    public static IEnumerable<Cursed079Camera> Collection => Dictionary.Values;
+    
+    public static IEnumerable<Cursed079Camera> List => Dictionary.Values.ToList();
     
     public Scp079Camera BaseCamera { get; }
     
@@ -58,6 +69,19 @@ public class Cursed079Camera
     public FacilityZone Zone => BaseCamera.Room.Zone;
 
     public ushort CameraId => BaseCamera.SyncId;
+    
+    public static Cursed079Camera Get(Scp079Camera camera) => Dictionary.ContainsKey(camera) ? Dictionary[camera] : new Cursed079Camera(camera);
 
     public override string ToString() => $"{nameof(Cursed079Camera)}: Name: {CameraName} | Position: {Position} | Rotation: {Rotation} | Zoom: {CurrentZoom} | Zone: {Zone} | Id: {CameraId}";
+
+    internal static void CacheAllCameras()
+    {
+        foreach (Scp079InteractableBase interactable in Scp079InteractableBase.AllInstances)
+        {
+            if (interactable is not Scp079Camera camera)
+                continue;
+
+            Get(camera);
+        }
+    }
 }

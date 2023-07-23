@@ -43,7 +43,7 @@ public class CursedFpcRole : CursedRole
 
     public ISpawnpointHandler SpawnPointHandler => FpcRoleBase.SpawnpointHandler;
 
-    public Color AmbientLight => FpcRoleBase.AmbientLight;
+    public float AmbientLight => FpcRoleBase.AmbientLight;
 
     public bool InsufficientLight => FpcRoleBase.InsufficientLight;
 
@@ -88,7 +88,7 @@ public class CursedFpcRole : CursedRole
         return roleBase switch
         {
             HumanRole humanRole => new CursedHumanRole(humanRole),
-            ZombieRole zombieRole => new CursedZombieRole(zombieRole),
+            ZombieRole zombieRole => new CursedScp0492Role(zombieRole),
             Scp049Role scp049Role => new CursedScp049Role(scp049Role),
             Scp096Role scp096Role => new CursedScp096Role(scp096Role),
             Scp106Role scp106Role => new CursedScp106Role(scp106Role),

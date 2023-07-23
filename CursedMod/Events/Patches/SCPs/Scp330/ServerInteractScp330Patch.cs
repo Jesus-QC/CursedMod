@@ -9,21 +9,22 @@
 using System.Collections.Generic;
 using System.Reflection.Emit;
 using CursedMod.Events.Arguments.SCPs.Scp330;
-using CursedMod.Events.Handlers.SCPs.Scp330;
+using CursedMod.Events.Handlers;
 using HarmonyLib;
 using Interactables.Interobjects;
 using NorthwoodLib.Pools;
 
 namespace CursedMod.Events.Patches.SCPs.Scp330;
 
+[DynamicEventPatch(typeof(CursedScp330EventsHandler), nameof(CursedScp330EventsHandler.PlayerInteractingScp330))]
 [HarmonyPatch(typeof(Scp330Interobject), nameof(Scp330Interobject.ServerInteract))]
 public class ServerInteractScp330Patch
 {
     private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
     {
-        List<CodeInstruction> newInstructions = EventManager.CheckEvent<ServerInteractScp330Patch>(92, instructions);
+        List<CodeInstruction> newInstructions = CursedEventManager.CheckEvent<ServerInteractScp330Patch>(93, instructions);
 
-        int offset = newInstructions.FindIndex(x => x.opcode == OpCodes.Newarr) - 2;
+        int offset = newInstructions.FindIndex(x => x.opcode == OpCodes.Newobj) - 2;
 
         Label ret = generator.DefineLabel();
         
@@ -34,7 +35,7 @@ public class ServerInteractScp330Patch
             new (OpCodes.Ldarg_1),
             new (OpCodes.Newobj, AccessTools.GetDeclaredConstructors(typeof(PlayerInteractingScp330EventArgs))[0]),
             new (OpCodes.Dup),
-            new (OpCodes.Call, AccessTools.Method(typeof(Scp330EventsHandler), nameof(Scp330EventsHandler.OnPlayerInteractingScp330))),
+            new (OpCodes.Call, AccessTools.Method(typeof(CursedScp330EventsHandler), nameof(CursedScp330EventsHandler.OnPlayerInteractingScp330))),
             new (OpCodes.Callvirt, AccessTools.PropertyGetter(typeof(PlayerInteractingScp330EventArgs), nameof(PlayerInteractingScp330EventArgs.IsAllowed))),
             new (OpCodes.Brfalse_S, ret),
         });

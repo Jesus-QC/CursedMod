@@ -10,6 +10,7 @@ using CursedMod.Features.Wrappers.Player.Roles.SCPs;
 using PlayerRoles;
 using PlayerRoles.FirstPersonControl;
 using PlayerRoles.PlayableScps.Scp079;
+using PlayerRoles.Spectating;
 using UnityEngine;
 
 namespace CursedMod.Features.Wrappers.Player.Roles;
@@ -50,6 +51,7 @@ public class CursedRole
         return roleBase switch
         {
             FpcStandardRoleBase fpcRole => CursedFpcRole.Get(fpcRole),
+            SpectatorRole spectatorRole => new CursedSpectatorRole(spectatorRole),
             Scp079Role scp079Role => new CursedScp079Role(scp079Role),
             NoneRole noneRole => new CursedNoneRole(noneRole),
             _ => new CursedRole(roleBase)

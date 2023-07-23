@@ -8,22 +8,23 @@
 
 using System.Collections.Generic;
 using System.Reflection.Emit;
-using CursedMod.Events.Handlers.Round;
+using CursedMod.Events.Handlers;
 using HarmonyLib;
 using NorthwoodLib.Pools;
 
 namespace CursedMod.Events.Patches.Round;
 
+[DynamicEventPatch(typeof(CursedRoundEventsHandler), nameof(CursedRoundEventsHandler.RoundStarted))]
 [HarmonyPatch(typeof(CharacterClassManager), nameof(CharacterClassManager.RpcRoundStarted))]
 public class RoundStartPatch
 {
     private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions)
     {
-        List<CodeInstruction> newInstructions = EventManager.CheckEvent<RoundStartPatch>(13, instructions);
+        List<CodeInstruction> newInstructions = CursedEventManager.CheckEvent<RoundStartPatch>(12, instructions);
 
         newInstructions.InsertRange(0, new CodeInstruction[]
         {
-            new (OpCodes.Call, AccessTools.Method(typeof(RoundEventsHandler), nameof(RoundEventsHandler.OnRoundStarted))),
+            new (OpCodes.Call, AccessTools.Method(typeof(CursedRoundEventsHandler), nameof(CursedRoundEventsHandler.OnRoundStarted))),
         });
 
         foreach (CodeInstruction instruction in newInstructions)

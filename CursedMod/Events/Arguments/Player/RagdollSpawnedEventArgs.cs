@@ -11,7 +11,7 @@ using CursedMod.Features.Wrappers.Player.Ragdolls;
 
 namespace CursedMod.Events.Arguments.Player;
 
-public class RagdollSpawnedEventArgs : EventArgs
+public class RagdollSpawnedEventArgs : EventArgs, ICursedRagdollEvent
 {
     public RagdollSpawnedEventArgs(BasicRagdoll ragdoll)
     {

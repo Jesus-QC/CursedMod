@@ -63,9 +63,36 @@ public class CursedShootingTarget : CursedAdminToy
             SendInfo(MaxHealth, AutoResetTime);
         }
     }
+
+    public static CursedShootingTarget Create(ShootingTargetType type, Vector3? position = null, Vector3? scale = null, Vector3? rotation = null, bool spawn = false)
+    {
+        ShootingTarget target = type switch
+        {
+            ShootingTargetType.Binary => CursedPrefabManager.BinaryShootingTarget,
+            ShootingTargetType.DBoy => CursedPrefabManager.DBoyShootingTarget,
+            ShootingTargetType.Sport => CursedPrefabManager.SportShootingTarget,
+            _ => CursedPrefabManager.DBoyShootingTarget,
+        };
+
+        ShootingTarget shootingTarget = Object.Instantiate(target);
+        CursedShootingTarget cursedTarget = new (shootingTarget);
+        
+        if (position.HasValue)
+            cursedTarget.Position = position.Value;
+
+        if (scale.HasValue)
+            cursedTarget.Scale = scale.Value;
+
+        if (rotation.HasValue)
+            cursedTarget.Rotation = rotation.Value;
+
+        if (spawn)
+            cursedTarget.Spawn();
+
+        return cursedTarget;
+    }
     
-    public bool Damage(float damage, DamageHandlerBase damageHandler, Vector3 exactHit) =>
-        Base.Damage(damage, damageHandler, exactHit);
+    public bool Damage(float damage, DamageHandlerBase damageHandler, Vector3 exactHit) => Base.Damage(damage, damageHandler, exactHit);
 
     public void SendInfo(int maxHp, int autoReset) => Base.RpcSendInfo(maxHp, autoReset);
 }

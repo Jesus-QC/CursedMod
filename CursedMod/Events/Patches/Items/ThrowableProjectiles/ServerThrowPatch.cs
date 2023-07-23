@@ -9,26 +9,27 @@
 using System.Collections.Generic;
 using System.Reflection.Emit;
 using CursedMod.Events.Arguments.Items;
-using CursedMod.Events.Handlers.Items;
+using CursedMod.Events.Handlers;
 using HarmonyLib;
 using InventorySystem.Items.ThrowableProjectiles;
 using NorthwoodLib.Pools;
 
 namespace CursedMod.Events.Patches.Items.ThrowableProjectiles;
 
+[DynamicEventPatch(typeof(CursedItemsEventsHandler), nameof(CursedItemsEventsHandler.PlayerThrowingItem))]
 [HarmonyPatch(typeof(ThrowableItem), nameof(ThrowableItem.ServerProcessThrowConfirmation))]
 public class ServerThrowPatch
 {
     private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
     {
-        List<CodeInstruction> newInstructions = EventManager.CheckEvent<ServerThrowPatch>(96, instructions);
+        List<CodeInstruction> newInstructions = CursedEventManager.CheckEvent<ServerThrowPatch>(80, instructions);
 
         LocalBuilder args = generator.DeclareLocal(typeof(PlayerThrowingItemEventArgs));
         Label ret = generator.DefineLabel();
         
         newInstructions[newInstructions.Count - 1].labels.Add(ret);
         
-        int offset = newInstructions.FindLastIndex(x => x.opcode == OpCodes.Newarr) - 2;
+        int offset = newInstructions.FindIndex(x => x.opcode == OpCodes.Ldloc_S) - 3;
         
         newInstructions.InsertRange(offset, new[]
         {
@@ -38,7 +39,7 @@ public class ServerThrowPatch
             new (OpCodes.Newobj, AccessTools.GetDeclaredConstructors(typeof(PlayerThrowingItemEventArgs))[0]),
             new (OpCodes.Dup),
             new (OpCodes.Stloc_S, args.LocalIndex),
-            new (OpCodes.Call, AccessTools.Method(typeof(ItemsEventsHandler), nameof(ItemsEventsHandler.OnPlayerThrowingItem))),
+            new (OpCodes.Call, AccessTools.Method(typeof(CursedItemsEventsHandler), nameof(CursedItemsEventsHandler.OnPlayerThrowingItem))),
             new (OpCodes.Ldloc_S, args.LocalIndex),
             new (OpCodes.Callvirt, AccessTools.PropertyGetter(typeof(PlayerThrowingItemEventArgs), nameof(PlayerThrowingItemEventArgs.IsAllowed))),
             new (OpCodes.Brfalse_S, ret),

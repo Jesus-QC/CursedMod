@@ -57,8 +57,8 @@ public static class CursedServer
 
     public static bool IsFriendlyFireEnabled
     {
-        get => ServerConsole.FriendlyFire;
-        set => ServerConsole.FriendlyFire = value;
+        get => PluginAPI.Core.Server.FriendlyFire;
+        set => PluginAPI.Core.Server.FriendlyFire = value;
     }
 
     public static bool IsWhitelistEnabled
@@ -162,8 +162,20 @@ public static class CursedServer
 
     public static string ServerName
     {
-        get => ServerConfigSynchronizer.Singleton.ServerName;
-        set => ServerConfigSynchronizer.Singleton.NetworkServerName = value;
+        get => ServerConsole._serverName;
+        set => ServerConsole._serverName = value;
+    }
+    
+    public static string VerKey
+    {
+        get => ServerConsole.Password;
+        set => ServerConsole.Password = value;
+    }
+
+    public static bool DropPlayerItemsOnDisconnect
+    {
+        get => CustomNetworkManager.TypedSingleton._disconnectDrop;
+        set => CustomNetworkManager.TypedSingleton._disconnectDrop = value;
     }
     
     public static HashSet<string> ReservedSlotUsers => ReservedSlot.Users;
@@ -176,6 +188,7 @@ public static class CursedServer
     
     public static double TicksPerSecond => Math.Round(1f / Time.smoothDeltaTime);
     
+    // Literally the same as ticks per second, but in our case we are using delta time instead of smooth delta time because yes.
     public static double FramesPerSecond => Math.Round(1f / Time.deltaTime);
 
     public static bool IsBeta => GameCore.Version.PublicBeta || GameCore.Version.PrivateBeta;
@@ -184,6 +197,8 @@ public static class CursedServer
     
     public static string[] StartArguments => StartupArgs.Args;
 
+    public static PermissionsHandler PermissionsHandler => ServerStatic.GetPermissionsHandler();
+    
     public static void RefreshServerName() => ServerConsole.singleton.RefreshServerName();
 
     public static void RefreshServerData() => ServerConsole.singleton.RefreshServerData();

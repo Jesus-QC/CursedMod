@@ -10,18 +10,20 @@ using System.Collections.Generic;
 using System.Reflection.Emit;
 using CommandSystem;
 using CursedMod.Events.Arguments.BanSystem;
-using CursedMod.Events.Handlers.BanSystem;
+using CursedMod.Events.Handlers;
+using Footprinting;
 using HarmonyLib;
 using NorthwoodLib.Pools;
 
 namespace CursedMod.Events.Patches.BanSystem;
 
-[HarmonyPatch(typeof(BanPlayer), nameof(BanPlayer.BanUser), typeof(ReferenceHub), typeof(ICommandSender), typeof(string), typeof(long))]
+[DynamicEventPatch(typeof(CursedBanSystemEventsHandler), nameof(CursedBanSystemEventsHandler.BanningPlayer))]
+[HarmonyPatch(typeof(BanPlayer), nameof(BanPlayer.BanUser), typeof(Footprint), typeof(ICommandSender), typeof(string), typeof(long))]
 public class BanUserPatch
 {
     private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
     {
-        List<CodeInstruction> newInstructions = EventManager.CheckEvent<BanUserPatch>(118, instructions);
+        List<CodeInstruction> newInstructions = CursedEventManager.CheckEvent<BanUserPatch>(133, instructions);
 
         Label ret = generator.DefineLabel();
         LocalBuilder args = generator.DeclareLocal(typeof(BanningPlayerEventArgs));
@@ -39,7 +41,7 @@ public class BanUserPatch
             new (OpCodes.Newobj, AccessTools.GetDeclaredConstructors(typeof(BanningPlayerEventArgs))[0]),
             new (OpCodes.Stloc_S, args.LocalIndex),
             new (OpCodes.Ldloc_S, args.LocalIndex),
-            new (OpCodes.Call, AccessTools.Method(typeof(BanSystemEventsHandler), nameof(BanSystemEventsHandler.OnBanningPlayer))),
+            new (OpCodes.Call, AccessTools.Method(typeof(CursedBanSystemEventsHandler), nameof(CursedBanSystemEventsHandler.OnBanningPlayer))),
             new (OpCodes.Ldloc_S, args.LocalIndex),
             new (OpCodes.Callvirt, AccessTools.PropertyGetter(typeof(BanningPlayerEventArgs), nameof(BanningPlayerEventArgs.IsAllowed))),
             new (OpCodes.Brfalse_S, ret),

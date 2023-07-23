@@ -15,6 +15,7 @@ using CursedMod.Features.Wrappers.Inventory.Pickups.Usables;
 using CursedMod.Features.Wrappers.Player;
 using CursedMod.Features.Wrappers.Server;
 using InventorySystem;
+using InventorySystem.Items;
 using InventorySystem.Items.Firearms;
 using InventorySystem.Items.Firearms.Ammo;
 using InventorySystem.Items.MicroHID;
@@ -36,7 +37,7 @@ public class CursedPickup
         Base = itemPickupBase;
         GameObject = Base.gameObject;
         Transform = Base._transform;
-        Rigidbody = Base.RigidBody;
+        Rigidbody = Base.GetComponent<Rigidbody>();
     }
     
     public ItemPickupBase Base { get; }
@@ -58,28 +59,30 @@ public class CursedPickup
     public ItemType ItemType
     {
         get => Info.ItemId;
-        set => Info = new PickupSyncInfo(value, Info.Position, Info.Rotation, Info.Weight, Info.Serial);
+        set => Info = new PickupSyncInfo(value, Info.WeightKg, Info.Serial);
     }
     
     public CursedPlayer PreviousOwner => CursedPlayer.Get(Base.PreviousOwner.Hub);
 
     public Vector3 Position
     {
-        get => Info.Position;
+        get => Base.Position;
         set
         {
             Transform.position = value;
-            Info = new PickupSyncInfo(Info.ItemId, value, Info.Rotation, Info.Weight, Info.Serial);
+            Info = new PickupSyncInfo(Info.ItemId, Info.WeightKg, Info.Serial);
+            Base.Position = value;
         }
     }
 
     public Quaternion Rotation
     {
-        get => Info.Rotation;
+        get => Base.Rotation;
         set
         {
             Transform.rotation = value;
-            Info = new PickupSyncInfo(Info.ItemId, Info.Position, value, Info.Weight, Info.Serial);
+            Info = new PickupSyncInfo(Info.ItemId, Info.WeightKg, Info.Serial);
+            Base.Rotation = value;
         }
     }
 
@@ -95,8 +98,8 @@ public class CursedPickup
 
     public float Weight
     {
-        get => Base.Info.Weight;
-        set => Info = new PickupSyncInfo(Info.ItemId, Info.Position, Info.Rotation, value, Info.Serial);
+        get => Base.Info.WeightKg;
+        set => Info = new PickupSyncInfo(Info.ItemId, value, Info.Serial);
     }
 
     public bool IsLocked
@@ -126,9 +129,27 @@ public class CursedPickup
         };
     }
 
-    public static CursedPickup Create(ItemType type, PickupSyncInfo pickupSyncInfo, bool spawn = true) => Get(CursedServer.LocalPlayer.Inventory.ServerCreatePickup(CursedServer.LocalPlayer.AddItemBase(type), pickupSyncInfo, spawn));
+    public static CursedPickup Create(ItemType type, Vector3? position = null, Vector3? rotation = null, bool spawn = true)
+    {
+        if (!InventoryItemLoader.AvailableItems.TryGetValue(type, out ItemBase itemBase))
+            return null;
 
-    public static CursedPickup Create(ItemType type, bool spawn = true) => Create(type, PickupSyncInfo.None, spawn);
+        PickupSyncInfo pickupSyncInfo = new ()
+        {
+            ItemId = type,
+            WeightKg = itemBase.Weight,
+            Serial = ItemSerialGenerator.GenerateNext(),
+        };
+
+        ItemPickupBase pickupBase = CursedServer.LocalPlayer.Inventory.ServerCreatePickup(itemBase, pickupSyncInfo, spawn);
+
+        if (position.HasValue)
+            pickupBase.transform.position = position.Value;
+        if (rotation.HasValue)
+            pickupBase.transform.eulerAngles = rotation.Value;
+
+        return Get(pickupBase);
+    }
     
     public GameObject Spawn()
     {

@@ -81,7 +81,7 @@ public class CursedScp079Role : CursedRole
 
     public Cursed079Camera CurrentCamera => new (ScpRoleBase.CurrentCamera);
 
-    public Color AmbientLight => ScpRoleBase.AmbientLight;
+    public float AmbientLight => ScpRoleBase.AmbientLight;
 
     public bool InsufficientLight => ScpRoleBase.InsufficientLight;
 
@@ -127,7 +127,7 @@ public class CursedScp079Role : CursedRole
         if (BlackoutZoneAbility is null)
             return;
 
-        foreach (FlickerableLightController lightController in FlickerableLightController.Instances)
+        foreach (RoomLightController lightController in RoomLightController.Instances)
         {
             if (lightController.Room.Zone == BlackoutZoneAbility._syncZone)
             {

@@ -20,7 +20,7 @@ public class AmbientSoundPlayerStartPatch
 {
     private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions)
     {
-        List<CodeInstruction> newInstructions = EventManager.CheckEvent<AmbientSoundPlayerStartPatch>(31, instructions);
+        List<CodeInstruction> newInstructions = CursedEventManager.CheckEvent<AmbientSoundPlayerStartPatch>(31, instructions);
 
         newInstructions.InsertRange(newInstructions.Count - 1, new CodeInstruction[]
         {

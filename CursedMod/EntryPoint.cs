@@ -10,31 +10,28 @@ using CursedMod.Events;
 using CursedMod.Features.Logger;
 using CursedMod.Loader;
 using CursedMod.Loader.Configurations;
-using PluginAPI.Core;
 using PluginAPI.Core.Attributes;
 
 namespace CursedMod;
 
 internal class EntryPoint
 {
-    [PluginConfig] 
-    public static CursedModConfiguration ModConfiguration;
-
-    public static PluginHandler PluginHandler { get; private set; }
-
     [PluginEntryPoint("CursedMod", CursedModInformation.Version, "A rich low level modding framework.", "Jesus-QC")]
     private void Init()
     {
-        if (!ModConfiguration.LoadCursedMod)
+        CursedPaths.LoadPaths();
+        CursedModConfigurationManager.LoadConfigurations();
+
+        if (!CursedModConfigurationManager.LoadedConfiguration.LoadCursedMod)
+        {
+            CursedLogger.InternalPrint("CursedMod is disabled inside the configuration.");
             return;
+        }
         
-        PluginHandler = PluginHandler.Get(this);
-
         CursedLogger.InternalPrint($"Welcome to CursedMod {CursedModInformation.Version}");
-
-        EventManager.PatchEvents();
         
-        CursedPaths.LoadPaths(PluginHandler.PluginDirectoryPath);
         CursedLoader.LoadAll();
+        
+        CursedEventManager.PatchEvents();
     }
 }

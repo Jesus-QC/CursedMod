@@ -9,7 +9,7 @@
 using System;
 using System.Collections.Generic;
 using System.Reflection.Emit;
-using CursedMod.Events.Handlers.Round;
+using CursedMod.Events.Handlers;
 using GameCore;
 using HarmonyLib;
 using MEC;
@@ -18,7 +18,6 @@ using NorthwoodLib.Pools;
 using PlayerRoles;
 using PlayerStatsSystem;
 using PluginAPI.Core;
-using PluginAPI.Enums;
 using PluginAPI.Events;
 using RoundRestarting;
 using UnityEngine;
@@ -26,12 +25,13 @@ using Utils.NonAllocLINQ;
 
 namespace CursedMod.Events.Patches.Round;
 
+[DynamicEventPatch(typeof(CursedRoundEventsHandler), nameof(CursedRoundEventsHandler.RoundEnded))]
 [HarmonyPatch(typeof(RoundSummary), nameof(RoundSummary.Start))]
 public class RoundSummaryPatch
 {
     private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
     {
-        List<CodeInstruction> newInstructions = EventManager.CheckEvent<RoundSummaryPatch>(41, instructions);
+        List<CodeInstruction> newInstructions = CursedEventManager.CheckEvent<RoundSummaryPatch>(41, instructions);
 
         newInstructions.Clear();
         
@@ -156,7 +156,7 @@ public class RoundSummaryPatch
             
             if (!instance._roundEnded)
             {
-                RoundEndConditionsCheckCancellationData.RoundEndConditionsCheckCancellation cancellation = PluginAPI.Events.EventManager.ExecuteEvent<RoundEndConditionsCheckCancellationData>(ServerEventType.RoundEndConditionsCheck, flag).Cancellation;
+                RoundEndConditionsCheckCancellationData.RoundEndConditionsCheckCancellation cancellation = EventManager.ExecuteEvent<RoundEndConditionsCheckCancellationData>(new RoundEndConditionsCheckEvent(flag)).Cancellation;
                 int num4 = (int)cancellation;
                 if (num4 != 1)
                 {
@@ -193,7 +193,7 @@ public class RoundSummaryPatch
                 leadingTeam = RoundSummary.EscapedClassD >= RoundSummary.EscapedScientists ? RoundSummary.LeadingTeam.ChaosInsurgency : RoundSummary.LeadingTeam.Draw;
             }
             
-            RoundEndCancellationData roundEndCancellationData = PluginAPI.Events.EventManager.ExecuteEvent<RoundEndCancellationData>(ServerEventType.RoundEnd, leadingTeam);
+            RoundEndCancellationData roundEndCancellationData = EventManager.ExecuteEvent<RoundEndCancellationData>(new RoundEndEvent(leadingTeam));
             
             while (roundEndCancellationData.IsCancelled)
             {
@@ -201,10 +201,10 @@ public class RoundSummaryPatch
                     yield break;
 
                 yield return Timing.WaitForSeconds(roundEndCancellationData.Delay);
-                roundEndCancellationData = PluginAPI.Events.EventManager.ExecuteEvent<RoundEndCancellationData>(ServerEventType.RoundEnd, leadingTeam);
+                roundEndCancellationData = EventManager.ExecuteEvent<RoundEndCancellationData>(new RoundEndEvent(leadingTeam));
             }
             
-            RoundEventsHandler.OnRoundEnded();
+            CursedRoundEventsHandler.OnRoundEnded();
             
             if (Statistics.FastestEndedRound.Duration > RoundStart.RoundLength)
                 Statistics.FastestEndedRound = new Statistics.FastestRound(leadingTeam, RoundStart.RoundLength, DateTime.Now);

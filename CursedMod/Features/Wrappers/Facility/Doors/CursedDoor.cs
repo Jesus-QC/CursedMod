@@ -7,6 +7,7 @@
 // -----------------------------------------------------------------------
 
 using System.Collections.Generic;
+using System.Linq;
 using CursedMod.Features.Enums;
 using CursedMod.Features.Wrappers.Player;
 using Interactables.Interobjects;
@@ -33,6 +34,10 @@ public class CursedDoor
         Tag = Base.GetComponent<DoorNametagExtension>();
         DoorType = DoorType.Basic;
     }
+    
+    public static IEnumerable<CursedDoor> Collection => Dictionary.Values;
+    
+    public static IEnumerable<CursedDoor> List => Dictionary.Values.ToList();
     
     public DoorVariant Base { get; }
     
@@ -115,13 +120,11 @@ public class CursedDoor
     public bool IsDamageable => Base is IDamageableDoor;
     
     public bool IsDestroyed => Base is IDamageableDoor { IsDestroyed: true };
-    
-    public static IEnumerable<CursedDoor> GetAllDoors() => Dictionary.Values;
 
     public static CursedDoor Get(DoorVariant doorVariant)
     {
-        if (Dictionary.ContainsKey(doorVariant))
-            return Dictionary[doorVariant];
+        if (Dictionary.TryGetValue(doorVariant, out CursedDoor value))
+            return value;
         
         return doorVariant switch
         {

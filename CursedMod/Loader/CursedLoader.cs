@@ -13,6 +13,7 @@ using System.Reflection;
 using CursedMod.Features.Logger;
 using CursedMod.Loader.Modules;
 using CursedMod.Loader.Modules.Configuration;
+using CursedMod.Loader.Modules.Enums;
 using Serialization;
 
 namespace CursedMod.Loader;
@@ -25,16 +26,22 @@ public static class CursedLoader
 
     public static void LoadAll()
     {
-        LoadDependencies();
-        LoadModules();
+        LoadAllDependencies();
+        LoadAllModules();
         EnableAllModules();
     }
     
-    public static void LoadDependencies()
+    public static void LoadAllDependencies()
     {
-        CursedLogger.InternalPrint("Loading dependencies.");
-        
-        foreach (FileInfo file in CursedPaths.DependenciesPath.GetFiles("*.dll"))
+        CursedLogger.InternalPrint("Loading global dependencies.");
+        LoadDependencies(CursedPaths.GlobalDependencies.GetFiles("*.dll"));
+        CursedLogger.InternalPrint("Loading local dependencies.");
+        LoadDependencies(CursedPaths.LocalDependencies.GetFiles("*.dll"));
+    }
+
+    public static void LoadDependencies(IEnumerable<FileInfo> files)
+    {
+        foreach (FileInfo file in files)
         {
             try
             {
@@ -49,11 +56,17 @@ public static class CursedLoader
         }
     }
     
-    public static void LoadModules()
+    public static void LoadAllModules()
     {
-        CursedLogger.InternalPrint("Loading modules.");
-        
-        foreach (FileInfo file in CursedPaths.PluginsPath.GetFiles("*.dll"))
+        CursedLogger.InternalPrint("Loading global modules.");
+        LoadModules(CursedPaths.GlobalPlugins.GetFiles("*.dll"), ModuleType.Global);
+        CursedLogger.InternalPrint("Loading local modules.");
+        LoadModules(CursedPaths.LocalPlugins.GetFiles("*.dll"), ModuleType.Local);
+    }
+
+    public static void LoadModules(IEnumerable<FileInfo> files, ModuleType moduleType)
+    {
+        foreach (FileInfo file in files)
         {
             try
             {
@@ -65,7 +78,7 @@ public static class CursedLoader
                         continue;
                     
                     ICursedModule module = Activator.CreateInstance(type) as ICursedModule;
-                    LoadModule(module, moduleAssembly);
+                    LoadModule(module, moduleAssembly, moduleType);
                 }
             }
             catch (Exception e)
@@ -89,19 +102,21 @@ public static class CursedLoader
 
     public static void DisableModules()
     {
+        CursedLogger.InternalPrint("Disabling modules.");
+        
         foreach (ICursedModule module in EnabledModules)
         {
-            module.OnUnloaded();
+            DisableModule(module);
         }
         
         EnabledModules.Clear();
     }
 
-    public static void LoadModule(ICursedModule module, Assembly assembly)
+    public static void LoadModule(ICursedModule module, Assembly assembly, ModuleType moduleType)
     {
         CursedLogger.LogInformation($"Loading {module}");
         module.ModuleAssembly = assembly;
-        LoadModuleProperties(module);
+        LoadModuleProperties(module, moduleType);
         LoadedModules.Add(module);
     }
 
@@ -122,11 +137,28 @@ public static class CursedLoader
         }
     }
 
-    public static void LoadModuleProperties(ICursedModule module)
+    public static void DisableModule(ICursedModule module)
     {
         try
         {
-            module.ModuleDirectory = Directory.CreateDirectory(Path.Combine(CursedPaths.PluginsPath.FullName, module.ModuleName));
+            module.OnUnloaded();
+            module.OnUnregisteringCommands();
+        }
+        catch (Exception e)
+        {
+            CursedLogger.LogError($"Couldn't load the module {module}. Exception below:");
+            CursedLogger.LogError(e);
+        }
+    }
+
+    public static void LoadModuleProperties(ICursedModule module, ModuleType moduleType)
+    {
+        try
+        {
+            module.ModuleType = moduleType;
+
+            DirectoryInfo pluginsDirectory = moduleType == ModuleType.Global ? CursedPaths.GlobalPlugins : CursedPaths.LocalPlugins;
+            module.ModuleDirectory = Directory.CreateDirectory(Path.Combine(pluginsDirectory.FullName, module.ModuleName));
         
             string propertiesPath = Path.Combine(module.ModuleDirectory.FullName, "properties.yml");
         

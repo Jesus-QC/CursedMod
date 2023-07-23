@@ -9,18 +9,19 @@
 using System.Collections.Generic;
 using System.Reflection.Emit;
 using CursedMod.Events.Arguments.Authentication;
-using CursedMod.Events.Handlers.Authentication;
+using CursedMod.Events.Handlers;
 using HarmonyLib;
 using NorthwoodLib.Pools;
 
 namespace CursedMod.Events.Patches.Authentication;
 
+[DynamicEventPatch(typeof(CursedAuthenticationEventsHandler), nameof(CursedAuthenticationEventsHandler.CheckingReservedSlot))]
 [HarmonyPatch(typeof(ReservedSlot), nameof(ReservedSlot.HasReservedSlot))]
 public class ReservedSlotCheckPatch
 {
     private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
     {
-        List<CodeInstruction> newInstructions = EventManager.CheckEvent<ReservedSlotCheckPatch>(37, instructions);
+        List<CodeInstruction> newInstructions = CursedEventManager.CheckEvent<ReservedSlotCheckPatch>(28, instructions);
 
         int offset = newInstructions.FindIndex(x => x.opcode == OpCodes.Stloc_1) + 1;
         
@@ -32,7 +33,7 @@ public class ReservedSlotCheckPatch
             new (OpCodes.Newobj, AccessTools.GetDeclaredConstructors(typeof(CheckingReservedSlotEventArgs))[0]),
             new (OpCodes.Dup),
             new (OpCodes.Dup),
-            new (OpCodes.Call, AccessTools.Method(typeof(AuthenticationEventsHandler), nameof(AuthenticationEventsHandler.OnCheckingReservedSlot))),
+            new (OpCodes.Call, AccessTools.Method(typeof(CursedAuthenticationEventsHandler), nameof(CursedAuthenticationEventsHandler.OnCheckingReservedSlot))),
             new (OpCodes.Callvirt, AccessTools.PropertyGetter(typeof(CheckingReservedSlotEventArgs), nameof(CheckingReservedSlotEventArgs.HasReservedSlot))),
             new (OpCodes.Stloc_0),
             new (OpCodes.Callvirt, AccessTools.PropertyGetter(typeof(CheckingReservedSlotEventArgs), nameof(CheckingReservedSlotEventArgs.CheckReservedSlotCancellationData))),

@@ -9,18 +9,19 @@
 using System.Collections.Generic;
 using System.Reflection.Emit;
 using CursedMod.Events.Arguments.Player;
-using CursedMod.Events.Handlers.Player;
+using CursedMod.Events.Handlers;
 using HarmonyLib;
 using NorthwoodLib.Pools;
 
 namespace CursedMod.Events.Patches.Player.PlayerStats;
 
+[DynamicEventPatch(typeof(CursedPlayerEventsHandler), nameof(CursedPlayerEventsHandler.Dying))]
 [HarmonyPatch(typeof(PlayerStatsSystem.PlayerStats), nameof(PlayerStatsSystem.PlayerStats.KillPlayer))]
 public class KillPlayerPatch
 {
     private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
     {
-        List<CodeInstruction> newInstructions = EventManager.CheckEvent<KillPlayerPatch>(37, instructions);
+        List<CodeInstruction> newInstructions = CursedEventManager.CheckEvent<KillPlayerPatch>(37, instructions);
 
         Label ret = generator.DefineLabel();
         
@@ -32,9 +33,17 @@ public class KillPlayerPatch
             new (OpCodes.Ldarg_1),
             new (OpCodes.Newobj, AccessTools.GetDeclaredConstructors(typeof(PlayerDyingEventArgs))[0]),
             new (OpCodes.Dup),
-            new (OpCodes.Call, AccessTools.Method(typeof(PlayerEventsHandler), nameof(PlayerEventsHandler.OnPlayerDying))),
+            new (OpCodes.Call, AccessTools.Method(typeof(CursedPlayerEventsHandler), nameof(CursedPlayerEventsHandler.OnPlayerDying))),
             new (OpCodes.Callvirt, AccessTools.PropertyGetter(typeof(PlayerDyingEventArgs), nameof(PlayerDyingEventArgs.IsAllowed))),
             new (OpCodes.Brfalse_S, ret),
+        });
+        
+        newInstructions.InsertRange(newInstructions.Count - 1, new CodeInstruction[]
+        {
+            new (OpCodes.Ldarg_0),
+            new (OpCodes.Ldarg_1),
+            new (OpCodes.Newobj, AccessTools.GetDeclaredConstructors(typeof(PlayerDiedEventArgs))[0]),
+            new (OpCodes.Call, AccessTools.Method(typeof(CursedPlayerEventsHandler), nameof(CursedPlayerEventsHandler.OnPlayerDied))),
         });
         
         foreach (CodeInstruction instruction in newInstructions)

@@ -8,15 +8,14 @@
 
 using System;
 using CursedMod.Features.Wrappers.Player;
-using Mirror;
 
 namespace CursedMod.Events.Arguments.Player;
 
 public class PlayerDisconnectedEventArgs : EventArgs, ICursedPlayerEvent
 {
-    public PlayerDisconnectedEventArgs(NetworkConnection connection)
+    public PlayerDisconnectedEventArgs(ReferenceHub hub)
     {
-        Player = CursedPlayer.Get(connection.identity);
+        Player = CursedPlayer.Get(hub);
     }
     
     public CursedPlayer Player { get; }

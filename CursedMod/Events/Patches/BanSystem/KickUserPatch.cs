@@ -10,18 +10,19 @@ using System.Collections.Generic;
 using System.Reflection.Emit;
 using CommandSystem;
 using CursedMod.Events.Arguments.BanSystem;
-using CursedMod.Events.Handlers.BanSystem;
+using CursedMod.Events.Handlers;
 using HarmonyLib;
 using NorthwoodLib.Pools;
 
 namespace CursedMod.Events.Patches.BanSystem;
 
+[DynamicEventPatch(typeof(CursedBanSystemEventsHandler), nameof(CursedBanSystemEventsHandler.KickingPlayer))]
 [HarmonyPatch(typeof(BanPlayer), nameof(BanPlayer.KickUser), typeof(ReferenceHub), typeof(ICommandSender), typeof(string))]
 public class KickUserPatch
 {
     private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
     {
-        List<CodeInstruction> newInstructions = EventManager.CheckEvent<KickUserPatch>(27, instructions);
+        List<CodeInstruction> newInstructions = CursedEventManager.CheckEvent<KickUserPatch>(16, instructions);
 
         Label ret = generator.DefineLabel();
         LocalBuilder args = generator.DeclareLocal(typeof(KickingPlayerEventArgs));
@@ -36,7 +37,7 @@ public class KickUserPatch
             new (OpCodes.Newobj, AccessTools.GetDeclaredConstructors(typeof(KickingPlayerEventArgs))[0]),
             new (OpCodes.Stloc_S, args.LocalIndex),
             new (OpCodes.Ldloc_S, args.LocalIndex),
-            new (OpCodes.Call, AccessTools.Method(typeof(BanSystemEventsHandler), nameof(BanSystemEventsHandler.OnKickingPlayer))),
+            new (OpCodes.Call, AccessTools.Method(typeof(CursedBanSystemEventsHandler), nameof(CursedBanSystemEventsHandler.OnKickingPlayer))),
             new (OpCodes.Ldloc_S, args.LocalIndex),
             new (OpCodes.Callvirt, AccessTools.PropertyGetter(typeof(KickingPlayerEventArgs), nameof(KickingPlayerEventArgs.IsAllowed))),
             new (OpCodes.Brfalse_S, ret),

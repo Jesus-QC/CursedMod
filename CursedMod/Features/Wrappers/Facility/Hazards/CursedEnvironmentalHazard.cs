@@ -59,8 +59,8 @@ public class CursedEnvironmentalHazard
     
     public static CursedEnvironmentalHazard Get(EnvironmentalHazard environmentalHazard)
     {
-        if (Dictionary.ContainsKey(environmentalHazard))
-            return Dictionary[environmentalHazard];
+        if (Dictionary.TryGetValue(environmentalHazard, out CursedEnvironmentalHazard value))
+            return value;
         
         return environmentalHazard switch
         {

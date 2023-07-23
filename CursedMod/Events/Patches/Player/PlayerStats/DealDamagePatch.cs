@@ -9,18 +9,19 @@
 using System.Collections.Generic;
 using System.Reflection.Emit;
 using CursedMod.Events.Arguments.Player;
-using CursedMod.Events.Handlers.Player;
+using CursedMod.Events.Handlers;
 using HarmonyLib;
 using NorthwoodLib.Pools;
 
 namespace CursedMod.Events.Patches.Player.PlayerStats;
 
+[DynamicEventPatch(typeof(CursedPlayerEventsHandler), nameof(CursedPlayerEventsHandler.ReceivingDamage))]
 [HarmonyPatch(typeof(PlayerStatsSystem.PlayerStats), nameof(PlayerStatsSystem.PlayerStats.DealDamage))]
 public class DealDamagePatch
 {
     private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
     {
-        List<CodeInstruction> newInstructions = EventManager.CheckEvent<DealDamagePatch>(214, instructions);
+        List<CodeInstruction> newInstructions = CursedEventManager.CheckEvent<DealDamagePatch>(142, instructions);
 
         Label ret = generator.DefineLabel();
         
@@ -34,7 +35,7 @@ public class DealDamagePatch
             new (OpCodes.Ldarg_1),
             new (OpCodes.Newobj, AccessTools.GetDeclaredConstructors(typeof(PlayerReceivingDamageEventArgs))[0]),
             new (OpCodes.Dup),
-            new (OpCodes.Call, AccessTools.Method(typeof(PlayerEventsHandler), nameof(PlayerEventsHandler.OnPlayerReceivingDamage))),
+            new (OpCodes.Call, AccessTools.Method(typeof(CursedPlayerEventsHandler), nameof(CursedPlayerEventsHandler.OnPlayerReceivingDamage))),
             new (OpCodes.Callvirt, AccessTools.PropertyGetter(typeof(PlayerReceivingDamageEventArgs), nameof(PlayerReceivingDamageEventArgs.IsAllowed))),
             new (OpCodes.Brfalse_S, ret),
         });

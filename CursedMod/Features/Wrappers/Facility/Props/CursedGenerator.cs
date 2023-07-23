@@ -6,6 +6,8 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
+using System.Collections.Generic;
+using System.Linq;
 using CursedMod.Features.Wrappers.Player;
 using Interactables.Interobjects.DoorUtils;
 using MapGeneration.Distributors;
@@ -16,10 +18,18 @@ namespace CursedMod.Features.Wrappers.Facility.Props;
 
 public class CursedGenerator
 {
+    public static readonly Dictionary<Scp079Generator, CursedGenerator> Dictionary = new ();
+    
     internal CursedGenerator(Scp079Generator generator)
     {
+        Dictionary.Add(generator, this);
+        
         Base = generator;
     }
+
+    public static IEnumerable<CursedGenerator> Collection => Dictionary.Values;
+    
+    public static IEnumerable<CursedGenerator> List => Dictionary.Values.ToList();
     
     public Scp079Generator Base { get; }
 
@@ -93,6 +103,14 @@ public class CursedGenerator
     {
         get => Base._requiredPermission;
         set => Base._requiredPermission = value;
+    }
+
+    public static CursedGenerator Get(Scp079Generator generator)
+    {
+        if (Dictionary.TryGetValue(generator, out CursedGenerator apiGen))
+            return apiGen;
+
+        return new CursedGenerator(generator);
     }
 
     public void SetPermission(KeycardPermissions keycard, bool isEnabled)

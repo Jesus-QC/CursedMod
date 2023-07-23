@@ -33,7 +33,7 @@ public class CursedPrimitiveObject : CursedAdminToy
         set => Base.NetworkMaterialColor = value;
     }
     
-    public static CursedPrimitiveObject Create(PrimitiveType? type = null, Vector3? position = null, Vector3? scale = null, Vector3? rotation = null, Color? color = null)
+    public static CursedPrimitiveObject Create(PrimitiveType? type = null, Vector3? position = null, Vector3? scale = null, Vector3? rotation = null, Color? color = null, bool spawn = false)
     {
         PrimitiveObjectToy primitiveObjectToy = Object.Instantiate(CursedPrefabManager.PrimitiveObject);
         CursedPrimitiveObject primitive = new (primitiveObjectToy);
@@ -52,6 +52,9 @@ public class CursedPrimitiveObject : CursedAdminToy
 
         if (color.HasValue)
             primitive.Color = color.Value;
+
+        if (spawn)
+            primitive.Spawn();
 
         return primitive;
     }

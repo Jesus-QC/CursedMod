@@ -9,19 +9,20 @@
 using System.Collections.Generic;
 using System.Reflection.Emit;
 using CursedMod.Events.Arguments.Items;
-using CursedMod.Events.Handlers.Items;
+using CursedMod.Events.Handlers;
 using HarmonyLib;
 using InventorySystem;
 using NorthwoodLib.Pools;
 
 namespace CursedMod.Events.Patches.Items;
 
-[HarmonyPatch(typeof(Inventory), nameof(Inventory.UserCode_CmdDropItem))]
+[DynamicEventPatch(typeof(CursedItemsEventsHandler), nameof(CursedItemsEventsHandler.PlayerDroppingItem))]
+[HarmonyPatch(typeof(Inventory), nameof(Inventory.UserCode_CmdDropItem__UInt16__Boolean))]
 public class DropItemPatch
 {
     private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
     {
-        List<CodeInstruction> newInstructions = EventManager.CheckEvent<DropItemPatch>(174, instructions);
+        List<CodeInstruction> newInstructions = CursedEventManager.CheckEvent<DropItemPatch>(155, instructions);
 
         LocalBuilder args = generator.DeclareLocal(typeof(PlayerDroppingItemEventArgs));
         Label ret = generator.DefineLabel();
@@ -39,7 +40,7 @@ public class DropItemPatch
             new (OpCodes.Newobj, AccessTools.GetDeclaredConstructors(typeof(PlayerDroppingItemEventArgs))[0]),
             new (OpCodes.Stloc_S, args.LocalIndex),
             new (OpCodes.Ldloc_S, args.LocalIndex),
-            new (OpCodes.Call, AccessTools.Method(typeof(ItemsEventsHandler), nameof(ItemsEventsHandler.OnPlayerDroppingItem))),
+            new (OpCodes.Call, AccessTools.Method(typeof(CursedItemsEventsHandler), nameof(CursedItemsEventsHandler.OnPlayerDroppingItem))),
             new (OpCodes.Ldloc_S, args.LocalIndex),
             new (OpCodes.Callvirt, AccessTools.PropertyGetter(typeof(PlayerDroppingItemEventArgs), nameof(PlayerDroppingItemEventArgs.IsAllowed))),
             new (OpCodes.Brfalse_S, ret),

@@ -9,19 +9,20 @@
 using System.Collections.Generic;
 using System.Reflection.Emit;
 using CursedMod.Events.Arguments.Items;
-using CursedMod.Events.Handlers.Items;
+using CursedMod.Events.Handlers;
 using HarmonyLib;
 using InventorySystem.Items.ThrowableProjectiles;
 using NorthwoodLib.Pools;
 
 namespace CursedMod.Events.Patches.Items.ThrowableProjectiles;
 
+[DynamicEventPatch(typeof(CursedItemsEventsHandler), nameof(CursedItemsEventsHandler.PlayerCancellingThrow))]
 [HarmonyPatch(typeof(ThrowableItem), nameof(ThrowableItem.ServerProcessCancellation))]
 public class ServerProcessCancellationPatch
 {
     private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
     {
-        List<CodeInstruction> newInstructions = EventManager.CheckEvent<ServerProcessCancellationPatch>(30, instructions);
+        List<CodeInstruction> newInstructions = CursedEventManager.CheckEvent<ServerProcessCancellationPatch>(30, instructions);
 
         Label ret = generator.DefineLabel();
         int index = newInstructions.FindIndex(x => x.opcode == OpCodes.Bgt_Un_S) + 2;
@@ -33,7 +34,7 @@ public class ServerProcessCancellationPatch
             new CodeInstruction(OpCodes.Ldarg_0).MoveLabelsFrom(newInstructions[index]),
             new (OpCodes.Newobj, AccessTools.GetDeclaredConstructors(typeof(PlayerCancellingThrowEventArgs))[0]),
             new (OpCodes.Dup),
-            new (OpCodes.Call, AccessTools.Method(typeof(ItemsEventsHandler), nameof(ItemsEventsHandler.OnPlayerCancellingThrow))),
+            new (OpCodes.Call, AccessTools.Method(typeof(CursedItemsEventsHandler), nameof(CursedItemsEventsHandler.OnPlayerCancellingThrow))),
             new (OpCodes.Callvirt, AccessTools.PropertyGetter(typeof(PlayerCancellingThrowEventArgs), nameof(PlayerCancellingThrowEventArgs.IsAllowed))),
             new (OpCodes.Brfalse_S, ret),
         });

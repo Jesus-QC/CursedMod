@@ -45,7 +45,7 @@ public class CursedLightSource : CursedAdminToy
         set => Base.NetworkLightShadows = value;
     }
     
-    public static CursedLightSource Create(Vector3? position = null, Vector3? rotation = null, Vector3? scale = null, float? lightIntensity = null, float? lightRange = null, Color? lightColor = null, bool? lightShadows = null)
+    public static CursedLightSource Create(Vector3? position = null, Vector3? rotation = null, Vector3? scale = null, float? lightIntensity = null, float? lightRange = null, Color? lightColor = null, bool? lightShadows = null, bool spawn = false)
     {
         LightSourceToy lightSourceToy = Object.Instantiate(CursedPrefabManager.LightSource);
         CursedLightSource light = new (lightSourceToy);
@@ -70,6 +70,9 @@ public class CursedLightSource : CursedAdminToy
 
         if (lightShadows.HasValue)
             light.LightShadows = lightShadows.Value;
+
+        if (spawn)
+            light.Spawn();
 
         return light;
     }
