@@ -49,12 +49,6 @@ public static class CursedServer
         set => CustomNetworkManager.Modded = value;
     }
 
-    public static bool HeavilyModded
-    {
-        get => CustomNetworkManager.HeavilyModded;
-        set => CustomNetworkManager.HeavilyModded = value;
-    }
-
     public static bool IsFriendlyFireEnabled
     {
         get => PluginAPI.Core.Server.FriendlyFire;
@@ -181,8 +175,6 @@ public static class CursedServer
     public static HashSet<string> ReservedSlotUsers => ReservedSlot.Users;
 
     public static bool AdminConnected => PlayerList._anyAdminOnServer;
-    
-    public static bool IsVerified => ServerStatic.PermissionsHandler.IsVerified;
     
     public static string IpAddress => ServerConsole.Ip;
     

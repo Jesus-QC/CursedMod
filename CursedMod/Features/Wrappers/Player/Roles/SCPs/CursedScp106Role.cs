@@ -67,8 +67,8 @@ public class CursedScp106Role : CursedFpcRole
     
     public float VigorAmount
     {
-        get => Vigor.VigorAmount;
-        set => Vigor.VigorAmount = value;
+        get => Vigor.CurValue;
+        set => Vigor.CurValue = value;
     }
     
     public void UseHunterAtlasTeleport(Vector3 position, Vector3 offset)
@@ -89,7 +89,7 @@ public class CursedScp106Role : CursedFpcRole
             return;
         
         float num = (position2 - HuntersAtlasAbility._syncPos).MagnitudeIgnoreY() * 0.019f;
-        if (num > HuntersAtlasAbility.Vigor.VigorAmount)
+        if (num > HuntersAtlasAbility.Vigor.CurValue)
             return;
         
         HuntersAtlasAbility._estimatedCost = num;
@@ -105,7 +105,7 @@ public class CursedScp106Role : CursedFpcRole
             return;
         
         Attack.SendCooldown(Attack._hitCooldown);
-        Attack.Vigor.VigorAmount += 0.3f;
+        Attack.Vigor.CurValue += 0.3f;
         Attack.ReduceSinkholeCooldown();
         Hitmarker.SendHitmarker(Attack.Owner, 1f);
         

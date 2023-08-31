@@ -19,6 +19,7 @@ using PlayerRoles;
 using PlayerStatsSystem;
 using PluginAPI.Core;
 using PluginAPI.Events;
+using Respawning;
 using RoundRestarting;
 using UnityEngine;
 using Utils.NonAllocLINQ;
@@ -31,7 +32,7 @@ public class RoundSummaryPatch
 {
     private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
     {
-        List<CodeInstruction> newInstructions = CursedEventManager.CheckEvent<RoundSummaryPatch>(41, instructions);
+        List<CodeInstruction> newInstructions = CursedEventManager.CheckEvent<RoundSummaryPatch>(58, instructions);
 
         newInstructions.Clear();
         
@@ -50,188 +51,202 @@ public class RoundSummaryPatch
 
     private static void StartRoundSummary(RoundSummary instance)
     {
-        RoundSummary.singleton = instance;
-        RoundSummary._singletonSet = true;
-        
-        if (!NetworkServer.active)
-            return;
-        
-        RoundSummary.roundTime = 0;
-        instance.KeepRoundOnOne = !ConfigFile.ServerConfig.GetBool("end_round_on_one_player");
-        
-        Timing.RunCoroutine(ProcessRoundCheck(instance), Segment.FixedUpdate);
-        
-        RoundSummary.KilledBySCPs = 0;
-        RoundSummary.EscapedClassD = 0;
-        RoundSummary.EscapedScientists = 0;
-        RoundSummary.ChangedIntoZombies = 0;
-        RoundSummary.Kills = 0;
-        PlayerRoleManager.OnServerRoleSet += instance.OnRoleChanged;
-        PlayerStats.OnAnyPlayerDied += instance.OnAnyPlayerDied;
+            RoundSummary.singleton = instance;
+            RoundSummary._singletonSet = true;
+            if (!NetworkServer.active)
+            {
+                    return;
+            }
+            RoundSummary.roundTime = 0;
+            instance.KeepRoundOnOne = !ConfigFile.ServerConfig.GetBool("end_round_on_one_player", false);
+            Timing.RunCoroutine(ProcessRoundCheck(instance), Segment.FixedUpdate);
+            RoundSummary.KilledBySCPs = 0;
+            RoundSummary.EscapedClassD = 0;
+            RoundSummary.EscapedScientists = 0;
+            RoundSummary.ChangedIntoZombies = 0;
+            RoundSummary.Kills = 0;
+            instance.ChaosTargetCount = ReferenceHub.AllHubs.Count((ReferenceHub hub) => hub.GetTeam() == Team.ChaosInsurgency);
+            PlayerRoleManager.OnServerRoleSet += instance.OnServerRoleSet;
+            RespawnManager.ServerOnRespawned += instance.ServerOnRespawned;
+            PlayerStats.OnAnyPlayerDied += instance.OnAnyPlayerDied;
     }
     
     private static IEnumerator<float> ProcessRoundCheck(RoundSummary instance)
     {
-        float time = Time.unscaledTime; 
-        while (instance != null) 
-        { 
+        float time = Time.unscaledTime;
+        while (instance != null)
+        {
             yield return Timing.WaitForSeconds(2.5f);
-
-            if (RoundSummary.RoundLock) 
-                continue;
-            
-            if (instance.KeepRoundOnOne && ReferenceHub.AllHubs.Count(x => x.characterClassManager.InstanceMode != ClientInstanceMode.DedicatedServer) < 2)
-                continue;
-
-            if (!RoundSummary.RoundInProgress() || Time.unscaledTime - time < 15f)
-                continue;
-            
-            RoundSummary.SumInfo_ClassList newList = default;
-            
-            foreach (ReferenceHub hub in ReferenceHub.AllHubs)
+            if (!RoundSummary.RoundLock)
             {
-                switch (hub.GetTeam())
+                if ( instance.KeepRoundOnOne)
                 {
-                    case Team.SCPs:
-                        if (hub.GetRoleId() == RoleTypeId.Scp0492)
-                            newList.zombies++;
+                        if (ReferenceHub.AllHubs.Count((ReferenceHub x) => x.characterClassManager.InstanceMode != ClientInstanceMode.DedicatedServer) < 2)
+                        {
+                                continue;
+                        }
+                }
+                if (RoundSummary.RoundInProgress() && Time.unscaledTime - time >= 15f)
+                {
+                        RoundSummary.SumInfo_ClassList newList = default(RoundSummary.SumInfo_ClassList);
+                        foreach (ReferenceHub hub in ReferenceHub.AllHubs)
+                        {
+                                switch (hub.GetTeam())
+                                {
+                                        case Team.SCPs:
+                                                if (hub.GetRoleId() == RoleTypeId.Scp0492)
+                                                {
+                                                        newList.zombies++;
+                                                }
+                                                else
+                                                {
+                                                        newList.scps_except_zombies++;
+                                                }
+                                                break;
+                                        case Team.FoundationForces:
+                                                newList.mtf_and_guards++;
+                                                break;
+                                        case Team.ChaosInsurgency:
+                                                newList.chaos_insurgents++;
+                                                break;
+                                        case Team.Scientists:
+                                                newList.scientists++;
+                                                break;
+                                        case Team.ClassD:
+                                                newList.class_ds++;
+                                                break;
+                                }
+                        }
+                        yield return float.NegativeInfinity;
+                        newList.warhead_kills = (AlphaWarheadController.Detonated ? AlphaWarheadController.Singleton.WarheadKills : -1);
+                        yield return float.NegativeInfinity;
+                        int facilityForces = newList.mtf_and_guards + newList.scientists;
+                        int chaosInsurgency = newList.chaos_insurgents + newList.class_ds;
+                        int anomalies = newList.scps_except_zombies + newList.zombies;
+                        int num = newList.class_ds + RoundSummary.EscapedClassD;
+                        int num2 = newList.scientists + RoundSummary.EscapedScientists;
+                        RoundSummary.SurvivingSCPs = newList.scps_except_zombies;
+                        float dEscapePercentage = (float)((instance.classlistStart.class_ds == 0) ? 0 : (num / instance.classlistStart.class_ds));
+                        float sEscapePercentage = (float)((instance.classlistStart.scientists == 0) ? 1 : (num2 / instance.classlistStart.scientists));
+                        bool flag;
+                        if (newList.class_ds <= 0 && facilityForces <= 0 && instance.ChaosTargetCount == 0)
+                        {
+                                flag = true;
+                        }
                         else
-                            newList.scps_except_zombies++;
-                        break;
-                    case Team.FoundationForces:
-                        newList.mtf_and_guards++;
-                        break;
-                    case Team.ChaosInsurgency:
-                        newList.chaos_insurgents++;
-                        break;
-                    case Team.Scientists:
-                        newList.scientists++;
-                        break;
-                    case Team.ClassD:
-                        newList.class_ds++;
-                        break;
-                    case Team.Dead:
-                        break;
-                    case Team.OtherAlive:
-                        break;
-                    default:
-                        throw new ArgumentOutOfRangeException();
+                        {
+                                int num3 = 0;
+                                if (facilityForces > 0)
+                                {
+                                        num3++;
+                                }
+                                if (chaosInsurgency > 0)
+                                {
+                                        num3++;
+                                }
+                                if (anomalies > 0)
+                                {
+                                        num3++;
+                                }
+                                
+                                flag = (num3 <= 1);
+                        }
+                        
+                        if (!instance._roundEnded)
+                        {
+                                RoundEndConditionsCheckCancellationData.RoundEndConditionsCheckCancellation cancellation = EventManager.ExecuteEvent<RoundEndConditionsCheckCancellationData>(new RoundEndConditionsCheckEvent(flag)).Cancellation;
+                                if (cancellation != (RoundEndConditionsCheckCancellationData.RoundEndConditionsCheckCancellation)1)
+                                {
+                                        if (cancellation == (RoundEndConditionsCheckCancellationData.RoundEndConditionsCheckCancellation)2)
+                                        {
+                                                if (!instance._roundEnded)
+                                                {
+                                                        continue;
+                                                }
+                                        }
+                                        if (flag)
+                                        {
+                                                instance._roundEnded = true;
+                                        }
+                                }
+                                else
+                                {
+                                instance._roundEnded = true;
+                                }
+                        }
+                        if (instance._roundEnded)
+                        {
+                                bool flag2 = facilityForces > 0;
+                                bool flag3 = chaosInsurgency > 0;
+                                bool flag4 = anomalies > 0;
+                                RoundSummary.LeadingTeam leadingTeam = RoundSummary.LeadingTeam.Draw;
+                                if (flag2)
+                                {
+                                        leadingTeam = ((RoundSummary.EscapedScientists >= RoundSummary.EscapedClassD) ? RoundSummary.LeadingTeam.FacilityForces : RoundSummary.LeadingTeam.Draw);
+                                }
+                                else if (flag4 || (flag4 && flag3))
+                                {
+                                        leadingTeam = ((RoundSummary.EscapedClassD > RoundSummary.SurvivingSCPs) ? RoundSummary.LeadingTeam.ChaosInsurgency : ((RoundSummary.SurvivingSCPs > RoundSummary.EscapedScientists) ? RoundSummary.LeadingTeam.Anomalies : RoundSummary.LeadingTeam.Draw));
+                                }
+                                else if (flag3)
+                                {
+                                        leadingTeam = ((RoundSummary.EscapedClassD >= RoundSummary.EscapedScientists) ? RoundSummary.LeadingTeam.ChaosInsurgency : RoundSummary.LeadingTeam.Draw);
+                                }
+                                RoundEndCancellationData roundEndCancellationData = EventManager.ExecuteEvent<RoundEndCancellationData>(new RoundEndEvent(leadingTeam));
+                                while (roundEndCancellationData.IsCancelled)
+                                {
+                                        if (roundEndCancellationData.Delay <= 0f)
+                                        {
+                                                yield break;
+                                        }
+                                        yield return Timing.WaitForSeconds(roundEndCancellationData.Delay);
+                                        roundEndCancellationData = EventManager.ExecuteEvent<RoundEndCancellationData>(new RoundEndEvent(leadingTeam));
+                                }
+                                
+                                CursedRoundEventsHandler.OnRoundEnded();
+                                        
+                                if (Statistics.FastestEndedRound.Duration > RoundStart.RoundLength)
+                                {
+                                        Statistics.FastestEndedRound = new Statistics.FastestRound(leadingTeam, RoundStart.RoundLength, DateTime.Now);
+                                }
+                                Statistics.CurrentRound.ClassDAlive = newList.class_ds;
+                                Statistics.CurrentRound.ScientistsAlive = newList.scientists;
+                                Statistics.CurrentRound.MtfAndGuardsAlive = newList.mtf_and_guards;
+                                Statistics.CurrentRound.ChaosInsurgencyAlive = newList.chaos_insurgents;
+                                Statistics.CurrentRound.ZombiesAlive = newList.zombies;
+                                Statistics.CurrentRound.ScpsAlive = newList.scps_except_zombies;
+                                Statistics.CurrentRound.WarheadKills = newList.warhead_kills;
+                                FriendlyFireConfig.PauseDetector = true;
+                                string text = string.Concat(new string[]
+                                {
+                                        "Round finished! Anomalies: ",
+                                        anomalies.ToString(),
+                                        " | Chaos: ",
+                                        chaosInsurgency.ToString(),
+                                        " | Facility Forces: ",
+                                        facilityForces.ToString(),
+                                        " | D escaped percentage: ",
+                                        dEscapePercentage.ToString(),
+                                        " | S escaped percentage: ",
+                                        sEscapePercentage.ToString(),
+                                        ".",
+                                });
+                                GameCore.Console.AddLog(text, Color.gray, false, GameCore.Console.ConsoleLogType.Log);
+                                ServerLogs.AddLog(ServerLogs.Modules.Logger, text, ServerLogs.ServerLogType.GameEvent, false);
+                                yield return Timing.WaitForSeconds(1.5f);
+                                int num4 = Mathf.Clamp(ConfigFile.ServerConfig.GetInt("auto_round_restart_time", 10), 5, 1000);
+                                if (instance != null)
+                                {
+                                        instance.RpcShowRoundSummary(instance.classlistStart, newList, leadingTeam, RoundSummary.EscapedClassD, RoundSummary.EscapedScientists, RoundSummary.KilledBySCPs, num4, (int)RoundStart.RoundLength.TotalSeconds);
+                                }
+                                yield return Timing.WaitForSeconds((float)(num4 - 1));
+                                instance.RpcDimScreen();
+                                yield return Timing.WaitForSeconds(1f);
+                                RoundRestart.InitiateRoundRestart();
+                        }
                 }
             }
-
-            yield return float.NegativeInfinity;
-            
-            newList.warhead_kills = AlphaWarheadController.Detonated ? AlphaWarheadController.Singleton.WarheadKills : -1;
-            
-            yield return float.NegativeInfinity;
-            
-            int facilityForces = newList.mtf_and_guards + newList.scientists;
-            int chaosInsurgency = newList.chaos_insurgents + newList.class_ds;
-            int anomalies = newList.scps_except_zombies + newList.zombies;
-            int num = newList.class_ds + RoundSummary.EscapedClassD;
-            int num2 = newList.scientists + RoundSummary.EscapedScientists;
-            
-            RoundSummary.SurvivingSCPs = newList.scps_except_zombies;
-            
-            float dEscapePercentage = instance.classlistStart.class_ds == 0 ? 0 : num / instance.classlistStart.class_ds;
-            float sEscapePercentage = instance.classlistStart.scientists == 0 ? 1 : num2 / instance.classlistStart.scientists;
-            
-            bool flag;
-            
-            if (newList.class_ds <= 0 && facilityForces <= 0)
-            {
-                flag = true;
-            }
-            else
-            {
-                int num3 = 0;
-                if (facilityForces > 0)
-                    num3++;
-                if (chaosInsurgency > 0)
-                    num3++;
-                if (anomalies > 0)
-                    num3++;
-                flag = num3 <= 1;
-            }
-            
-            if (!instance._roundEnded)
-            {
-                RoundEndConditionsCheckCancellationData.RoundEndConditionsCheckCancellation cancellation = EventManager.ExecuteEvent<RoundEndConditionsCheckCancellationData>(new RoundEndConditionsCheckEvent(flag)).Cancellation;
-                int num4 = (int)cancellation;
-                if (num4 != 1)
-                {
-                    if (num4 == 2 && !instance._roundEnded)
-                        continue;
-                    
-                    if (flag)
-                        instance._roundEnded = true;
-                }
-                else
-                {
-                    instance._roundEnded = true;
-                }
-            }
-
-            if (!instance._roundEnded) 
-                continue;
-            
-            bool flag2 = facilityForces > 0;
-            bool flag3 = chaosInsurgency > 0;
-            bool flag4 = anomalies > 0;
-            RoundSummary.LeadingTeam leadingTeam = RoundSummary.LeadingTeam.Draw;
-            
-            if (flag2)
-            {
-                leadingTeam = RoundSummary.EscapedScientists >= RoundSummary.EscapedClassD ? RoundSummary.LeadingTeam.FacilityForces : RoundSummary.LeadingTeam.Draw;
-            }
-            else if (flag4 || (flag4 && flag3))
-            {
-                leadingTeam = RoundSummary.EscapedClassD > RoundSummary.SurvivingSCPs ? RoundSummary.LeadingTeam.ChaosInsurgency : RoundSummary.SurvivingSCPs > RoundSummary.EscapedScientists ? RoundSummary.LeadingTeam.Anomalies : RoundSummary.LeadingTeam.Draw;
-            }
-            else if (flag3)
-            {
-                leadingTeam = RoundSummary.EscapedClassD >= RoundSummary.EscapedScientists ? RoundSummary.LeadingTeam.ChaosInsurgency : RoundSummary.LeadingTeam.Draw;
-            }
-            
-            RoundEndCancellationData roundEndCancellationData = EventManager.ExecuteEvent<RoundEndCancellationData>(new RoundEndEvent(leadingTeam));
-            
-            while (roundEndCancellationData.IsCancelled)
-            {
-                if (roundEndCancellationData.Delay <= 0f)
-                    yield break;
-
-                yield return Timing.WaitForSeconds(roundEndCancellationData.Delay);
-                roundEndCancellationData = EventManager.ExecuteEvent<RoundEndCancellationData>(new RoundEndEvent(leadingTeam));
-            }
-            
-            CursedRoundEventsHandler.OnRoundEnded();
-            
-            if (Statistics.FastestEndedRound.Duration > RoundStart.RoundLength)
-                Statistics.FastestEndedRound = new Statistics.FastestRound(leadingTeam, RoundStart.RoundLength, DateTime.Now);
-
-            Statistics.CurrentRound.ClassDAlive = newList.class_ds;
-            Statistics.CurrentRound.ScientistsAlive = newList.scientists;
-            Statistics.CurrentRound.MtfAndGuardsAlive = newList.mtf_and_guards;
-            Statistics.CurrentRound.ChaosInsurgencyAlive = newList.chaos_insurgents;
-            Statistics.CurrentRound.ZombiesAlive = newList.zombies;
-            Statistics.CurrentRound.ScpsAlive = newList.scps_except_zombies;
-            Statistics.CurrentRound.WarheadKills = newList.warhead_kills;
-            FriendlyFireConfig.PauseDetector = true;
-            
-            string text = string.Concat("Round finished! Anomalies: ", anomalies, " | Chaos: ", chaosInsurgency, " | Facility Forces: ", facilityForces, " | D escaped percentage: ", dEscapePercentage, " | S escaped percentage: : ", sEscapePercentage);
-            GameCore.Console.AddLog(text, Color.gray);
-            
-            ServerLogs.AddLog(ServerLogs.Modules.Logger, text, ServerLogs.ServerLogType.GameEvent);
-            yield return Timing.WaitForSeconds(1.5f);
-            int num5 = Mathf.Clamp(ConfigFile.ServerConfig.GetInt("auto_round_restart_time", 10), 5, 1000);
-            
-            if (instance != null)
-                instance.RpcShowRoundSummary(instance.classlistStart, newList, leadingTeam, RoundSummary.EscapedClassD, RoundSummary.EscapedScientists, RoundSummary.KilledBySCPs, num5, (int)RoundStart.RoundLength.TotalSeconds);
-            
-            yield return Timing.WaitForSeconds(num5 - 1);
-            instance.RpcDimScreen();
-            yield return Timing.WaitForSeconds(1f);
-            RoundRestart.InitiateRoundRestart();
         }
+        yield break;
     }
 }

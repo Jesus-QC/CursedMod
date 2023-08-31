@@ -21,7 +21,7 @@ public class PlayerDisconnectPatch
 {
     private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
     {
-        List<CodeInstruction> newInstructions = CursedEventManager.CheckEvent<PlayerDisconnectPatch>(45, instructions);
+        List<CodeInstruction> newInstructions = CursedEventManager.CheckEvent<PlayerDisconnectPatch>(48, instructions);
         
         newInstructions.InsertRange(0, new CodeInstruction[]
         {
