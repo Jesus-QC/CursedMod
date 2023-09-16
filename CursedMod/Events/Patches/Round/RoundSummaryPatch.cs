@@ -140,11 +140,7 @@ public class RoundSummaryPatch
                                 {
                                         num3++;
                                 }
-                                if (chaosInsurgency > 0)
-                                {
-                                        num3++;
-                                }
-                                if (anomalies > 0)
+                                if (chaosInsurgency > 0 || anomalies > 0)
                                 {
                                         num3++;
                                 }
